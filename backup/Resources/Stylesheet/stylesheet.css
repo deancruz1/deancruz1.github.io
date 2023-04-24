@@ -1,10 +1,8 @@
 * {
   font-family: "Times New Roman", sans-serif;
-  color: #fff;
 }
 
 body {
-  background-color: black;
   padding: 0;
   margin: 0;
 }
@@ -12,11 +10,11 @@ body {
 .main-content-container {
   font-size: 3rem;
   text-align: center;
-  padding: 20rem 0 20rem 0;
+  padding: 21.5vw 0 21.5vw 0;
 }
 
 .header-content-container {
-  background-color: white;
+  background-color: black;
   display: flex;
 }
 
@@ -25,7 +23,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: white;
+  background-color: black;
 }
 
 li {
@@ -34,14 +32,14 @@ li {
 
 li a {
   display: block;
-  color: black;
+  color: #fff;
   text-align: center;
   padding: 16px;
   text-decoration: none;
 }
 
 li a:hover {
-  background-color: #efefef;
+  background-color: #333333;
 }
 
 .about-content {
