@@ -44,22 +44,62 @@ li a:hover {
   background-color: #efefef;
 }
 
+.about-content {
+  display: flex;
+}
+
+.about-content-leftside, .about-content-rightside {
+  flex: 1;
+  padding: 1em;
+}
+
+.about-content-leftside {
+  margin: 2em 0.5em 2em 2em;
+}
+
+.about-content-rightside {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 2em 2em 2em 0.5em;
+}
+
+#skills {
+  border: solid;
+  width: 8em;
+  height: 8em;
+  border-radius: 50%;
+}
+
+.skills-first-row, .skills-second-row, .skills-third-row, .skills-fourth-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 .about-header, .about-description {
   text-align: center;
 }
 
 .about-header {
-  margin: 0.5em 0 0.5em 0;
-}
-
-.about-description {
-  margin: 0 2em 2em 2em;
+  margin: 2em 0 0.5em 0;
 }
 
 .projects-header {
   text-align: center;
 }
 
+.projects-content {
+  margin: 2em;
+}
+
 .contact-header {
   text-align: center;
+}
+
+.contact-content {
+  display: flex;
+  justify-content: space-evenly;
 }
