@@ -1,13 +1,20 @@
+* {
+  font-family: "Times New Roman", sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
 .main-content-container {
   font-size: 3em;
   text-align: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  padding: 6.3em;
 }
 
 .header-content-container {
+  background-color: #333333;
   display: flex;
 }
 
@@ -33,4 +40,21 @@ li a {
 
 li a:hover {
   background-color: #111111;
+}
+
+
+.about-me-header, .about-me-description {
+  text-align: center;
+}
+
+.about-me-header {
+  margin: 0.5em 0 0.5em 0;
+}
+
+.about-me-description {
+  margin: 0 2em 2em 2em;
+}
+
+.projects-header {
+  text-align: center;
 }
