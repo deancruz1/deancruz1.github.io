@@ -11255,3 +11255,25 @@ body {
 .highlighted-text {
   color: #558985;
 }
+
+.design-img-1 {
+  transition: transform .2s;
+}
+
+.design-img-1:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px #64a19d;
+}
+
+.game-img, .calc-img {
+  transition: transform .2s;
+}
+
+.game-img:hover, .calc-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px #64a19d;
+}
+
+.contact-me {
+  text-align: center;
+}
