@@ -104,6 +104,7 @@ body {
   color: var(--bs-body-color);
   text-align: var(--bs-body-text-align);
   background-color: var(--bs-body-bg);
+  background-color: black;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -11070,12 +11071,10 @@ body {
   min-height: 35rem;
   padding: 15rem 0;
   /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url("../assets/img/bg-masthead.jpg"); */
-  background-color: black;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;
-  z-index: -101;
 }
 .masthead h1, .masthead .h1 {
   font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -11128,7 +11127,6 @@ body {
 
 .about-section {
   padding-top: 10rem;
-  background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8) 100%);
 }
 .about-section p {
   margin-bottom: 5rem;
@@ -11217,41 +11215,6 @@ body {
   padding: 5rem 0;
 }
 
-.bubbles {
-  position: relative;
-  display: flex;
-  z-index: -100;
-}
-
-.bubbles span {
-   position: relative;
-   width: 30px;
-   height: 30px;
-   background: #4fc3dc;
-   margin: 0 4px;
-   border-radius: 50%;
-   box-shadow: 0 0 0 10px #4fc3dc44,
-   0 0 50px #4fc3dc,
-   0 0 100px #4fc3dc;
-   animation: animate 15s linear infinite;
-   animation-duration: calc(125s / var(--i));
-}
-
-.bubbles span:nth-child(even) {
-  background: #ff2d75;
-  box-shadow: 0 0 0 10px #ff2d7544,
-  0 0 50px #ff2d75,
-  0 0 100px #ff2d75;
-}
-
-@keyframes animate {
-  0% {
-    transform: translateY(100vh) scale(0);
-  } 100% {
-    transform: translateY(-10vh) scale(1);
-  }
-}
-
 .highlighted-text {
   color: #558985;
 }
@@ -11276,4 +11239,94 @@ body {
 
 .contact-me {
   text-align: center;
+}
+
+#particles-js {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.animated-button {
+  font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  color: #64a19d;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-decoration: none;
+  font-size: 24px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.animated-button:hover {
+  color: #558985;
+  background: #64a19d;
+  box-shadow: 0 0 10px #64a19d, 0 0 40px #64a19d, 0 0 80px #64a19d;
+  transition-delay: 1s;
+}
+
+.animated-button span {
+  position: absolute;
+  display: block;
+}
+
+.animated-button span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #64a19d);
+}
+
+.animated-button:hover span:nth-child(1) {
+  left: 100%;
+  transition: 1s;
+}
+
+.animated-button span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #64a19d);
+}
+
+.animated-button:hover span:nth-child(3) {
+  right: 100%;
+  transition: 1s;
+  transition-delay: 0.5s;
+}
+
+.animated-button span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #64a19d);
+}
+
+.animated-button:hover span:nth-child(2) {
+  top: 100%;
+  transition: 1s;
+  transition-delay: 0.25s;
+}
+
+.animated-button span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #64a19d);
+}
+
+.animated-button:hover span:nth-child(4) {
+  bottom: 100%;
+  transition: 1s;
+  transition-delay: 0.75s;
 }
