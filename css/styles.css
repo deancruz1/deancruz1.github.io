@@ -11330,3 +11330,11 @@ body {
   transition: 1s;
   transition-delay: 0.75s;
 }
+
+.about-me-header {
+  font-size: 2rem;
+}
+
+.about-me-desc {
+  font-size: 1.5rem;
+}
