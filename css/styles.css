@@ -11133,7 +11133,7 @@ body {
 }
 
 .projects-section {
-  padding: 10rem 0;
+  padding: 2rem 0 10rem 0;
 }
 .projects-section .featured-text {
   padding: 2rem;
@@ -11337,4 +11337,8 @@ body {
 
 .about-me-desc {
   font-size: 1.5rem;
+}
+
+.projects-header {
+  text-align: center;
 }
