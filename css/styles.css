@@ -11228,11 +11228,11 @@ body {
   box-shadow: 0 0 30px #64a19d;
 }
 
-.game-img, .calc-img {
+.game-img, .wireframe-img {
   transition: transform .2s;
 }
 
-.game-img:hover, .calc-img:hover {
+.game-img:hover, .wireframe-img:hover {
   transform: scale(1.05);
   box-shadow: 0 0 30px #64a19d;
 }
