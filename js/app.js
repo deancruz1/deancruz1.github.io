@@ -12,11 +12,10 @@ particlesJS.load('particles-js', 'particles.json', function() {
 /* Otherwise just put the config content (json): */
 
 particlesJS('particles-js',
-  
   {
     "particles": {
       "number": {
-        "value": 80,
+        "value": 50,
         "density": {
           "enable": true,
           "value_area": 800
@@ -28,7 +27,7 @@ particlesJS('particles-js',
       "shape": {
         "type": "circle",
         "stroke": {
-          "width": 0,
+          "width": 10,
           "color": "#000000"
         },
         "polygon": {
@@ -41,7 +40,7 @@ particlesJS('particles-js',
         }
       },
       "opacity": {
-        "value": 0.5,
+        "value": 0.25252724532232723,
         "random": false,
         "anim": {
           "enable": false,
@@ -51,7 +50,7 @@ particlesJS('particles-js',
         }
       },
       "size": {
-        "value": 5,
+        "value": 3,
         "random": true,
         "anim": {
           "enable": false,
@@ -62,18 +61,19 @@ particlesJS('particles-js',
       },
       "line_linked": {
         "enable": true,
-        "distance": 150,
-        "color": "#ffffff",
-        "opacity": 0.4,
+        "distance": 125,
+        "color": "#64a19d",
+        "opacity": 1,
         "width": 1
       },
       "move": {
         "enable": true,
-        "speed": 6,
+        "speed": 3,
         "direction": "none",
         "random": false,
         "straight": false,
         "out_mode": "out",
+        "bounce": false,
         "attract": {
           "enable": false,
           "rotateX": 600,
@@ -85,11 +85,11 @@ particlesJS('particles-js',
       "detect_on": "canvas",
       "events": {
         "onhover": {
-          "enable": true,
+          "enable": false,
           "mode": "repulse"
         },
         "onclick": {
-          "enable": true,
+          "enable": false,
           "mode": "push"
         },
         "resize": true
@@ -109,7 +109,8 @@ particlesJS('particles-js',
           "speed": 3
         },
         "repulse": {
-          "distance": 200
+          "distance": 200,
+          "duration": 0.4
         },
         "push": {
           "particles_nb": 4
@@ -119,15 +120,6 @@ particlesJS('particles-js',
         }
       }
     },
-    "retina_detect": true,
-    "config_demo": {
-      "hide_card": false,
-      "background_color": "#b61924",
-      "background_image": "",
-      "background_position": "50% 50%",
-      "background_repeat": "no-repeat",
-      "background_size": "cover"
-    }
+    "retina_detect": true
   }
-
 );
