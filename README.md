@@ -1,5 +1,5 @@
 # deancruz1.github.io
-A website where my portfolio will be stored. For now, this repository will serve as a backup to where my website is currently being updated. Please go <a href="https://deancruzgg.github.io/">here</a> for the main website.
+A website where my portfolio will be stored. If you find yourself unable to access this website due to DNS issues, please go <a href="https://deancruzgg.github.io/">here</a>.
 
 Resources and links used:
 
