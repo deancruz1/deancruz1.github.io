@@ -282,12 +282,12 @@ sup {
 }
 
 a {
-  color: var(--bs-link-color);
+  color: #67c29c;
   text-decoration: underline;
 }
 
 a:hover {
-  color: var(--bs-link-hover-color);
+  color: #64a19d;
 }
 
 a:not([href]):not([class]),
@@ -1478,7 +1478,7 @@ progress {
 
   .col-lg-7 {
     flex: 0 0 auto;
-    width: 58.33333333%;
+    width: 28%;
   }
 
   .col-lg-8 {
@@ -1697,7 +1697,7 @@ progress {
 
   .col-xl-8 {
     flex: 0 0 auto;
-    width: 66.66666667%;
+    width: 32%;
   }
 
   .col-xl-9 {
@@ -12940,15 +12940,20 @@ body {
   font-size: 2.5rem;
   line-height: 2.5rem;
   letter-spacing: 0.8rem;
-  /* background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)); */
-  -webkit-text-fill-color: transparent;
-  background: url(/assets/img/back.png);
-  -webkit-text-stroke: 1px #fff;
-  -webkit-background-clip: text;
   background-position: 0 0;
   animation: back 20s linear infinite;
   -webkit-background-clip: text;
   background-clip: text;
+
+  /* Animating White Header */
+  -webkit-text-fill-color: transparent;
+  background: url(/assets/img/back.png);
+  -webkit-text-stroke: 1px #fff;
+  -webkit-background-clip: text;
+
+  /* Pure White Header */
+  /* --bs-text-opacity: 1;
+  color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important; */
 }
 
 @keyframes back {
@@ -12977,19 +12982,20 @@ body {
   .masthead {
     height: 100vh;
     padding: 0;
+    overflow: hidden;
   }
 
   .masthead h1,
   .masthead .h1 {
-    font-size: 6.5rem;
-    line-height: 6.5rem;
+    font-size: 8.5rem;
+    line-height: 8.5rem;
     letter-spacing: 0.8rem;
   }
 
   .masthead h2,
   .masthead .h2 {
     max-width: 30rem;
-    font-size: 1.25rem;
+    font-size: 2rem;
   }
 }
 
@@ -13114,7 +13120,7 @@ body {
 }
 
 .highlighted-text {
-  color: #558985;
+  color: #67c29c;
 }
 
 .design-img-1 {
@@ -13163,7 +13169,7 @@ body {
   position: relative;
   display: inline-block;
   padding: 15px 30px;
-  color: #64a19d;
+  color: #67c29c;
   text-transform: uppercase;
   letter-spacing: 4px;
   text-decoration: none;
@@ -13174,8 +13180,8 @@ body {
 
 .animated-button:hover {
   color: #558985;
-  background: #64a19d;
-  box-shadow: 0 0 10px #64a19d, 0 0 40px #64a19d, 0 0 80px #64a19d;
+  background: #67c29c;
+  box-shadow: 0 0 10px #67c29c, 0 0 40px #67c29c, 0 0 80px #67c29c;
   transition-delay: 1s;
 }
 
@@ -13189,7 +13195,7 @@ body {
   left: -100%;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #64a19d);
+  background: linear-gradient(90deg, transparent, #67c29c);
 }
 
 .animated-button:hover span:nth-child(1) {
@@ -13202,7 +13208,7 @@ body {
   right: -100%;
   width: 100%;
   height: 2px;
-  background: linear-gradient(270deg, transparent, #64a19d);
+  background: linear-gradient(270deg, transparent, #67c29c);
 }
 
 .animated-button:hover span:nth-child(3) {
@@ -13216,7 +13222,7 @@ body {
   right: 0;
   width: 2px;
   height: 100%;
-  background: linear-gradient(180deg, transparent, #64a19d);
+  background: linear-gradient(180deg, transparent, #67c29c);
 }
 
 .animated-button:hover span:nth-child(2) {
@@ -13230,7 +13236,7 @@ body {
   left: 0;
   width: 2px;
   height: 100%;
-  background: linear-gradient(360deg, transparent, #64a19d);
+  background: linear-gradient(360deg, transparent, #67c29c);
 }
 
 .animated-button:hover span:nth-child(4) {
@@ -13300,9 +13306,11 @@ body {
     font-size: 1rem;
     margin-bottom: 1.5rem;
   }
+
   .overlay {
     display: none;
   }
+
   .gallery-overlay {
     display: none;
   }
@@ -13339,7 +13347,7 @@ body {
     object-position: 100% center;
     border-radius: 15px;
     border-bottom: 4px solid #64a19d;
-    transform-origin: bottom; 
+    transform-origin: bottom;
   }
 
   .project-container:hover .image {
@@ -13386,11 +13394,12 @@ body {
     opacity: 0;
     font-weight: bold;
     transition: height 500ms ease, opacity 250ms ease-in, transform 400ms ease-in-out;
-    transform-origin: bottom; 
+    transform-origin: bottom;
   }
 
   .overlay h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
   }
 
   .project-container:hover .overlay {
@@ -13407,7 +13416,7 @@ body {
     width: 100%;
     height: 0;
     background: linear-gradient(0deg, #00000088 30%, #ffffff44 100%);
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 15px;
     overflow: hidden;
     text-align: left;
@@ -13433,7 +13442,7 @@ body {
   }
 
   .gallery-overlay h2 {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
   }
 
@@ -13442,7 +13451,7 @@ body {
     opacity: 1;
     transform: scale(1.05);
   }
-  
+
   .project-wrapper {
     display: inline-block;
     position: relative;
@@ -13507,8 +13516,8 @@ body {
   }
 
   .project-wrapper>.image {
-    width: 80vmin;
-    height: 102vmin;
+    width: 100%;
+    height: 65vmin;
     object-fit: cover;
     border-radius: 15px;
     border-bottom: 4px solid #64a19d;
@@ -13598,6 +13607,20 @@ body {
   .individual-overlay h2 {
     font-size: 2rem;
   }
+
+  /* Square Container */
+  .indiv-container {
+    margin: 5.5rem 1.5rem 0 1.5rem;
+  }
+
+  .individual-img, .individual-overlay {
+    border-radius: 2rem;
+  }
+
+  .individual-overlay>h2 {
+    font-size: 1.5rem;
+  }
+
 }
 
 .indiv-subcontainer {
@@ -13607,7 +13630,8 @@ body {
   margin: 2rem;
 }
 
-.indiv-left, .indiv-right {
+.indiv-left,
+.indiv-right {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -13622,13 +13646,15 @@ body {
   vertical-align: top;
 }
 
-.categories, .descriptions {
+.categories,
+.descriptions {
   padding: 0 1rem 1rem 0;
 }
 
 .categories {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   width: 45%;
+  text-transform: uppercase;
 }
 
 .descriptions ul {
@@ -13642,7 +13668,9 @@ body {
 }
 
 @media (max-width: 800px) {
-  .indiv-left, .indiv-right {
+
+  .indiv-left,
+  .indiv-right {
     width: auto;
     margin: 1rem 2rem;
   }
@@ -13662,8 +13690,9 @@ body {
     font-weight: bold;
     text-align: center;
   }
-  
-  .categories, .descriptions {
+
+  .categories,
+  .descriptions {
     font-size: 90%;
   }
 
@@ -13675,7 +13704,7 @@ body {
     border-bottom-right-radius: 2rem;
     border-bottom-left-radius: 2rem;
   }
-  
+
   .individual-overlay {
 
     border-bottom-right-radius: 2rem;
@@ -13705,9 +13734,9 @@ body {
 
 .gallery-subcontainer-indiv {
   display: flex;
-  width: 150vmin;
   flex-wrap: wrap;
-  justify-content:center;
+  width: 150vmin;
+  justify-content: center;
   gap: 2rem;
 }
 
@@ -13764,6 +13793,124 @@ body {
 
 @media (min-width: 995px) {
   .dropdown-nav-item {
-    min-width: 12.5vw;
+    min-width: 325px;
+  }
+
+  .margin-right-project {
+    margin-right: 1rem;
+  }
+
+  .gall-first,
+  .ctc-padding {
+    padding-top: 1rem;
+  }
+
+  .gallery-container {
+    padding-bottom: 2.5rem;
+  }
+
+  .gallery-container:last-child {
+    padding-bottom: 0rem;
+  }
+}
+
+.divider-container {
+  display: none;
+}
+
+.section-divider {
+  width: 90%;
+  height: 3px;
+  background-color: #67c29c;
+  border-radius: 15px;
+  margin: 2rem;
+}
+
+.section-divider-project {
+  width: 60%;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  margin: 2rem;
+}
+
+.section-divider-indiv {
+  width: 60%;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+}
+
+@media (max-width: 992px) {
+  .divider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.about-me-header,
+.contact-me {
+  padding-bottom: 1rem;
+}
+
+@media (max-width: 576px) {
+  .individual-overlay {
+    padding: 1.5rem;
+  }
+
+  .individual-overlay h2 {
+    padding: 0;
+    margin: 0 !important;
+  }
+
+  .individual-overlay>.projects-header {
+    text-align: left;
+  }
+}
+
+@media (max-width: 992px) {
+  .individual-overlay {
+    padding: 1.5rem;
+  }
+
+  .individual-overlay h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0 !important; 
+    padding: 0 0 0 1rem;
+  }
+
+  .individual-overlay>.projects-header {
+    text-align: left;
+  }
+
+  .projects-section>.indiv-container {
+    margin: 0;
+  }
+
+  .indiv-subcontainer {
+    margin-bottom: 0;
+  }
+
+  .contact-section {
+    padding-top: 2.5rem;
+  }
+
+  .about-me-header, .contact-me {
+    padding-bottom: 0;
+  }
+
+  .individual-projects-img {
+    width: 100%;
+  }
+
+  .indiv-subcontainer {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .gallery-subcontainer-indiv {
+    width: 100%;
   }
 }
