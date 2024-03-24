@@ -1,13 +1,54 @@
-/*!
-* Start Bootstrap - Grayscale v7.0.6 (https://startbootstrap.com/theme/grayscale)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-grayscale/blob/master/LICENSE)
-*/
-//
-// Scripts
-// 
-window.addEventListener('DOMContentLoaded', event => {
+// Mouse Trails
+const coords = { x: 0, y: 0 };
+const circles = document.querySelectorAll(".circle");
+const colors = [
+    "#67c29c", "#64be9e", "#62b99f", "#60b4a0", "#60b0a0", "#61aba0", "#62a69f", "#64a19d"
+];
 
+circles.forEach(function (circle, index) {
+    circle.x = 0;
+    circle.y = 0;
+    circle.style.backgroundColor = colors[index % colors.length];
+});
+
+let isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+
+if (!isTouchDevice) {
+    window.addEventListener("mousemove", function (e) {
+        coords.x = e.clientX;
+        coords.y = e.clientY;
+    });
+
+    function animateCircles() {
+        let x = coords.x;
+        let y = coords.y;
+
+        circles.forEach(function (circle, index) {
+            circle.style.left = x - 12 + "px";
+            circle.style.top = y - 12 + "px";
+
+            circle.style.transform = "scale(" + (circles.length - index) / circles.length + ")";
+
+            circle.x = x;
+            circle.y = y;
+
+            const nextCircle = circles[index + 1] || circles[0];
+            x += (nextCircle.x - x) * 0.3;
+            y += (nextCircle.y - y) * 0.3;
+        });
+
+        requestAnimationFrame(animateCircles);
+    }
+
+    animateCircles();
+} else {
+    // Hide the circles on touch devices
+    circles.forEach(function (circle) {
+        circle.style.display = "none";
+    });
+}
+
+window.addEventListener('DOMContentLoaded', event => {
     // Navbar shrink function
     var navbarShrink = function () {
         const navbarCollapsible = document.body.querySelector('#mainNav');
@@ -24,10 +65,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
     // Shrink the navbar 
     navbarShrink();
-
-    // Shrink the navbar when page is scrolled
-    document.addEventListener('scroll', navbarShrink);
-
+    
     // Activate Bootstrap scrollspy on the main nav element
     const mainNav = document.body.querySelector('#mainNav');
     if (mainNav) {
@@ -36,6 +74,9 @@ window.addEventListener('DOMContentLoaded', event => {
             rootMargin: '0px 0px -40%',
         });
     };
+
+    // Shrink the navbar when page is scrolled
+    document.addEventListener('scroll', navbarShrink);
 
     // Collapse responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler');
@@ -49,5 +90,4 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
-
 });
