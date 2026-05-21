@@ -357,7 +357,7 @@ const Home = () => {
           >
             <AnimatePresence>
               {filteredProjects
-                .filter((_, index) => [0, 2, 4].includes(index))
+                .filter((_, index) => [0, 3, 5].includes(index))
                 .map((project) => (
                   <motion.div
                     key={project.title}

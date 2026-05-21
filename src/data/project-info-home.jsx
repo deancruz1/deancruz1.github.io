@@ -4,12 +4,14 @@ import landingPageImg from "../assets/img/project-cards/landing-page.webp";
 import mobileWireframeImg from "../assets/img/project-cards/mobile-wireframe.webp";
 import movietopiaImg from "../assets/img/project-cards/movietopia.webp";
 import platformerGameImg from "../assets/img/project-cards/platformer-game.webp";
+import portfolioImg from "../assets/img/project-cards/portfolio-website.webp";
 import landingPageVideo from "../assets/videos/landing-page.mp4";
 import fansiteVideo from "../assets/videos/fansite.mp4";
 import movietopiaVideo from "../assets/videos/movietopia.mp4";
 import platformerVideo from "../assets/videos/platformer.mp4";
 import artworkVideo from "../assets/videos/artwork.mp4";
 import wireframeVideo from "../assets/videos/wireframe.mp4";
+import portfolioVideo from "../assets/videos/portfolio-website.mp4";
 
 const landingPageGallery = import.meta.glob(
   "../assets/img/project-gallery/landing-page/*.webp",
@@ -59,7 +61,39 @@ const wireframeGalleryImages = Object.values(wireframeGallery).map(
   (m) => m.default,
 );
 
+const portfolioGallery = import.meta.glob(
+  "../assets/img/projects-gallery/portfolio-website/*.webp",
+  { eager: true },
+);
+
+const portfolioGalleryImages = Object.values(portfolioGallery).map(
+  (m) => m.default,
+);
+
 export const projects = [
+  {
+    title: "Portfolio Website",
+    category: "Front-End",
+    description:
+      "Featured by Republic Polytechnic as a model website for reference (sole student in cohort to be selected)",
+    longDescription:
+      "Made during my time in Republic Polytechnic, this project stood out among my cohort for its clean code structure, responsive design, and attention to user experience. It was selected by my lecturers as the model website for future students to reference when working on their own assignments. Being the only student in my cohort to receive this recognition was a proud moment that validated my passion for front-end development and reinforced my commitment to writing clean, well-documented code.",
+    tags: ["HTML", "CSS", "JS", "Bootstrap"],
+    image: portfolioImg,
+    liveDemo: "https://deancruz1.github.io/Old-Portfolio-Website/index.html",
+    github: "https://github.com/deancruz1/Old-Portfolio-Website",
+    slug: "portfolio-website",
+    heroVideo: portfolioVideo,
+    gallery: portfolioGalleryImages.map((image, i) => ({
+      image,
+      caption: [
+        "Home Page",
+        "Pop-up Text",
+        "Links to Other Websites",
+        "Quote and Footer Section",
+      ][i],
+    })),
+  },
   {
     title: "Landing Page",
     category: "Front-End",
