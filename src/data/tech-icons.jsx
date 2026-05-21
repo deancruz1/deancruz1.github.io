@@ -1,12 +1,5 @@
-import {
-  FaReact,
-  FaNodeJs,
-  FaPython,
-  FaJava,
-  FaPhp,
-  FaDocker,
-} from "react-icons/fa";
-import { SiTailwindcss, SiTypescript } from "react-icons/si";
+import { FaReact, FaNodeJs, FaPython, FaJava, FaPhp } from "react-icons/fa";
+import { SiTailwindcss, SiTypescript, SiSupabase } from "react-icons/si";
 
 export const techs = [
   // Top row: Frontend & Runtime
@@ -19,5 +12,5 @@ export const techs = [
   { icon: <FaPython size={54} />, label: "Python" },
   { icon: <FaJava size={54} />, label: "Java" },
   { icon: <FaPhp size={54} />, label: "PHP" },
-  { icon: <FaDocker size={54} />, label: "Docker" },
+  { icon: <SiSupabase size={54} />, label: "Supabase" },
 ];
