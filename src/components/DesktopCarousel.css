@@ -1,0 +1,5 @@
+/* Prevent the browser from triggering native image/text selection dragging */
+.carousel-image {
+  -webkit-user-drag: none;
+  user-select: none;
+}

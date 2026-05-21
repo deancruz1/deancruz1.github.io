@@ -8,6 +8,8 @@ const ProjectCard = ({
   slug,
   isCarousel,
   didDragRef,
+  headingLevel: HeadingTag = "h3",
+  loading = "lazy",
 }) => {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -32,6 +34,9 @@ const ProjectCard = ({
     setIsHovered(false);
   };
 
+  const imgSrc = typeof image === "string" ? image : image?.src;
+  const imgSrcSet = typeof image === "object" ? image?.srcSet : undefined;
+
   return (
     <Link
       to={slug ? `/projects/${slug}` : "#"}
@@ -49,38 +54,46 @@ const ProjectCard = ({
           "transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease",
         transformStyle: "preserve-3d",
       }}
-      className={`group relative block cursor-pointer overflow-hidden rounded-3xl border border-b-4 border-transparent border-b-[var(--accent)] hover:border-[var(--accent)] hover:shadow-[0_0_40px_var(--shadow-accent-strong)] ${isCarousel ? "h-[56vmin] w-[40vmin] shrink-0" : "aspect-[4/3] w-full"} `}
+      className={`group relative block cursor-pointer overflow-hidden rounded-3xl border border-b-4 border-transparent border-b-[var(--accent)] hover:border-[var(--accent)] hover:shadow-[0_0_40px_var(--shadow-accent-strong)] ${
+        isCarousel ? "h-[56vmin] w-[40vmin] shrink-0" : "aspect-[4/3] w-full"
+      }`}
     >
-      {/* IMAGE */}
       <img
-        src={image}
+        src={imgSrc}
+        srcSet={imgSrcSet}
+        sizes={isCarousel ? "40vw" : "(max-width: 768px) 100vw, 40vw"}
         alt={title}
+        loading={loading}
+        decoding="async"
         draggable="false"
         className="carousel-image absolute inset-0 h-full w-full transform-gpu rounded-3xl object-cover transition-transform duration-300 group-hover:scale-105"
       />
 
-      {/* 3D Context Wrapper */}
       <div
         className="absolute inset-0 overflow-hidden rounded-3xl"
         style={{ transform: isHovered ? "translateZ(30px)" : "none" }}
       >
-        {/* 1. Gradient Overlay Background */}
         <div
-          className={`absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/50 to-transparent transition-transform duration-500 ease-out ${isCarousel ? "translate-y-full group-hover:translate-y-0" : "translate-y-0"} `}
+          className={`absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/50 to-transparent transition-transform duration-500 ease-out ${
+            isCarousel
+              ? "translate-y-full group-hover:translate-y-0"
+              : "translate-y-0"
+          }`}
         />
 
-        {/* 2. Text Content Layer */}
         <div
-          className={`absolute inset-0 z-20 flex flex-col justify-end p-6 transition-opacity duration-300 ease-out ${isCarousel ? "opacity-0 group-hover:opacity-100" : "opacity-100"} `}
+          className={`absolute inset-0 z-20 flex flex-col justify-end p-6 transition-opacity duration-300 ease-out ${
+            isCarousel ? "opacity-0 group-hover:opacity-100" : "opacity-100"
+          }`}
         >
           {category && (
             <span className="mb-3 inline-block w-fit shrink-0 rounded-full border border-[var(--accent)] bg-[var(--accent)]/20 px-3 py-1 text-xs text-[var(--text-overlay)] lg:text-sm">
               {category}
             </span>
           )}
-          <h3 className="mb-3 text-3xl font-bold text-[var(--text-overlay)] lg:text-4xl">
+          <HeadingTag className="mb-3 text-3xl font-bold text-[var(--text-overlay)] lg:text-4xl">
             {title}
-          </h3>
+          </HeadingTag>
         </div>
       </div>
     </Link>

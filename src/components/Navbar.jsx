@@ -117,6 +117,8 @@ const Navbar = () => {
           <button
             className="flex flex-col gap-1.5 p-2 lg:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
           >
             <span
               className={`block h-0.5 w-6 bg-[var(--text-primary)] transition-all duration-300 ${menuOpen ? "translate-y-2 rotate-45" : ""}`}

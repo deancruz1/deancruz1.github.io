@@ -1,21 +1,23 @@
 import { Helmet } from "react-helmet-async";
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { useState, useRef, lazy, Suspense } from "react";
 import "./Home.css";
 import Grid from "../components/Grid";
 import SectionHeader from "../components/SectionHeader.jsx";
-import WorkExperienceCard from "../components/WorkExperienceCard.jsx";
-import ProjectCard from "../components/ProjectCardHome.jsx";
-import AwardItem from "../components/AwardItem.jsx";
 import EducationItem from "../components/EducationItem.jsx";
+import AwardItem from "../components/AwardItem.jsx";
 import { EmailIcon, LocationIcon } from "../components/Icons";
-import { workExperiences } from "../data/work-experience.js";
 import { techs } from "../data/tech-icons.jsx";
-import { projects } from "../data/project-info-home.jsx";
 import aboutMeImg from "../assets/img/about-me-bg.webp";
 import frontendVideo from "../assets/videos/landing-page.mp4";
 import fullstackVideo from "../assets/videos/movietopia.mp4";
+
+// Lazy‑loaded sections – only fetched when they enter the viewport
+const HomeExperienceSection = lazy(
+  () => import("../components/HomeExperienceSection"),
+);
+const HomeProjectsSection = lazy(
+  () => import("../components/HomeProjectsSection"),
+);
 
 const Home = () => {
   const introButton =
@@ -24,15 +26,6 @@ const Home = () => {
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [activeSkill, setActiveSkill] = useState(null);
   const fadeTimeout = useRef(null);
-
-  const [activeFilter, setActiveFilter] = useState("All");
-
-  const categories = ["All", "Frontend", "Full-Stack", "Design"];
-
-  const filteredProjects =
-    activeFilter === "All"
-      ? projects
-      : projects.filter((p) => p.category === activeFilter);
 
   return (
     <>
@@ -58,7 +51,7 @@ const Home = () => {
 
           <div className="description-container my-2 lg:my-4">
             <p className="max-w-md text-base text-[var(--text-secondary)] md:max-w-xl md:text-base lg:text-lg">
-              Frontend-focused <span class="text-[var(--accent)]">|</span>{" "}
+              Frontend-focused <span className="text-[var(--accent)]">|</span>{" "}
               React, JavaScript, Python
             </p>
             <p className="max-w-md text-base text-[var(--text-secondary)] md:max-w-xl md:text-base lg:text-lg">
@@ -115,7 +108,7 @@ const Home = () => {
       </main>
 
       <section className="my-4 px-8 py-8 md:my-6 md:py-16" id="about">
-        <SectionHeader title="Short Profile" subtitle="A little about me" />
+        <SectionHeader title="Short Profile" subtitle="Background and focus" />
 
         <div className="grid grid-cols-1 gap-6 py-4 md:grid-cols-2 md:py-8">
           <div className="relative flex h-full min-h-[360px] items-center justify-center overflow-hidden rounded-2xl bg-[var(--bg-secondary)] md:order-none md:min-h-[600px]">
@@ -124,14 +117,15 @@ const Home = () => {
             <img
               src={aboutMeImg}
               alt="Dean Cruz"
+              loading="lazy"
+              decoding="async"
               className="absolute -top-25 -right-30 w-[500px] object-contain opacity-90 md:-top-0 md:-right-0 md:w-[800px] lg:-top-30 lg:-right-40"
               style={{ filter: "hue-rotate(50deg) saturate(1.2)" }}
             />
 
             <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-t from-black/80 to-transparent p-4 md:p-6">
               <p className="w-70 text-2xl font-bold text-white md:w-80 md:text-3xl">
-                Building frontend systems that work in the real world. Shaped by
-                enterprise.
+                Building frontend systems that hold up under real-world load.
               </p>
             </div>
           </div>
@@ -206,6 +200,7 @@ const Home = () => {
                     autoPlay
                     loop
                     muted
+                    preload="none"
                     className={`absolute inset-0 z-0 h-full w-full rounded-2xl object-cover ${hoveredSkill === "frontend" ? "fade-in" : "fade-out"}`}
                   />
                   <div className="slide-up absolute inset-0 z-[5] rounded-2xl bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
@@ -219,6 +214,7 @@ const Home = () => {
                     autoPlay
                     loop
                     muted
+                    preload="none"
                     className={`absolute inset-0 z-0 h-full w-full rounded-2xl object-cover ${hoveredSkill === "fullstack" ? "fade-in" : "fade-out"}`}
                   />
                   <div className="slide-up absolute inset-0 z-[5] rounded-2xl bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
@@ -247,83 +243,22 @@ const Home = () => {
 
           <div className="relative order-3 overflow-hidden rounded-2xl bg-[var(--bg-secondary)] p-6 md:order-none md:col-start-1 md:row-start-2">
             <Grid />
-            <p className="relative z-10 text-lg font-bold text-[var(--text-primary)]">
-              Experienced working with stakeholders to deliver on requirements.
-              Comfortable translating business needs into technical solutions.
+            <p className="relative z-10 text-2xl font-bold text-[var(--text-primary)]">
+              Focused on roles where frontend engineering meets product
+              thinking.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="my-4 px-8 py-8 md:my-6 md:py-16" id="experience">
-        <SectionHeader
-          title="Work Experience"
-          subtitle="My professional journey"
-          className="mb-6 md:mb-10"
-        />
-        <div>
-          {workExperiences.map((exp, i) => (
-            <WorkExperienceCard key={i} {...exp} />
-          ))}
-        </div>
-      </section>
+      {/* Below‑the‑fold sections are lazy‑loaded */}
+      <Suspense fallback={null}>
+        <HomeExperienceSection />
+      </Suspense>
 
-      <motion.section
-        layout
-        className="my-4 px-8 py-8 md:my-6 md:flex md:flex-col md:justify-between md:py-16"
-        id="projects"
-      >
-        <div>
-          <SectionHeader
-            title="Featured Projects"
-            subtitle="Some of my work"
-            className="mb-6 md:mb-10"
-          />
-          <div className="mb-6 flex items-center justify-center gap-3 md:mb-8">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveFilter(cat)}
-                className={`cursor-pointer rounded-full border px-4 py-2 text-sm whitespace-nowrap transition-colors duration-300 md:whitespace-normal ${
-                  activeFilter === cat
-                    ? "border-[var(--accent)] bg-[var(--accent)] text-[var(--text-primary)]"
-                    : "border-[var(--border)] bg-transparent text-[var(--text-secondary)] hover:border-[var(--accent)]"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          <motion.div
-            layout
-            className="grid grid-cols-1 items-stretch gap-6 md:min-h-[520px] md:grid-cols-2 lg:grid-cols-3"
-          >
-            <AnimatePresence>
-              {filteredProjects
-                .filter((_, index) => [0, 3, 4].includes(index))
-                .map((project) => (
-                  <motion.div
-                    key={project.title}
-                    layout
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ProjectCard {...project} />
-                  </motion.div>
-                ))}
-            </AnimatePresence>
-          </motion.div>
-        </div>
-
-        <motion.div className="mt-8 text-center md:mt-10 md:mt-12 md:flex-shrink-0">
-          <Link className={introButton} to="/projects">
-            View All Projects
-          </Link>
-        </motion.div>
-      </motion.section>
+      <Suspense fallback={null}>
+        <HomeProjectsSection />
+      </Suspense>
     </>
   );
 };
