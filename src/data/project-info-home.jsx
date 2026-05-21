@@ -62,7 +62,7 @@ const wireframeGalleryImages = Object.values(wireframeGallery).map(
 );
 
 const portfolioGallery = import.meta.glob(
-  "../assets/img/projects-gallery/portfolio-website/*.webp",
+  "../assets/img/project-gallery/portfolio-website/*.webp",
   { eager: true },
 );
 
@@ -87,10 +87,10 @@ export const projects = [
     gallery: portfolioGalleryImages.map((image, i) => ({
       image,
       caption: [
-        "Home Page",
-        "Pop-up Text",
-        "Links to Other Websites",
-        "Quote and Footer Section",
+        "Home - Hero",
+        "Home - Projects",
+        "Home - About",
+        "Individual Projects Page",
       ][i],
     })),
   },
