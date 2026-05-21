@@ -14,10 +14,8 @@ import { workExperiences } from "../data/work-experience.js";
 import { techs } from "../data/tech-icons.jsx";
 import { projects } from "../data/project-info-home.jsx";
 import aboutMeImg from "../assets/img/about-me-bg.webp";
-import ocbcBuilding from "../assets/img/ocbc-building.webp";
 import frontendVideo from "../assets/videos/landing-page.mp4";
 import fullstackVideo from "../assets/videos/movietopia.mp4";
-import uiuxVideo from "../assets/videos/wireframe.mp4";
 
 const Home = () => {
   const introButton =
@@ -29,7 +27,7 @@ const Home = () => {
 
   const [activeFilter, setActiveFilter] = useState("All");
 
-  const categories = ["All", "Front-End", "Full-Stack", "Design"];
+  const categories = ["All", "Frontend", "Full-Stack", "Design"];
 
   const filteredProjects =
     activeFilter === "All"
@@ -60,8 +58,14 @@ const Home = () => {
 
           <div className="description-container my-2 lg:my-4">
             <p className="max-w-md text-base text-[var(--text-secondary)] md:max-w-xl md:text-base lg:text-lg">
-              Front-end Developer | React, JavaScript, Python | Enterprise
-              Banking Applications Experience
+              Frontend-focused <span class="text-[var(--accent)]">|</span>{" "}
+              React, JavaScript, Python
+            </p>
+            <p className="max-w-md text-base text-[var(--text-secondary)] md:max-w-xl md:text-base lg:text-lg">
+              IMDA Gold Medalist
+            </p>
+            <p className="max-w-md text-base text-[var(--text-secondary)] md:max-w-xl md:text-base lg:text-lg">
+              Enterprise banking experience at OCBC
             </p>
           </div>
 
@@ -89,14 +93,6 @@ const Home = () => {
               rel="noopener noreferrer"
             >
               Resume
-            </a>
-            <a
-              className={introButton}
-              href="https://deancruz1.github.io/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Website
             </a>
           </div>
 
@@ -134,8 +130,8 @@ const Home = () => {
 
             <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-t from-black/80 to-transparent p-4 md:p-6">
               <p className="w-70 text-2xl font-bold text-white md:w-80 md:text-3xl">
-                Software engineer building clean, reliable, user-friendly web
-                applications
+                Building frontend systems that work in the real world. Shaped by
+                enterprise.
               </p>
             </div>
           </div>
@@ -181,9 +177,9 @@ const Home = () => {
                     }, 400);
                   }}
                 >
-                  front-end
-                </span>
-                ,{" "}
+                  frontend engineering
+                </span>{" "}
+                and{" "}
                 <span
                   className="hover-target relative inline-block text-[var(--accent)]"
                   onMouseEnter={() => {
@@ -200,23 +196,7 @@ const Home = () => {
                 >
                   full-stack development
                 </span>
-                , and{" "}
-                <span
-                  className="hover-target relative inline-block text-[var(--accent)]"
-                  onMouseEnter={() => {
-                    clearTimeout(fadeTimeout.current);
-                    setHoveredSkill("uiux");
-                    setActiveSkill("uiux");
-                  }}
-                  onMouseLeave={() => {
-                    setHoveredSkill(null);
-                    fadeTimeout.current = setTimeout(() => {
-                      setActiveSkill(null);
-                    }, 400);
-                  }}
-                >
-                  UI/UX design
-                </span>
+                .
               </p>
 
               {activeSkill === "frontend" && (
@@ -244,19 +224,6 @@ const Home = () => {
                   <div className="slide-up absolute inset-0 z-[5] rounded-2xl bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
                 </>
               )}
-
-              {activeSkill === "uiux" && (
-                <>
-                  <video
-                    src={uiuxVideo}
-                    autoPlay
-                    loop
-                    muted
-                    className={`absolute inset-0 z-0 h-full w-full rounded-2xl object-cover ${hoveredSkill === "uiux" ? "fade-in" : "fade-out"}`}
-                  />
-                  <div className="slide-up absolute inset-0 z-[5] rounded-2xl bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
-                </>
-              )}
             </div>
           </div>
         </div>
@@ -279,14 +246,10 @@ const Home = () => {
           </div>
 
           <div className="relative order-3 overflow-hidden rounded-2xl bg-[var(--bg-secondary)] p-6 md:order-none md:col-start-1 md:row-start-2">
-            <img
-              src={ocbcBuilding}
-              alt="OCBC"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/50 bg-gradient-to-t from-black/80 to-transparent" />
-            <p className="relative z-10 text-2xl font-bold text-[var(--text-overlay)]">
-              Interned as a Software Test Engineer at OCBC
+            <Grid />
+            <p className="relative z-10 text-lg font-bold text-[var(--text-primary)]">
+              Experienced working with stakeholders to deliver on requirements.
+              Comfortable translating business needs into technical solutions.
             </p>
           </div>
         </div>
@@ -338,7 +301,7 @@ const Home = () => {
           >
             <AnimatePresence>
               {filteredProjects
-                .filter((_, index) => [0, 3, 5].includes(index))
+                .filter((_, index) => [0, 3, 4].includes(index))
                 .map((project) => (
                   <motion.div
                     key={project.title}

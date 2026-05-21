@@ -32,7 +32,7 @@ const ProjectCarousel = ({ projects }) => {
     const track = trackRef.current;
     if (!track) return;
 
-    const speed = 100;
+    const speed = 150;
     let halfWidth = 0;
     let cachedImages = [];
     let screenWidth = window.innerWidth;

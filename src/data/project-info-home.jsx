@@ -73,11 +73,10 @@ const portfolioGalleryImages = Object.values(portfolioGallery).map(
 export const projects = [
   {
     title: "Portfolio Website",
-    category: "Front-End",
+    category: "Frontend",
     description:
-      "Featured by Republic Polytechnic as a model website for reference (sole student in cohort to be selected)",
-    longDescription:
-      "Made during my time in Republic Polytechnic, this project stood out among my cohort for its clean code structure, responsive design, and attention to user experience. It was selected by my lecturers as the model website for future students to reference when working on their own assignments. Being the only student in my cohort to receive this recognition was a proud moment that validated my passion for front-end development and reinforced my commitment to writing clean, well-documented code.",
+      "An 8-page responsive portfolio. Selected by faculty as the cohort reference implementation for code structure.",
+    longDescription: `Built as a reference model for portfolio best practices. Focuses on clean DOM structure and modular design.\n\n• Scaled across 3 breakpoints (mobile, tablet, desktop) using Bootstrap grid systems.\n• Implemented semantic HTML structure for accessibility and SEO.\n• Organized into a modular CSS/JS architecture. Selected by faculty as the reference codebase for student projects in the cohort.`,
     tags: ["HTML", "CSS", "JS", "Bootstrap"],
     image: portfolioImg,
     liveDemo: "https://deancruz1.github.io/Old-Portfolio-Website/index.html",
@@ -96,11 +95,10 @@ export const projects = [
   },
   {
     title: "Landing Page",
-    category: "Front-End",
+    category: "Frontend",
     description:
-      "Simple Landing Page built with HTML, CSS, and JavaScript. It features a clean design, smooth animations, and responsive layout.",
-    longDescription:
-      "A side-project of mine that I did before undertaking my Diploma in Digital Design and Development at Republic Polytechnic, this project was created solely with my then knowledge of HTML and CSS. While the web design and code in this landing page may seem rudimentary, this project is important to me as it encompasses my passion towards front-end development and creating aesthetically pleasing websites. My memories of spending countless nights looking through Stack Overflow trying to resolve certain issues within the site before finally fixing them and the feeling I felt then serves as a reminder of why I am pursuing this career path.",
+      "A single-page marketing layout built with raw CSS to master box-model fundamentals.",
+    longDescription: `Created to explore layout rendering without framework abstractions. Focuses on manual responsiveness.\n\n• Wrote custom media queries to maintain layout integrity down to small mobile viewports.\n• Added a custom navigation toggle and modal trigger using vanilla JavaScript.\n• Swapped background assets at breakpoints to serve appropriate images for mobile vs desktop.`,
     tags: ["HTML", "CSS", "JS"],
     image: landingPageImg,
     liveDemo: "https://deancruz1.github.io/Shrine_of_Suisei/",
@@ -119,11 +117,10 @@ export const projects = [
   },
   {
     title: "Fansite",
-    category: "Front-End",
+    category: "Frontend",
     description:
-      "A fan-made website for a popular anime series, featuring responsive design and interactive elements.",
-    longDescription:
-      "A project I am currently doing, with the aim of honing my HTML, CSS and Javascript skills, without the use of a Bootstrap template. In the future, this website will have responsive web design and seamless transitions between pages. The website's theme is based off of one of my favourite anime, 86 (Eighty-Six).",
+      "A 3-page site demonstrating custom CSS Grid systems and multi-page routing.",
+    longDescription: `Developed to practice building complex grid-based interfaces without Bootstrap.\n\n• Managed page reflows using CSS Grid and Flexbox.\n• Handled site-wide routing across separate HTML pages using vanilla JS.\n• Built interactive character profile cards with custom hover states and CSS transitions.`,
     tags: ["HTML", "CSS", "JS"],
     image: fansiteImg,
     liveDemo: "https://deancruz1.github.io/anime-fansite/",
@@ -144,9 +141,8 @@ export const projects = [
     title: "Movietopia",
     category: "Full-Stack",
     description:
-      "A web application for movie enthusiasts to discover, review, and track their favorite films.",
-    longDescription:
-      "A movie reviews website coded with PHP and using mySQL as the database. Users are able to login, edit their user information, add, edit and delete their own reviews for each movie. Each movie is also added into the website through the use of PHP and mySQL and is not hard coded into the website. Through this website, I learned how the back-end of a website can function with the use of local-side databases, as well as some rudimentary styling on the website to make it more user-friendly and approachable.",
+      "A PHP/MySQL application with CRUD-enabled database tables and session-based authentication.",
+    longDescription: `Built to integrate server-side logic with relational storage.\n\n• Designed a MySQL schema to handle users, movie metadata, and review data.\n• Implemented secure login and registration with PHP session handling to guard protected routes.`,
     tags: ["PHP", "SQL", "CSS"],
     image: movietopiaImg,
     github: "https://github.com/deancruz1/Movietopia",
@@ -166,9 +162,8 @@ export const projects = [
     title: "Platformer Game",
     category: "Full-Stack",
     description:
-      "A simple platformer game built with Java, featuring smooth controls and engaging gameplay.",
-    longDescription:
-      "Motivated by my passion in video games and combined with my knowledge in programming, I challenged myself to create a video game in Java with the help of video tutorials by Kaarin Gaming and to expand my knowledge in object-oriented programming. I am keen to explore this passion further with more side projects to create video games that I like in the future such as turn based RPGs, possibly in a different engine such as Unity or RPGMaker.",
+      "A 2D game built in Java. Implements collision detection, game loops, and separated game state from rendering logic.",
+    longDescription: `Developed to explore core game logic and rendering.\n\n• Built an active rendering loop to handle thread updates and frame refreshes.\n• Programmed custom vector logic for collision detection between entities.\n• Structured project by separating game state from rendering logic.`,
     tags: ["Java"],
     image: platformerGameImg,
     github: "https://github.com/deancruz1/platformer-game",
@@ -182,9 +177,9 @@ export const projects = [
   {
     title: "Mobile Wireframe",
     category: "Design",
-    description: "A mobile wireframe design for a hypothetical app.",
-    longDescription:
-      "A wireframe prototype of what my portfolio website may look like if it was designed as a mobile application, done through Adobe XD. Through this project, I have learnt how to deliver quality user experiences through emphasis by usage of colors and detail in interactable elements, as well as an intuitive user interface that the user will be able to use easily to navigate around the application.",
+    description:
+      "A 154-screen high-fidelity mobile prototype mapping out navigation flows and touch-target sizing.",
+    longDescription: `Prototyped to produce developer handoff specs from design concepts.\n\n• Mapped user navigation stacks and interaction triggers in Adobe XD.\n• Established a design system for consistent type scaling and component spacing.\n• Defined grid alignments and component boundaries to guide front-end implementation.`,
     tags: ["XD"],
     image: mobileWireframeImg,
     liveDemo:
@@ -200,9 +195,8 @@ export const projects = [
     title: "2D Artwork",
     category: "Design",
     description:
-      "A collection of 2D artwork created using various digital art tools.",
-    longDescription:
-      "A compilation of the artworks that i've created using Adobe Illustrator and Photoshop. I have learnt how to create graphic designs through the use of digital tools and have honed my skills in graphic design through experience in using the software. In this artwork compilation, you will be able to see my growth and confidence using Illustrator and Photoshop as my competence in creating designs grow, from simple logos and image manipulation to magazine headers and promotional posters.",
+      "A collection of digital assets, posters, and layouts using Adobe Creative Cloud.",
+    longDescription: `Compilation of design work with precise alignment and export configuration.\n\n• Built vector paths in Illustrator and Photoshop with precise alignment and scaling.\n• Configured exports for both print and web output.\n• Applied layout hierarchy principles carried forward into frontend UI development.`,
     tags: ["Photoshop", "Illustrator"],
     image: artworkImg,
     slug: "2d-artwork",
@@ -211,7 +205,7 @@ export const projects = [
       image,
       caption: [
         "Home Page (Website)",
-        "Abote Me Page (Website)",
+        "About Me Page (Website)",
         "Portfolio Page (Website)",
         "Resume Page (Website)",
         "Creative Poster",
