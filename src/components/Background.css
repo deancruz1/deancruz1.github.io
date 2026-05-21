@@ -1,0 +1,103 @@
+:root {
+  --mouse-x: 0.5;
+  --mouse-y: 0.5;
+  --mouse-strength: 0.5;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background: rgb(16, 16, 16);
+}
+
+/* 3. The Blobs stay locked to the screen while their parent moves */
+.blob-container {
+  position: fixed; /* Keeps them pinned to the viewport */
+  width: 500px;
+  height: 500px;
+  z-index: 1;
+  transition: transform 3.5s ease-in-out;
+}
+
+/* Spaced out base layouts on the right side of the screen */
+.wrapper1 {
+  right: 120px;
+  top: 180px;
+}
+
+.wrapper2 {
+  right: 320px;
+  top: 360px;
+}
+
+.wrapper3 {
+  right: 160px;
+  top: 540px;
+}
+
+/* 2. Inner Blob: Handles geometry and variable proximity repulsion */
+.blob {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+
+  filter: blur(120px);
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  will-change: transform;
+
+  transform: translate(
+    calc(var(--mouse-x) * -200px * var(--mouse-strength)),
+    calc(var(--mouse-y) * -200px * var(--mouse-strength))
+  );
+
+  transition: transform 1.2s cubic-bezier(0.1, 0.75, 0.2, 1);
+}
+
+.blob1 {
+  background: #ff00aa;
+}
+.blob2 {
+  background: #0066ff;
+}
+.blob3 {
+  background: #6a00ff;
+}
+
+/* ==========================================
+   MOBILE OPTIMIZATIONS (Max-width: 767px)
+   ========================================== */
+@media (max-width: 767px) {
+  /* Scale the blobs down so they fit mobile aspect ratios perfectly */
+  .blob-container {
+    width: 280px;
+    height: 280px;
+  }
+
+  /* Re-map the positions to hug the bottom-right of the phone viewport */
+  .wrapper1 {
+    right: -60px;
+    top: auto;
+    bottom: 12%;
+  }
+  .wrapper2 {
+    right: 10px;
+    top: auto;
+    bottom: 4%;
+  }
+  .wrapper3 {
+    right: -30px;
+    top: auto;
+    bottom: 22%;
+  }
+
+  /* Subdue the intense glow properties so they play nice behind phone text layouts */
+  .blob {
+    filter: blur(90px);
+    opacity: 0.45;
+  }
+}
