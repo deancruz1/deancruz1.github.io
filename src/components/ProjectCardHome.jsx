@@ -41,7 +41,7 @@ const ProjectCardHome = ({
             "transform 0.1s ease, box-shadow 0.3s ease, border-color 0.3s ease",
           transformStyle: "preserve-3d",
         }}
-        className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-transparent bg-[#171717] will-change-transform hover:border-[#6864e7] hover:shadow-[0_0_20px_rgba(104,100,231,0.4)]"
+        className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-transparent bg-[var(--bg-secondary)] will-change-transform hover:border-[var(--accent)] hover:shadow-[0_0_20px_var(--shadow-accent)]"
       >
         <Grid />
 
@@ -65,17 +65,21 @@ const ProjectCardHome = ({
 
         <div className="relative z-10 flex flex-1 flex-col gap-4 p-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-xl font-bold text-white">{title}</h3>
-            <span className="ml-2 shrink-0 rounded-full border border-[#6864e7] bg-[#6864e7]/20 px-3 py-1 text-xs text-white">
+            <h3 className="text-xl font-bold text-[var(--text-primary)]">
+              {title}
+            </h3>
+            <span className="ml-2 shrink-0 rounded-full border border-[var(--accent)] bg-[var(--accent)]/20 px-3 py-1 text-xs text-[var(--text-primary)]">
               {category}
             </span>
           </div>
-          <p className="flex-1 text-sm text-gray-400">{description}</p>
+          <p className="flex-1 text-sm text-[var(--text-secondary)]">
+            {description}
+          </p>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag, i) => (
               <span
                 key={i}
-                className="rounded-full border border-[#2e2e2e] bg-[#1e1e1e] px-3 py-1 text-xs text-gray-400"
+                className="rounded-full border border-[var(--border)] bg-[var(--bg-tertiary)] px-3 py-1 text-xs text-[var(--text-secondary)]"
               >
                 {tag}
               </span>
@@ -89,7 +93,7 @@ const ProjectCardHome = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex-1 rounded-full bg-white px-4 py-2 text-center text-sm font-semibold text-black transition-colors duration-300 hover:bg-[#6864e7] hover:text-white"
+                className="flex-1 rounded-full bg-[var(--text-primary)] px-4 py-2 text-center text-sm font-semibold text-[var(--bg-primary)] transition-colors duration-300 hover:bg-[var(--accent)] hover:text-[var(--text-primary)]"
               >
                 Live Demo
               </a>
@@ -100,7 +104,7 @@ const ProjectCardHome = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="rounded-full border border-[#2e2e2e] bg-[#1e1e1e] px-4 py-2 text-center text-sm font-semibold text-white transition-colors duration-300 hover:border-[#6864e7]"
+                className="rounded-full border border-[var(--border)] bg-[var(--bg-tertiary)] px-4 py-2 text-center text-sm font-semibold text-[var(--text-primary)] transition-colors duration-300 hover:border-[var(--accent)]"
               >
                 GitHub
               </a>

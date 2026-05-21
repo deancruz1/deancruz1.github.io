@@ -19,17 +19,17 @@ const ProjectDetail = () => {
   const project = projects.find((p) => p.slug === slug);
   const [selectedImage, setSelectedImage] = useState(null);
   const introButton =
-    "bg-transparent hover:bg-[#6864e7] text-white font-bold py-2 px-4 border border-white hover:border-[#6864e7] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
+    "bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
 
   if (!project) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <p className="text-2xl text-white">Project not found.</p>
+        <p className="text-2xl text-[var(--text-primary)]">
+          Project not found.
+        </p>
       </div>
     );
   }
-  console.log("project:", project);
-  console.log("slug:", slug);
 
   return (
     <>
@@ -46,7 +46,7 @@ const ProjectDetail = () => {
 
       {/* Hero */}
       <div className="mt-28 px-4 md:mx-2 md:px-8 lg:mx-4 lg:px-0">
-        <div className="relative h-[45vh] w-full overflow-hidden rounded-2xl border-b-5 border-[#6864e7] shadow-[0_4px_40px_rgba(104,100,231,0.4)] lg:rounded-t-none lg:rounded-b-4xl">
+        <div className="relative h-[45vh] w-full overflow-hidden rounded-2xl border-b-5 border-[var(--accent)] shadow-[0_4px_40px_var(--shadow-accent)] lg:rounded-t-none lg:rounded-b-4xl">
           <video
             src={project.heroVideo}
             autoPlay
@@ -56,10 +56,10 @@ const ProjectDetail = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
           <div className="absolute bottom-0 left-0 p-10">
-            <span className="mb-4 inline-block shrink-0 rounded-full border border-[#6864e7] bg-[#6864e7]/20 px-3 py-1 text-xs text-white lg:text-sm">
+            <span className="mb-4 inline-block shrink-0 rounded-full border border-[var(--accent)] bg-[var(--accent)]/20 px-3 py-1 text-xs text-[var(--text-overlay)] lg:text-sm">
               {project.category}
             </span>
-            <h1 className="text-4xl font-bold text-white md:text-7xl">
+            <h1 className="text-4xl font-bold text-[var(--text-overlay)] md:text-7xl">
               {project.title}
             </h1>
           </div>
@@ -70,19 +70,19 @@ const ProjectDetail = () => {
       <section className="px-4 py-16 md:mx-2 md:px-8 lg:mx-0 lg:px-0">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
           {/* Left - Meta */}
-          <div className="relative order-2 overflow-hidden rounded-2xl bg-[#171717] p-8 md:order-1 md:col-span-1">
+          <div className="relative order-2 overflow-hidden rounded-2xl bg-[var(--bg-secondary)] p-8 md:order-1 md:col-span-1">
             <Grid />
             <div className="relative z-10 flex flex-col gap-6">
               {/* Tags */}
               <div>
-                <p className="pb-2 text-sm font-bold tracking-widest text-[#6864e7] uppercase">
+                <p className="pb-2 text-sm font-bold tracking-widest text-[var(--accent)] uppercase">
                   Technologies
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, i) => (
                     <span
                       key={i}
-                      className="rounded-full border border-[#2e2e2e] bg-[#1e1e1e] px-3 py-1 text-sm text-gray-400"
+                      className="rounded-full border border-[var(--border)] bg-[var(--bg-tertiary)] px-3 py-1 text-sm text-[var(--text-secondary)]"
                     >
                       {tag}
                     </span>
@@ -93,7 +93,7 @@ const ProjectDetail = () => {
               {/* Links */}
               {(project.liveDemo || project.github) && (
                 <div>
-                  <p className="pb-2 text-sm font-bold tracking-widest text-[#6864e7] uppercase">
+                  <p className="pb-2 text-sm font-bold tracking-widest text-[var(--accent)] uppercase">
                     Links
                   </p>
                   <div className="flex flex-col gap-3">
@@ -102,7 +102,7 @@ const ProjectDetail = () => {
                         href={project.liveDemo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="rounded-full bg-white px-4 py-2 text-center text-sm font-semibold text-black transition-colors duration-300 hover:bg-[#6864e7] hover:text-white"
+                        className="rounded-full bg-[var(--text-primary)] px-4 py-2 text-center text-sm font-semibold text-[var(--bg-primary)] transition-colors duration-300 hover:bg-[var(--accent)] hover:text-[var(--text-primary)]"
                       >
                         Live Demo
                       </a>
@@ -112,7 +112,7 @@ const ProjectDetail = () => {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="rounded-full border border-[#2e2e2e] bg-[#1e1e1e] px-4 py-2 text-center text-sm font-semibold text-white transition-colors duration-300 hover:border-[#6864e7]"
+                        className="rounded-full border border-[var(--border)] bg-[var(--bg-tertiary)] px-4 py-2 text-center text-sm font-semibold text-[var(--text-primary)] transition-colors duration-300 hover:border-[var(--accent)]"
                       >
                         GitHub
                       </a>
@@ -125,7 +125,7 @@ const ProjectDetail = () => {
 
           {/* Right - Description */}
           <div className="order-1 flex flex-col gap-4 md:order-2 md:col-span-2">
-            <p className="text-justify text-lg leading-relaxed whitespace-pre-line text-gray-400">
+            <p className="text-justify text-lg leading-relaxed whitespace-pre-line text-[var(--text-secondary)]">
               {project.longDescription || project.description}
             </p>
           </div>
@@ -134,11 +134,10 @@ const ProjectDetail = () => {
         {/* Gallery */}
         {project.gallery && project.gallery.length > 0 && (
           <div className="mt-16">
-            <h2 className="mb-8 text-center text-3xl font-bold text-white md:text-left">
+            <h2 className="mb-8 text-center text-3xl font-bold text-[var(--text-primary)] md:text-left">
               Gallery
             </h2>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {" "}
               {project.gallery.map((item, i) => (
                 <div
                   key={i}
@@ -191,12 +190,14 @@ const ProjectDetail = () => {
                 alt={selectedImage.caption}
                 className="max-h-[80vh] w-full rounded-2xl object-contain"
               />
-              <p className="mt-4 rounded-lg bg-black/60 px-4 py-2 text-center font-semibold text-white">
-                {selectedImage.caption}
-              </p>
+              <div className="mt-4 flex justify-center">
+                <p className="inline-block rounded-2xl bg-black/60 px-4 py-2 font-semibold text-white">
+                  {selectedImage.caption}
+                </p>
+              </div>
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute -top-4 -right-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[#6864e7] text-white transition-colors duration-300 hover:bg-white hover:text-black"
+                className="absolute -top-4 -right-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[var(--accent)] text-[var(--text-primary)] transition-colors duration-300 hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)]"
               >
                 ✕
               </button>

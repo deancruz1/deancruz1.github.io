@@ -1,12 +1,10 @@
 .grid-overlay {
-  /* This breaks the width out of the 1200px container */
   position: absolute;
   left: 50%;
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
 
-  /* This ensures it tracks the parent's height perfectly */
   top: 0;
   height: 100%;
 
@@ -14,8 +12,8 @@
   pointer-events: none;
 
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 80px 80px;
 }
 

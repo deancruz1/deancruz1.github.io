@@ -20,15 +20,14 @@ const Projects = () => {
 
       <section className="min-h-screen pt-24 pb-12 lg:pt-32 lg:pb-16">
         <div className="mt-[6vh] mb-12 px-8 text-center">
-          <h1 className="mb-4 text-5xl font-bold text-[var(--text-h)] md:text-7xl">
+          <h1 className="mb-4 text-5xl font-bold text-[var(--text-primary)] md:text-7xl">
             All Projects
           </h1>
-          <p className="text-lg text-[var(--text)]">
+          <p className="text-lg text-[var(--text-secondary)]">
             Hold and drag on carousel to navigate
           </p>
         </div>
 
-        {/* Cleaner container structure that doesn't clamp heights on touch screens */}
         <div className="w-full">
           <ProjectCarousel projects={projects} />
         </div>

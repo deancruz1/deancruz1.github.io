@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom"; // 1. Added Link import
+import { Link } from "react-router-dom";
 
-// 2. Swapped out the 'link' prop for 'slug'
 const ProjectCard = ({
   image,
   title,
   category,
-  tags = [],
   slug,
   isCarousel,
   didDragRef,
@@ -15,7 +13,7 @@ const ProjectCard = ({
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = (e) => {
-    if (!isCarousel) return; // Disable tilt entirely on touch interfaces
+    if (!isCarousel) return;
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -35,7 +33,6 @@ const ProjectCard = ({
   };
 
   return (
-    // 3. Changed from <a> to <Link> and updated the destination path
     <Link
       to={slug ? `/projects/${slug}` : "#"}
       onClick={(e) => {
@@ -52,7 +49,7 @@ const ProjectCard = ({
           "transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease",
         transformStyle: "preserve-3d",
       }}
-      className={`group relative block cursor-pointer overflow-hidden rounded-3xl border border-transparent hover:border-[#6864e7] hover:shadow-[0_0_40px_rgba(104,100,231,0.6)] ${isCarousel ? "h-[56vmin] w-[40vmin] shrink-0" : "aspect-[4/3] w-full"} `}
+      className={`group relative block cursor-pointer overflow-hidden rounded-3xl border border-b-4 border-transparent border-b-[var(--accent)] hover:border-[var(--accent)] hover:shadow-[0_0_40px_var(--shadow-accent-strong)] ${isCarousel ? "h-[56vmin] w-[40vmin] shrink-0" : "aspect-[4/3] w-full"} `}
     >
       {/* IMAGE */}
       <img
@@ -77,24 +74,13 @@ const ProjectCard = ({
           className={`absolute inset-0 z-20 flex flex-col justify-end p-6 transition-opacity duration-300 ease-out ${isCarousel ? "opacity-0 group-hover:opacity-100" : "opacity-100"} `}
         >
           {category && (
-            <span className="mb-3 inline-block w-fit shrink-0 rounded-full border border-[#6864e7] bg-[#6864e7]/20 px-3 py-1 text-xs text-white lg:text-sm">
+            <span className="mb-3 inline-block w-fit shrink-0 rounded-full border border-[var(--accent)] bg-[var(--accent)]/20 px-3 py-1 text-xs text-[var(--text-overlay)] lg:text-sm">
               {category}
             </span>
           )}
-          <h3 className="mb-3 text-3xl font-bold text-white lg:text-4xl">
+          <h3 className="mb-3 text-3xl font-bold text-[var(--text-overlay)] lg:text-4xl">
             {title}
           </h3>
-
-          {/* <div className="flex flex-wrap gap-2">
-            {tags.map((tag, j) => (
-              <span
-                key={j}
-                className="text-xs text-white bg-[#6864e7] px-3 py-1 rounded-full font-medium shadow-sm"
-              >
-                {tag}
-              </span>
-            ))}
-          </div> */}
         </div>
       </div>
     </Link>

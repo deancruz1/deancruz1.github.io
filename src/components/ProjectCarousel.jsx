@@ -12,6 +12,7 @@ const ProjectCarousel = ({ projects }) => {
   const prevX = useRef(0);
   const offset = useRef(0);
   const animationRef = useRef(null);
+  const lastTime = useRef(null);
 
   useEffect(() => {
     const checkDevice = () => {
@@ -31,7 +32,7 @@ const ProjectCarousel = ({ projects }) => {
     const track = trackRef.current;
     if (!track) return;
 
-    const speed = 0.8;
+    const speed = 100;
     let halfWidth = 0;
     let cachedImages = [];
     let screenWidth = window.innerWidth;
@@ -49,8 +50,6 @@ const ProjectCarousel = ({ projects }) => {
         const rect = img.getBoundingClientRect();
         return {
           el: img,
-          // FIXED: Removed the "- offset.current" mistake.
-          // This keeps localX correctly constant relative to the track bounds.
           localX: rect.left - trackRect.left,
           width: rect.width,
         };
@@ -62,7 +61,6 @@ const ProjectCarousel = ({ projects }) => {
     });
     resizeObserver.observe(track);
 
-    // Give DOM nodes a tiny micro-task window to paint before initial cache grab
     setTimeout(updateCache, 30);
 
     const wrapOffset = () => {
@@ -89,9 +87,13 @@ const ProjectCarousel = ({ projects }) => {
       }
     };
 
-    const animate = () => {
+    const animate = (timestamp) => {
       if (!isDragging.current) {
-        offset.current -= speed;
+        if (!lastTime.current) lastTime.current = timestamp;
+        const delta = timestamp - lastTime.current;
+        lastTime.current = timestamp;
+
+        offset.current -= speed * (delta / 1000);
         wrapOffset();
         track.style.transform = `translateX(${offset.current}px) translateY(-50%)`;
         updateParallax();
@@ -106,6 +108,7 @@ const ProjectCarousel = ({ projects }) => {
       startX.current = e.clientX;
       prevX.current = offset.current;
       didDrag.current = false;
+      lastTime.current = null;
     };
 
     const handleMouseMove = (e) => {

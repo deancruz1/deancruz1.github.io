@@ -7,7 +7,7 @@ const EducationCard = () => {
         {educationData.map((edu, index) => (
           <div
             key={index}
-            className="flex items-stretch gap-4 border-l-2 border-[#6864e7] pl-4"
+            className="flex items-stretch gap-4 border-l-2 border-[var(--accent)] pl-4"
           >
             <div className="flex items-center">
               <img
@@ -17,11 +17,13 @@ const EducationCard = () => {
               />
             </div>
             <div>
-              <p className="font-semibold text-white">{edu.degree}</p>
-              <p className="text-sm text-gray-400">
+              <p className="font-semibold text-[var(--text-primary)]">
+                {edu.degree}
+              </p>
+              <p className="text-sm text-[var(--text-secondary)]">
                 {edu.school} · {edu.duration}
               </p>
-              <p className="text-sm font-semibold text-[#6864e7]">
+              <p className="text-sm font-semibold text-[var(--accent)]">
                 GPA: {edu.gpa}
               </p>
             </div>
