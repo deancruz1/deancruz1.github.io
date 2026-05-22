@@ -12,6 +12,14 @@ import platformerVideo from "../assets/videos/platformer.mp4";
 import artworkVideo from "../assets/videos/artwork.mp4";
 import wireframeVideo from "../assets/videos/wireframe.mp4";
 import portfolioVideo from "../assets/videos/portfolio-website.mp4";
+import kirokuImg from "../assets/img/project-cards/kiroku.webp";
+import kirokuVideo from "../assets/videos/kiroku.mp4";
+
+const kirokuGallery = import.meta.glob(
+  "../assets/img/project-gallery/kiroku/*.webp",
+  { eager: true },
+);
+const kirokuGalleryImages = Object.values(kirokuGallery).map((m) => m.default);
 
 const landingPageGallery = import.meta.glob(
   "../assets/img/project-gallery/landing-page/*.webp",
@@ -138,6 +146,28 @@ export const projects = [
     })),
   },
   {
+    title: "Kiroku",
+    category: "Full-Stack",
+    description:
+      "A full-stack anime tracker built with Next.js and PostgreSQL. Covers dual authentication, full CRUD, a seasonal broadcast calendar, personalized recommendations, and interactive stats.",
+    longDescription: `Built to consolidate anime tracking into a single responsive web app. Integrates external API data with a persistent PostgreSQL database on Supabase.\n\n• Designed a Prisma ORM schema with models for user accounts, watch list entries, custom collections, reviews, and NextAuth.js session management.\n• Implemented dual authentication with Discord OAuth for quick sign-in and email/password registration using bcrypt hashing and JWT session tokens.\n• Built full CRUD for watch list management: add anime with status tracking, update episode progress and star ratings inline, and delete entries with cascade cleanup.\n• Developed a 7-day seasonal broadcast calendar with episode countdown timers, expand/collapse animations via Framer Motion, broadcast time sorting, and genre-aware filtering with a tracked-only toggle.\n• Created a personalized recommendation engine that analyzes watch history, identifies top genres, queries the Jikan API, and surfaces unwatched shows.\n• Visualized user stats with Recharts using a donut chart for status distribution, a horizontal bar chart for top genres, and summary cards for total episodes, watch time, average rating, and completion rate.\n• Integrated character rosters, voice actors, trailers, image galleries, related anime, and MAL user reviews onto each detail page via parallel Jikan API requests.\n• Built custom collections with create, rename, delete, and add/remove functionality with per-list already-in-list indicators.\n• Deployed on Vercel with a serverless-friendly architecture using the pg driver adapter, Prisma 7, and Supabase PostgreSQL.`,
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind"],
+    image: kirokuImg,
+    liveDemo: "https://kiroku-nyaa.vercel.app",
+    github: "https://github.com/deancruz1/Kiroku",
+    slug: "kiroku",
+    heroVideo: kirokuVideo,
+    gallery: kirokuGalleryImages.map((image, i) => ({
+      image,
+      caption: [
+        "Home Page",
+        "Stats Page",
+        "Anime Detail Page",
+        "Watch List Page",
+      ][i],
+    })),
+  },
+  {
     title: "Movietopia",
     category: "Full-Stack",
     description:
@@ -159,22 +189,6 @@ export const projects = [
     })),
   },
   {
-    title: "Platformer Game",
-    category: "Full-Stack",
-    description:
-      "A 2D game built in Java. Implements collision detection, game loops, and separated game state from rendering logic.",
-    longDescription: `Developed to explore core game logic and rendering.\n\n• Built an active rendering loop to handle thread updates and frame refreshes.\n• Programmed custom vector logic for collision detection between entities.\n• Structured project by separating game state from rendering logic.`,
-    tags: ["Java"],
-    image: platformerGameImg,
-    github: "https://github.com/deancruz1/platformer-game",
-    slug: "platformer-game",
-    heroVideo: platformerVideo,
-    gallery: platformerGalleryImages.map((image, i) => ({
-      image,
-      caption: ["Level 1", "Level 2", "Game Over", "Main Menu"][i],
-    })),
-  },
-  {
     title: "Mobile Wireframe",
     category: "Design",
     description:
@@ -189,6 +203,22 @@ export const projects = [
     gallery: wireframeGalleryImages.map((image, i) => ({
       image,
       caption: ["Home Page", "About Me", "Portfolio Page", "Contact Page"][i],
+    })),
+  },
+  {
+    title: "Platformer Game",
+    category: "Full-Stack",
+    description:
+      "A 2D game built in Java. Implements collision detection, game loops, and separated game state from rendering logic.",
+    longDescription: `Developed to explore core game logic and rendering.\n\n• Built an active rendering loop to handle thread updates and frame refreshes.\n• Programmed custom vector logic for collision detection between entities.\n• Structured project by separating game state from rendering logic.`,
+    tags: ["Java"],
+    image: platformerGameImg,
+    github: "https://github.com/deancruz1/platformer-game",
+    slug: "platformer-game",
+    heroVideo: platformerVideo,
+    gallery: platformerGalleryImages.map((image, i) => ({
+      image,
+      caption: ["Level 1", "Level 2", "Game Over", "Main Menu"][i],
     })),
   },
   {

@@ -74,7 +74,7 @@ const ProjectDetail = () => {
         <section className="px-4 py-16 md:mx-2 md:px-8 lg:mx-0 lg:px-0">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
             {/* Left - Meta */}
-            <div className="relative order-2 overflow-hidden rounded-2xl bg-[var(--bg-secondary)] p-8 md:order-1 md:col-span-1">
+            <div className="relative order-2 h-fit overflow-hidden rounded-2xl bg-[var(--bg-secondary)] p-8 md:order-1 md:col-span-1">
               <Grid />
               <div className="relative z-10 flex flex-col gap-6">
                 {/* Tags */}

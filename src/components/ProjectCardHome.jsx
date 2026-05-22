@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Grid from "./Grid";
 
@@ -13,6 +13,11 @@ const ProjectCardHome = ({
   slug,
 }) => {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  // Refs and state for dynamic tag truncation
+  const containerRef = useRef(null);
+  const measureRef = useRef(null);
+  const [visibleCount, setVisibleCount] = useState(tags.length);
 
   const handleMouseMove = (e) => {
     const card = e.currentTarget;
@@ -30,6 +35,56 @@ const ProjectCardHome = ({
     setTilt({ x: 0, y: 0 });
   };
 
+  // Dynamically calculate how many tags fit in the container
+  useEffect(() => {
+    if (!containerRef.current || !measureRef.current) return;
+
+    const measureTags = () => {
+      const maxWidth = containerRef.current.clientWidth;
+      const tagElements = Array.from(measureRef.current.children);
+
+      let currentWidth = 0;
+      let newVisibleCount = tags.length;
+      const gap = 8; // 8px for Tailwind's gap-2
+      const plusTagWidth = 45; // Estimated width for the "+X" tag
+
+      for (let i = 0; i < tagElements.length; i++) {
+        const tagWidth = tagElements[i].offsetWidth;
+        const isLastTag = i === tagElements.length - 1;
+
+        const widthWithCurrentTag = currentWidth + tagWidth;
+        const widthWithCurrentAndPlus =
+          widthWithCurrentTag + gap + plusTagWidth;
+
+        // Check if the tag fits. If it's the last tag, we don't need room for "+X"
+        if (isLastTag) {
+          if (widthWithCurrentTag > maxWidth) {
+            newVisibleCount = i;
+            break;
+          }
+        } else {
+          if (widthWithCurrentAndPlus > maxWidth) {
+            newVisibleCount = i;
+            break;
+          }
+        }
+        currentWidth += tagWidth + gap;
+      }
+
+      // Always show at least 1 tag (it will truncate text if the screen is microscopic)
+      setVisibleCount(tags.length === 0 ? 0 : Math.max(1, newVisibleCount));
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      measureTags();
+    });
+
+    resizeObserver.observe(containerRef.current);
+    measureTags(); // Run immediately on mount
+
+    return () => resizeObserver.disconnect();
+  }, [tags]);
+
   return (
     <Link to={slug ? `/projects/${slug}` : "#"} className="block h-full">
       <div
@@ -41,7 +96,7 @@ const ProjectCardHome = ({
             "transform 0.1s ease, box-shadow 0.3s ease, border-color 0.3s ease",
           transformStyle: "preserve-3d",
         }}
-        className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-transparent bg-[var(--bg-secondary)] will-change-transform hover:border-[var(--accent)] hover:shadow-[0_0_20px_var(--shadow-accent)]"
+        className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-transparent bg-[var(--bg-secondary)] will-change-transform hover:border-[var(--accent)] hover:shadow-[0_0_20px_var(--shadow-accent)] lg:min-h-[550px]"
       >
         <Grid />
 
@@ -75,16 +130,43 @@ const ProjectCardHome = ({
           <p className="flex-1 text-sm text-[var(--text-secondary)]">
             {description}
           </p>
-          <div className="flex flex-wrap gap-2">
-            {tags.map((tag, i) => (
-              <span
-                key={i}
-                className="rounded-full border border-[var(--border)] bg-[var(--bg-tertiary)] px-3 py-1 text-xs text-[var(--text-secondary)]"
-              >
-                {tag}
-              </span>
-            ))}
+
+          {/* --- UPDATED TAGS SECTION --- */}
+          <div className="relative flex w-full items-center" ref={containerRef}>
+            {/* Invisible Measurement Container */}
+            <div
+              ref={measureRef}
+              aria-hidden="true"
+              className="pointer-events-none invisible absolute top-0 left-0 flex gap-2 whitespace-nowrap"
+            >
+              {tags.map((tag, i) => (
+                <span
+                  key={`measure-${i}`}
+                  className="rounded-full border px-3 py-1 text-xs" // Padding and borders match the visible tags for accurate measuring
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {/* Visible Tags Container */}
+            <div className="flex w-full items-center gap-2 overflow-hidden">
+              {tags.slice(0, visibleCount).map((tag, i) => (
+                <span
+                  key={i}
+                  className="max-w-full min-w-0 truncate rounded-full border border-[var(--border)] bg-[var(--bg-tertiary)] px-3 py-1 text-xs whitespace-nowrap text-[var(--text-secondary)]"
+                >
+                  {tag}
+                </span>
+              ))}
+              {visibleCount < tags.length && (
+                <span className="shrink-0 rounded-full border border-[var(--border)] bg-[var(--bg-tertiary)] px-3 py-1 text-xs whitespace-nowrap text-[var(--text-secondary)]">
+                  +{tags.length - visibleCount}
+                </span>
+              )}
+            </div>
           </div>
+          {/* --- END UPDATED TAGS SECTION --- */}
 
           <div className="flex h-10 gap-2">
             {liveDemo && (
