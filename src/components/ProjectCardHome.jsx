@@ -96,7 +96,7 @@ const ProjectCardHome = ({
             "transform 0.1s ease, box-shadow 0.3s ease, border-color 0.3s ease",
           transformStyle: "preserve-3d",
         }}
-        className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-transparent bg-[var(--bg-secondary)] will-change-transform hover:border-[var(--accent)] hover:shadow-[0_0_20px_var(--shadow-accent)] lg:min-h-[550px]"
+        className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-transparent bg-(--bg-secondary) will-change-transform hover:border-(--accent) hover:shadow-[0_0_20px_var(--shadow-accent)] lg:min-h-137.5"
       >
         <Grid />
 
@@ -112,7 +112,7 @@ const ProjectCardHome = ({
             alt={title}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 z-10 translate-y-full rounded-t-2xl bg-gradient-to-t from-black/95 via-black/50 to-transparent transition-transform duration-500 ease-out group-hover:translate-y-0" />
+          <div className="absolute inset-0 z-10 translate-y-full rounded-t-2xl bg-linear-to-t from-black/95 via-black/50 to-transparent transition-transform duration-500 ease-out group-hover:translate-y-0" />
           <p className="absolute right-4 bottom-4 z-20 text-xl font-bold text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:text-3xl">
             More Details
           </p>
@@ -120,14 +120,12 @@ const ProjectCardHome = ({
 
         <div className="relative z-10 flex flex-1 flex-col gap-4 p-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-xl font-bold text-[var(--text-primary)]">
-              {title}
-            </h3>
-            <span className="ml-2 shrink-0 rounded-full border border-[var(--accent)] bg-[var(--accent)]/20 px-3 py-1 text-xs text-[var(--text-primary)]">
+            <h3 className="text-xl font-bold text-(--text-primary)">{title}</h3>
+            <span className="ml-2 shrink-0 rounded-full border border-(--accent) bg-(--accent)/20 px-3 py-1 text-xs text-(--text-primary)">
               {category}
             </span>
           </div>
-          <p className="flex-1 text-sm text-[var(--text-secondary)]">
+          <p className="flex-1 text-sm text-(--text-secondary)">
             {description}
           </p>
 
@@ -154,13 +152,13 @@ const ProjectCardHome = ({
               {tags.slice(0, visibleCount).map((tag, i) => (
                 <span
                   key={i}
-                  className="max-w-full min-w-0 truncate rounded-full border border-[var(--border)] bg-[var(--bg-tertiary)] px-3 py-1 text-xs whitespace-nowrap text-[var(--text-secondary)]"
+                  className="max-w-full min-w-0 truncate rounded-full border border-(--border) bg-(--bg-tertiary) px-3 py-1 text-xs whitespace-nowrap text-(--text-secondary)"
                 >
                   {tag}
                 </span>
               ))}
               {visibleCount < tags.length && (
-                <span className="shrink-0 rounded-full border border-[var(--border)] bg-[var(--bg-tertiary)] px-3 py-1 text-xs whitespace-nowrap text-[var(--text-secondary)]">
+                <span className="shrink-0 rounded-full border border-(--border) bg-(--bg-tertiary) px-3 py-1 text-xs whitespace-nowrap text-(--text-secondary)">
                   +{tags.length - visibleCount}
                 </span>
               )}
@@ -175,7 +173,7 @@ const ProjectCardHome = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex-1 rounded-full bg-[var(--text-primary)] px-4 py-2 text-center text-sm font-semibold text-[var(--bg-primary)] transition-colors duration-300 hover:bg-[var(--accent)] hover:text-[var(--text-primary)]"
+                className="flex-1 rounded-full bg-(--text-primary) px-4 py-2 text-center text-sm font-semibold text-(--bg-primary) transition-colors duration-300 hover:bg-(--accent) hover:text-(--text-primary)"
               >
                 Live Demo
               </a>
@@ -186,7 +184,7 @@ const ProjectCardHome = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="rounded-full border border-[var(--border)] bg-[var(--bg-tertiary)] px-4 py-2 text-center text-sm font-semibold text-[var(--text-primary)] transition-colors duration-300 hover:border-[var(--accent)]"
+                className="rounded-full border border-(--border) bg-(--bg-tertiary) px-4 py-2 text-center text-sm font-semibold text-(--text-primary) transition-colors duration-300 hover:border-(--accent)"
               >
                 GitHub
               </a>

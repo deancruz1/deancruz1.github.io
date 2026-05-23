@@ -13,7 +13,7 @@ function App() {
         <Background />
         <Navbar />
 
-        <div className="flex-grow">
+        <div className="grow">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />

@@ -127,7 +127,7 @@ const DesktopCarousel = ({ projects }) => {
   const loopedProjects = [...projects, ...projects];
 
   return (
-    <div className="relative right-1/2 left-1/2 -mr-[50vw] -ml-[50vw] h-[70vh] w-screen -translate-y-10 overflow-hidden">
+    <div className="relative right-1/2 left-1/2 mr-[-50vw] ml-[-50vw] h-[70vh] w-screen -translate-y-10 overflow-hidden">
       <div
         ref={trackRef}
         className="absolute top-1/2 left-0 flex gap-6 select-none"

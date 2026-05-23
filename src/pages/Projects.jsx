@@ -21,10 +21,10 @@ const Projects = () => {
       <main id="main-content">
         <section className="min-h-screen pt-24 pb-12 lg:pt-32 lg:pb-16">
           <div className="mt-[6vh] mb-12 px-8 text-center">
-            <h1 className="mb-4 text-5xl font-bold text-[var(--text-primary)] md:text-7xl">
+            <h1 className="mb-4 text-5xl font-bold text-(--text-primary) md:text-7xl">
               All Projects
             </h1>
-            <p className="hidden text-lg text-[var(--text-secondary)] lg:block">
+            <p className="hidden text-lg text-(--text-secondary) lg:block">
               Hold and drag on carousel to navigate
             </p>
           </div>

@@ -166,6 +166,50 @@ export const projects = [
         "Watch List Page",
       ][i],
     })),
+    caseStudy: {
+      overview: `Kiroku is a full-stack anime tracker that combines watch list management, seasonal discovery, personalized recommendations, and viewing stats into one responsive web app. Built to apply production-grade full-stack engineering from auth to deployment.`,
+
+      problem: `Most anime trackers are fragmented. Users bounce between MyAnimeList for tracking, separate sites for seasonal schedules, and Reddit for recommendations. I wanted one clean app that handled all three without the bloat.`,
+
+      solution: `Built on Next.js App Router with React Server Components, Prisma ORM on Supabase PostgreSQL, and NextAuth v5 for dual authentication with Discord OAuth. The Jikan API drives all anime data. Users track shows with full CRUD, browse a 7-day broadcast calendar, get genre-based recommendations, and view stats in a Spotify Wrapped-style bento dashboard.`,
+
+      technicalDecisions: [
+        {
+          decision: "Next.js App Router",
+          reason:
+            "Server components and streaming eliminate unnecessary client-side fetching. Layouts and loading states are built-in.",
+        },
+        {
+          decision: "Jikan API",
+          reason:
+            "Free, no API key required, and comprehensive anime data. The rate limit was a real constraint that pushed me to implement proper retry logic.",
+        },
+        {
+          decision: "Supabase PostgreSQL",
+          reason:
+            "Vercel serverless functions use ephemeral filesystems. SQLite writes do not persist between invocations.",
+        },
+        {
+          decision: "Vercel",
+          reason:
+            "GitHub Pages only serves static files. Vercel supports serverless functions, which are needed to run backend logic and keep API keys out of the client.",
+        },
+      ],
+
+      challenges: [
+        "Jikan API enforces a strict 3 requests per second rate limit, so exponential backoff with retry logic was needed to handle request bursts on data-heavy pages without crashing",
+        "The seasonal calendar required parsing inconsistent broadcast data formats from the API, building countdown timers with timezone awareness, and handling edge cases like missing air times",
+        "The recommendation engine needed to analyze watch history, cross-reference genre data, filter out already-watched shows and low-rated entries, then attribute each result to a specific show the user liked",
+        "Converting the 7-column desktop calendar layout to horizontal scroll rows on mobile required rethinking the entire component structure without duplicating logic",
+        "The bento-grid stats dashboard needed to feel personal and playful rather than like a generic analytics panel, so every card uses dynamic color palettes and personality-driven copy",
+      ],
+
+      improvements: [
+        "Store anime metadata in the database when a user adds a show, eliminating redundant Jikan API calls and reducing rate limit exposure",
+        "Implement email verification system for new accounts",
+        "Implement password reset via email for account recovery",
+      ],
+    },
   },
   {
     title: "Movietopia",

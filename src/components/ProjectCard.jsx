@@ -54,8 +54,8 @@ const ProjectCard = ({
           "transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease",
         transformStyle: "preserve-3d",
       }}
-      className={`group relative block cursor-pointer overflow-hidden rounded-3xl border border-b-4 border-transparent border-b-[var(--accent)] hover:border-[var(--accent)] hover:shadow-[0_0_40px_var(--shadow-accent-strong)] ${
-        isCarousel ? "h-[56vmin] w-[40vmin] shrink-0" : "aspect-[4/3] w-full"
+      className={`group relative block cursor-pointer overflow-hidden rounded-3xl border border-b-4 border-transparent border-b-(--accent) hover:border-(--accent) hover:shadow-[0_0_40px_var(--shadow-accent-strong)] ${
+        isCarousel ? "h-[56vmin] w-[40vmin] shrink-0" : "aspect-4/3 w-full"
       }`}
     >
       <img
@@ -74,7 +74,7 @@ const ProjectCard = ({
         style={{ transform: isHovered ? "translateZ(30px)" : "none" }}
       >
         <div
-          className={`absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/50 to-transparent transition-transform duration-500 ease-out ${
+          className={`absolute inset-0 z-10 bg-linear-to-t from-black/95 via-black/50 to-transparent transition-transform duration-500 ease-out ${
             isCarousel
               ? "translate-y-full group-hover:translate-y-0"
               : "translate-y-0"
@@ -87,11 +87,11 @@ const ProjectCard = ({
           }`}
         >
           {category && (
-            <span className="mb-3 inline-block w-fit shrink-0 rounded-full border border-[var(--accent)] bg-[var(--accent)]/20 px-3 py-1 text-xs text-[var(--text-overlay)] lg:text-sm">
+            <span className="mb-3 inline-block w-fit shrink-0 rounded-full border border-(--accent) bg-(--accent)/20 px-3 py-1 text-xs text-(--text-overlay) lg:text-sm">
               {category}
             </span>
           )}
-          <HeadingTag className="mb-3 text-3xl font-bold text-[var(--text-overlay)] lg:text-4xl">
+          <HeadingTag className="mb-3 text-3xl font-bold text-(--text-overlay) lg:text-4xl">
             {title}
           </HeadingTag>
         </div>

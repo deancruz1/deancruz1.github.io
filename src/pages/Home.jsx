@@ -39,10 +39,10 @@ const Home = () => {
         <Grid />
         <div className="intro-container-left flex w-full flex-1 flex-col items-center justify-center text-center lg:items-start lg:justify-start lg:text-left">
           <div className="title-container">
-            <h1 className="text-2xl text-[var(--text-primary)] md:text-3xl lg:text-4xl">
+            <h1 className="text-2xl text-(--text-primary) md:text-3xl lg:text-4xl">
               Software Engineer
             </h1>
-            <h2 className="text-5xl font-semibold text-[var(--text-primary)] sm:text-6xl md:py-1 md:text-7xl lg:py-2 lg:text-8xl">
+            <h2 className="text-5xl font-semibold text-(--text-primary) sm:text-6xl md:py-1 md:text-7xl lg:py-2 lg:text-8xl">
               <span className="hover-target relative inline-block">
                 Dean Cruz
               </span>
@@ -50,14 +50,14 @@ const Home = () => {
           </div>
 
           <div className="description-container my-2 lg:my-4">
-            <p className="max-w-md text-base text-[var(--text-secondary)] md:max-w-xl md:text-base lg:text-lg">
-              Frontend-focused <span className="text-[var(--accent)]">|</span>{" "}
-              React, JavaScript, Python
+            <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
+              Frontend-focused <span className="text-(--accent)">|</span> React,
+              JavaScript, Python
             </p>
-            <p className="max-w-md text-base text-[var(--text-secondary)] md:max-w-xl md:text-base lg:text-lg">
+            <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
               IMDA Gold Medalist
             </p>
-            <p className="max-w-md text-base text-[var(--text-secondary)] md:max-w-xl md:text-base lg:text-lg">
+            <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
               Enterprise banking experience at OCBC
             </p>
           </div>
@@ -92,13 +92,13 @@ const Home = () => {
           <div className="contacts-container my-2 flex w-full max-w-md flex-col items-center justify-center gap-4 text-base sm:flex-row sm:gap-6 md:max-w-xl lg:my-4 lg:justify-start lg:text-lg">
             <a
               href="mailto:deancruzgg@gmail.com"
-              className="flex items-center gap-2 text-[var(--text-secondary)] transition-colors duration-300 hover:text-[var(--accent)]"
+              className="flex items-center gap-2 text-(--text-secondary) transition-colors duration-300 hover:text-(--accent)"
             >
               <EmailIcon />
               <span>deancruzgg@gmail.com</span>
             </a>
-            <div className="flex items-center gap-2 text-[var(--text-secondary)]">
-              <LocationIcon className="text-[var(--text-muted)]" />
+            <div className="flex items-center gap-2 text-(--text-secondary)">
+              <LocationIcon className="text-(--text-muted)" />
               <span>Singapore, SG</span>
             </div>
           </div>
@@ -111,7 +111,7 @@ const Home = () => {
         <SectionHeader title="Short Profile" subtitle="Background and focus" />
 
         <div className="grid grid-cols-1 gap-6 py-4 md:grid-cols-2 md:py-8">
-          <div className="relative flex h-full min-h-[360px] items-center justify-center overflow-hidden rounded-2xl bg-[var(--bg-secondary)] md:order-none md:min-h-[600px]">
+          <div className="relative flex h-full min-h-90 items-center justify-center overflow-hidden rounded-2xl bg-(--bg-secondary) md:order-0 md:min-h-150">
             <Grid />
 
             <img
@@ -119,11 +119,11 @@ const Home = () => {
               alt="Dean Cruz"
               loading="lazy"
               decoding="async"
-              className="absolute -top-25 -right-30 w-[500px] object-contain opacity-90 md:-top-0 md:-right-0 md:w-[800px] lg:-top-30 lg:-right-40"
+              className="absolute -top-25 -right-30 w-125 object-contain opacity-90 md:top-0 md:right-0 md:w-200 lg:-top-30 lg:-right-40"
               style={{ filter: "hue-rotate(50deg) saturate(1.2)" }}
             />
 
-            <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-t from-black/80 to-transparent p-4 md:p-6">
+            <div className="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/80 to-transparent p-4 md:p-6">
               <p className="w-70 text-2xl font-bold text-white md:w-80 md:text-3xl">
                 Building frontend systems that hold up under real-world load.
               </p>
@@ -131,9 +131,9 @@ const Home = () => {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="relative order-3 overflow-hidden rounded-2xl bg-[var(--bg-secondary)] p-6 md:order-none">
+            <div className="relative order-3 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0">
               <Grid />
-              <p className="pb-4 text-2xl font-bold text-[var(--text-primary)]">
+              <p className="pb-4 text-2xl font-bold text-(--text-primary)">
                 Technologies
               </p>
 
@@ -141,10 +141,10 @@ const Home = () => {
                 {techs.map((tech) => (
                   <div
                     key={tech.label}
-                    className="flex aspect-square flex-col items-center justify-center gap-2 rounded-xl bg-[var(--bg-tertiary)] p-4 transition-transform duration-300 hover:scale-110"
+                    className="flex aspect-square flex-col items-center justify-center gap-2 rounded-xl bg-(--bg-tertiary) p-4 transition-transform duration-300 hover:scale-110"
                   >
-                    <span className="text-[var(--accent)]">{tech.icon}</span>
-                    <span className="text-sm text-[var(--text-primary)]">
+                    <span className="text-(--accent)">{tech.icon}</span>
+                    <span className="text-sm text-(--text-primary)">
                       {tech.label}
                     </span>
                   </div>
@@ -152,13 +152,13 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="relative order-2 flex-1 overflow-hidden rounded-2xl bg-[var(--bg-secondary)] p-6 md:order-none">
+            <div className="relative order-2 flex-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0">
               <Grid />
 
-              <p className="relative z-10 text-xl font-bold text-[var(--text-primary)] md:text-2xl">
+              <p className="relative z-10 text-xl font-bold text-(--text-primary) md:text-2xl">
                 Specialising in{" "}
                 <span
-                  className="hover-target relative inline-block text-[var(--accent)]"
+                  className="hover-target relative inline-block text-(--accent)"
                   onMouseEnter={() => {
                     clearTimeout(fadeTimeout.current);
                     setHoveredSkill("frontend");
@@ -175,7 +175,7 @@ const Home = () => {
                 </span>{" "}
                 and{" "}
                 <span
-                  className="hover-target relative inline-block text-[var(--accent)]"
+                  className="hover-target relative inline-block text-(--accent)"
                   onMouseEnter={() => {
                     clearTimeout(fadeTimeout.current);
                     setHoveredSkill("fullstack");
@@ -203,7 +203,7 @@ const Home = () => {
                     preload="none"
                     className={`absolute inset-0 z-0 h-full w-full rounded-2xl object-cover ${hoveredSkill === "frontend" ? "fade-in" : "fade-out"}`}
                   />
-                  <div className="slide-up absolute inset-0 z-[5] rounded-2xl bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
+                  <div className="slide-up absolute inset-0 z-5 rounded-2xl bg-linear-to-t from-black/95 via-black/50 to-transparent" />
                 </>
               )}
 
@@ -217,7 +217,7 @@ const Home = () => {
                     preload="none"
                     className={`absolute inset-0 z-0 h-full w-full rounded-2xl object-cover ${hoveredSkill === "fullstack" ? "fade-in" : "fade-out"}`}
                   />
-                  <div className="slide-up absolute inset-0 z-[5] rounded-2xl bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
+                  <div className="slide-up absolute inset-0 z-5 rounded-2xl bg-linear-to-t from-black/95 via-black/50 to-transparent" />
                 </>
               )}
             </div>
@@ -225,25 +225,25 @@ const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="relative order-1 overflow-hidden rounded-2xl bg-[var(--bg-secondary)] p-6 md:order-none md:col-start-1 md:row-start-1">
+          <div className="relative order-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-1 md:row-start-1">
             <Grid />
-            <p className="relative z-10 pb-4 text-2xl font-bold text-[var(--text-primary)]">
+            <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
               Education
             </p>
             <EducationItem />
           </div>
 
-          <div className="relative order-2 min-h-[350px] overflow-hidden rounded-2xl bg-[var(--bg-secondary)] p-6 md:order-none md:col-start-2 md:row-span-2 md:row-start-1">
+          <div className="relative order-2 min-h-87.5 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-2 md:row-span-2 md:row-start-1">
             <Grid />
-            <p className="relative z-10 pb-4 text-2xl font-bold text-[var(--text-primary)]">
+            <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
               Awards & Honors
             </p>
             <AwardItem />
           </div>
 
-          <div className="relative order-3 overflow-hidden rounded-2xl bg-[var(--bg-secondary)] p-6 md:order-none md:col-start-1 md:row-start-2">
+          <div className="relative order-3 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-1 md:row-start-2">
             <Grid />
-            <p className="relative z-10 text-2xl font-bold text-[var(--text-primary)]">
+            <p className="relative z-10 text-2xl font-bold text-(--text-primary)">
               Focused on roles where frontend engineering meets product
               thinking.
             </p>

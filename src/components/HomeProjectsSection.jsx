@@ -37,8 +37,8 @@ const HomeProjectsSection = () => {
               onClick={() => setActiveFilter(cat)}
               className={`cursor-pointer rounded-full border px-4 py-2 text-sm whitespace-nowrap transition-colors duration-300 md:whitespace-normal ${
                 activeFilter === cat
-                  ? "border-[var(--accent)] bg-[var(--accent)] text-[var(--text-primary)]"
-                  : "border-[var(--border)] bg-transparent text-[var(--text-secondary)] hover:border-[var(--accent)]"
+                  ? "border-(--accent) bg-(--accent) text-(--text-primary)"
+                  : "border-(--border) bg-transparent text-(--text-secondary) hover:border-(--accent)"
               }`}
             >
               {cat}
@@ -48,7 +48,7 @@ const HomeProjectsSection = () => {
 
         <motion.div
           layout
-          className="grid grid-cols-1 items-stretch gap-6 md:min-h-[520px] md:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 items-stretch gap-6 md:min-h-130 md:grid-cols-2 lg:grid-cols-3"
         >
           <AnimatePresence>
             {filteredProjects
@@ -69,7 +69,7 @@ const HomeProjectsSection = () => {
         </motion.div>
       </div>
 
-      <motion.div className="mt-8 text-center md:mt-10 md:mt-12 md:flex-shrink-0">
+      <motion.div className="mt-8 text-center md:mt-12 md:shrink-0">
         <Link className={introButton} to="/projects">
           View All Projects
         </Link>

@@ -38,9 +38,9 @@ const Navbar = () => {
   return (
     <>
       {/* Scroll Progress Bar */}
-      <div className="fixed top-0 left-0 z-[110] h-[2px] w-full bg-transparent">
+      <div className="fixed top-0 left-0 z-110 h-0.5 w-full bg-transparent">
         <div
-          className="standard-progress-bar h-full origin-left bg-[var(--accent)]"
+          className="standard-progress-bar h-full origin-left bg-(--accent)"
           style={{
             animationTimeline: "scroll()",
             animationName: "grow-progress",
@@ -58,11 +58,11 @@ const Navbar = () => {
 
       {/* Main Navigation Bar */}
       <nav
-        className={`fixed top-0 right-0 left-0 z-[100] flex items-center border-b-[1.5px] px-8 py-6 transition-all duration-300 lg:px-32 lg:py-8 ${
+        className={`fixed top-0 right-0 left-0 z-100 flex items-center border-b-[1.5px] px-8 py-6 transition-all duration-300 lg:px-32 lg:py-8 ${
           scrolled || menuOpen
-            ? "border-[var(--accent)] bg-[var(--bg-primary)]/40 backdrop-blur-md"
+            ? "border-(--accent) bg-(--bg-primary)/40 backdrop-blur-md"
             : isProjectDetail
-              ? "border-transparent bg-transparent lg:border-[var(--accent)] lg:bg-[var(--bg-primary)]/40 lg:backdrop-blur-md"
+              ? "border-transparent bg-transparent lg:border-(--accent) lg:bg-(--bg-primary)/40 lg:backdrop-blur-md"
               : "border-transparent bg-transparent"
         }`}
       >
@@ -70,9 +70,9 @@ const Navbar = () => {
         <div className="flex-1">
           <Link
             to="/"
-            className="text-2xl font-bold text-[var(--text-primary)] lg:text-4xl"
+            className="text-2xl font-bold text-(--text-primary) lg:text-4xl"
           >
-            Dean<span className="text-[var(--accent)]">.</span>
+            Dean<span className="text-(--accent)">.</span>
           </Link>
         </div>
 
@@ -81,7 +81,7 @@ const Navbar = () => {
           className={`hidden items-center gap-8 rounded-full border-2 px-8 py-3 font-bold transition-all duration-300 lg:flex ${
             isProjectDetail || scrolled
               ? "border-transparent"
-              : "border-[var(--accent)]"
+              : "border-(--accent)"
           }`}
         >
           {navLinks.map((link, i) => (
@@ -89,10 +89,10 @@ const Navbar = () => {
               key={link.label}
               smooth
               to={link.to}
-              className="flex items-center gap-1 text-sm text-[var(--text-primary)] transition-colors duration-300 hover:text-[var(--accent)]"
+              className="flex items-center gap-1 text-sm text-(--text-primary) transition-colors duration-300 hover:text-(--accent)"
             >
               {link.label}
-              <sup className="text-[10px] text-[var(--accent)]">
+              <sup className="text-[10px] text-(--accent)">
                 {String(i + 1).padStart(2, "0")}
               </sup>
             </HashLink>
@@ -121,13 +121,13 @@ const Navbar = () => {
             aria-expanded={menuOpen}
           >
             <span
-              className={`block h-0.5 w-6 bg-[var(--text-primary)] transition-all duration-300 ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
+              className={`block h-0.5 w-6 bg-(--text-primary) transition-all duration-300 ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
             />
             <span
-              className={`block h-0.5 w-6 bg-[var(--text-primary)] transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
+              className={`block h-0.5 w-6 bg-(--text-primary) transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
             />
             <span
-              className={`block h-0.5 w-6 bg-[var(--text-primary)] transition-all duration-300 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
+              className={`block h-0.5 w-6 bg-(--text-primary) transition-all duration-300 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
             />
           </button>
         </div>
@@ -141,7 +141,7 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-[72px] right-0 left-0 z-[99] flex flex-col gap-6 border-b border-[var(--accent)] bg-[var(--bg-primary)]/40 px-8 py-6 backdrop-blur-md lg:hidden"
+            className="fixed top-18 right-0 left-0 z-99 flex flex-col gap-6 border-b border-(--accent) bg-(--bg-primary)/40 px-8 py-6 backdrop-blur-md lg:hidden"
           >
             {navLinks.map((link, i) => (
               <HashLink
@@ -149,9 +149,9 @@ const Navbar = () => {
                 smooth
                 to={link.to}
                 onClick={() => setMenuOpen(false)}
-                className="flex items-center gap-2 text-lg font-bold text-[var(--text-primary)] transition-colors duration-300 hover:text-[var(--accent)]"
+                className="flex items-center gap-2 text-lg font-bold text-(--text-primary) transition-colors duration-300 hover:text-(--accent)"
               >
-                <sup className="text-[10px] text-[var(--accent)]">
+                <sup className="text-[10px] text-(--accent)">
                   {String(i + 1).padStart(2, "0")}
                 </sup>
                 {link.label}

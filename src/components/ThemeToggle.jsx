@@ -27,10 +27,10 @@ const ThemeToggle = () => {
     <button
       ref={buttonRef}
       onClick={handleToggle}
-      className="group relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-[var(--text-primary)] bg-[var(--bg-primary)]/40 backdrop-blur-md transition-colors duration-300 hover:border-[var(--accent)]"
+      className="group relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-(--text-primary) bg-(--bg-primary)/40 backdrop-blur-md transition-colors duration-300 hover:border-(--accent)"
       aria-label="Toggle theme"
     >
-      <span className="text-[var(--text-primary)] transition-colors duration-300 group-hover:text-[var(--accent)]">
+      <span className="text-(--text-primary) transition-colors duration-300 group-hover:text-(--accent)">
         {theme === "dark" ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
