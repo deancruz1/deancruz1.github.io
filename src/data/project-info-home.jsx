@@ -79,6 +79,21 @@ const portfolioGalleryImages = Object.values(portfolioGallery).map(
 );
 
 export const projects = [
+  // Case study:
+  //   caseStudy: {
+  //   overview: ``,
+  //   problem: ``,
+  //   solution: ``,
+  //   technicalDecisions: [
+  //     {
+  //       decision: "",
+  //       reason: "",
+  //     },
+  //   ],
+  //   challenges: [``],
+  //   improvements: [``],
+  // },
+
   {
     title: "Portfolio Website",
     category: "Frontend",
@@ -151,7 +166,7 @@ export const projects = [
     description:
       "A full-stack anime tracker with OAuth, full CRUD, seasonal calendar, personalized recommendations, and interactive stats. Powered by a live API and a relational database.",
     longDescription: `Built to consolidate anime tracking into a single responsive web app. Integrates external API data with a persistent PostgreSQL database on Supabase.\n\n• Implemented dual authentication with Discord OAuth for quick sign-in and email/password registration using bcrypt hashing and JWT session tokens.\n• Built full CRUD operations for watch list management: add anime with status tracking, update episode progress and star ratings inline, and delete entries with cascade cleanup.\n• Developed a 7-day seasonal broadcast calendar with episode countdown timers, expand/collapse animations via Framer Motion, and genre-aware filtering with a tracked-only toggle.\n• Created a personalized recommendation engine that analyzes watch history, identifies top genres, queries the Jikan API, and surfaces unwatched shows with "Because you liked" context.\n• Visualized user stats with a bento-grid layout featuring summary cards, a Recharts donut chart for status distribution, and dynamic genre-based color palettes.\n• Built custom collections with create, rename, delete, and add/remove functionality, a profile settings page with Discord link/unlink, and responsive design across all breakpoints.`,
-    tags: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind"],
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind", "React"],
     image: kirokuImg,
     liveDemo: "https://kiroku-nyaa.vercel.app",
     github: "https://github.com/deancruz1/Kiroku",
