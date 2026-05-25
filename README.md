@@ -53,6 +53,24 @@ function App() {
 
 export default App;
 ```
+## Folder Structure
+
+```text
+├── public/                 # Resume, robots.txt, sitemap
+├── src/                    
+│   ├── assets/             # Media assets (images, icons, videos, project gallery)
+│   ├── components/         # Cards, Navbar, Carousel, etc.
+│   ├── context/            # Light/dark mode theme management
+│   ├── data/               # Experience, education, awards, projects data
+│   ├── hooks/              # Hooks mainly for light/dark mode and repsonsive breakpoints
+│   ├── pages/              # Main route components
+│   ├── App.jsx             
+│   ├── index.css           
+│   └── main.jsx            
+├── eslint.config.js        
+├── package.json            
+└── vite.config.js          
+```
 
 ### Navigation Structure
 The navbar includes links to:
@@ -63,8 +81,8 @@ The navbar includes links to:
 ### Key Components
 - **Background:** Animated blob elements that move dynamically in the background.
 - **Navbar:** Fixed navigation with theme toggle and mobile hamburger menu.
-- **ProjectCard:** 3D tilt-enabled card with image, description, tech tags, and action buttons.
-- **ProjectCardHome:** Featured project card on the homepage.
+- **ProjectCardHome:** 3D tilt-enabled card with image, description, tech tags, and action buttons.
+- **ProjectCard:** Project Cards used in carousel in `/projects` page.
 - **DesktopCarousel:** Carousel component for project galleries.
 - **ThemeToggle:** Sun/moon icon button that switches between light and dark mode.
 - **Footer:** Contains name, email contact, and social links.
