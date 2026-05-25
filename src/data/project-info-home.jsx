@@ -270,7 +270,6 @@ export const projects = [
         "Home Page (Website)",
         "About Me Page (Website)",
         "Portfolio Page (Website)",
-        "Resume Page (Website)",
         "Creative Poster",
         "Castle on Ice",
         "Advertisement Poster",
