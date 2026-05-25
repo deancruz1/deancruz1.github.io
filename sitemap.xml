@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://deancruz1.github.io/</loc>
+    <loc>https://deancruz1.github.io/index.prerender.html</loc>
     <lastmod>2026-05-24</lastmod>
   </url>
   <url>
-    <loc>https://deancruz1.github.io/projects</loc>
+    <loc>https://deancruz1.github.io/projects.prerender.html</loc>
     <lastmod>2026-05-24</lastmod>
   </url>
-    <url>
-    <loc>https://deancruz1.github.io/projects/portfolio-website</loc>
+  <url>
+    <loc>https://deancruz1.github.io/projects/portfolio-website.prerender.html</loc>
     <lastmod>2026-05-24</lastmod>
   </url>
-    <url>
-    <loc>https://deancruz1.github.io/projects/landing-page</loc>
+  <url>
+    <loc>https://deancruz1.github.io/projects/landing-page.prerender.html</loc>
     <lastmod>2026-05-24</lastmod>
   </url>
-    <url>
-    <loc>https://deancruz1.github.io/projects/fansite</loc>
+  <url>
+    <loc>https://deancruz1.github.io/projects/fansite.prerender.html</loc>
     <lastmod>2026-05-24</lastmod>
   </url>
-    <url>
-    <loc>https://deancruz1.github.io/projects/kiroku</loc>
+  <url>
+    <loc>https://deancruz1.github.io/projects/kiroku.prerender.html</loc>
     <lastmod>2026-05-24</lastmod>
   </url>
-      <url>
-    <loc>https://deancruz1.github.io/projects/movietopia</loc>
+  <url>
+    <loc>https://deancruz1.github.io/projects/movietopia.prerender.html</loc>
     <lastmod>2026-05-24</lastmod>
   </url>
-        <url>
-    <loc>https://deancruz1.github.io/projects/mobile-wireframe</loc>
+  <url>
+    <loc>https://deancruz1.github.io/projects/mobile-wireframe.prerender.html</loc>
     <lastmod>2026-05-24</lastmod>
   </url>
-    <url>
-    <loc>https://deancruz1.github.io/projects/2d-artwork</loc>
+  <url>
+    <loc>https://deancruz1.github.io/projects/2d-artwork.prerender.html</loc>
     <lastmod>2026-05-24</lastmod>
   </url>
 </urlset>
