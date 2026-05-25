@@ -96,7 +96,7 @@ const ProjectCardHome = ({
             "transform 0.1s ease, box-shadow 0.3s ease, border-color 0.3s ease",
           transformStyle: "preserve-3d",
         }}
-        className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-transparent bg-(--bg-secondary) will-change-transform hover:border-(--accent) hover:shadow-[0_0_20px_var(--shadow-accent)] lg:min-h-137.5"
+        className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-transparent bg-(--bg-secondary) will-change-transform hover:border-(--accent) hover:shadow-[0_0_20px_var(--shadow-accent)]"
       >
         <Grid />
 

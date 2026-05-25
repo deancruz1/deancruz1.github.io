@@ -3,12 +3,10 @@ import fansiteImg from "../assets/img/project-cards/fansite.webp";
 import landingPageImg from "../assets/img/project-cards/landing-page.webp";
 import mobileWireframeImg from "../assets/img/project-cards/mobile-wireframe.webp";
 import movietopiaImg from "../assets/img/project-cards/movietopia.webp";
-import platformerGameImg from "../assets/img/project-cards/platformer-game.webp";
 import portfolioImg from "../assets/img/project-cards/portfolio-website.webp";
 import landingPageVideo from "../assets/videos/landing-page.mp4";
 import fansiteVideo from "../assets/videos/fansite.mp4";
 import movietopiaVideo from "../assets/videos/movietopia.mp4";
-import platformerVideo from "../assets/videos/platformer.mp4";
 import artworkVideo from "../assets/videos/artwork.mp4";
 import wireframeVideo from "../assets/videos/wireframe.mp4";
 import portfolioVideo from "../assets/videos/portfolio-website.mp4";
@@ -42,14 +40,6 @@ const movietopiaGallery = import.meta.glob(
   { eager: true },
 );
 const movietopiaGalleryImages = Object.values(movietopiaGallery).map(
-  (m) => m.default,
-);
-
-const platformerGallery = import.meta.glob(
-  "../assets/img/project-gallery/platformer/*.webp",
-  { eager: true },
-);
-const platformerGalleryImages = Object.values(platformerGallery).map(
   (m) => m.default,
 );
 
@@ -95,15 +85,15 @@ export const projects = [
   // },
 
   {
-    title: "Portfolio Website",
+    title: "Foundations",
     category: "Frontend",
     description:
-      "An 8-page responsive portfolio. Selected by faculty as the cohort reference implementation for code structure.",
-    longDescription: `Built as a reference model for portfolio best practices. Focuses on clean DOM structure and modular design.\n\n• Scaled across 3 breakpoints (mobile, tablet, desktop) using Bootstrap grid systems.\n• Implemented semantic HTML structure for accessibility and SEO.\n• Organized into a modular CSS/JS architecture. Selected by faculty as the reference codebase for student projects in the cohort.`,
+      "My first portfolio site, built during my diploma. Selected by faculty as the cohort reference implementation for code structure.",
+    longDescription: `The starting point of my development journey. Built as a student to learn the fundamentals of web development.\n\n• Scaled across 3 breakpoints (mobile, tablet, desktop) using Bootstrap grid systems.\n• Implemented semantic HTML structure for accessibility and SEO.\n• Organized into a modular CSS/JS architecture. Selected by faculty as the reference codebase for student projects in the cohort.`,
     tags: ["HTML", "CSS", "JS", "Bootstrap"],
     image: portfolioImg,
-    liveDemo: "https://deancruz1.github.io/Old-Portfolio-Website/index.html",
-    github: "https://github.com/deancruz1/Old-Portfolio-Website",
+    liveDemo: "https://deancruz1.github.io/Foundations/",
+    github: "https://github.com/deancruz1/Foundations",
     slug: "portfolio-website",
     heroVideo: portfolioVideo,
     gallery: portfolioGalleryImages.map((image, i) => ({
