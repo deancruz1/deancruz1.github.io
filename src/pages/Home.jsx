@@ -131,6 +131,16 @@ const Home = () => {
           </div>
 
           <div className="flex flex-col gap-6">
+            {/* Focused on roles - mobile only, above Specialising */}
+            <div className="relative order-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:hidden">
+              <Grid />
+              <p className="relative z-10 text-2xl font-bold text-(--text-primary)">
+                Focused on roles where frontend engineering meets product
+                thinking.
+              </p>
+            </div>
+
+            {/* Technologies - first on tablet/desktop */}
             <div className="relative order-3 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0">
               <Grid />
               <p className="pb-4 text-2xl font-bold text-(--text-primary)">
@@ -152,7 +162,8 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="relative order-2 flex-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0">
+            {/* Specialising - second on tablet/desktop */}
+            <div className="relative order-2 flex-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-1">
               <Grid />
 
               <p className="relative z-10 text-xl font-bold text-(--text-primary) md:text-2xl">
@@ -225,6 +236,7 @@ const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {/* Education */}
           <div className="relative order-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-1 md:row-start-1">
             <Grid />
             <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
@@ -233,6 +245,7 @@ const Home = () => {
             <EducationItem />
           </div>
 
+          {/* Awards & Honors */}
           <div className="relative order-2 min-h-87.5 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-2 md:row-span-2 md:row-start-1">
             <Grid />
             <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
@@ -241,7 +254,8 @@ const Home = () => {
             <AwardItem />
           </div>
 
-          <div className="relative order-3 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-1 md:row-start-2">
+          {/* Focused on roles - desktop only */}
+          <div className="relative order-3 hidden overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-1 md:row-start-2 md:block">
             <Grid />
             <p className="relative z-10 text-2xl font-bold text-(--text-primary)">
               Focused on roles where frontend engineering meets product

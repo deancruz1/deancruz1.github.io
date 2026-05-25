@@ -1,4 +1,6 @@
 import Grid from "./Grid";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const WorkExperienceCard = ({
   logo,
@@ -12,12 +14,65 @@ const WorkExperienceCard = ({
   achievements = [],
   tags = [],
 }) => {
+  const [expanded, setExpanded] = useState(false);
+  const [overflowCount, setOverflowCount] = useState(0);
+  const containerRef = useRef(null);
+  const measureRef = useRef(null);
+
+  // Calculate how many tags overflow
+  useEffect(() => {
+    if (!containerRef.current || !measureRef.current || tags.length === 0)
+      return;
+
+    const calculate = () => {
+      const containerWidth = containerRef.current.clientWidth;
+      const tagElements = Array.from(measureRef.current.children);
+      const gap = 8; // gap-2
+      const plusTagWidth = 45; // estimated width of "+X" tag
+
+      let currentWidth = 0;
+      let visible = tags.length;
+
+      for (let i = 0; i < tagElements.length; i++) {
+        const tagWidth = tagElements[i].offsetWidth;
+        const isLast = i === tagElements.length - 1;
+
+        const widthWithTag = currentWidth + tagWidth;
+        const widthWithTagAndPlus = widthWithTag + gap + plusTagWidth;
+
+        if (isLast) {
+          if (widthWithTag > containerWidth) {
+            visible = i;
+            break;
+          }
+        } else {
+          if (widthWithTagAndPlus > containerWidth) {
+            visible = i;
+            break;
+          }
+        }
+        currentWidth += tagWidth + gap;
+      }
+
+      setOverflowCount(tags.length - visible);
+    };
+
+    const resizeObserver = new ResizeObserver(calculate);
+    resizeObserver.observe(containerRef.current);
+    calculate();
+
+    return () => resizeObserver.disconnect();
+  }, [tags]);
+
+  const visibleTags = expanded
+    ? tags
+    : tags.slice(0, tags.length - overflowCount);
+
   return (
     <div className="relative my-8 flex gap-4">
       {/* Vertical line - hidden on mobile */}
       <div className="relative hidden sm:block">
         <div className="absolute top-0 bottom-0 left-0 w-0.5 bg-(--accent) opacity-85" />
-        {/* Circle aligned with text */}
         <div
           className="sticky top-6 h-3.5 w-3.5 rounded-full border-2 border-(--bg-secondary) bg-(--accent)"
           style={{ marginLeft: "-7px" }}
@@ -81,16 +136,78 @@ const WorkExperienceCard = ({
           )}
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2">
-            {tags.map((tag, i) => (
-              <span
-                key={i}
-                className="rounded-full border border-(--border) bg-(--bg-tertiary) px-3 py-1 text-xs text-(--text-secondary)"
+          {tags.length > 0 && (
+            <div className="relative" ref={containerRef}>
+              {/* Invisible measurement container */}
+              <div
+                ref={measureRef}
+                aria-hidden="true"
+                className="pointer-events-none invisible absolute top-0 left-0 flex gap-2 whitespace-nowrap"
               >
-                {tag}
-              </span>
-            ))}
-          </div>
+                {tags.map((tag, i) => (
+                  <span
+                    key={`measure-${i}`}
+                    className="rounded-full border px-3 py-1 text-xs"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Visible tags with animation */}
+              <motion.div
+                layout
+                transition={{ layout: { duration: 0.3, ease: "easeOut" } }}
+                className={`flex gap-2 ${expanded ? "flex-wrap" : "overflow-hidden"}`}
+              >
+                <AnimatePresence mode="popLayout">
+                  {visibleTags.map((tag) => (
+                    <motion.span
+                      key={tag}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      layout
+                      className="shrink-0 rounded-full border border-(--border) bg-(--bg-tertiary) px-3 py-1 text-xs whitespace-nowrap text-(--text-secondary)"
+                    >
+                      {tag}
+                    </motion.span>
+                  ))}
+                </AnimatePresence>
+
+                {overflowCount > 0 && !expanded && (
+                  <motion.button
+                    key="expand-btn"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    layout
+                    onClick={() => setExpanded(true)}
+                    className="cursor-pointer rounded-full border border-(--border) bg-transparent px-3 py-1 text-xs whitespace-nowrap text-(--text-secondary) transition-colors duration-300 hover:border-(--accent) md:whitespace-normal"
+                  >
+                    +{overflowCount}
+                  </motion.button>
+                )}
+
+                {expanded && overflowCount > 0 && (
+                  <motion.button
+                    key="collapse-btn"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    layout
+                    onClick={() => setExpanded(false)}
+                    className="shrink-0 cursor-pointer rounded-full border border-(--accent) bg-(--accent) px-3 py-1 text-xs whitespace-nowrap text-(--text-primary) transition-colors duration-300 hover:border-(--accent-hover) hover:bg-(--accent-hover)"
+                  >
+                    Show less
+                  </motion.button>
+                )}
+              </motion.div>
+            </div>
+          )}
         </div>
       </div>
     </div>
