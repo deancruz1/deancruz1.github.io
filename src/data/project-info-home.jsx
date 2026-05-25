@@ -265,22 +265,6 @@ export const projects = [
     })),
   },
   {
-    title: "Platformer Game",
-    category: "Full-Stack",
-    description:
-      "A 2D game built in Java. Implements collision detection, game loops, and separated game state from rendering logic.",
-    longDescription: `Developed to explore core game logic and rendering.\n\n• Built an active rendering loop to handle thread updates and frame refreshes.\n• Programmed custom vector logic for collision detection between entities.\n• Structured project by separating game state from rendering logic.`,
-    tags: ["Java"],
-    image: platformerGameImg,
-    github: "https://github.com/deancruz1/platformer-game",
-    slug: "platformer-game",
-    heroVideo: platformerVideo,
-    gallery: platformerGalleryImages.map((image, i) => ({
-      image,
-      caption: ["Level 1", "Level 2", "Game Over", "Main Menu"][i],
-    })),
-  },
-  {
     title: "2D Artwork",
     category: "Design",
     description:
