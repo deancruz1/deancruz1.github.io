@@ -29,6 +29,7 @@ import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
+// Use MemoryRouter to implement SSG prerendering for better SEO via vite-react-ssg
 const Router = typeof window !== "undefined" ? BrowserRouter : MemoryRouter;
 
 function App() {
