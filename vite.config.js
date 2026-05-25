@@ -10,4 +10,5 @@ export default defineConfig({
       darkMode: "class",
     }),
   ],
+  publicDir: "public", // ensures sitemap.xml gets copied
 });

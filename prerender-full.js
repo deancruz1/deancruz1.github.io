@@ -33,7 +33,8 @@ async function prerender() {
       const html = await page.content();
 
       const routePath = route === "/" ? "index" : route.slice(1);
-      const outputPath = path.join(distDir, `${routePath}.html`);
+      // Save as .prerender.html instead of .html
+      const outputPath = path.join(distDir, `${routePath}.prerender.html`);
 
       const dir = path.dirname(outputPath);
       if (!fs.existsSync(dir)) {
