@@ -1,4 +1,4 @@
-# Dean Cruz – Software Engineer Portfolio
+# Dean Cruz - Software Engineer Portfolio
 
 This is my personal portfolio website showcasing my work as a frontend-focused software engineer. It includes sections like Hero, About, Experience, and Featured Projects to give recruiters a comprehensive view of my skills and experience.
 
@@ -75,17 +75,17 @@ The navbar includes links to:
 - **useIsMobile:** Custom hook for responsive breakpoint detection.
 
 ### Data Files
-- `awards.js` – Awards and honors data
-- `education.js` – Education history
-- `project-info-home.jsx` – Featured projects data
-- `tech-icons.jsx` – Technology icons mapping
-- `work-experience.js` – Work experience entries
+- `awards.js` - Awards and honors data
+- `education.js` - Education history
+- `project-info-home.jsx` - Featured projects data
+- `tech-icons.jsx` - Technology icons mapping
+- `work-experience.js` - Work experience entries
 
 ### Routing
 The website has the following routes:
-- `/` – Homepage with Hero, About, Experience, and Featured Projects sections
-- `/projects` – All Projects page
-- `/projects/:slug` – Individual project detail page
+- `/` - Homepage with Hero, About, Experience, and Featured Projects sections
+- `/projects` - All Projects page
+- `/projects/:slug` - Individual project detail page
 
 ## Deployment
 This website is hosted on GitHub Pages. You can view the live version at:
