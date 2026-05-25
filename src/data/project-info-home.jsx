@@ -271,7 +271,6 @@ export const projects = [
         "About Me Page (Website)",
         "Portfolio Page (Website)",
         "Creative Poster",
-        "Castle on Ice",
         "Advertisement Poster",
         "Event Poster",
         "Typography Poster",
