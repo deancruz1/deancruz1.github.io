@@ -2,6 +2,7 @@ import Grid from "./Grid";
 
 const Footer = () => {
   const email = "deancruzgg@gmail.com";
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="relative -left-[calc(50vw-50%)] w-screen overflow-hidden py-10 text-(--text-primary)">
@@ -28,7 +29,7 @@ const Footer = () => {
 
         <div className="flex flex-col items-center gap-6 text-center md:flex-row md:items-center md:justify-between md:text-left">
           <p className="text-xs text-(--text-primary)/70 sm:text-sm">
-            © Dean Cruz. All rights reserved.
+            © Dean Cruz - {currentYear}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
