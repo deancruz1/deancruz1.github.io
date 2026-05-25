@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, MemoryRouter, Routes, Route } from "react-router-dom";
 import Background from "./components/Background";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
@@ -7,9 +7,13 @@ import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
+// Dynamically select the router based on the environment
+const Router = typeof window !== "undefined" ? BrowserRouter : MemoryRouter;
+
 function App() {
   return (
-    <BrowserRouter>
+    // Use the dynamic Router instead of hardcoding BrowserRouter
+    <Router>
       <div className="flex min-h-screen flex-col">
         <Background />
         <Navbar />
@@ -25,7 +29,7 @@ function App() {
 
         <Footer />
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
