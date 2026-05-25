@@ -107,11 +107,11 @@ export const projects = [
     })),
   },
   {
-    title: "Landing Page",
+    title: "Shrine of Suisei",
     category: "Frontend",
     description:
-      "A single-page marketing layout built with raw CSS to master box-model fundamentals.",
-    longDescription: `Created to explore layout rendering without framework abstractions. Focuses on manual responsiveness.\n\n• Wrote custom media queries to maintain layout integrity down to small mobile viewports.\n• Added a custom navigation toggle and modal trigger using vanilla JavaScript.\n• Swapped background assets at breakpoints to serve appropriate images for mobile vs desktop.`,
+      "A responsive single-page fan site with custom fonts, fluid typography, and CSS animations — built with raw HTML, CSS, and JavaScript.",
+    longDescription: `Refactored from an early front-end project to improve responsiveness and code quality.\n\n• Implemented fluid typography using CSS clamp() to scale text smoothly across all viewport sizes.\n• Built a hamburger menu with animated icon toggle and auto-close on link click using vanilla JavaScript.\n• Designed a glowing CTA button with animated gradient borders via CSS keyframes.\n• Created a CSS-only modal using the :target pseudo-class for a zero-JavaScript disclaimer popup.\n• Optimized the layout with a centered content container and responsive media queries for mobile, tablet, and desktop.`,
     tags: ["HTML", "CSS", "JS"],
     image: landingPageImg,
     liveDemo: "https://deancruz1.github.io/Shrine_of_Suisei/",
@@ -129,15 +129,15 @@ export const projects = [
     })),
   },
   {
-    title: "Fansite",
+    title: "Handler One",
     category: "Frontend",
     description:
       "A 3-page site demonstrating custom CSS Grid systems and multi-page routing.",
     longDescription: `Developed to practice building complex grid-based interfaces without Bootstrap.\n\n• Managed page reflows using CSS Grid and Flexbox.\n• Handled site-wide routing across separate HTML pages using vanilla JS.\n• Built interactive character profile cards with custom hover states and CSS transitions.`,
-    tags: ["HTML", "CSS", "JS"],
+    tags: ["HTML", "SCSS", "Less", "JS"],
     image: fansiteImg,
-    liveDemo: "https://deancruz1.github.io/anime-fansite/",
-    github: "https://github.com/deancruz1/anime-fansite",
+    liveDemo: "https://deancruz1.github.io/Handler_One/",
+    github: "https://github.com/deancruz1/Handler_One",
     slug: "fansite",
     heroVideo: fansiteVideo,
     gallery: fansiteGalleryImages.map((image, i) => ({
@@ -221,8 +221,8 @@ export const projects = [
     category: "Full-Stack",
     description:
       "A PHP/MySQL application with CRUD-enabled database tables and session-based authentication.",
-    longDescription: `Built to integrate server-side logic with relational storage.\n\n• Designed a MySQL schema to handle users, movie metadata, and review data.\n• Implemented secure login and registration with PHP session handling to guard protected routes.`,
-    tags: ["PHP", "SQL", "CSS"],
+    longDescription: `Built to integrate server-side logic with relational storage.\n\n• Designed a MySQL schema with three relational tables: users, movies, and reviews with foreign key constraints.\n• Implemented user registration and login with PHP session handling to guard protected routes for review submission, editing, and deletion.\n• Built full CRUD operations for movie reviews with star ratings, allowing logged-in users to submit, edit, and delete their own reviews.\n• Created a searchable movie browsing page that queries the database and displays movie details including genre, director, cast, and synopsis.`,
+    tags: ["PHP", "MySQL", "CSS"],
     image: movietopiaImg,
     github: "https://github.com/deancruz1/Movietopia",
     slug: "movietopia",
@@ -238,12 +238,12 @@ export const projects = [
     })),
   },
   {
-    title: "Mobile Wireframe",
+    title: "Mobile XD",
     category: "Design",
     description:
       "A 154-screen high-fidelity mobile prototype mapping out navigation flows and touch-target sizing.",
     longDescription: `Prototyped to produce developer handoff specs from design concepts.\n\n• Mapped user navigation stacks and interaction triggers in Adobe XD.\n• Established a design system for consistent type scaling and component spacing.\n• Defined grid alignments and component boundaries to guide front-end implementation.`,
-    tags: ["XD"],
+    tags: ["XD", "Illustrator", "Photoshop"],
     image: mobileWireframeImg,
     liveDemo:
       "https://xd.adobe.com/view/ff47b771-facc-42d4-9af3-0043a8316f16-aa14/",
@@ -255,7 +255,7 @@ export const projects = [
     })),
   },
   {
-    title: "2D Artwork",
+    title: "Visual Artwork",
     category: "Design",
     description:
       "A collection of digital assets, posters, and layouts using Adobe Creative Cloud.",
