@@ -52,7 +52,7 @@ const HomeProjectsSection = () => {
         >
           <AnimatePresence>
             {filteredProjects
-              .filter((_, index) => [0, 3, 5].includes(index))
+              .filter((project) => project.featured)
               .map((project) => (
                 <motion.div
                   key={project.title}

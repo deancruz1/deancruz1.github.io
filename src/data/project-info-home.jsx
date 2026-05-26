@@ -12,6 +12,14 @@ import wireframeVideo from "../assets/videos/wireframe.mp4";
 import portfolioVideo from "../assets/videos/portfolio-website.mp4";
 import kirokuImg from "../assets/img/project-cards/kiroku.webp";
 import kirokuVideo from "../assets/videos/kiroku.mp4";
+import uraraImg from "../assets/img/project-cards/urara.webp";
+import uraraVideo from "../assets/videos/urara.mp4";
+
+const uraraGallery = import.meta.glob(
+  "../assets/img/project-gallery/urara/*.webp",
+  { eager: true },
+);
+const uraraGalleryImages = Object.values(uraraGallery).map((m) => m.default);
 
 const kirokuGallery = import.meta.glob(
   "../assets/img/project-gallery/kiroku/*.webp",
@@ -86,6 +94,7 @@ export const projects = [
 
   {
     title: "Foundations",
+    featured: true,
     category: "Frontend",
     description:
       "My first portfolio site, built during my diploma. Selected by faculty as the cohort reference implementation for code structure.",
@@ -108,6 +117,7 @@ export const projects = [
   },
   {
     title: "Shrine of Suisei",
+    featured: false,
     category: "Frontend",
     description:
       "A responsive single-page fan site with custom fonts, fluid typography, and CSS animations — built with raw HTML, CSS, and JavaScript.",
@@ -130,6 +140,7 @@ export const projects = [
   },
   {
     title: "Handler One",
+    featured: false,
     category: "Frontend",
     description:
       "A 3-page site demonstrating custom CSS Grid systems and multi-page routing.",
@@ -152,6 +163,7 @@ export const projects = [
   },
   {
     title: "Kiroku",
+    featured: true,
     category: "Full-Stack",
     description:
       "A full-stack anime tracker with OAuth, full CRUD, seasonal calendar, personalized recommendations, and interactive stats. Powered by a live API and a relational database.",
@@ -218,6 +230,7 @@ export const projects = [
   },
   {
     title: "Movietopia",
+    featured: false,
     category: "Full-Stack",
     description:
       "A PHP/MySQL application with CRUD-enabled database tables and session-based authentication.",
@@ -239,6 +252,7 @@ export const projects = [
   },
   {
     title: "Mobile XD",
+    featured: false,
     category: "Design",
     description:
       "A 154-screen high-fidelity mobile prototype mapping out navigation flows and touch-target sizing.",
@@ -255,7 +269,75 @@ export const projects = [
     })),
   },
   {
+    title: "Urara",
+    featured: true,
+    category: "Frontend",
+    description:
+      "A comprehensive Umamusume Pretty Derby fan guide with character profiles, music previews, news feeds, and birthday tracking, powered by a community API.",
+    longDescription: `Built as a passion project to consolidate Umamusume Pretty Derby content into a single responsive web app. Consumes the community-driven Umapyoi API for all data.\n\n• Developed dynamic character profiles with bios, stats, fun facts, voice samples, and image galleries featuring label-based navigation and a lightbox modal.\n• Integrated MyMemory API for Japanese-to-English machine translation of character profiles and fun facts with a toggle between original and translated text.\n• Built a music browser with character filtering, track preview playback, and singer avatars — horizontal scroll on mobile, vertical sidebar on desktop.\n• Implemented a news feed with keyword search, pagination, and full-article modal views rendering raw HTML content.\n• Created a birthday calendar displaying today's and upcoming character birthdays for the current month.\n• Designed a dynamic accent color system where each character's primary color drives button highlights, borders, and UI accents throughout the page.\n• Added dark/light theme switching with persistent user preference via localStorage.\n• Applied page transitions and micro-animations using Framer Motion across all route changes.`,
+    tags: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "TanStack Query"],
+    image: uraraImg,
+    liveDemo: "https://deancruz1.github.io/Urara/",
+    github: "https://github.com/deancruz1/Urara",
+    slug: "urara",
+    heroVideo: uraraVideo,
+    gallery: uraraGalleryImages.map((image, i) => ({
+      image,
+      caption: [
+        "Home Page",
+        "Characters Page",
+        "Music Page",
+        "News Page",
+      ][i],
+    })),
+    caseStudy: {
+      overview: `Urara is a fan guide web app for Umamusume Pretty Derby that brings together character profiles, music, news, and birthday tracking. Built with React and TypeScript, it consumes the public Umapyoi API and requires no backend or authentication.`,
+
+      problem: `Existing Umamusume resources are scattered across wikis, YouTube playlists, and social media. Fans have no single destination to browse profiles, preview music, and catch up on news. I wanted to build that unified experience.`,
+
+      solution: `Built a single-page React app with four main sections: character browser, music catalog, news feed, and birthday calendar. All data comes from the Umapyoi API via TanStack Query for caching and state management. The MyMemory API handles translations without any API key. Tailwind CSS and Framer Motion handle the responsive layout and animations.`,
+
+      technicalDecisions: [
+        {
+          decision: "TanStack Query",
+          reason:
+            "Handles caching, background refetching, and loading states out of the box - cleaner than managing useEffect chains for every API call.",
+        },
+        {
+          decision: "Umapyoi API",
+          reason:
+            "Free, no authentication required, and provides all the character, music, and news data needed. The community maintains it actively.",
+        },
+        {
+          decision: "GitHub Pages",
+          reason:
+            "The app is fully static with no server-side logic. All API calls happen client-side, so free static hosting was the obvious choice.",
+        },
+        {
+          decision: "MyMemory API for translation",
+          reason:
+            "Machine translation of Japanese text to English without any API key setup or rate limit concerns for a fan project of this scale.",
+        },
+      ],
+
+      challenges: [
+        "The Umapyoi API returns raw HTML in news content, so the news detail modal had to safely render HTML strings while avoiding XSS vulnerabilities",
+        "Designing a responsive character filter that works as a vertical sidebar on desktop but a horizontal scroll row on mobile required two distinct layout strategies",
+        "Implementing dynamic accent colors meant every component needed to accept and apply a character-specific color prop without hardcoding values",
+        "The music preview player uses HTML5 audio elements that don't support multiple simultaneous playbacks, so coordinating play/pause across track items required lifting state up and managing a single audio instance",
+        "Translating profile text on demand meant handling API latency gracefully with loading spinners while caching results to avoid redundant requests",
+      ],
+
+      improvements: [
+        "Implement static site generation (SSG) for character and music pages so search engines can index API-driven content",
+        "Add user accounts with Supabase to enable favoriting characters and saving music playlists",
+        "Add music search filters by album, artist, and song type beyond just character filtering",
+      ],
+    },
+  },
+  {
     title: "Visual Artwork",
+    featured: false,
     category: "Design",
     description:
       "A collection of digital assets, posters, and layouts using Adobe Creative Cloud.",
