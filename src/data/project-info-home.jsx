@@ -98,7 +98,7 @@ export const projects = [
     category: "Frontend",
     description:
       "My first portfolio site, built during my diploma. Selected by faculty as the cohort reference implementation for code structure.",
-    longDescription: `The starting point of my development journey. Built as a student to learn the fundamentals of web development.\n\n• Scaled across 3 breakpoints (mobile, tablet, desktop) using Bootstrap grid systems.\n• Implemented semantic HTML structure for accessibility and SEO.\n• Organized into a modular CSS/JS architecture. Selected by faculty as the reference codebase for student projects in the cohort.`,
+    longDescription: `The project that started it all. Built to learn the fundamentals, then selected by faculty as the cohort reference implementation for code structure.\n\n• Scaled across 3 breakpoints (mobile, tablet, desktop) using Bootstrap grid systems.\n• Implemented semantic HTML structure for accessibility and SEO.\n• Categorized projects into Front-End, Programming, and Design sections with image preview galleries for each.`,
     tags: ["HTML", "CSS", "JS", "Bootstrap"],
     image: portfolioImg,
     liveDemo: "https://deancruz1.github.io/Foundations/",
@@ -119,9 +119,8 @@ export const projects = [
     title: "// HANDLER ONE",
     featured: true,
     category: "Frontend",
-    description:
-      "A tactical terminal-style fansite for 86 Eighty-Six built with React, featuring deep character dossiers, CRT scanline effects, and a custom SPA routing solution for GitHub Pages.",
-    longDescription: `A personal fansite designed to mimic a Handler's military control console from the series 86 Eighty-Six.\n\n• Designed an immersive tactical UI with animated CRT scanline overlays, vignette effects, and conditional alert themes based on operational status.\n• Built detailed processor dossier cards displaying sync rates, operational history, and Para-RAID status for each member of the Spearhead Squadron.\n• Implemented a custom SPA routing workaround with a 404.html interception script, enabling flawless deep-linking and page refreshes on GitHub Pages static hosting.\n• Created responsive layouts that transition smoothly from complex desktop terminal grids to optimized mobile tactical screens.\n• Structured data architecture separating processor dossiers from tactical asset mappings for unit insignias and mecha models.`,
+    description: "A fansite for 86 Eighty-Six built as a Handler's military terminal. Plot archive, processor dossiers, mech specs, faction intelligence profiles, and a combat log spanning both acts.",
+    longDescription: `The concept is simple: you're a Handler logged into HQ. The site covers the full series: plot breakdowns by act, Spearhead Squadron dossiers with Para-RAID sync status, a mech database with armament specs, faction geopolitical profiles with threat classifications, and a combat log archive across all episodes.\n\n• Designed an immersive tactical UI with animated CRT scanline overlays, vignette effects, and conditional alert themes based on operational status.\n• Built detailed processor dossier cards displaying sync rates, operational history, and Para-RAID status for each member of the Spearhead Squadron.\n• Implemented a custom SPA routing workaround with a 404.html interception script, enabling flawless deep-linking and page refreshes on GitHub Pages static hosting.\n• Created responsive layouts that transition smoothly from complex desktop terminal grids to optimized mobile tactical screens.\n• Structured data architecture separating processor dossiers from tactical asset mappings for unit insignias and mecha models.`,
     tags: ["React", "Tailwind"],
     image: fansiteImg,
     liveDemo: "https://deancruz1.github.io/Handler-One/",
@@ -143,8 +142,8 @@ export const projects = [
     featured: true,
     category: "Full-Stack",
     description:
-      "A full-stack anime tracker with OAuth, full CRUD, seasonal calendar, personalized recommendations, and interactive stats. Powered by a live API and a relational database.",
-    longDescription: `Built to consolidate anime tracking into a single responsive web app. Integrates external API data with a persistent PostgreSQL database on Supabase.\n\n• Implemented dual authentication with Discord OAuth for quick sign-in and email/password registration using bcrypt hashing and JWT session tokens.\n• Built full CRUD operations for watch list management: add anime with status tracking, update episode progress and star ratings inline, and delete entries with cascade cleanup.\n• Developed a 7-day seasonal broadcast calendar with episode countdown timers, expand/collapse animations via Framer Motion, and genre-aware filtering with a tracked-only toggle.\n• Created a personalized recommendation engine that analyzes watch history, identifies top genres, queries the Jikan API, and surfaces unwatched shows with "Because you liked" context.\n• Visualized user stats with a bento-grid layout featuring summary cards, a Recharts donut chart for status distribution, and dynamic genre-based color palettes.\n• Built custom collections with create, rename, delete, and add/remove functionality, a profile settings page with Discord link/unlink, and responsive design across all breakpoints.`,
+      "Existing anime trackers never felt right. Kiroku is mine, built full-stack with OAuth, a seasonal calendar, a recommendation engine, and interactive stats.",
+    longDescription: `Built because existing anime trackers never felt right. Kiroku consolidates tracking into a single responsive web app with auth, recommendations, and real-time seasonal data.\n\n• Implemented dual authentication with Discord OAuth for quick sign-in and email/password registration using bcrypt hashing and JWT session tokens.\n• Built full CRUD operations for watch list management: add anime with status tracking, update episode progress and star ratings inline, and delete entries with cascade cleanup.\n• Developed a 7-day seasonal broadcast calendar with episode countdown timers, expand/collapse animations via Framer Motion, and genre-aware filtering with a tracked-only toggle.\n• Created a personalized recommendation engine that analyzes watch history, identifies top genres, queries the Jikan API, and surfaces unwatched shows with "Because you liked" context.\n• Visualized user stats with a bento-grid layout featuring summary cards, a Recharts donut chart for status distribution, and dynamic genre-based color palettes.\n• Built custom collections with create, rename, delete, and add/remove functionality, a profile settings page with Discord link/unlink, and responsive design across all breakpoints.`,
     tags: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind", "React"],
     image: kirokuImg,
     liveDemo: "https://kiroku-nyaa.vercel.app",
@@ -210,8 +209,8 @@ export const projects = [
     featured: true,
     category: "Frontend",
     description:
-      "A comprehensive Umamusume Pretty Derby fan guide with character profiles, music previews, news feeds, and birthday tracking, powered by a community API.",
-    longDescription: `Built as a passion project to consolidate Umamusume Pretty Derby content into a single responsive web app. Consumes the community-driven Umapyoi API for all data.\n\n• Developed dynamic character profiles with bios, stats, fun facts, voice samples, and image galleries featuring label-based navigation and a lightbox modal.\n• Integrated MyMemory API for Japanese-to-English machine translation of character profiles and fun facts with a toggle between original and translated text.\n• Built a music browser with character filtering, track preview playback, and singer avatars — horizontal scroll on mobile, vertical sidebar on desktop.\n• Implemented a news feed with keyword search, pagination, and full-article modal views rendering raw HTML content.\n• Created a birthday calendar displaying today's and upcoming character birthdays for the current month.\n• Designed a dynamic accent color system where each character's primary color drives button highlights, borders, and UI accents throughout the page.\n• Added dark/light theme switching with persistent user preference via localStorage.\n• Applied page transitions and micro-animations using Framer Motion across all route changes.`,
+      "A fan encyclopedia for Umamusume Pretty Derby. Character profiles, music previews, news, and birthday tracking, with on-demand translation for Japanese text.",
+    longDescription: `A practice project built around a game I enjoy. The Umapyoi API returns Japanese text for some content, so I integrated the MyMemory translation API to handle it on demand. Users can toggle translations per entry without the page reloading.\n\n• Developed dynamic character profiles with bios, stats, fun facts, voice samples, and image galleries featuring label-based navigation and a lightbox modal.\n• Integrated MyMemory API for Japanese-to-English machine translation of character profiles and fun facts with a toggle between original and translated text.\n• Built a music browser with character filtering, track preview playback, and singer avatars, horizontal scroll on mobile, vertical sidebar on desktop.\n• Implemented a news feed with keyword search, pagination, and full-article modal views rendering raw HTML content.\n• Created a birthday calendar displaying today's and upcoming character birthdays for the current month.\n• Designed a dynamic accent color system where each character's primary color drives button highlights, borders, and UI accents throughout the page.\n• Added dark/light theme switching with persistent user preference via localStorage.\n• Applied page transitions and micro-animations using Framer Motion across all route changes.`,
     tags: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "TanStack Query"],
     image: uraraImg,
     liveDemo: "https://deancruz1.github.io/Urara/",
@@ -228,7 +227,7 @@ export const projects = [
       ][i],
     })),
     caseStudy: {
-      overview: `Urara is a fan guide web app for Umamusume Pretty Derby that brings together character profiles, music, news, and birthday tracking. Built with React and TypeScript, it consumes the public Umapyoi API and requires no backend or authentication.`,
+      overview: `Urara is a fan guide for Umamusume Pretty Derby, built because fan resources for the series are scattered across wikis, playlists, and social media. React and TypeScript, powered by the public Umapyoi API, no backend required.`,
 
       problem: `Existing Umamusume resources are scattered across wikis, YouTube playlists, and social media. Fans have no single destination to browse profiles, preview music, and catch up on news. I wanted to build that unified experience.`,
 
@@ -278,7 +277,7 @@ export const projects = [
     category: "Full-Stack",
     description:
       "A PHP/MySQL application with CRUD-enabled database tables and session-based authentication.",
-    longDescription: `Built to integrate server-side logic with relational storage.\n\n• Designed a MySQL schema with three relational tables: users, movies, and reviews with foreign key constraints.\n• Implemented user registration and login with PHP session handling to guard protected routes for review submission, editing, and deletion.\n• Built full CRUD operations for movie reviews with star ratings, allowing logged-in users to submit, edit, and delete their own reviews.\n• Created a searchable movie browsing page that queries the database and displays movie details including genre, director, cast, and synopsis.`,
+    longDescription: `A deep dive into server-side fundamentals. Built to understand how session auth, relational schemas, and CRUD operations fit together end-to-end.\n\n• Designed a MySQL schema with three relational tables: users, movies, and reviews with foreign key constraints.\n• Implemented user registration and login with PHP session handling to guard protected routes for review submission, editing, and deletion.\n• Built full CRUD operations for movie reviews with star ratings, allowing logged-in users to submit, edit, and delete their own reviews.\n• Created a searchable movie browsing page that queries the database and displays movie details including genre, director, cast, and synopsis.`,
     tags: ["PHP", "MySQL", "CSS"],
     image: movietopiaImg,
     github: "https://github.com/deancruz1/Movietopia",
@@ -299,8 +298,8 @@ export const projects = [
     featured: false,
     category: "Frontend",
     description:
-      "A responsive single-page fan site with custom fonts, fluid typography, and CSS animations — built with raw HTML, CSS, and JavaScript.",
-    longDescription: `Refactored from an early front-end project to improve responsiveness and code quality.\n\n• Implemented fluid typography using CSS clamp() to scale text smoothly across all viewport sizes.\n• Built a hamburger menu with animated icon toggle and auto-close on link click using vanilla JavaScript.\n• Designed a glowing CTA button with animated gradient borders via CSS keyframes.\n• Created a CSS-only modal using the :target pseudo-class for a zero-JavaScript disclaimer popup.\n• Optimized the layout with a centered content container and responsive media queries for mobile, tablet, and desktop.`,
+      "A responsive single-page fan site with custom fonts, fluid typography, and CSS animations - built with raw HTML, CSS, and JavaScript.",
+    longDescription: `Started as a basic fansite project before enrolling into Republic Polytechnic for a VTuber I enjoy watching. Kept going back to refactor it until the CSS was something I was actually proud of.\n• Built a hamburger menu with animated icon toggle and auto-close on link click using vanilla JavaScript.\n• Designed a glowing CTA button with animated gradient borders via CSS keyframes.\n• Created a CSS-only modal using the :target pseudo-class for a zero-JavaScript disclaimer popup.\n• Optimized the layout with a centered content container and responsive media queries for mobile, tablet, and desktop.`,
     tags: ["HTML", "CSS", "JS"],
     image: landingPageImg,
     liveDemo: "https://deancruz1.github.io/Shrine_of_Suisei/",

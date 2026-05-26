@@ -110,7 +110,7 @@ const Navbar = () => {
             rel="noopener noreferrer"
             className={`hidden lg:inline-flex ${introButton}`}
           >
-            Connect →
+            Connect
           </a>
 
           {/* Hamburger - Mobile/Tablet only */}

@@ -48,7 +48,7 @@ const HomeProjectsSection = () => {
 
         <motion.div
           layout
-          className="grid grid-cols-1 items-stretch gap-6 md:min-h-130 md:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 items-stretch gap-6 md:min-h-123 md:grid-cols-2 lg:grid-cols-3"
         >
           <AnimatePresence>
             {filteredProjects

@@ -52,13 +52,13 @@ const Home = () => {
           <div className="description-container my-2 lg:my-4">
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
               Frontend-focused <span className="text-(--accent)">|</span> React,
-              JavaScript, Python
+              TypeScript, Next.js
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              IMDA Gold Medalist
+              Ex-OCBC
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              Enterprise banking experience at OCBC
+              IMDA Gold Medal, Republic Polytechnic
             </p>
           </div>
 
@@ -125,7 +125,7 @@ const Home = () => {
 
             <div className="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/80 to-transparent p-4 md:p-6">
               <p className="w-70 text-2xl font-bold text-white md:w-80 md:text-3xl">
-                Building frontend systems that hold up under real-world load.
+                I build interfaces that feel right, and full-stack systems that back them up
               </p>
             </div>
           </div>
@@ -134,10 +134,7 @@ const Home = () => {
             {/* Focused on roles - mobile only, above Specialising */}
             <div className="relative order-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:hidden">
               <Grid />
-              <p className="relative z-10 text-2xl font-bold text-(--text-primary)">
-                Focused on roles where frontend engineering meets product
-                thinking.
-              </p>
+              <p className="relative z-10 text-2xl font-bold text-(--text-primary)">Frontend dev by day, losing ranked games and falling behind on my anime backlog by night</p>
             </div>
 
             {/* Technologies - first on tablet/desktop */}
@@ -163,10 +160,10 @@ const Home = () => {
             </div>
 
             {/* Specialising - second on tablet/desktop */}
-            <div className="relative order-2 flex-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-1">
+            <div className="relative order-2 flex-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-1 min-h-75 md:min-h-0">
               <Grid />
 
-              <p className="relative z-10 text-xl font-bold text-(--text-primary) md:text-2xl">
+              <p className="relative z-10 text-2xl font-bold text-(--text-primary) ">
                 Specialising in{" "}
                 <span
                   className="hover-target relative inline-block text-(--accent)"
@@ -257,10 +254,7 @@ const Home = () => {
           {/* Focused on roles - desktop only */}
           <div className="relative order-3 hidden overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-1 md:row-start-2 md:block">
             <Grid />
-            <p className="relative z-10 text-2xl font-bold text-(--text-primary)">
-              Focused on roles where frontend engineering meets product
-              thinking.
-            </p>
+            <p className="relative z-10 text-2xl font-bold text-(--text-primary)">Fullstack dev by day, losing ranked games and falling behind on my anime backlog by night</p>
           </div>
         </div>
       </section>
