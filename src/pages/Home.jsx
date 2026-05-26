@@ -8,8 +8,8 @@ import AwardItem from "../components/AwardItem.jsx";
 import { EmailIcon, LocationIcon } from "../components/Icons";
 import { techs } from "../data/tech-icons.jsx";
 import aboutMeImg from "../assets/img/about-me-bg.webp";
-import frontendVideo from "../assets/videos/landing-page.mp4";
-import fullstackVideo from "../assets/videos/movietopia.mp4";
+import frontendVideo from "../assets/videos/urara.mp4";
+import fullstackVideo from "../assets/videos/kiroku.mp4";
 
 // Lazy‑loaded sections – only fetched when they enter the viewport
 const HomeExperienceSection = lazy(
