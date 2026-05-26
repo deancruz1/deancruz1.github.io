@@ -115,29 +115,6 @@ export const projects = [
       ][i],
     })),
   },
-  {
-    title: "Shrine of Suisei",
-    featured: false,
-    category: "Frontend",
-    description:
-      "A responsive single-page fan site with custom fonts, fluid typography, and CSS animations — built with raw HTML, CSS, and JavaScript.",
-    longDescription: `Refactored from an early front-end project to improve responsiveness and code quality.\n\n• Implemented fluid typography using CSS clamp() to scale text smoothly across all viewport sizes.\n• Built a hamburger menu with animated icon toggle and auto-close on link click using vanilla JavaScript.\n• Designed a glowing CTA button with animated gradient borders via CSS keyframes.\n• Created a CSS-only modal using the :target pseudo-class for a zero-JavaScript disclaimer popup.\n• Optimized the layout with a centered content container and responsive media queries for mobile, tablet, and desktop.`,
-    tags: ["HTML", "CSS", "JS"],
-    image: landingPageImg,
-    liveDemo: "https://deancruz1.github.io/Shrine_of_Suisei/",
-    github: "https://github.com/deancruz1/Shrine_of_Suisei",
-    slug: "landing-page",
-    heroVideo: landingPageVideo,
-    gallery: landingPageGalleryImages.map((image, i) => ({
-      image,
-      caption: [
-        "Home Page",
-        "Pop-up Text",
-        "Links to Other Websites",
-        "Quote and Footer Section",
-      ][i],
-    })),
-  },
 {
     title: "// HANDLER ONE",
     featured: true,
@@ -228,47 +205,7 @@ export const projects = [
       ],
     },
   },
-  {
-    title: "Movietopia",
-    featured: false,
-    category: "Full-Stack",
-    description:
-      "A PHP/MySQL application with CRUD-enabled database tables and session-based authentication.",
-    longDescription: `Built to integrate server-side logic with relational storage.\n\n• Designed a MySQL schema with three relational tables: users, movies, and reviews with foreign key constraints.\n• Implemented user registration and login with PHP session handling to guard protected routes for review submission, editing, and deletion.\n• Built full CRUD operations for movie reviews with star ratings, allowing logged-in users to submit, edit, and delete their own reviews.\n• Created a searchable movie browsing page that queries the database and displays movie details including genre, director, cast, and synopsis.`,
-    tags: ["PHP", "MySQL", "CSS"],
-    image: movietopiaImg,
-    github: "https://github.com/deancruz1/Movietopia",
-    slug: "movietopia",
-    heroVideo: movietopiaVideo,
-    gallery: movietopiaGalleryImages.map((image, i) => ({
-      image,
-      caption: [
-        "Home Page",
-        "Search Function",
-        "Reviews Page",
-        "Edit Reviews Page",
-      ][i],
-    })),
-  },
-  {
-    title: "Mobile XD",
-    featured: false,
-    category: "Design",
-    description:
-      "A 154-screen high-fidelity mobile prototype mapping out navigation flows and touch-target sizing.",
-    longDescription: `Prototyped to produce developer handoff specs from design concepts.\n\n• Mapped user navigation stacks and interaction triggers in Adobe XD.\n• Established a design system for consistent type scaling and component spacing.\n• Defined grid alignments and component boundaries to guide front-end implementation.`,
-    tags: ["XD", "Illustrator", "Photoshop"],
-    image: mobileWireframeImg,
-    liveDemo:
-      "https://xd.adobe.com/view/ff47b771-facc-42d4-9af3-0043a8316f16-aa14/",
-    slug: "mobile-wireframe",
-    heroVideo: wireframeVideo,
-    gallery: wireframeGalleryImages.map((image, i) => ({
-      image,
-      caption: ["Home Page", "About Me", "Portfolio Page", "Contact Page"][i],
-    })),
-  },
-  {
+    {
     title: "Urara",
     featured: true,
     category: "Frontend",
@@ -334,6 +271,69 @@ export const projects = [
         "Add music search filters by album, artist, and song type beyond just character filtering",
       ],
     },
+  },
+  {
+    title: "Movietopia",
+    featured: false,
+    category: "Full-Stack",
+    description:
+      "A PHP/MySQL application with CRUD-enabled database tables and session-based authentication.",
+    longDescription: `Built to integrate server-side logic with relational storage.\n\n• Designed a MySQL schema with three relational tables: users, movies, and reviews with foreign key constraints.\n• Implemented user registration and login with PHP session handling to guard protected routes for review submission, editing, and deletion.\n• Built full CRUD operations for movie reviews with star ratings, allowing logged-in users to submit, edit, and delete their own reviews.\n• Created a searchable movie browsing page that queries the database and displays movie details including genre, director, cast, and synopsis.`,
+    tags: ["PHP", "MySQL", "CSS"],
+    image: movietopiaImg,
+    github: "https://github.com/deancruz1/Movietopia",
+    slug: "movietopia",
+    heroVideo: movietopiaVideo,
+    gallery: movietopiaGalleryImages.map((image, i) => ({
+      image,
+      caption: [
+        "Home Page",
+        "Search Function",
+        "Reviews Page",
+        "Edit Reviews Page",
+      ][i],
+    })),
+  },
+    {
+    title: "Shrine of Suisei",
+    featured: false,
+    category: "Frontend",
+    description:
+      "A responsive single-page fan site with custom fonts, fluid typography, and CSS animations — built with raw HTML, CSS, and JavaScript.",
+    longDescription: `Refactored from an early front-end project to improve responsiveness and code quality.\n\n• Implemented fluid typography using CSS clamp() to scale text smoothly across all viewport sizes.\n• Built a hamburger menu with animated icon toggle and auto-close on link click using vanilla JavaScript.\n• Designed a glowing CTA button with animated gradient borders via CSS keyframes.\n• Created a CSS-only modal using the :target pseudo-class for a zero-JavaScript disclaimer popup.\n• Optimized the layout with a centered content container and responsive media queries for mobile, tablet, and desktop.`,
+    tags: ["HTML", "CSS", "JS"],
+    image: landingPageImg,
+    liveDemo: "https://deancruz1.github.io/Shrine_of_Suisei/",
+    github: "https://github.com/deancruz1/Shrine_of_Suisei",
+    slug: "landing-page",
+    heroVideo: landingPageVideo,
+    gallery: landingPageGalleryImages.map((image, i) => ({
+      image,
+      caption: [
+        "Home Page",
+        "Pop-up Text",
+        "Links to Other Websites",
+        "Quote and Footer Section",
+      ][i],
+    })),
+  },
+  {
+    title: "Mobile XD",
+    featured: false,
+    category: "Design",
+    description:
+      "A 154-screen high-fidelity mobile prototype mapping out navigation flows and touch-target sizing.",
+    longDescription: `Prototyped to produce developer handoff specs from design concepts.\n\n• Mapped user navigation stacks and interaction triggers in Adobe XD.\n• Established a design system for consistent type scaling and component spacing.\n• Defined grid alignments and component boundaries to guide front-end implementation.`,
+    tags: ["XD", "Illustrator", "Photoshop"],
+    image: mobileWireframeImg,
+    liveDemo:
+      "https://xd.adobe.com/view/ff47b771-facc-42d4-9af3-0043a8316f16-aa14/",
+    slug: "mobile-wireframe",
+    heroVideo: wireframeVideo,
+    gallery: wireframeGalleryImages.map((image, i) => ({
+      image,
+      caption: ["Home Page", "About Me", "Portfolio Page", "Contact Page"][i],
+    })),
   },
   {
     title: "Visual Artwork",
