@@ -94,7 +94,7 @@ export const projects = [
 
   {
     title: "Foundations",
-    featured: true,
+    featured: false,
     category: "Frontend",
     description:
       "My first portfolio site, built during my diploma. Selected by faculty as the cohort reference implementation for code structure.",
@@ -140,7 +140,7 @@ export const projects = [
   },
 {
     title: "// HANDLER ONE",
-    featured: false,
+    featured: true,
     category: "Frontend",
     description:
       "A tactical terminal-style fansite for 86 Eighty-Six built with React, featuring deep character dossiers, CRT scanline effects, and a custom SPA routing solution for GitHub Pages.",
