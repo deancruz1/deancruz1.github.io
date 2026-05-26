@@ -1,27 +1,27 @@
-import ncsLogo from "../assets/img/logo-ncs.webp";
+// import ncsLogo from "../assets/img/logo-ncs.webp";
 import ocbcLogo from "../assets/img/logo-ocbc.webp";
 
 export const workExperiences = [
-  {
-    logo: ncsLogo,
-    title: "Software Engineer",
-    company: "NCS",
-    type: "Permanent",
-    duration: "2026 - Present",
-    location: "Singapore",
-    description:
-      "Working as a Software Engineer under the NCS Fusion Work-Study Degree Programme, developing software solutions while pursuing a sponsored Bachelor's Degree from a recognised university.",
-    responsibilities: [
-      "Participate in discussions with stakeholders to understand business and system requirements",
-      "Perform technical tasks to develop/enhance software applications according to functional and technical specifications",
-      "Maintain and improve software applications",
-      "Execute unit, integration, system and user acceptance testing",
-      "Using configuration management, integration and build automation tools to deploy application",
-      "Identify opportunities and suggest recommendations for system improvement",
-    ],
-    achievements: [],
-    tags: ["React", "Node.js", "Tailwind", "Java", "Python"],
-  },
+  // {
+  //   logo: ncsLogo,
+  //   title: "Software Engineer",
+  //   company: "NCS",
+  //   type: "Permanent",
+  //   duration: "2026 - Present",
+  //   location: "Singapore",
+  //   description:
+  //     "Working as a Software Engineer under the NCS Fusion Work-Study Degree Programme, developing software solutions while pursuing a sponsored Bachelor's Degree from a recognised university.",
+  //   responsibilities: [
+  //     "Participate in discussions with stakeholders to understand business and system requirements",
+  //     "Perform technical tasks to develop/enhance software applications according to functional and technical specifications",
+  //     "Maintain and improve software applications",
+  //     "Execute unit, integration, system and user acceptance testing",
+  //     "Using configuration management, integration and build automation tools to deploy application",
+  //     "Identify opportunities and suggest recommendations for system improvement",
+  //   ],
+  //   achievements: [],
+  //   tags: ["React", "Node.js", "Tailwind", "Java", "Python"],
+  // },
   {
     logo: ocbcLogo,
     title: "Software Test Engineer",
