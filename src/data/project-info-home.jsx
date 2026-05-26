@@ -147,8 +147,8 @@ export const projects = [
     longDescription: `Developed to practice building complex grid-based interfaces without Bootstrap.\n\n• Managed page reflows using CSS Grid and Flexbox.\n• Handled site-wide routing across separate HTML pages using vanilla JS.\n• Built interactive character profile cards with custom hover states and CSS transitions.`,
     tags: ["HTML", "SCSS", "Less", "JS"],
     image: fansiteImg,
-    liveDemo: "https://deancruz1.github.io/Handler_One/",
-    github: "https://github.com/deancruz1/Handler_One",
+    liveDemo: "https://deancruz1.github.io/Handler-One/",
+    github: "https://github.com/deancruz1/Handler-One",
     slug: "fansite",
     heroVideo: fansiteVideo,
     gallery: fansiteGalleryImages.map((image, i) => ({
