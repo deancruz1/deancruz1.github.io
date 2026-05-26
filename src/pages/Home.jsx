@@ -254,7 +254,7 @@ const Home = () => {
           {/* Focused on roles - desktop only */}
           <div className="relative order-3 hidden overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-1 md:row-start-2 md:block">
             <Grid />
-            <p className="relative z-10 text-2xl font-bold text-(--text-primary)">Fullstack dev by day, losing ranked games and falling behind on my anime backlog by night</p>
+            <p className="relative z-10 text-2xl font-bold text-(--text-primary)">Frontend dev by day, losing ranked games and falling behind on my anime backlog by night</p>
           </div>
         </div>
       </section>
