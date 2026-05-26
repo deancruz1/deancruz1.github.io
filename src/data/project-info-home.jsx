@@ -138,14 +138,14 @@ export const projects = [
       ][i],
     })),
   },
-  {
-    title: "Handler One",
+{
+    title: "// HANDLER ONE",
     featured: false,
     category: "Frontend",
     description:
-      "A 3-page site demonstrating custom CSS Grid systems and multi-page routing.",
-    longDescription: `Developed to practice building complex grid-based interfaces without Bootstrap.\n\n• Managed page reflows using CSS Grid and Flexbox.\n• Handled site-wide routing across separate HTML pages using vanilla JS.\n• Built interactive character profile cards with custom hover states and CSS transitions.`,
-    tags: ["HTML", "SCSS", "Less", "JS"],
+      "A tactical terminal-style fansite for 86 Eighty-Six built with React, featuring deep character dossiers, CRT scanline effects, and a custom SPA routing solution for GitHub Pages.",
+    longDescription: `A personal fansite designed to mimic a Handler's military control console from the series 86 Eighty-Six.\n\n• Designed an immersive tactical UI with animated CRT scanline overlays, vignette effects, and conditional alert themes based on operational status.\n• Built detailed processor dossier cards displaying sync rates, operational history, and Para-RAID status for each member of the Spearhead Squadron.\n• Implemented a custom SPA routing workaround with a 404.html interception script, enabling flawless deep-linking and page refreshes on GitHub Pages static hosting.\n• Created responsive layouts that transition smoothly from complex desktop terminal grids to optimized mobile tactical screens.\n• Structured data architecture separating processor dossiers from tactical asset mappings for unit insignias and mecha models.`,
+    tags: ["React", "Tailwind"],
     image: fansiteImg,
     liveDemo: "https://deancruz1.github.io/Handler-One/",
     github: "https://github.com/deancruz1/Handler-One",
@@ -154,10 +154,10 @@ export const projects = [
     gallery: fansiteGalleryImages.map((image, i) => ({
       image,
       caption: [
-        "Home Page",
-        "Characters Page - 01",
-        "Characters Page - 02",
-        "Characters Page - 03",
+        "Plot Page",
+        "Character Roster Page",
+        "Arsenal Page",
+        "Factions Page",
       ][i],
     })),
   },
