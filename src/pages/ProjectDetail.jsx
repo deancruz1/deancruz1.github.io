@@ -33,6 +33,9 @@ const ProjectDetail = () => {
     );
   }
 
+const liveLabel =
+  project.category === "Design" ? "Live Demo" : "Live Site";
+  
   return (
     <>
       <Helmet>
@@ -106,15 +109,15 @@ const ProjectDetail = () => {
                     </p>
                     <div className="flex flex-col gap-3">
                       {project.liveDemo && (
-                        <a
-                          href={project.liveDemo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="rounded-full bg-(--text-primary) px-4 py-2 text-center text-sm font-semibold text-(--bg-primary) transition-colors duration-300 hover:bg-(--accent) hover:text-(--text-primary)"
-                        >
-                          Live Demo
-                        </a>
-                      )}
+                          <a
+                            href={project.liveDemo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="rounded-full bg-(--text-primary) px-4 py-2 text-center text-sm font-semibold text-(--bg-primary) transition-colors duration-300 hover:bg-(--accent) hover:text-(--text-primary)"
+                          >
+                            {liveLabel}
+                          </a>
+                        )}
                       {project.github && (
                         <a
                           href={project.github}

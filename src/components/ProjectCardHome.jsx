@@ -85,6 +85,9 @@ const ProjectCardHome = ({
     return () => resizeObserver.disconnect();
   }, [tags]);
 
+  const liveLabel =
+  category === "Design" ? "Live Demo" : "Live Site";
+
   return (
     <Link to={slug ? `/projects/${slug}` : "#"} className="block h-full">
       <div
@@ -175,7 +178,7 @@ const ProjectCardHome = ({
                 onClick={(e) => e.stopPropagation()}
                 className="flex-1 rounded-full bg-(--text-primary) px-4 py-2 text-center text-sm font-semibold text-(--bg-primary) transition-colors duration-300 hover:bg-(--accent) hover:text-(--text-primary)"
               >
-                Live Demo
+                {liveLabel}
               </a>
             )}
             {github && (
