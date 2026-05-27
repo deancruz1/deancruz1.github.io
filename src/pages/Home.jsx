@@ -98,7 +98,7 @@ const Home = () => {
               <span>deancruzgg@gmail.com</span>
             </a>
             <div className="flex items-center gap-2 text-(--text-secondary)">
-              <LocationIcon className="text-(--text-muted)" />
+              <LocationIcon  />
               <span>Singapore, SG</span>
             </div>
           </div>

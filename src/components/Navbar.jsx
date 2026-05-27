@@ -166,7 +166,7 @@ const Navbar = () => {
               rel="noopener noreferrer"
               className={introButton}
             >
-              Connect →
+              Connect
             </a>
           </motion.div>
         )}
