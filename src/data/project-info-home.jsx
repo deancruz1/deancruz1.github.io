@@ -313,7 +313,7 @@ export const projects = [
     longDescription: `Built to learn the Java ecosystem end-to-end while delivering a complete learning management system. Instructors create courses with lessons and quizzes. Students enroll, track progress, and get graded automatically.\n\n• Designed a 9-table PostgreSQL schema with composite keys, foreign key cascades, CHECK constraints, and UUID primary keys for data integrity at the database level.\n• Built a Spring Boot REST API with Spring Security and JWT authentication, BCrypt password hashing, role-based access control, and DTO pattern for clean API responses.\n• Mapped all entities with Hibernate ORM including many-to-many junction tables, lazy-loaded relationships, and composite embedded IDs.\n• Implemented a full quiz engine supporting multiple-choice questions with auto-grading, passing score thresholds, single-attempt enforcement, and attempt history.\n• Built an Angular frontend with standalone components, lazy-loaded routes, Tailwind CSS styling, and reactive forms with ChangeDetectorRef for real-time UI updates.\n• Deployed backend to Render with Docker and frontend to Vercel, with Supabase PostgreSQL as the managed database and CORS configuration for cross-origin requests.`,
     tags: ["Angular", "TypeScript", "Java", "Spring Boot", "Hibernate", "PostgreSQL", "Tailwind"],
     image: skillforgeImg,
-    liveDemo: "https://skill-forge-nine-silk.vercel.app",
+    liveDemo: "https://skill-forge-learning.vercel.app",
     github: "https://github.com/deancruz1/SkillForge",
     slug: "skillforge",
     heroVideo: skillforgeVideo,
