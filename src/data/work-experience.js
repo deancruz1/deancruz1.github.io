@@ -7,7 +7,7 @@ export const workExperiences = [
     title: "Software Engineer",
     company: "NCS",
     type: "Permanent",
-    duration: "2026 - Present",
+    duration: "2026 — Present",
     location: "Singapore",
     description:
       "Working as a Software Engineer under the NCS Fusion Work-Study Degree Programme, developing software solutions while pursuing a sponsored Bachelor's Degree from a recognised university.",
@@ -27,7 +27,7 @@ export const workExperiences = [
     title: "Software Test Engineer",
     company: "Oversea-Chinese Banking Corporation",
     type: "Internship",
-    duration: "2024 - 2025",
+    duration: "2024 — 2025",
     location: "Singapore",
     description:
       "Developed and maintained automated test scripts for enterprise banking applications using Tricentis Tosca, ensuring software quality across multiple releases.",
