@@ -14,6 +14,16 @@ import kirokuImg from "../assets/img/project-cards/kiroku.webp";
 import kirokuVideo from "../assets/videos/kiroku.mp4";
 import uraraImg from "../assets/img/project-cards/urara.webp";
 import uraraVideo from "../assets/videos/urara.mp4";
+import skillforgeImg from "../assets/img/project-cards/skillforge.webp";
+import skillforgeVideo from "../assets/videos/skillforge.mp4";
+
+const skillforgeGallery = import.meta.glob(
+  "../assets/img/project-gallery/skillforge/*.webp",
+  { eager: true },
+);
+const skillforgeGalleryImages = Object.values(skillforgeGallery).map(
+  (m) => m.default,
+);
 
 const uraraGallery = import.meta.glob(
   "../assets/img/project-gallery/urara/*.webp",
@@ -117,7 +127,7 @@ export const projects = [
   },
 {
     title: "// HANDLER ONE",
-    featured: true,
+    featured: false,
     category: "Frontend",
     description: "A fansite for 86 Eighty-Six built as a Handler's military terminal. Plot archive, processor dossiers, mech specs, faction intelligence profiles, and a combat log spanning both acts.",
     longDescription: `The concept is simple: you're a Handler logged into HQ. The site covers the full series: plot breakdowns by act, Spearhead Squadron dossiers with Para-RAID sync status, a mech database with armament specs, faction geopolitical profiles with threat classifications, and a combat log archive across all episodes.\n\n• Designed an immersive tactical UI with animated CRT scanline overlays, vignette effects, and conditional alert themes based on operational status.\n• Built detailed processor dossier cards displaying sync rates, operational history, and Para-RAID status for each member of the Spearhead Squadron.\n• Implemented a custom SPA routing workaround with a 404.html interception script, enabling flawless deep-linking and page refreshes on GitHub Pages static hosting.\n• Created responsive layouts that transition smoothly from complex desktop terminal grids to optimized mobile tactical screens.\n• Structured data architecture separating processor dossiers from tactical asset mappings for unit insignias and mecha models.`,
@@ -292,6 +302,75 @@ export const projects = [
         "Edit Reviews Page",
       ][i],
     })),
+  },
+
+  {
+    title: "SkillForge",
+    featured: true,
+    category: "Full-Stack",
+    description:
+      "A full-stack e-learning platform with course creation, lesson tracking, quiz engine, and student analytics. Built with Angular, Spring Boot, and PostgreSQL.",
+    longDescription: `Built to learn the Java ecosystem end-to-end while delivering a complete learning management system. Instructors create courses with lessons and quizzes. Students enroll, track progress, and get graded automatically.\n\n• Designed a 9-table PostgreSQL schema with composite keys, foreign key cascades, CHECK constraints, and UUID primary keys for data integrity at the database level.\n• Built a Spring Boot REST API with Spring Security and JWT authentication, BCrypt password hashing, role-based access control, and DTO pattern for clean API responses.\n• Mapped all entities with Hibernate ORM including many-to-many junction tables, lazy-loaded relationships, and composite embedded IDs.\n• Implemented a full quiz engine supporting multiple-choice questions with auto-grading, passing score thresholds, single-attempt enforcement, and attempt history.\n• Built an Angular frontend with standalone components, lazy-loaded routes, Tailwind CSS styling, and reactive forms with ChangeDetectorRef for real-time UI updates.\n• Deployed backend to Render with Docker and frontend to Vercel, with Supabase PostgreSQL as the managed database and CORS configuration for cross-origin requests.`,
+    tags: ["Angular", "TypeScript", "Java", "Spring Boot", "Hibernate", "PostgreSQL", "Tailwind"],
+    image: skillforgeImg,
+    liveDemo: "https://skill-forge-nine-silk.vercel.app",
+    github: "https://github.com/deancruz1/SkillForge",
+    slug: "skillforge",
+    heroVideo: skillforgeVideo,
+    gallery: skillforgeGalleryImages.map((image, i) => ({
+      image,
+      caption: [
+        "Courses Page",
+        "Course Detail - Lessons & Quiz",
+        "Quiz Taking Interface",
+        "Student Dashboard",
+      ][i],
+    })),
+    caseStudy: {
+      overview: `SkillForge is a full-stack e-learning platform that combines course management, lesson tracking, quiz auto-grading, and student analytics. Built to apply the Java ecosystem with a TypeScript frontend on Angular.`,
+
+      problem: `Most e-learning platforms are either too complex or too basic. I wanted to build one from scratch that covered the full feature set while learning enterprise Java patterns.`,
+
+      solution: `Built on Spring Boot 4.0 with Hibernate ORM mapping 9 relational tables on Supabase PostgreSQL. Spring Security handles JWT authentication with role-based access for instructors and students. The Angular frontend communicates via REST APIs with DTOs for clean data transfer. The quiz engine auto-grades submissions against stored correct answers and enforces single-attempt rules.`,
+
+      technicalDecisions: [
+        {
+          decision: "Spring Boot and Hibernate",
+          reason:
+            "Enterprise standard for Java backends. Hibernate eliminates boilerplate SQL while Spring Boot handles server setup, connection pooling, and dependency injection.",
+        },
+        {
+          decision: "Supabase PostgreSQL",
+          reason:
+            "Managed PostgreSQL with a generous free tier. Used purely as a database host with all SQL written manually. No Supabase client libraries or auto-generated APIs.",
+        },
+        {
+          decision: "Angular over React",
+          reason:
+            "Angular's opinionated structure mirrors enterprise patterns. Built-in router, HTTP client, and form handling mean fewer third-party dependencies.",
+        },
+        {
+          decision: "JWT in localStorage",
+          reason:
+            "Simplest auth persistence for a portfolio project. The JWT is attached to every request and verified by a Spring Security filter chain.",
+        },
+      ],
+
+      challenges: [
+        "Mapping composite keys for junction tables required EmbeddedId with MapsId annotations, a Hibernate pattern with specific syntax that took several iterations to get right.",
+        "Supabase's PgBouncer connection pooler does not support server-side prepared statements, causing prepared statement already exists errors that required adding prepareThreshold=0 to the JDBC URL.",
+        "Angular's change detection does not always trigger on async data loads, so multiple components needed explicit ChangeDetectorRef.detectChanges calls after HTTP responses.",
+        "The quiz engine had to store correct answers without exposing them to students. The instructor view shows answers highlighted in green while students only see scores after submission.",
+        "Deploying Spring Boot on Render required a Dockerfile with multi-stage builds because Render does not natively support Java runtimes.",
+      ],
+
+      improvements: [
+        "Add Google OAuth as an alternative login method using Spring Security OAuth2 client support.",
+        "Implement certificate generation on course completion with Spring Batch for PDF processing.",
+        "Add discussion forums per course with threaded comments and real-time updates via WebSocket.",
+        "Build an instructor analytics dashboard showing enrollment trends, completion rates, and average quiz scores.",
+      ],
+    },
   },
     {
     title: "Shrine of Suisei",
