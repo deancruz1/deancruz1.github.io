@@ -154,7 +154,7 @@ const Home = () => {
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="overflow-hidden"
               >
-                <div ref={ref} className="relative z-10 grid grid-cols-3 gap-3 md:grid-cols-4 overflow-visible">
+                <div ref={ref} className="relative z-10 grid grid-cols-3 gap-3 md:grid-cols-4">
                   <AnimatePresence mode="popLayout">
                     {visibleTechs.map((tech) => (
                       <motion.div
@@ -163,12 +163,12 @@ const Home = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.8 }}
                         transition={{ duration: 0.2 }}
-                        className="relative flex w-24 h-24 flex-col items-center rounded-xl bg-(--bg-tertiary) p-4 transition-colors duration-300 hover:bg-(--accent)/20"
+                        className="relative flex aspect-square w-full flex-col items-center rounded-xl bg-(--bg-tertiary) p-4 transition-colors duration-300 hover:bg-(--accent)/20"
                       >
                         <span className="absolute inset-0 flex items-center justify-center pb-4 text-(--accent)">
                           {tech.icon}
                         </span>
-                        <span className="absolute bottom-2 w-full text-center text-xs leading-tight text-(--text-primary)">
+                        <span className={`absolute bottom-2 w-full text-center leading-tight text-(--text-primary) ${tech.small ? "text-[10px]" : "text-xs"}`}>
                           {tech.label}
                         </span>
                       </motion.div>
