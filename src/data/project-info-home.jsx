@@ -140,7 +140,7 @@ export const projects = [
     gallery: fansiteGalleryImages.map((image, i) => ({
       image,
       caption: [
-        "Plot Page",
+        "Intel Page",
         "Character Roster Page",
         "Arsenal Page",
         "Factions Page",
@@ -320,10 +320,10 @@ export const projects = [
     gallery: skillforgeGalleryImages.map((image, i) => ({
       image,
       caption: [
-        "Courses Page",
-        "Course Detail - Lessons & Quiz",
-        "Quiz Taking Interface",
-        "Student Dashboard",
+        "Courses Page - Instructor",
+        "Course Details - Instructor",
+        "Courses Page - Student",
+        "Course Details - Student",
       ][i],
     })),
     caseStudy: {
