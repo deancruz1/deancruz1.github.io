@@ -1,16 +1,24 @@
-import { FaReact, FaNodeJs, FaPython, FaJava, FaPhp } from "react-icons/fa";
-import { SiTailwindcss, SiTypescript, SiNextdotjs } from "react-icons/si";
+import { FaReact, FaPython, FaJava, FaPhp, FaGitAlt } from "react-icons/fa";
+import { SiTailwindcss, SiTypescript, SiNextdotjs, SiAngular, SiSpringboot, SiPrisma, SiPostgresql, SiMysql, SiFramer, SiHibernate, SiSupabase } from "react-icons/si";
 
 export const techs = [
-  // Top row: Frontend & Meta-frameworks
-  { icon: <FaReact size={54} />, label: "React" },
-  { icon: <SiNextdotjs size={54} />, label: "Next.js" },
-  { icon: <SiTypescript size={54} />, label: "TypeScript" },
-  { icon: <SiTailwindcss size={54} />, label: "Tailwind" },
+  // Featured (default visible)
+  { icon: <FaReact size={50} />, label: "React", featured: true },
+  { icon: <SiAngular size={50} />, label: "Angular", featured: true },
+  { icon: <SiTypescript size={50} />, label: "TypeScript", featured: true },
+  { icon: <SiTailwindcss size={50} />, label: "Tailwind", featured: true },
+  { icon: <SiNextdotjs size={50} />, label: "Next.js", featured: true },
+  { icon: <SiSpringboot size={50} />, label: "Spring Boot", featured: true },
+  { icon: <FaJava size={50} />, label: "Java", featured: true },
+  { icon: <FaPhp size={50} />, label: "PHP", featured: true },
 
-  // Bottom row: Backend & Languages
-  { icon: <FaNodeJs size={54} />, label: "Node.js" },
-  { icon: <FaPython size={54} />, label: "Python" },
-  { icon: <FaJava size={54} />, label: "Java" },
-  { icon: <FaPhp size={54} />, label: "PHP" },
+  // Extended
+  { icon: <FaPython size={50} />, label: "Python", featured: false },
+  { icon: <SiHibernate size={50} />, label: "Hibernate", featured: false },
+  { icon: <SiPostgresql size={50} />, label: "PostgreSQL", featured: false },
+  { icon: <SiMysql size={50} />, label: "MySQL", featured: false },
+  { icon: <SiPrisma size={50} />, label: "Prisma", featured: false },
+  { icon: <SiFramer size={50} />, label: "Framer Motion", featured: false },
+  { icon: <SiSupabase size={50} />, label: "Supabase", featured: false },
+  { icon: <FaGitAlt size={50} />, label: "Git", featured: false },
 ];

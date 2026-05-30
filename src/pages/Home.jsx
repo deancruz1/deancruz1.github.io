@@ -10,6 +10,8 @@ import { techs } from "../data/tech-icons.jsx";
 import aboutMeImg from "../assets/img/about-me-bg.webp";
 import frontendVideo from "../assets/videos/urara.mp4";
 import fullstackVideo from "../assets/videos/kiroku.mp4";
+import { AnimatePresence, motion } from "framer-motion";
+import useMeasure from "react-use-measure";
 
 // Lazy‑loaded sections – only fetched when they enter the viewport
 const HomeExperienceSection = lazy(
@@ -26,6 +28,9 @@ const Home = () => {
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [activeSkill, setActiveSkill] = useState(null);
   const fadeTimeout = useRef(null);
+  const [showAll, setShowAll] = useState(false);
+  const visibleTechs = showAll ? techs : techs.filter((t) => t.featured);
+  const [ref, { height }] = useMeasure();
 
   return (
     <>
@@ -144,18 +149,45 @@ const Home = () => {
                 Technologies
               </p>
 
-              <div className="relative z-10 grid grid-cols-3 gap-3 md:grid-cols-4">
-                {techs.map((tech) => (
-                  <div
-                    key={tech.label}
-                    className="flex aspect-square flex-col items-center justify-center gap-2 rounded-xl bg-(--bg-tertiary) p-4 transition-transform duration-300 hover:scale-110"
-                  >
-                    <span className="text-(--accent)">{tech.icon}</span>
-                    <span className="text-sm text-(--text-primary)">
-                      {tech.label}
-                    </span>
-                  </div>
-                ))}
+              <motion.div
+                animate={{ height }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div ref={ref} className="relative z-10 grid grid-cols-3 gap-3 md:grid-cols-4 overflow-visible">
+                  <AnimatePresence mode="popLayout">
+                    {visibleTechs.map((tech) => (
+                      <motion.div
+                        key={tech.label}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.2 }}
+                        className="relative flex w-24 h-24 flex-col items-center rounded-xl bg-(--bg-tertiary) p-4 transition-colors duration-300 hover:bg-(--accent)/20"
+                      >
+                        <span className="absolute inset-0 flex items-center justify-center pb-4 text-(--accent)">
+                          {tech.icon}
+                        </span>
+                        <span className="absolute bottom-2 w-full text-center text-xs leading-tight text-(--text-primary)">
+                          {tech.label}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={() => setShowAll(!showAll)}
+                  className={`cursor-pointer rounded-full border px-4 py-2 text-sm transition-colors duration-300 ${
+                    showAll
+                      ? "border-(--accent) bg-(--accent) text-(--text-primary)"
+                      : "border-(--border) bg-transparent text-(--text-secondary) hover:border-(--accent)"
+                  }`}
+                >
+                  {showAll ? "Show less" : "Show more"}
+                </button>
               </div>
             </div>
 
