@@ -1,17 +1,27 @@
+// Third-party Libs
 import { Helmet } from "react-helmet-async";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState, useRef, lazy, Suspense } from "react";
+import useMeasure from "react-use-measure";
+
+// CSS
 import "./Home.css";
-import Grid from "../components/Grid";
-import SectionHeader from "../components/SectionHeader.jsx";
-import EducationItem from "../components/EducationItem.jsx";
-import AwardItem from "../components/AwardItem.jsx";
-import { EmailIcon, LocationIcon } from "../components/Icons";
-import { techs } from "../data/tech-icons.jsx";
+
+// Assets
 import aboutMeImg from "../assets/img/about-me-bg.webp";
 import frontendVideo from "../assets/videos/urara.mp4";
 import fullstackVideo from "../assets/videos/kiroku.mp4";
-import { AnimatePresence, motion } from "framer-motion";
-import useMeasure from "react-use-measure";
+
+// Components
+import AwardItem from "../components/AwardItem.jsx";
+import EducationItem from "../components/EducationItem.jsx";
+import Grid from "../components/Grid";
+import { EmailIcon, LocationIcon } from "../components/Icons";
+import SectionHeader from "../components/SectionHeader.jsx";
+import SkillCard from "../components/SkillCard.jsx";
+
+// Data
+import { techs } from "../data/tech-icons.jsx";
 import personalLinks, { socialButtons } from "../data/personal-links.js";
 
 // Lazy‑loaded sections – only fetched when they enter the viewport
@@ -120,7 +130,7 @@ const Home = () => {
 
             <div className="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/80 to-transparent p-4 md:p-6">
               <p className="w-70 text-2xl font-bold text-white md:w-80 lg:w-90 md:text-3xl">
-                I build interfaces that feel right, and everything behind them that makes that possible.
+                I build interfaces that feel right, and everything behind them that makes that possible
               </p>
             </div>
           </div>
@@ -147,21 +157,7 @@ const Home = () => {
                 <div ref={ref} className="relative z-10 grid grid-cols-3 gap-3 md:grid-cols-4">
                   <AnimatePresence mode="popLayout">
                     {visibleTechs.map((tech) => (
-                      <motion.div
-                        key={tech.label}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        transition={{ duration: 0.2 }}
-                        className="relative flex aspect-square w-full flex-col items-center rounded-xl bg-(--bg-tertiary) p-4 transition-colors duration-300 hover:bg-(--accent)/20"
-                      >
-                        <span className="absolute inset-0 flex items-center justify-center pb-4 text-(--accent)">
-                          {tech.icon}
-                        </span>
-                        <span className={`absolute bottom-2 w-full text-center leading-tight text-(--text-primary) ${tech.small ? "text-[10px]" : "text-xs"}`}>
-                          {tech.label}
-                        </span>
-                      </motion.div>
+                      <SkillCard key={tech.label} {...tech} />
                     ))}
                   </AnimatePresence>
                 </div>
@@ -220,7 +216,6 @@ const Home = () => {
                 >
                   full-stack development
                 </span>
-                .
               </p>
 
               {activeSkill === "frontend" && (
