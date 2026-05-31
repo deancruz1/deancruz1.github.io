@@ -12,6 +12,7 @@ import frontendVideo from "../assets/videos/urara.mp4";
 import fullstackVideo from "../assets/videos/kiroku.mp4";
 import { AnimatePresence, motion } from "framer-motion";
 import useMeasure from "react-use-measure";
+import personalLinks, { socialButtons } from "../data/personal-links.js";
 
 // Lazy‑loaded sections – only fetched when they enter the viewport
 const HomeExperienceSection = lazy(
@@ -31,6 +32,8 @@ const Home = () => {
   const [showAll, setShowAll] = useState(false);
   const visibleTechs = showAll ? techs : techs.filter((t) => t.featured);
   const [ref, { height }] = useMeasure();
+
+  const { email, github, linkedin, resume } = personalLinks;
 
   return (
     <>
@@ -60,7 +63,7 @@ const Home = () => {
               TypeScript, Next.js
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              Ex-OCBC
+              UI/UX-minded, full-stack capable
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
               IMDA Gold Medal, Republic Polytechnic
@@ -68,39 +71,26 @@ const Home = () => {
           </div>
 
           <div className="buttons-container my-6 flex w-full max-w-md flex-wrap justify-center gap-3 md:max-w-xl lg:justify-start">
-            <a
-              className={introButton}
-              href="https://github.com/deancruz1"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
-            <a
-              className={introButton}
-              href="https://www.linkedin.com/in/dean-cruz/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </a>
-            <a
-              className={introButton}
-              href="/Dean Cruz Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Resume
-            </a>
+            {socialButtons.map(({ label, href }) => (
+              <a
+                key={label}
+                className={introButton}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {label}
+              </a>
+            ))}
           </div>
 
           <div className="contacts-container my-2 flex w-full max-w-md flex-col items-center justify-center gap-4 text-base sm:flex-row sm:gap-6 md:max-w-xl lg:my-4 lg:justify-start lg:text-lg">
             <a
-              href="mailto:deancruzgg@gmail.com"
+              href={`mailto:${email}`}
               className="flex items-center gap-2 text-(--text-secondary) transition-colors duration-300 hover:text-(--accent)"
             >
               <EmailIcon />
-              <span>deancruzgg@gmail.com</span>
+              <span>{email}</span>
             </a>
             <div className="flex items-center gap-2 text-(--text-secondary)">
               <LocationIcon  />
@@ -129,8 +119,8 @@ const Home = () => {
             />
 
             <div className="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/80 to-transparent p-4 md:p-6">
-              <p className="w-70 text-2xl font-bold text-white md:w-80 md:text-3xl">
-                I build interfaces that feel right, and full-stack systems that back them up
+              <p className="w-70 text-2xl font-bold text-white md:w-80 lg:w-90 md:text-3xl">
+                I build interfaces that feel right, and everything behind them that makes that possible.
               </p>
             </div>
           </div>

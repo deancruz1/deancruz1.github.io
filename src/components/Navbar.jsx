@@ -4,6 +4,8 @@ import { HashLink } from "react-router-hash-link";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
+import personalLinks from "../data/personal-links.js";
+const { linkedin } = personalLinks;
 
 const navLinks = [
   { label: "Home", to: "/#hero" },
@@ -105,7 +107,7 @@ const Navbar = () => {
 
           {/* Connect Button - Desktop only */}
           <a
-            href="https://www.linkedin.com/in/dean-cruz/"
+            href={linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className={`hidden lg:inline-flex ${introButton}`}
@@ -161,7 +163,7 @@ const Navbar = () => {
               <ThemeToggle />
             </div>
             <a
-              href="https://www.linkedin.com/in/dean-cruz/"
+              href={linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className={introButton}
