@@ -93,3 +93,7 @@ section {
     padding: 0 24px;
   }
 }
+
+html.light .light-overlay {
+  background: rgba(255, 255, 255, 0.25);
+}

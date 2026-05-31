@@ -8,7 +8,8 @@ import useMeasure from "react-use-measure";
 import "./Home.css";
 
 // Assets
-import aboutMeImg from "../assets/img/about-me-bg.webp";
+import aboutMeImgDark from "../assets/img/about-me-bg.webp";
+import aboutMeImgLight from "../assets/img/about-me-bg-light.webp";
 import frontendVideo from "../assets/videos/urara.mp4";
 import fullstackVideo from "../assets/videos/kiroku.mp4";
 
@@ -16,9 +17,10 @@ import fullstackVideo from "../assets/videos/kiroku.mp4";
 import AwardItem from "../components/AwardItem.jsx";
 import EducationItem from "../components/EducationItem.jsx";
 import Grid from "../components/Grid";
-import { EmailIcon, LocationIcon } from "../components/Icons";
+import { EmailIcon, LocationIcon, GitHubIcon, LinkedInIcon, ResumeIcon } from "../components/Icons";
 import SectionHeader from "../components/SectionHeader.jsx";
 import SkillCard from "../components/SkillCard.jsx";
+import { useTheme } from "../hooks/useTheme";
 
 // Data
 import { techs } from "../data/tech-icons.jsx";
@@ -33,8 +35,7 @@ const HomeProjectsSection = lazy(
 );
 
 const Home = () => {
-  const introButton =
-    "bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
+  // const introButton = "bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
 
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [activeSkill, setActiveSkill] = useState(null);
@@ -44,6 +45,15 @@ const Home = () => {
   const [ref, { height }] = useMeasure();
 
   const { email, github, linkedin, resume } = personalLinks;
+
+  const iconMap = {
+    GitHub: <GitHubIcon className="w-8 h-8 md:w-10 md:h-10 md:w-12 md:h-12" />,
+    LinkedIn: <LinkedInIcon className="w-8 h-8 md:w-10 md:h-10 md:w-12 md:h-12" />,
+    Resume: <ResumeIcon className="w-8 h-8 md:w-10 md:h-10 md:w-12 md:h-12" />,
+  };
+
+  const { theme } = useTheme();
+  const aboutMeImg = theme === "light" ? aboutMeImgLight : aboutMeImgDark;
 
   return (
     <>
@@ -60,53 +70,45 @@ const Home = () => {
             <h1 className="text-2xl text-(--text-primary) md:text-3xl lg:text-4xl">
               Software Engineer
             </h1>
-            <h2 className="text-5xl font-semibold text-(--text-primary) sm:text-6xl md:py-1 md:text-7xl lg:py-2 lg:text-8xl">
+            <h2 className="text-5xl font-bold text-(--text-primary) sm:text-6xl md:py-1 md:text-7xl lg:py-2 lg:text-8xl">
               <span className="hover-target relative inline-block">
                 Dean Cruz
               </span>
             </h2>
+            <div className="flex items-center justify-center gap-1 text-xs text-(--text-secondary) lg:justify-start md:-mt-1 lg:-mt-2">
+              <LocationIcon className="w-3 h-3 transition-colors duration-300 ease-in-out" />
+              <span>Singapore</span>
+            </div>
           </div>
 
-          <div className="description-container my-2 lg:my-4">
+          <div className="description-container my-2 mt-4">
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
               Frontend-focused <span className="text-(--accent)">|</span> React,
               TypeScript, Next.js
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              UI/UX-minded, full-stack capable
+              Frontend is my craft
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
               IMDA Gold Medal, Republic Polytechnic
             </p>
           </div>
 
-          <div className="buttons-container my-6 flex w-full max-w-md flex-wrap justify-center gap-3 md:max-w-xl lg:justify-start">
+          <div className="buttons-container my-4 flex w-full max-w-md flex-wrap justify-center gap-8 md:max-w-xl lg:justify-start">
             {socialButtons.map(({ label, href }) => (
               <a
                 key={label}
-                className={introButton}
+                aria-label={label}
+                className="text-(--text-secondary) hover:text-(--accent) hover:scale-125 transition-all duration-300 ease-in-out cursor-pointer"
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {label}
+                {iconMap[label]}
               </a>
             ))}
           </div>
 
-          <div className="contacts-container my-2 flex w-full max-w-md flex-col items-center justify-center gap-4 text-base sm:flex-row sm:gap-6 md:max-w-xl lg:my-4 lg:justify-start lg:text-lg">
-            <a
-              href={`mailto:${email}`}
-              className="flex items-center gap-2 text-(--text-secondary) transition-colors duration-300 hover:text-(--accent)"
-            >
-              <EmailIcon />
-              <span>{email}</span>
-            </a>
-            <div className="flex items-center gap-2 text-(--text-secondary)">
-              <LocationIcon  />
-              <span>Singapore, SG</span>
-            </div>
-          </div>
         </div>
 
         <div className="intro-container-right hidden w-full flex-1 lg:block"></div>
@@ -117,15 +119,14 @@ const Home = () => {
 
         <div className="grid grid-cols-1 gap-6 py-4 md:grid-cols-2 md:py-8">
           <div className="relative flex h-full min-h-90 items-center justify-center overflow-hidden rounded-2xl bg-(--bg-secondary) md:order-0 md:min-h-150">
-            <Grid />
 
             <img
               src={aboutMeImg}
               alt="Dean Cruz"
               loading="lazy"
               decoding="async"
-              className="absolute -top-25 -right-30 w-125 object-contain opacity-90 md:top-0 md:right-0 md:w-200 lg:-top-30 lg:-right-40"
-              style={{ filter: "hue-rotate(50deg) saturate(1.2)" }}
+              className="w-full h-full object-cover"
+              style={{ filter: theme === "dark" ? "saturate(0.6)" : "none" }}
             />
 
             <div className="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/80 to-transparent p-4 md:p-6">
