@@ -75,7 +75,7 @@ const Home = () => {
                 Dean Cruz
               </span>
             </h2>
-            <div className="flex items-center justify-center gap-1 text-xs text-(--text-secondary) lg:justify-start md:-mt-1 lg:-mt-2">
+            <div className="flex items-center justify-center gap-1 text-xs text-(--text-primary) lg:justify-start md:-mt-1 lg:-mt-2">
               <LocationIcon className="w-3 h-3 transition-colors duration-300 ease-in-out" />
               <span>Singapore</span>
             </div>
