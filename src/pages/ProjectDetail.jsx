@@ -74,7 +74,7 @@ const liveLabel =
         </div>
 
         {/* Content */}
-        <section className="px-4 py-16 md:mx-2 md:px-8 lg:mx-0 lg:px-0">
+        <section className="px-4 py-16 md:mx-2 md:px-8 lg:mx-0 lg:px-0 home-section">
           <motion.div
             layout
             transition={{ layout: { duration: 0.3, ease: "easeOut" } }}

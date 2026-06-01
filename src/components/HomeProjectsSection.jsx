@@ -21,7 +21,7 @@ const HomeProjectsSection = () => {
   return (
     <motion.section
       layout
-      className="my-4 px-8 py-8 md:my-6 md:flex md:flex-col md:justify-between md:py-16"
+      className="my-4 px-8 py-8 md:my-6 md:flex md:flex-col md:justify-between md:py-16 home-section"
       id="projects"
     >
       <div>

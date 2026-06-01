@@ -19,12 +19,12 @@ const ProjectCarousel = ({ projects }) => {
 
   if (isTouchOrMobile) {
     return (
-      <section aria-labelledby="projects-heading">
+      <section className="relative lg:py-20 lg:px-5" aria-labelledby="projects-heading">
         <h2 id="projects-heading" className="sr-only">
           Projects
         </h2>
         <ul
-          className="mx-auto grid w-full list-none grid-cols-1 gap-8 p-0 md:max-w-5xl md:grid-cols-2 md:px-6"
+          className="mx-auto grid w-full list-none grid-cols-1 gap-6 md:gap-4 lg:gap-8 p-0 md:max-w-5xl md:grid-cols-2 md:px-6"
           role="list"
         >
           {projects.map((project) => (

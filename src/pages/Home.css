@@ -35,7 +35,7 @@ p .hover-target {
   transform: scaleX(1);
 }
 
-section {
+.home-section {
   position: relative;
   padding: 80px 20px;
 }

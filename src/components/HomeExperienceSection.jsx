@@ -3,7 +3,7 @@ import SectionHeader from "../components/SectionHeader.jsx";
 import WorkExperienceCard from "../components/WorkExperienceCard.jsx";
 
 const HomeExperienceSection = () => (
-  <section className="my-4 px-8 py-8 md:my-6 md:py-16" id="experience">
+  <section className="my-4 px-8 py-8 md:my-6 md:py-16 home-section" id="experience">
     <SectionHeader
       title="Work Experience"
       subtitle="My professional journey"

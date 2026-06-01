@@ -114,11 +114,11 @@ const Home = () => {
         <div className="intro-container-right hidden w-full flex-1 lg:block"></div>
       </main>
 
-      <section className="my-4 px-8 py-8 md:my-6 md:py-16" id="about">
+      <section className="my-4 px-8 py-8 md:my-6 md:py-16 home-section" id="about">
         <SectionHeader title="Short Profile" subtitle="Background and focus" />
 
-        <div className="grid grid-cols-1 gap-6 py-4 md:grid-cols-2 md:py-8">
-          <div className="relative flex h-full min-h-90 items-center justify-center overflow-hidden rounded-2xl bg-(--bg-secondary) md:order-0 md:min-h-150">
+        <div className="grid grid-cols-1 gap-6 py-6 md:grid-cols-2 lg:mt-5">
+          <div className="relative flex h-full items-center justify-center overflow-hidden rounded-2xl bg-(--bg-secondary) md:order-0 aspect-square md:aspect-auto">
 
             <img
               src={aboutMeImg}
@@ -261,7 +261,7 @@ const Home = () => {
           </div>
 
           {/* Awards & Honors */}
-          <div className="relative order-2 min-h-87.5 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-2 md:row-span-2 md:row-start-1">
+          <div className="relative order-2 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-2 md:row-span-2 md:row-start-1">
             <Grid />
             <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
               Awards & Honors
