@@ -75,7 +75,7 @@ const Home = () => {
                 Dean Cruz
               </span>
             </h2>
-            <div className="flex items-center justify-center gap-1 text-xs text-(--text-primary) lg:justify-start md:-mt-1 lg:-mt-2">
+            <div className="flex items-center justify-center gap-1 text-xs text-(--text-secondary) lg:justify-start md:-mt-1 lg:-mt-2">
               <LocationIcon className="w-3 h-3 transition-colors duration-300 ease-in-out" />
               <span>Singapore</span>
             </div>
@@ -87,10 +87,10 @@ const Home = () => {
               TypeScript, Next.js
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              Frontend is my craft
+              I build for users, starting with myself
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              IMDA Gold Medal, Republic Polytechnic
+              IMDA Gold Medal · Republic Polytechnic
             </p>
           </div>
 
