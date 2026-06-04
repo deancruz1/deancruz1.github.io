@@ -16,7 +16,7 @@ const HomeProjectsSection = () => {
       : projects.filter((p) => p.category === activeFilter);
 
   const introButton =
-    "bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
+    "bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full hover:text-(--button-primary)";
 
   return (
     <motion.section
@@ -37,7 +37,7 @@ const HomeProjectsSection = () => {
               onClick={() => setActiveFilter(cat)}
               className={`cursor-pointer rounded-full border px-4 py-2 text-sm whitespace-nowrap transition-colors duration-300 md:whitespace-normal ${
                 activeFilter === cat
-                  ? "border-(--accent) bg-(--accent) text-(--text-primary)"
+                  ? "border-(--accent) bg-(--accent) text-(--button-primary)"
                   : "border-(--border) bg-transparent text-(--text-secondary) hover:border-(--accent)"
               }`}
             >

@@ -185,7 +185,7 @@ const WorkExperienceCard = ({
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     layout
                     onClick={() => setExpanded(true)}
-                    className="cursor-pointer rounded-full border border-(--border) bg-transparent px-3 py-1 text-xs whitespace-nowrap text-(--text-secondary) transition-colors duration-300 hover:border-(--accent) md:whitespace-normal"
+                    className="cursor-pointer rounded-full border border-(--border) bg-(--bg-tertiary) px-3 py-1 text-xs whitespace-nowrap text-(--text-secondary) transition-colors duration-300 hover:border-(--accent) md:whitespace-normal"
                   >
                     +{overflowCount}
                   </motion.button>
@@ -200,7 +200,7 @@ const WorkExperienceCard = ({
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     layout
                     onClick={() => setExpanded(false)}
-                    className="shrink-0 cursor-pointer rounded-full border border-(--accent) bg-(--accent) px-3 py-1 text-xs whitespace-nowrap text-(--text-primary) transition-colors duration-300 hover:border-(--accent-hover) hover:bg-(--accent-hover)"
+                    className="shrink-0 cursor-pointer rounded-full border border-(--accent) bg-(--accent) px-3 py-1 text-xs whitespace-nowrap text-(--button-primary) transition-colors duration-300 hover:border-(--accent-hover) hover:bg-(--accent-hover)"
                   >
                     Show less
                   </motion.button>

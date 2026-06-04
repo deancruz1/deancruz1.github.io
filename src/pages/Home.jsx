@@ -169,7 +169,7 @@ const Home = () => {
                   onClick={() => setShowAll(!showAll)}
                   className={`cursor-pointer rounded-full border px-4 py-2 text-sm transition-colors duration-300 ${
                     showAll
-                      ? "border-(--accent) bg-(--accent) text-(--text-primary)"
+                      ? "border-(--accent) bg-(--accent) text-(--button-primary)"
                       : "border-(--border) bg-transparent text-(--text-secondary) hover:border-(--accent)"
                   }`}
                 >
