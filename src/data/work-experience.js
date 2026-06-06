@@ -7,10 +7,10 @@ export const workExperiences = [
     title: "Software Engineer",
     company: "NCS",
     type: "Permanent",
-    duration: "2026 (Incoming)",
+    duration: "2026 — Present",
     location: "Singapore",
     description:
-      "Hired as a Software Engineer under the NCS Fusion Work-Study Degree Programme, developing software solutions while pursuing a sponsored Bachelor's Degree from a recognised university.",
+      "Working as a Software Engineer under the NCS Fusion Work-Study Degree Programme, developing software solutions while pursuing a sponsored Bachelor's Degree from a recognised university.",
     responsibilities: [
       "Participate in discussions with stakeholders to understand business and system requirements",
       "Perform technical tasks to develop/enhance software applications according to functional and technical specifications",
@@ -20,7 +20,7 @@ export const workExperiences = [
       "Identify opportunities and suggest recommendations for system improvement",
     ],
     achievements: [],
-    tags: ["React", "Node.js", "Tailwind", "Java", "Python"],
+    tags: ["Angular", "Hibernate", "Java", "Springboot", "SQL"],
   },
   {
     logo: ocbcLogo,
