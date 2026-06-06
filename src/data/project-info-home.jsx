@@ -16,6 +16,16 @@ import uraraImg from "../assets/img/project-cards/urara.webp";
 import uraraVideo from "../assets/videos/urara.mp4";
 import skillforgeImg from "../assets/img/project-cards/skillforge.webp";
 import skillforgeVideo from "../assets/videos/skillforge.mp4";
+import oshiwatchImg from "../assets/img/project-cards/oshiwatch.webp";
+import oshiwatchVideo from "../assets/videos/oshiwatch.mp4";
+
+const oshiwatchGallery = import.meta.glob(
+  "../assets/img/project-gallery/oshiwatch/*.webp",
+  { eager: true },
+);
+const oshiwatchGalleryImages = Object.values(oshiwatchGallery).map(
+  (m) => m.default,
+);
 
 const skillforgeGallery = import.meta.glob(
   "../assets/img/project-gallery/skillforge/*.webp",
@@ -281,32 +291,77 @@ export const projects = [
       ],
     },
   },
-  {
-    title: "Movietopia",
-    featured: false,
-    category: "Full-Stack",
-    description:
-      "A PHP/MySQL application with CRUD-enabled database tables and session-based authentication.",
-    longDescription: `A deep dive into server-side fundamentals. Built to understand how session auth, relational schemas, and CRUD operations fit together end-to-end.\n\n• Designed a MySQL schema with three relational tables: users, movies, and reviews with foreign key constraints.\n• Implemented user registration and login with PHP session handling to guard protected routes for review submission, editing, and deletion.\n• Built full CRUD operations for movie reviews with star ratings, allowing logged-in users to submit, edit, and delete their own reviews.\n• Created a searchable movie browsing page that queries the database and displays movie details including genre, director, cast, and synopsis.`,
-    tags: ["PHP", "MySQL", "CSS"],
-    image: movietopiaImg,
-    github: "https://github.com/deancruz1/Movietopia",
-    slug: "movietopia",
-    heroVideo: movietopiaVideo,
-    gallery: movietopiaGalleryImages.map((image, i) => ({
-      image,
-      caption: [
-        "Home Page",
-        "Search Function",
-        "Reviews Page",
-        "Edit Reviews Page",
-      ][i],
-    })),
-  },
 
   {
-    title: "SkillForge",
+    title: "Oshiwatch",
     featured: true,
+    category: "Frontend",
+    description:
+      "A Hololive stream tracker. See who's live, browse upcoming streams, explore talent pages, and watch directly in-app with live chat.",
+    longDescription: `Built because I wanted a clean, no-frills way to track Hololive streams without opening five tabs. Oshiwatch pulls live and upcoming stream data, lets you browse the full talent roster, and plays streams with embedded live chat directly in the app.\n\n• Built a Vercel serverless proxy layer to keep the Holodex API key server-side at all times — the key is never exposed to the client bundle in any environment.\n• Integrated the Holodex API v2 for live streams, upcoming schedules, full talent roster, VOD archives, shorts, and music — all filtered and sorted client-side.\n• Implemented branch filtering (JP/EN/ID/DEV_IS) with isolate-on-first-click UX, gen-based talent sorting with hardcoded debut order for Gen 0, and Holostars/official channel exclusion logic.\n• Built infinite pagination on stream, shorts, and music tabs using TanStack Query's useInfiniteQuery, loading 50 results per page on demand.\n• Designed a talent detail page with live/upcoming banners, tabbed VOD/shorts/music archives, and social links.\n• Embedded YouTube player with live chat support via YouTube's live_chat iframe API, scoped to the deployed domain.`,
+    tags: ["React", "TypeScript", "Tailwind"],
+    image: oshiwatchImg,
+    liveDemo: "https://oshiwatch.vercel.app",
+    github: "https://github.com/deancruz1/Oshiwatch",
+    slug: "oshiwatch",
+    heroVideo: oshiwatchVideo,
+    gallery: oshiwatchGalleryImages.map((image, i) => ({
+      image,
+      caption: [
+        "Home — Live & Upcoming",
+        "Talents Page",
+        "Talent Detail Page",
+        "Watch Page",
+      ][i],
+    })),
+    caseStudy: {
+      overview: `Oshiwatch is a Hololive stream tracker built on React, TypeScript, and Tailwind, deployed on Vercel with a serverless API proxy layer. It covers live streams, upcoming schedules, a full talent roster, and an in-app video player with live chat.`,
+
+      problem: `Tracking Hololive streams meant juggling Holodex, YouTube, and Twitter simultaneously. I wanted one focused app that showed me who's live, what's coming up, and let me watch without leaving the page.`,
+
+      solution: `Built a Vite + React SPA that proxies all Holodex API calls through Vercel serverless functions to keep the API key server-side. TanStack Query handles caching, polling every 5 minutes for live data, and infinite pagination for VOD archives. The watch page embeds YouTube's iframe player alongside the live chat iframe, scoped to the deployed domain.`,
+
+      technicalDecisions: [
+        {
+          decision: "Vercel serverless proxy for API key security",
+          reason:
+            "A VITE_ prefixed env var ships the key in the client bundle. The proxy keeps it strictly server-side with no exposure risk.",
+        },
+        {
+          decision: "TanStack Query with useInfiniteQuery",
+          reason:
+            "VOD archives can span hundreds of entries. Infinite pagination loads 50 at a time on demand rather than hammering the API on mount.",
+        },
+        {
+          decision: "Holodex API v2",
+          reason:
+            "Purpose-built for Hololive tracking. Returns live status, upcoming schedules, talent metadata, and video archives in one consistent API.",
+        },
+        {
+          decision: "Client-side branch and gen filtering",
+          reason:
+            "The Holodex group and suborg fields are inconsistent between endpoints. Normalising them client-side gave full control over filtering logic without depending on API params.",
+        },
+      ],
+
+      challenges: [
+        "The /channels and /live endpoints return different field schemas for the same data — channels use group while live streams use suborg — requiring separate branch detection functions for each context",
+        "Holodex returns official brand channels, graduated talents, sub-channels, and Holostars alongside active talents, all requiring distinct exclusion logic based on group field values",
+        "YouTube's live chat iframe only works on the exact deployed domain, making local development impossible without workarounds — vercel dev was the only viable local testing path",
+        "The VOD archive mixes streams, shorts, and music under a single type:stream field with no native distinction, requiring duration thresholds and topic_id filtering to separate tabs correctly",
+        "Filtering 15 non-Hololive affiliated streams from the homepage required checking channel.org rather than name patterns, after name-based matching incorrectly excluded JP talents",
+      ],
+
+      improvements: [
+        "Implement favourites with localStorage to pin tracked talents to the top of the roster and filter the live view",
+        "Add gen headers to the talents page to visually group talents by generation",
+        "Revisit Holodex search endpoint once the request body format is confirmed — would enable full-archive video search across all of a talent's content",
+      ],
+    },
+  },
+  {
+    title: "SkillForge",
+    featured: false,
     category: "Full-Stack",
     description:
       "A full-stack e-learning platform with course creation, lesson tracking, quiz engine, and student analytics. Built with Angular, Spring Boot, and PostgreSQL.",
@@ -371,6 +426,28 @@ export const projects = [
         "Build an instructor analytics dashboard showing enrollment trends, completion rates, and average quiz scores.",
       ],
     },
+  },
+    {
+    title: "Movietopia",
+    featured: false,
+    category: "Full-Stack",
+    description:
+      "A PHP/MySQL application with CRUD-enabled database tables and session-based authentication.",
+    longDescription: `A deep dive into server-side fundamentals. Built to understand how session auth, relational schemas, and CRUD operations fit together end-to-end.\n\n• Designed a MySQL schema with three relational tables: users, movies, and reviews with foreign key constraints.\n• Implemented user registration and login with PHP session handling to guard protected routes for review submission, editing, and deletion.\n• Built full CRUD operations for movie reviews with star ratings, allowing logged-in users to submit, edit, and delete their own reviews.\n• Created a searchable movie browsing page that queries the database and displays movie details including genre, director, cast, and synopsis.`,
+    tags: ["PHP", "MySQL", "CSS"],
+    image: movietopiaImg,
+    github: "https://github.com/deancruz1/Movietopia",
+    slug: "movietopia",
+    heroVideo: movietopiaVideo,
+    gallery: movietopiaGalleryImages.map((image, i) => ({
+      image,
+      caption: [
+        "Home Page",
+        "Search Function",
+        "Reviews Page",
+        "Edit Reviews Page",
+      ][i],
+    })),
   },
     {
     title: "Shrine of Suisei",
