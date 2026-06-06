@@ -378,7 +378,7 @@ export const projects = [
     category: "Frontend",
     description:
       "A responsive single-page fan site with custom fonts, fluid typography, and CSS animations - built with raw HTML, CSS, and JavaScript.",
-    longDescription: `Started as a basic fansite project before enrolling into Republic Polytechnic for a VTuber I enjoy watching. Kept going back to refactor it until the CSS was something I was actually proud of.\n• Built a hamburger menu with animated icon toggle and auto-close on link click using vanilla JavaScript.\n• Designed a glowing CTA button with animated gradient borders via CSS keyframes.\n• Created a CSS-only modal using the :target pseudo-class for a zero-JavaScript disclaimer popup.\n• Optimized the layout with a centered content container and responsive media queries for mobile, tablet, and desktop.`,
+    longDescription: `Started as a basic landing page project before enrolling into Republic Polytechnic to prepare for the course for a VTuber I enjoy watching. Recently refactored CSS and HTML for better maintainability.\n• Built a hamburger menu with animated icon toggle and auto-close on link click using vanilla JavaScript.\n• Designed a glowing CTA button with animated gradient borders via CSS keyframes.\n• Created a CSS-only modal using the :target pseudo-class for a zero-JavaScript disclaimer popup.\n• Optimized the layout with a centered content container and responsive media queries for mobile, tablet, and desktop.`,
     tags: ["HTML", "CSS", "JS"],
     image: landingPageImg,
     liveDemo: "https://deancruz1.github.io/Shrine_of_Suisei/",
