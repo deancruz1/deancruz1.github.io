@@ -5,7 +5,7 @@ export const workExperiences = [
   {
     logo: ncsLogo,
     title: "Software Engineer",
-    company: "NCS",
+    company: "NCS Group",
     type: "Permanent",
     duration: "2026 — Present",
     location: "Singapore",
