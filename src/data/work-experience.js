@@ -20,7 +20,7 @@ export const workExperiences = [
       "Identify opportunities and suggest recommendations for system improvement",
     ],
     achievements: [],
-    tags: ["Angular", "Hibernate", "Java", "Springboot", "SQL"],
+    tags: ["Angular", "Hibernate", "Java", "Springboot", "MySQL"],
   },
   {
     logo: ocbcLogo,
