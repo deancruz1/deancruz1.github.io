@@ -10,7 +10,7 @@ export const workExperiences = [
     duration: "2026 — Present",
     location: "Singapore",
     description:
-      "Working as a Software Engineer under the NCS Fusion Work-Study Degree Programme, developing software solutions while pursuing a sponsored Bachelor's Degree from a recognised university.",
+      "Working as a Software Engineer under the Fusion Work-Study Degree Programme, developing software solutions while pursuing a sponsored Bachelor's Degree from a recognised university.",
     responsibilities: [
       "Participate in discussions with stakeholders to understand business and system requirements",
       "Perform technical tasks to develop/enhance software applications according to functional and technical specifications",
