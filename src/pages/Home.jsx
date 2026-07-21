@@ -261,7 +261,7 @@ const Home = () => {
           </div>
 
           {/* Awards & Honors */}
-          <div className="relative order-2 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-2 md:row-span-2 md:row-start-1">
+          <div className="relative order-2 flex h-full flex-col overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-2 md:row-span-2 md:row-start-1">
             <Grid />
             <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
               Awards & Honors

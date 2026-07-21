@@ -9,11 +9,11 @@ const EducationCard = () => {
             key={index}
             className="flex items-stretch gap-4 border-l-2 border-(--accent) pl-4"
           >
-            <div className="flex items-center">
+            <div className="flex h-15 w-15 flex-shrink-0 items-center justify-center self-center">
               <img
                 src={edu.logo}
                 alt={edu.school}
-                className="h-full max-h-15 w-auto object-contain"
+                className="h-full w-full object-contain"
               />
             </div>
             <div>

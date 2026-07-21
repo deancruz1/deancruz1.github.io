@@ -2,7 +2,7 @@ import { awardsData } from "../data/awards.js";
 
 const AwardItem = () => {
   return (
-    <div className="relative z-10 flex flex-col gap-4">
+    <div className="relative z-10 flex flex-1 flex-col gap-4">
       {awardsData.map((award, index) => (
         <div
           key={index}
