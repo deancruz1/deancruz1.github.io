@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { flushSync } from "react-dom";
 import { useTheme } from "../hooks/useTheme";
 
 const ThemeToggle = () => {
@@ -8,15 +9,25 @@ const ThemeToggle = () => {
   const handleToggle = () => {
     const button = buttonRef.current;
     const rect = button.getBoundingClientRect();
-    const x = rect.left + rect.width / 2;
-    const y = rect.top + rect.height / 2;
+    
+    // 1. Get exact center in pixels
+    const pxX = rect.left + rect.width / 2;
+    const pxY = rect.top + rect.height / 2;
 
-    document.documentElement.style.setProperty("--x", `${x}px`);
-    document.documentElement.style.setProperty("--y", `${y}px`);
+    // 2. Convert pixels to percentages based on the viewport!
+    // Chrome will not drop the variables if they are percentages.
+    const x = (pxX / window.innerWidth) * 100;
+    const y = (pxY / window.innerHeight) * 100;
+
+    // 3. Set them as percentages (%)
+    document.documentElement.style.setProperty("--x", `${x}%`);
+    document.documentElement.style.setProperty("--y", `${y}%`);
 
     if (document.startViewTransition) {
       document.startViewTransition(() => {
-        toggleTheme();
+        flushSync(() => {
+          toggleTheme();
+        });
       });
     } else {
       toggleTheme();
@@ -32,17 +43,7 @@ const ThemeToggle = () => {
     >
       <span className="text-(--text-primary) transition-colors duration-300 group-hover:text-(--accent)">
         {theme === "dark" ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="5" />
             <line x1="12" y1="1" x2="12" y2="3" />
             <line x1="12" y1="21" x2="12" y2="23" />
@@ -54,13 +55,7 @@ const ThemeToggle = () => {
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
         ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
             <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
           </svg>
         )}

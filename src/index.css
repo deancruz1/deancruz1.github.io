@@ -134,9 +134,10 @@ img {
 
 @keyframes clip-expand {
   from {
-    clip-path: circle(0% at var(--x) var(--y));
+    /* Fallbacks added just in case, but Chrome will now read --x and --y perfectly */
+    clip-path: circle(0px at var(--x, 50%) var(--y, 50%));
   }
   to {
-    clip-path: circle(150% at var(--x) var(--y));
+    clip-path: circle(150% at var(--x, 50%) var(--y, 50%));
   }
 }
