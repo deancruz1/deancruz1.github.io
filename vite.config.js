@@ -10,7 +10,6 @@ const routes = [
   "/projects/urara",
   "/projects/skillforge",
   "/projects/portfolio-website",
-  "/projects/2d-artwork",
   "/projects/mobile-wireframe",
   "/projects/landing-page",
   "/projects/movietopia",

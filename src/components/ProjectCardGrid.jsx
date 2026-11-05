@@ -13,6 +13,7 @@ const ProjectCardGrid = ({
   slug,
 }) => {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [showAllTags, setShowAllTags] = useState(false);
 
   const handleMouseMove = (e) => {
     const card = e.currentTarget;
@@ -32,10 +33,10 @@ const ProjectCardGrid = ({
 
   const imgSrc = typeof image === "string" ? image : image?.src;
   const imgSrcSet = typeof image === "object" ? image?.srcSet : undefined;
+  const visibleTags = showAllTags ? tags : tags.slice(0, MAX_TAGS);
 
   return (
-    <Link
-      to={`/projects/${slug}`}
+    <div
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -43,9 +44,16 @@ const ProjectCardGrid = ({
         transition:
           "transform 0.1s ease, box-shadow 0.3s ease, border-color 0.3s ease",
       }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-transparent bg-(--bg-secondary) will-change-transform hover:border-(--accent) hover:shadow-[0_0_20px_var(--shadow-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
+      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-transparent bg-(--bg-secondary) will-change-transform hover:border-(--accent) hover:shadow-[0_0_20px_var(--shadow-accent)] has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-(--accent)"
     >
       <Grid />
+
+      {/* Covers the whole card; the text below lets clicks through to it */}
+      <Link
+        to={`/projects/${slug}`}
+        aria-label={title}
+        className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-none"
+      />
 
       <div className="relative aspect-video shrink-0 overflow-hidden">
         <img
@@ -59,7 +67,7 @@ const ProjectCardGrid = ({
         />
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col gap-3 p-6">
+      <div className="pointer-events-none relative z-10 flex flex-1 flex-col gap-3 p-6">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold text-(--text-primary)">{title}</h2>
           <span className="ml-2 shrink-0 rounded-full border border-(--accent) bg-(--accent)/20 px-3 py-1 text-xs text-(--text-primary)">
@@ -72,7 +80,7 @@ const ProjectCardGrid = ({
         </p>
 
         <div className="mt-auto flex flex-wrap gap-2 pt-1">
-          {tags.slice(0, MAX_TAGS).map((tag) => (
+          {visibleTags.map((tag) => (
             <span
               key={tag}
               className="rounded-full border border-(--border) bg-(--bg-tertiary) px-3 py-1 text-xs whitespace-nowrap text-(--text-secondary)"
@@ -81,13 +89,25 @@ const ProjectCardGrid = ({
             </span>
           ))}
           {tags.length > MAX_TAGS && (
-            <span className="rounded-full border border-(--border) bg-(--bg-tertiary) px-3 py-1 text-xs whitespace-nowrap text-(--text-secondary)">
-              +{tags.length - MAX_TAGS}
-            </span>
+            <button
+              type="button"
+              aria-expanded={showAllTags}
+              aria-label={
+                showAllTags ? "Show fewer tags" : `Show all ${tags.length} tags`
+              }
+              onClick={() => setShowAllTags(!showAllTags)}
+              className={`pointer-events-auto relative cursor-pointer rounded-full border px-3 py-1 text-xs whitespace-nowrap transition-colors duration-300 before:absolute before:-inset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent) ${
+                showAllTags
+                  ? "border-(--accent) bg-(--accent) text-(--button-primary) hover:border-(--accent-hover) hover:bg-(--accent-hover)"
+                  : "border-(--border) bg-(--bg-tertiary) text-(--text-secondary) hover:border-(--accent)"
+              }`}
+            >
+              {showAllTags ? "Show less" : `+${tags.length - MAX_TAGS}`}
+            </button>
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

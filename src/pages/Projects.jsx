@@ -54,7 +54,7 @@ const Projects = () => {
           <div
             role="group"
             aria-label="Filter by category"
-            className="mb-8 flex flex-wrap items-center justify-center gap-3"
+            className="mb-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3"
           >
             {categories.map((cat) => (
               <button
@@ -62,7 +62,7 @@ const Projects = () => {
                 type="button"
                 aria-pressed={activeFilter === cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`cursor-pointer rounded-full border px-4 py-2 text-sm whitespace-nowrap transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent) ${
+                className={`cursor-pointer rounded-full border px-3 py-2 text-sm whitespace-nowrap sm:px-4 transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent) ${
                   activeFilter === cat
                     ? "border-(--accent) bg-(--accent) text-(--button-primary)"
                     : "border-(--border) bg-(--bg-secondary) text-(--text-secondary) hover:border-(--accent)"

@@ -19,7 +19,6 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
-  const isProjectDetail = /^\/projects\/.+/.test(location.pathname);
 
   const introButton =
     "bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
@@ -63,9 +62,7 @@ const Navbar = () => {
         className={`fixed top-0 right-0 left-0 z-100 flex items-center border-b-[1.5px] px-8 py-6 transition-all duration-300 lg:px-32 lg:py-8 ${
           scrolled || menuOpen
             ? "border-(--accent) bg-(--bg-primary)/40 backdrop-blur-md"
-            : isProjectDetail
-              ? "border-transparent bg-transparent lg:border-(--accent) lg:bg-(--bg-primary)/40 lg:backdrop-blur-md"
-              : "border-transparent bg-transparent"
+            : "border-transparent bg-transparent"
         }`}
       >
         {/* Left - Name */}
@@ -81,9 +78,7 @@ const Navbar = () => {
         {/* Center - Nav Links (Desktop only) */}
         <div
           className={`hidden items-center gap-8 rounded-full border-2 px-8 py-3 font-bold transition-all duration-300 lg:flex ${
-            isProjectDetail || scrolled
-              ? "border-transparent"
-              : "border-(--accent)"
+            scrolled ? "border-transparent" : "border-(--accent)"
           }`}
         >
           {navLinks.map((link, i) => (
