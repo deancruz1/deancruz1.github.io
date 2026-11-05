@@ -6,7 +6,6 @@ export const educationData = [
     degree: "Bachelor of Computer Science (Artificial Intelligence and Big Data)",
     school: "University of Wollongong",
     duration: "2026 — 2028",
-    gpa: "Pending",
     logo: uowLogo,
   },
   {

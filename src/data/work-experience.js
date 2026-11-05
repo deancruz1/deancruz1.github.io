@@ -4,7 +4,7 @@ import ocbcLogo from "../assets/img/logo-ocbc.webp";
 export const workExperiences = [
   {
     logo: ncsLogo,
-    title: "Software Engineer",
+    title: "AI Software Engineer",
     company: "NCS Group",
     type: "Permanent",
     duration: "2026 — Present",

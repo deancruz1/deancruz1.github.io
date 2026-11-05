@@ -23,9 +23,11 @@ const EducationCard = () => {
               <p className="text-sm text-(--text-secondary)">
                 {edu.school} · {edu.duration}
               </p>
-              <p className="text-sm font-semibold text-(--accent)">
-                GPA: {edu.gpa}
-              </p>
+              {edu.gpa && (
+                <p className="text-sm font-semibold text-(--accent)">
+                  GPA: {edu.gpa}
+                </p>
+              )}
             </div>
           </div>
         ))}

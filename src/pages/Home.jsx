@@ -13,7 +13,7 @@ import "./Home.css";
 import AwardItem from "../components/AwardItem.jsx";
 import EducationItem from "../components/EducationItem.jsx";
 import Grid from "../components/Grid";
-import { EmailIcon, LocationIcon, GitHubIcon, LinkedInIcon, ResumeIcon } from "../components/Icons";
+import { EmailIcon, LocationIcon, GitHubIcon, LinkedInIcon } from "../components/Icons";
 import SectionHeader from "../components/SectionHeader.jsx";
 import SkillCard from "../components/SkillCard.jsx";
 
@@ -66,19 +66,21 @@ const Home = () => {
     ? [...defaultTechs, ...techs.filter((t) => !defaultTechs.includes(t))]
     : defaultTechs;
   const [ref, { height }] = useMeasure();
+  // While Technologies is open (or still closing), the right column keeps its
+  // own height instead of stretching to match
+  const [rightColumnFree, setRightColumnFree] = useState(false);
 
   const { email, github, linkedin, resume } = personalLinks;
 
   const iconMap = {
-    GitHub: <GitHubIcon className="w-8 h-8 md:w-10 md:h-10 md:w-12 md:h-12" />,
-    LinkedIn: <LinkedInIcon className="w-8 h-8 md:w-10 md:h-10 md:w-12 md:h-12" />,
-    Resume: <ResumeIcon className="w-8 h-8 md:w-10 md:h-10 md:w-12 md:h-12" />,
+    GitHub: <GitHubIcon className="w-8 h-8" />,
+    LinkedIn: <LinkedInIcon className="w-8 h-8" />,
   };
 
   return (
     <>
       <Helmet>
-        <title>Dean Cruz - Full-Stack Software Engineer</title>
+        <title>Dean Cruz - Software Engineer</title>
       </Helmet>
       <main
         className="intro-container flex min-h-screen flex-col items-center justify-center px-8 lg:flex-row lg:justify-between"
@@ -88,7 +90,7 @@ const Home = () => {
         <div className="intro-container-left flex w-full flex-1 flex-col items-center justify-center text-center lg:items-start lg:justify-start lg:text-left">
           <div className="title-container">
             <h1 className="text-2xl text-(--text-primary) md:text-3xl lg:text-4xl">
-              Full-Stack Engineer
+              Software Engineer
             </h1>
             <h2 className="text-5xl font-bold text-(--text-primary) sm:text-6xl md:py-1 md:text-7xl lg:py-2 lg:text-8xl">
               Dean Cruz
@@ -99,40 +101,55 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="description-container my-2 mt-4">
+          <div className="description-container my-2 mt-4 flex flex-col gap-2 sm:gap-0">
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              Frontend-focused <span className="text-(--accent)">|</span> React,
-              TypeScript, Next.js
+              Frontend-focused{" "}
+              <span className="hidden text-(--accent) sm:inline">|</span>
+              <br className="sm:hidden" /> React, TypeScript, Next.js
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              I write Java at NCS and build React apps on the side
+              I write Java at NCS
+              <br className="sm:hidden" /> and build React apps on the side
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              IMDA Gold Medal · 3.97 GPA, Republic Polytechnic
+              IMDA Gold Medal <span className="hidden sm:inline">·</span>
+              <br className="sm:hidden" /> 3.97 GPA, Republic Polytechnic
             </p>
           </div>
 
-          <HashLink
-            smooth
-            to="/#projects"
-            className={`${introButton} mt-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--accent)`}
-          >
-            View projects
-          </HashLink>
+          <div className="mt-2 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <HashLink
+              smooth
+              to="/#projects"
+              className={`${introButton} focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--accent)`}
+            >
+              View projects
+            </HashLink>
+            <a
+              href={resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${introButton} focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--accent)`}
+            >
+              Resume
+            </a>
+          </div>
 
-          <div className="buttons-container my-4 flex w-full max-w-md flex-wrap justify-center gap-8 md:max-w-xl lg:justify-start">
-            {socialButtons.map(({ label, href }) => (
-              <a
-                key={label}
-                aria-label={label}
-                className="text-(--text-secondary) hover:text-(--accent) hover:scale-125 transition-all duration-300 ease-in-out cursor-pointer"
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {iconMap[label]}
-              </a>
-            ))}
+          <div className="buttons-container my-4 flex w-full max-w-md flex-wrap justify-center gap-6 md:max-w-xl lg:justify-start">
+            {socialButtons
+              .filter(({ label }) => label !== "Resume")
+              .map(({ label, href }) => (
+                <a
+                  key={label}
+                  aria-label={label}
+                  className="text-(--text-secondary) hover:text-(--accent) hover:scale-125 transition-all duration-300 ease-in-out cursor-pointer"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {iconMap[label]}
+                </a>
+              ))}
           </div>
 
         </div>
@@ -190,6 +207,9 @@ const Home = () => {
               <motion.div
                 animate={{ height }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
+                onAnimationComplete={() => {
+                  if (!showAll) setRightColumnFree(false);
+                }}
                 className="overflow-hidden"
               >
                 <div ref={ref} className="relative z-10 grid grid-cols-3 gap-3 md:grid-cols-4">
@@ -203,7 +223,10 @@ const Home = () => {
 
               <div className="flex justify-center mt-4">
                 <button
-                  onClick={() => setShowAll(!showAll)}
+                  onClick={() => {
+                    if (!showAll) setRightColumnFree(true);
+                    setShowAll(!showAll);
+                  }}
                   className={`cursor-pointer rounded-full border px-4 py-2 text-sm transition-colors duration-300 ${
                     showAll
                       ? "border-(--accent) bg-(--accent) text-(--button-primary)"
@@ -240,7 +263,9 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="contents md:flex md:flex-col md:gap-6">
+          <div
+            className={`contents md:flex md:flex-col md:gap-6 ${rightColumnFree ? "md:self-start" : ""}`}
+          >
             {/* Education */}
             <div className="relative overflow-hidden rounded-2xl bg-(--bg-secondary) p-6">
               <Grid />
