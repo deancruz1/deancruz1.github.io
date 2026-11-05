@@ -7,7 +7,7 @@ const EducationCard = () => {
         {educationData.map((edu, index) => (
           <div
             key={index}
-            className="flex items-stretch gap-4 border-l-2 border-(--accent) pl-4"
+            className="flex items-stretch gap-4"
           >
             <div className="flex h-15 w-15 flex-shrink-0 items-center justify-center self-center">
               <img

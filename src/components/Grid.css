@@ -17,6 +17,24 @@
   background-size: 80px 80px;
 }
 
+/* Accent-coloured copy of the grid, visible only near the cursor.
+   --glow-x / --glow-y are set per grid by Background.jsx */
+.grid-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: color-mix(in srgb, var(--accent) 4%, transparent);
+  background-image:
+    linear-gradient(var(--accent) 1px, transparent 1px),
+    linear-gradient(90deg, var(--accent) 1px, transparent 1px);
+  background-size: inherit;
+  mask-image: radial-gradient(
+    circle var(--glow-size, 240px) at var(--glow-x, -999px) var(--glow-y, -999px),
+    rgb(0 0 0 / var(--glow-strength, 0.5)),
+    transparent
+  );
+}
+
 /* Bottom border line to close the grid */
 .grid-overlay::after {
   content: "";
@@ -31,5 +49,6 @@
 @media (max-width: 767px) {
   .grid-overlay {
     background-size: 55px 55px;
+    --glow-size: 160px;
   }
 }

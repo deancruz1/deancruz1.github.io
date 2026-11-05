@@ -1,17 +1,13 @@
 // Third-party Libs
 import { Helmet } from "react-helmet-async";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState, useRef, lazy, Suspense } from "react";
+import { useState, lazy, Suspense } from "react";
+import { HashLink } from "react-router-hash-link";
+import { FaGamepad, FaTv } from "react-icons/fa";
 import useMeasure from "react-use-measure";
 
 // CSS
 import "./Home.css";
-
-// Assets
-import aboutMeImgDark from "../assets/img/about-me-bg.webp";
-import aboutMeImgLight from "../assets/img/about-me-bg-light.webp";
-import frontendVideo from "../assets/videos/urara.mp4";
-import fullstackVideo from "../assets/videos/kiroku.mp4";
 
 // Components
 import AwardItem from "../components/AwardItem.jsx";
@@ -20,7 +16,6 @@ import Grid from "../components/Grid";
 import { EmailIcon, LocationIcon, GitHubIcon, LinkedInIcon, ResumeIcon } from "../components/Icons";
 import SectionHeader from "../components/SectionHeader.jsx";
 import SkillCard from "../components/SkillCard.jsx";
-import { useTheme } from "../hooks/useTheme";
 
 // Data
 import { techs } from "../data/tech-icons.jsx";
@@ -34,14 +29,42 @@ const HomeProjectsSection = lazy(
   () => import("../components/HomeProjectsSection"),
 );
 
-const Home = () => {
-  // const introButton = "bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
+const focusTiles = [
+  {
+    title: "Work",
+    stat: "1,600+",
+    statLabel: "queries tuned at NCS",
+    text: "I work on legacy Java systems at NCS. Mostly migrations and upgrades.",
+    links: [{ label: "Experience", to: "/#experience" }],
+  },
+  {
+    title: "Side Projects",
+    stat: "3",
+    statLabel: "apps live",
+    text: "React and Next.js apps I built because I wanted to use them.",
+    links: [
+      { label: "Urara", to: "/projects/urara" },
+      { label: "Kiroku", to: "/projects/kiroku" },
+      { label: "Oshiwatch", to: "/projects/oshiwatch" },
+    ],
+  },
+];
 
-  const [hoveredSkill, setHoveredSkill] = useState(null);
-  const [activeSkill, setActiveSkill] = useState(null);
-  const fadeTimeout = useRef(null);
+const hobbies = [
+  { icon: <FaGamepad size={28} />, label: "Ranked games" },
+  { icon: <FaTv size={28} />, label: "Anime" },
+];
+
+const Home = () => {
+  const introButton ="bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
+
   const [showAll, setShowAll] = useState(false);
-  const visibleTechs = showAll ? techs : techs.filter((t) => t.featured);
+  const defaultTechs = ["frontend", "backend"].flatMap((group) =>
+    techs.filter((t) => t.group === group).slice(0, 4),
+  );
+  const visibleTechs = showAll
+    ? [...defaultTechs, ...techs.filter((t) => !defaultTechs.includes(t))]
+    : defaultTechs;
   const [ref, { height }] = useMeasure();
 
   const { email, github, linkedin, resume } = personalLinks;
@@ -52,13 +75,10 @@ const Home = () => {
     Resume: <ResumeIcon className="w-8 h-8 md:w-10 md:h-10 md:w-12 md:h-12" />,
   };
 
-  const { theme } = useTheme();
-  const aboutMeImg = theme === "light" ? aboutMeImgLight : aboutMeImgDark;
-
   return (
     <>
       <Helmet>
-        <title>Dean Cruz - Software Engineer</title>
+        <title>Dean Cruz - Full-Stack Software Engineer</title>
       </Helmet>
       <main
         className="intro-container flex min-h-screen flex-col items-center justify-center px-8 lg:flex-row lg:justify-between"
@@ -68,12 +88,10 @@ const Home = () => {
         <div className="intro-container-left flex w-full flex-1 flex-col items-center justify-center text-center lg:items-start lg:justify-start lg:text-left">
           <div className="title-container">
             <h1 className="text-2xl text-(--text-primary) md:text-3xl lg:text-4xl">
-              Software Engineer
+              Full-Stack Engineer
             </h1>
             <h2 className="text-5xl font-bold text-(--text-primary) sm:text-6xl md:py-1 md:text-7xl lg:py-2 lg:text-8xl">
-              <span className="hover-target relative inline-block">
-                Dean Cruz
-              </span>
+              Dean Cruz
             </h2>
             <div className="flex items-center justify-center gap-1 text-xs text-(--text-secondary) lg:justify-start md:-mt-1 lg:-mt-2">
               <LocationIcon className="w-3 h-3 transition-colors duration-300 ease-in-out" />
@@ -87,12 +105,20 @@ const Home = () => {
               TypeScript, Next.js
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              I build for users, starting with myself
+              I write Java at NCS and build React apps on the side
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              IMDA Gold Medal · Republic Polytechnic
+              IMDA Gold Medal · 3.97 GPA, Republic Polytechnic
             </p>
           </div>
+
+          <HashLink
+            smooth
+            to="/#projects"
+            className={`${introButton} mt-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--accent)`}
+          >
+            View projects
+          </HashLink>
 
           <div className="buttons-container my-4 flex w-full max-w-md flex-wrap justify-center gap-8 md:max-w-xl lg:justify-start">
             {socialButtons.map(({ label, href }) => (
@@ -118,33 +144,44 @@ const Home = () => {
         <SectionHeader title="Short Profile" subtitle="Background and focus" />
 
         <div className="grid grid-cols-1 gap-6 py-6 md:grid-cols-2 lg:mt-5">
-          <div className="relative flex h-full items-center justify-center overflow-hidden rounded-2xl bg-(--bg-secondary) md:order-0 aspect-square md:aspect-auto">
-
-            <img
-              src={aboutMeImg}
-              alt="Dean Cruz"
-              loading="lazy"
-              decoding="async"
-              className="w-full h-full object-cover"
-              style={{ filter: theme === "dark" ? "saturate(0.6)" : "none" }}
-            />
-
-            <div className="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/80 to-transparent p-4 md:p-6">
-              <p className="w-70 text-2xl font-bold text-white md:w-80 lg:w-90 md:text-3xl">
-                I build interfaces that feel right, and everything behind them that makes that possible
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-6">
-            {/* Focused on roles - mobile only, above Specialising */}
-            <div className="relative order-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:hidden">
+          {focusTiles.map((tile) => (
+            <div
+              key={tile.title}
+              className="relative flex flex-col overflow-hidden rounded-2xl bg-(--bg-secondary) p-6"
+            >
               <Grid />
-              <p className="relative z-10 text-2xl font-bold text-(--text-primary)">Frontend dev by day, losing ranked games and falling behind on my anime backlog by night</p>
+              <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
+                {tile.title}
+              </p>
+              <div className="relative z-10 flex flex-1 flex-col gap-4">
+                <div className="flex items-baseline gap-3">
+                  <span className="shrink-0 text-5xl font-bold text-(--accent)">
+                    {tile.stat}
+                  </span>
+                  <span className="text-sm text-(--text-secondary)">
+                    {tile.statLabel}
+                  </span>
+                </div>
+                <p className="text-(--text-secondary)">{tile.text}</p>
+                <div className="mt-auto flex flex-wrap gap-2">
+                  {tile.links.map(({ label, to }) => (
+                    <HashLink
+                      key={label}
+                      smooth
+                      to={to}
+                      className="rounded-full border border-(--border) bg-(--bg-tertiary) px-4 py-2 text-sm font-semibold text-(--text-primary) transition-colors duration-300 hover:border-(--accent) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
+                    >
+                      {label}
+                    </HashLink>
+                  ))}
+                </div>
+              </div>
             </div>
+          ))}
 
-            {/* Technologies - first on tablet/desktop */}
-            <div className="relative order-3 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0">
+          <div className="contents md:flex md:flex-col md:gap-6">
+            {/* Technologies */}
+            <div className="relative overflow-hidden rounded-2xl bg-(--bg-secondary) p-6">
               <Grid />
               <p className="pb-4 text-2xl font-bold text-(--text-primary)">
                 Technologies
@@ -178,101 +215,49 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Specialising - second on tablet/desktop */}
-            <div className="relative order-2 flex-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-1 min-h-75 md:min-h-0">
+            {/* Hobbies - last on mobile, under Technologies on desktop */}
+            <div className="relative order-1 flex-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-none">
               <Grid />
-
-              <p className="relative z-10 text-2xl font-bold text-(--text-primary) ">
-                Specialising in{" "}
-                <span
-                  className="hover-target relative inline-block text-(--accent)"
-                  onMouseEnter={() => {
-                    clearTimeout(fadeTimeout.current);
-                    setHoveredSkill("frontend");
-                    setActiveSkill("frontend");
-                  }}
-                  onMouseLeave={() => {
-                    setHoveredSkill(null);
-                    fadeTimeout.current = setTimeout(() => {
-                      setActiveSkill(null);
-                    }, 400);
-                  }}
-                >
-                  frontend engineering
-                </span>{" "}
-                and{" "}
-                <span
-                  className="hover-target relative inline-block text-(--accent)"
-                  onMouseEnter={() => {
-                    clearTimeout(fadeTimeout.current);
-                    setHoveredSkill("fullstack");
-                    setActiveSkill("fullstack");
-                  }}
-                  onMouseLeave={() => {
-                    setHoveredSkill(null);
-                    fadeTimeout.current = setTimeout(() => {
-                      setActiveSkill(null);
-                    }, 400);
-                  }}
-                >
-                  full-stack development
-                </span>
+              <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
+                Hobbies
               </p>
-
-              {activeSkill === "frontend" && (
-                <>
-                  <video
-                    src={frontendVideo}
-                    autoPlay
-                    loop
-                    muted
-                    preload="none"
-                    className={`absolute inset-0 z-0 h-full w-full rounded-2xl object-cover ${hoveredSkill === "frontend" ? "fade-in" : "fade-out"}`}
-                  />
-                  <div className="slide-up absolute inset-0 z-5 rounded-2xl bg-linear-to-t from-black/95 via-black/50 to-transparent" />
-                </>
-              )}
-
-              {activeSkill === "fullstack" && (
-                <>
-                  <video
-                    src={fullstackVideo}
-                    autoPlay
-                    loop
-                    muted
-                    preload="none"
-                    className={`absolute inset-0 z-0 h-full w-full rounded-2xl object-cover ${hoveredSkill === "fullstack" ? "fade-in" : "fade-out"}`}
-                  />
-                  <div className="slide-up absolute inset-0 z-5 rounded-2xl bg-linear-to-t from-black/95 via-black/50 to-transparent" />
-                </>
-              )}
+              <div className="relative z-10 flex flex-col gap-4">
+                <div className="grid grid-cols-2 gap-3">
+                  {hobbies.map(({ icon, label }) => (
+                    <div
+                      key={label}
+                      className="flex items-center gap-3 rounded-xl bg-(--bg-tertiary) p-4"
+                    >
+                      <span className="shrink-0 text-(--accent)">{icon}</span>
+                      <span className="text-sm text-(--text-primary)">{label}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-(--text-secondary)">
+                  Losing ranked games and falling behind on my anime backlog.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {/* Education */}
-          <div className="relative order-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-1 md:row-start-1">
-            <Grid />
-            <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
-              Education
-            </p>
-            <EducationItem />
-          </div>
+          <div className="contents md:flex md:flex-col md:gap-6">
+            {/* Education */}
+            <div className="relative overflow-hidden rounded-2xl bg-(--bg-secondary) p-6">
+              <Grid />
+              <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
+                Education
+              </p>
+              <EducationItem />
+            </div>
 
-          {/* Awards & Honors */}
-          <div className="relative order-2 flex h-full flex-col overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-2 md:row-span-2 md:row-start-1">
-            <Grid />
-            <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
-              Awards & Honors
-            </p>
-            <AwardItem />
-          </div>
-
-          {/* Focused on roles - desktop only */}
-          <div className="relative order-3 hidden overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 md:order-0 md:col-start-1 md:row-start-2 md:block">
-            <Grid />
-            <p className="relative z-10 text-2xl font-bold text-(--text-primary)">Frontend dev by day, losing ranked games and falling behind on my anime backlog by night</p>
+            {/* Awards & Honors */}
+            <div className="relative flex-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6">
+              <Grid />
+              <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
+                Awards & Honors
+              </p>
+              <AwardItem />
+            </div>
           </div>
         </div>
       </section>

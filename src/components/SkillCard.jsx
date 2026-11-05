@@ -6,7 +6,7 @@ const SkillCard = ({ icon, label, small }) => (
     animate={{ opacity: 1, scale: 1 }}
     exit={{ opacity: 0, scale: 0.8 }}
     transition={{ duration: 0.2 }}
-    className="relative flex aspect-square w-full flex-col items-center rounded-xl bg-(--bg-tertiary) p-4 transition-colors duration-300 hover:bg-(--accent)/20"
+    className="relative flex aspect-square w-full flex-col items-center rounded-xl bg-(--bg-tertiary) p-4"
   >
     <span className="absolute inset-0 flex items-center justify-center pb-4 text-(--accent)">
       {icon}

@@ -164,7 +164,11 @@ export const projects = [
     description:
       "Existing anime trackers never felt right. Kiroku is mine, built full-stack with OAuth, a seasonal calendar, a recommendation engine, and interactive stats.",
     longDescription: `Built because existing anime trackers never felt right. Kiroku consolidates tracking into a single responsive web app with auth, recommendations, and real-time seasonal data.\n\n• Implemented dual authentication with Discord OAuth for quick sign-in and email/password registration using bcrypt hashing and JWT session tokens.\n• Built full CRUD operations for watch list management: add anime with status tracking, update episode progress and star ratings inline, and delete entries with cascade cleanup.\n• Developed a 7-day seasonal broadcast calendar with episode countdown timers, expand/collapse animations via Framer Motion, and genre-aware filtering with a tracked-only toggle.\n• Created a personalized recommendation engine that analyzes watch history, identifies top genres, queries the Jikan API, and surfaces unwatched shows with "Because you liked" context.\n• Visualized user stats with a bento-grid layout featuring summary cards, a Recharts donut chart for status distribution, and dynamic genre-based color palettes.\n• Built custom collections with create, rename, delete, and add/remove functionality, a profile settings page with Discord link/unlink, and responsive design across all breakpoints.`,
-    tags: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind", "React"],
+    card: {
+      why: "Existing anime trackers never felt right, so I built my own.",
+      how: "It runs on Supabase Postgres because Vercel functions can't keep a SQLite file between requests.",
+    },
+    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "NextAuth"],
     image: kirokuImg,
     liveDemo: "https://kiroku-nyaa.vercel.app",
     github: "https://github.com/deancruz1/Kiroku",
@@ -231,7 +235,11 @@ export const projects = [
     description:
       "A fan encyclopedia for Umamusume Pretty Derby. Character profiles, music previews, news, and birthday tracking, with on-demand translation for Japanese text.",
     longDescription: `A practice project built around a game I enjoy. The Umapyoi API returns Japanese text for some content, so I integrated the MyMemory translation API to handle it on demand. Users can toggle translations per entry without the page reloading.\n\n• Developed dynamic character profiles with bios, stats, fun facts, voice samples, and image galleries featuring label-based navigation and a lightbox modal.\n• Integrated MyMemory API for Japanese-to-English machine translation of character profiles and fun facts with a toggle between original and translated text.\n• Built a music browser with character filtering, track preview playback, and singer avatars, horizontal scroll on mobile, vertical sidebar on desktop.\n• Implemented a news feed with keyword search, pagination, and full-article modal views rendering raw HTML content.\n• Created a birthday calendar displaying today's and upcoming character birthdays for the current month.\n• Designed a dynamic accent color system where each character's primary color drives button highlights, borders, and UI accents throughout the page.\n• Added dark/light theme switching with persistent user preference via localStorage.\n• Applied page transitions and micro-animations using Framer Motion across all route changes.`,
-    tags: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "TanStack Query"],
+    card: {
+      why: "Umamusume fan info was scattered across wikis and playlists, so I put it in one place.",
+      how: "Part of the API only returns Japanese, so each entry translates on demand and caches the result.",
+    },
+    tags: ["React", "TypeScript", "TanStack Query", "Tailwind", "Framer Motion"],
     image: uraraImg,
     liveDemo: "https://deancruz1.github.io/Urara/",
     github: "https://github.com/deancruz1/Urara",
@@ -299,7 +307,11 @@ export const projects = [
     description:
       "A Hololive stream tracker. See who's live, browse upcoming streams, explore talent pages, and watch directly in-app with live chat.",
     longDescription: `Built because I wanted a clean, no-frills way to track Hololive streams without opening five tabs. Oshiwatch pulls live and upcoming stream data, lets you browse the full talent roster, and plays streams with embedded live chat directly in the app.\n\n• Built a Vercel serverless proxy layer to keep the Holodex API key server-side at all times — the key is never exposed to the client bundle in any environment.\n• Integrated the Holodex API v2 for live streams, upcoming schedules, full talent roster, VOD archives, shorts, and music — all filtered and sorted client-side.\n• Implemented branch filtering (JP/EN/ID/DEV_IS) with isolate-on-first-click UX, gen-based talent sorting with hardcoded debut order for Gen 0, and Holostars/official channel exclusion logic.\n• Built infinite pagination on stream, shorts, and music tabs using TanStack Query's useInfiniteQuery, loading 50 results per page on demand.\n• Designed a talent detail page with live/upcoming banners, tabbed VOD/shorts/music archives, and social links.\n• Embedded YouTube player with live chat support via YouTube's live_chat iframe API, scoped to the deployed domain.`,
-    tags: ["React", "TypeScript", "Tailwind"],
+    card: {
+      why: "I wanted to track Hololive streams without opening five tabs.",
+      how: "Holodex calls go through a Vercel serverless proxy so the API key never reaches the browser.",
+    },
+    tags: ["React", "TypeScript", "TanStack Query", "Vercel Functions", "Tailwind"],
     image: oshiwatchImg,
     liveDemo: "https://oshiwatch.vercel.app",
     github: "https://github.com/deancruz1/Oshiwatch",

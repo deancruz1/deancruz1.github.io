@@ -9,18 +9,29 @@ export const workExperiences = [
     type: "Permanent",
     duration: "2026 — Present",
     location: "Singapore",
-    description:
-      "Working as a Software Engineer under the Fusion Work-Study Degree Programme, developing software solutions while pursuing a sponsored Bachelor's Degree from a recognised university.",
-    responsibilities: [
-      "Participate in discussions with stakeholders to understand business and system requirements",
-      "Perform technical tasks to develop/enhance software applications according to functional and technical specifications",
-      "Maintain and improve software applications",
-      "Execute unit, integration, system and user acceptance testing",
-      "Using configuration management, integration and build automation tools to deploy application",
-      "Identify opportunities and suggest recommendations for system improvement",
+    summary:
+      "Backend work on legacy Java systems, through NCS's Fusion Work-Study Programme (sponsored UOW degree).",
+    highlights: [
+      {
+        value: "800+",
+        label: "JDBC queries migrated to MyBatis",
+        detail:
+          "Migrated 800+ raw JDBC queries to MyBatis 3, then validated and tuned all 1,600+ queries to fetch only the data they need, with no behavioural regressions.",
+      },
+      {
+        value: "6 → 7",
+        label: "JasperReports upgrade",
+        detail:
+          "Owned the JasperReports 6 → 7 upgrade on a legacy application, fixing a production bug that broke report rendering in Excel exports.",
+      },
+      {
+        value: "6 + 24",
+        label: "EJB endpoints to SOAP, 24 in progress",
+        detail:
+          "Migrated 6 EJB endpoints to SOAP web services on both provider and consumer sides; now migrating 24 more consumer endpoints for another service.",
+      },
     ],
-    achievements: [],
-    tags: ["Angular", "Hibernate", "Java", "Springboot", "MySQL"],
+    tags: ["Java", "Spring Boot", "MyBatis", "Hibernate", "MySQL", "EJB", "SOAP", "JasperReports", "Angular"],
   },
   {
     logo: ocbcLogo,
@@ -29,17 +40,27 @@ export const workExperiences = [
     type: "Internship",
     duration: "2024 — 2025",
     location: "Singapore",
-    description:
-      "Developed and maintained automated test scripts for enterprise banking applications using Tricentis Tosca, ensuring software quality across multiple releases.",
-    responsibilities: [
-      "Develop, execute, and maintain automated test scripts using Tricentis Tosca for core banking applications in Web, Android, and iOS platforms",
-      "Collaborate with stakeholders to identify testing requirements and resolve defects",
-      "Document test cases, results, and defects in detail to facilitate smooth QA experience and continuous improvement",
-    ],
-    achievements: [
-      "Built and maintained over 800 automated test cases across numerous platforms in regression testing and UAT to improve testing efficiency and reliability",
-      "Researched and presented feasibility studies on AI-driven automation tools to senior stakeholders, influencing team tooling decisions",
-      "Collaborated with a small team to manually execute and document over 300 test cases in the span of two weeks",
+    summary:
+      "Test automation for OCBC's core banking apps on web, Android and iOS.",
+    highlights: [
+      {
+        value: "800+",
+        label: "automated Tosca test cases",
+        detail:
+          "Built and maintained 800+ automated Tosca test cases across web, Android and iOS regression and UAT suites.",
+      },
+      {
+        value: "300+",
+        label: "manual test cases in two weeks",
+        detail:
+          "Executed and documented 300+ manual test cases in two weeks as part of a small team.",
+      },
+      {
+        value: "AI",
+        label: "test tooling study",
+        detail:
+          "Evaluated AI-driven test automation tools and presented the feasibility study to senior stakeholders, which fed into the team's tooling decision.",
+      },
     ],
     tags: ["Tosca", "Test Automation", "Banking", "QA", "Agile"],
   },

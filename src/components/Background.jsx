@@ -1,80 +1,111 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import "./Background.css";
 
-export default function Background() {
-  const [drift, setDrift] = useState([
-    { x: 0, y: 0 },
-    { x: 0, y: 0 },
-    { x: 0, y: 0 },
-  ]);
+// Seconds each light takes to close about two thirds of the gap to the cursor.
+// Order matches the orbs below: violet, blue, pink.
+const CHASE_SECONDS = [1.2, 2, 3];
 
-  const mouse = useRef({ x: 0.5, y: 0.5 });
+export default function Background() {
+  const backgroundRef = useRef(null);
 
   useEffect(() => {
+    // Cursor position, or a resting spot until it first moves
+    // (same spot as --orb-rest-x/y in Background.css)
+    const narrow = window.innerWidth < 768;
+    const light = {
+      x: window.innerWidth * (narrow ? 0.8 : 0.75),
+      y: window.innerHeight * (narrow ? 0.78 : 0.45),
+    };
+
+    // Grid glow: sits exactly on the cursor
+    let glowFrame = 0;
+
+    const paintGlow = () => {
+      glowFrame = 0;
+
+      // Each grid needs the position in its own coordinates
+      const grids = [...document.querySelectorAll(".grid-overlay")];
+      const rects = grids.map((el) => el.getBoundingClientRect());
+      grids.forEach((el, i) => {
+        el.style.setProperty("--glow-x", `${light.x - rects[i].left}px`);
+        el.style.setProperty("--glow-y", `${light.y - rects[i].top}px`);
+      });
+    };
+
+    const requestGlow = () => {
+      if (!glowFrame) glowFrame = requestAnimationFrame(paintGlow);
+    };
+
+    // Coloured lights: chase the cursor, each at its own pace
+    const orbEls = [...backgroundRef.current.children];
+    const orbs = orbEls.map(() => ({ x: light.x, y: light.y }));
+    let chaseFrame = 0;
+    let lastTime = 0;
+
+    const chase = (now) => {
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+      let moving = false;
+
+      orbs.forEach((orb, i) => {
+        const step = 1 - Math.exp(-dt / CHASE_SECONDS[i]);
+        orb.x += (light.x - orb.x) * step;
+        orb.y += (light.y - orb.y) * step;
+        orbEls[i].style.transform = `translate(${orb.x}px, ${orb.y}px)`;
+        if (Math.abs(light.x - orb.x) > 0.5 || Math.abs(light.y - orb.y) > 0.5) {
+          moving = true;
+        }
+      });
+
+      chaseFrame = moving ? requestAnimationFrame(chase) : 0;
+    };
+
+    const startChase = () => {
+      if (chaseFrame) return;
+      lastTime = performance.now();
+      chaseFrame = requestAnimationFrame(chase);
+    };
+
     const handleMouseMove = (e) => {
-      const xRatio = e.clientX / window.innerWidth;
-      const yRatio = e.clientY / window.innerHeight;
-
-      mouse.current.x = xRatio;
-      mouse.current.y = yRatio;
-
-      const strength = 0.25 + xRatio * 0.75;
-
-      document.documentElement.style.setProperty("--mouse-x", mouse.current.x);
-      document.documentElement.style.setProperty("--mouse-y", mouse.current.y);
-      document.documentElement.style.setProperty("--mouse-strength", strength);
+      light.x = e.clientX;
+      light.y = e.clientY;
+      requestGlow();
+      startChase();
     };
 
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("scroll", requestGlow, { passive: true });
+    requestGlow();
 
-    const generateRandomDrift = () => {
-      setDrift([
-        {
-          x: Math.floor(Math.random() * 300) - 150,
-          y: Math.floor(Math.random() * 200) - 100,
-        },
-        {
-          x: Math.floor(Math.random() * 400) - 200,
-          y: Math.floor(Math.random() * 300) - 150,
-        },
-        {
-          x: Math.floor(Math.random() * 300) - 150,
-          y: Math.floor(Math.random() * 200) - 100,
-        },
-      ]);
-    };
-
-    generateRandomDrift();
-    const driftInterval = setInterval(generateRandomDrift, 3500);
+    // No cursor on touch screens, so the target drifts on its own
+    let drift;
+    if (window.matchMedia("(hover: none)").matches) {
+      const place = (t) => {
+        light.x = window.innerWidth * (0.5 + 0.3 * Math.cos(t / 4000));
+        light.y = window.innerHeight * (0.6 + 0.2 * Math.sin(t / 5500));
+        requestGlow();
+        startChase();
+      };
+      place(0);
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        drift = setInterval(() => place(performance.now()), 50);
+      }
+    }
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      clearInterval(driftInterval);
+      window.removeEventListener("scroll", requestGlow);
+      clearInterval(drift);
+      cancelAnimationFrame(glowFrame);
+      cancelAnimationFrame(chaseFrame);
     };
   }, []);
 
   return (
-    <div className="background">
-      <div
-        className="blob-container wrapper1"
-        style={{ transform: `translate(${drift[0].x}px, ${drift[0].y}px)` }}
-      >
-        <div className="blob blob1"></div>
-      </div>
-
-      <div
-        className="blob-container wrapper2"
-        style={{ transform: `translate(${drift[1].x}px, ${drift[1].y}px)` }}
-      >
-        <div className="blob blob2"></div>
-      </div>
-
-      <div
-        className="blob-container wrapper3"
-        style={{ transform: `translate(${drift[2].x}px, ${drift[2].y}px)` }}
-      >
-        <div className="blob blob3"></div>
-      </div>
+    <div className="background" ref={backgroundRef}>
+      <div className="orb orb-violet"></div>
+      <div className="orb orb-blue"></div>
+      <div className="orb orb-pink"></div>
     </div>
   );
 }

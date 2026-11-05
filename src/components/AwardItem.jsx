@@ -6,7 +6,7 @@ const AwardItem = () => {
       {awardsData.map((award, index) => (
         <div
           key={index}
-          className="flex items-start gap-4 border-l-2 border-(--accent) pl-4"
+          className="flex items-start gap-4"
         >
           <img
             src={award.logo}
