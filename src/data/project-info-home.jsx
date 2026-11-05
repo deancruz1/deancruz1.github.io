@@ -86,10 +86,20 @@ const portfolioGalleryImages = Object.values(portfolioGallery).map(
   (m) => m.default,
 );
 
+const galleryThumbs = import.meta.glob(
+  "../assets/img/project-gallery/*/thumbs/*.webp",
+  { eager: true },
+);
+// Smaller copies of a project's gallery images, in the same order
+const thumbsFor = (folder) =>
+  Object.keys(galleryThumbs)
+    .filter((path) => path.includes(`/project-gallery/${folder}/thumbs/`))
+    .sort()
+    .map((path) => galleryThumbs[path].default);
+
 export const projects = [
   // Case study:
   //   caseStudy: {
-  //   overview: ``,
   //   problem: ``,
   //   solution: ``,
   //   technicalDecisions: [
@@ -108,7 +118,6 @@ export const projects = [
     category: "Full-Stack",
     description:
       "An e-learning platform where instructors build courses and quizzes, and students get graded automatically.",
-    longDescription: `Built to learn the Java ecosystem end-to-end while delivering a complete learning management system. Instructors create courses with lessons and quizzes. Students enroll, track progress, and get graded automatically.\n\n• Designed a 9-table PostgreSQL schema with composite keys, foreign key cascades, CHECK constraints, and UUID primary keys for data integrity at the database level.\n• Built a Spring Boot REST API with Spring Security and JWT authentication, BCrypt password hashing, role-based access control, and DTO pattern for clean API responses.\n• Mapped all entities with Hibernate ORM including many-to-many junction tables, lazy-loaded relationships, and composite embedded IDs.\n• Implemented a full quiz engine supporting multiple-choice questions with auto-grading, passing score thresholds, single-attempt enforcement, and attempt history.\n• Built an Angular frontend with standalone components, lazy-loaded routes, Tailwind CSS styling, and reactive forms with ChangeDetectorRef for real-time UI updates.\n• Deployed backend to Render with Docker and frontend to Vercel, with Supabase PostgreSQL as the managed database and CORS configuration for cross-origin requests.`,
     features: [
       {
         title: "Database",
@@ -142,6 +151,7 @@ export const projects = [
     heroVideo: skillforgeVideo,
     gallery: skillforgeGalleryImages.map((image, i) => ({
       image,
+      thumb: thumbsFor("skillforge")[i],
       caption: [
         "Courses Page - Instructor",
         "Course Details - Instructor",
@@ -150,8 +160,6 @@ export const projects = [
       ][i],
     })),
     caseStudy: {
-      overview: `SkillForge is a full-stack e-learning platform that combines course management, lesson tracking, quiz auto-grading, and student analytics. Built to apply the Java ecosystem with a TypeScript frontend on Angular.`,
-
       problem: `Most e-learning platforms are either too complex or too basic. I wanted to build one from scratch that covered the full feature set while learning enterprise Java patterns.`,
 
       solution: `Built on Spring Boot 4.0 with Hibernate ORM mapping 9 relational tables on Supabase PostgreSQL. Spring Security handles JWT authentication with role-based access for instructors and students. The Angular frontend communicates via REST APIs with DTOs for clean data transfer. The quiz engine auto-grades submissions against stored correct answers and enforces single-attempt rules.`,
@@ -201,7 +209,8 @@ export const projects = [
     category: "Frontend",
     description:
       "My first portfolio site, built during my diploma and picked by faculty as the cohort's reference for code structure.",
-    longDescription: `The project that started it all. Built to learn the fundamentals, then selected by faculty as the cohort reference implementation for code structure.\n\n• Scaled across 3 breakpoints (mobile, tablet, desktop) using Bootstrap grid systems.\n• Implemented semantic HTML structure for accessibility and SEO.\n• Categorized projects into Front-End, Programming, and Design sections with image preview galleries for each.`,
+    about:
+      "The project that started it all. Built to learn the fundamentals, then selected by faculty as the cohort reference implementation for code structure.",
     features: [
       {
         title: "Responsive layout",
@@ -224,6 +233,7 @@ export const projects = [
     heroVideo: portfolioVideo,
     gallery: portfolioGalleryImages.map((image, i) => ({
       image,
+      thumb: thumbsFor("portfolio-website")[i],
       caption: [
         "Home - Hero",
         "Home - Projects",
@@ -237,7 +247,8 @@ export const projects = [
     featured: false,
     category: "Frontend",
     description: "A fansite for 86 Eighty-Six, styled as a Handler's military terminal with dossiers, mech specs and a combat log.",
-    longDescription: `The concept is simple: you're a Handler logged into HQ. The site covers the full series: plot breakdowns by act, Spearhead Squadron dossiers with Para-RAID sync status, a mech database with armament specs, faction geopolitical profiles with threat classifications, and a combat log archive across all episodes.\n\n• Designed an immersive tactical UI with animated CRT scanline overlays, vignette effects, and conditional alert themes based on operational status.\n• Built detailed processor dossier cards displaying sync rates, operational history, and Para-RAID status for each member of the Spearhead Squadron.\n• Implemented a custom SPA routing workaround with a 404.html interception script, enabling flawless deep-linking and page refreshes on GitHub Pages static hosting.\n• Created responsive layouts that transition smoothly from complex desktop terminal grids to optimized mobile tactical screens.\n• Structured data architecture separating processor dossiers from tactical asset mappings for unit insignias and mecha models.`,
+    about:
+      "The concept is simple: you're a Handler logged into HQ. The site covers the full series: plot breakdowns by act, Spearhead Squadron dossiers with Para-RAID sync status, a mech database with armament specs, faction geopolitical profiles with threat classifications, and a combat log archive across all episodes.",
     features: [
       {
         title: "Series archive",
@@ -272,6 +283,7 @@ export const projects = [
     heroVideo: fansiteVideo,
     gallery: fansiteGalleryImages.map((image, i) => ({
       image,
+      thumb: thumbsFor("fansite")[i],
       caption: [
         "Intel Page",
         "Character Roster Page",
@@ -286,7 +298,6 @@ export const projects = [
     category: "Full-Stack",
     description:
       "An anime tracker with a watch list, seasonal calendar, recommendations and viewing stats.",
-    longDescription: `Built because existing anime trackers never felt right. Kiroku consolidates tracking into a single responsive web app with auth, recommendations, and real-time seasonal data.\n\n• Implemented dual authentication with Discord OAuth for quick sign-in and email/password registration using bcrypt hashing and JWT session tokens.\n• Built full CRUD operations for watch list management: add anime with status tracking, update episode progress and star ratings inline, and delete entries with cascade cleanup.\n• Developed a 7-day seasonal broadcast calendar with episode countdown timers, expand/collapse animations via Framer Motion, and genre-aware filtering with a tracked-only toggle.\n• Created a personalized recommendation engine that analyzes watch history, identifies top genres, queries the Jikan API, and surfaces unwatched shows with "Because you liked" context.\n• Visualized user stats with a bento-grid layout featuring summary cards, a Recharts donut chart for status distribution, and dynamic genre-based color palettes.\n• Built custom collections with create, rename, delete, and add/remove functionality, a profile settings page with Discord link/unlink, and responsive design across all breakpoints.`,
     card: {
       why: "Existing anime trackers never felt right, so I built my own.",
       how: "It runs on Supabase Postgres because Vercel functions can't keep a SQLite file between requests.",
@@ -325,6 +336,7 @@ export const projects = [
     heroVideo: kirokuVideo,
     gallery: kirokuGalleryImages.map((image, i) => ({
       image,
+      thumb: thumbsFor("kiroku")[i],
       caption: [
         "Home Page",
         "Stats Page",
@@ -333,8 +345,6 @@ export const projects = [
       ][i],
     })),
     caseStudy: {
-      overview: `Kiroku is a full-stack anime tracker that combines watch list management, seasonal discovery, personalized recommendations, and viewing stats into one responsive web app. Built to apply production-grade full-stack engineering from auth to deployment.`,
-
       problem: `Most anime trackers are fragmented. Users bounce between MyAnimeList for tracking, separate sites for seasonal schedules, and Reddit for recommendations. I wanted one clean app that handled all three without the bloat.`,
 
       solution: `Built on Next.js App Router with React Server Components, Prisma ORM on Supabase PostgreSQL, and NextAuth v5 for dual authentication with Discord OAuth. The Jikan API drives all anime data. Users track shows with full CRUD, browse a 7-day broadcast calendar, get genre-based recommendations, and view stats in a Spotify Wrapped-style bento dashboard.`,
@@ -383,7 +393,6 @@ export const projects = [
     category: "Frontend",
     description:
       "A fan guide to Umamusume Pretty Derby with character profiles, music previews, news and birthdays.",
-    longDescription: `A practice project built around a game I enjoy. The Umapyoi API returns Japanese text for some content, so I integrated the MyMemory translation API to handle it on demand. Users can toggle translations per entry without the page reloading.\n\n• Developed dynamic character profiles with bios, stats, fun facts, voice samples, and image galleries featuring label-based navigation and a lightbox modal.\n• Integrated MyMemory API for Japanese-to-English machine translation of character profiles and fun facts with a toggle between original and translated text.\n• Built a music browser with character filtering, track preview playback, and singer avatars, horizontal scroll on mobile, vertical sidebar on desktop.\n• Implemented a news feed with keyword search, pagination, and full-article modal views rendering raw HTML content.\n• Created a birthday calendar displaying today's and upcoming character birthdays for the current month.\n• Designed a dynamic accent color system where each character's primary color drives button highlights, borders, and UI accents throughout the page.\n• Added dark/light theme switching with persistent user preference via localStorage.\n• Applied page transitions and micro-animations using Framer Motion across all route changes.`,
     card: {
       why: "Umamusume fan info was scattered across wikis and playlists, so I put it in one place.",
       how: "Part of the API only returns Japanese, so each entry translates on demand and caches the result.",
@@ -422,6 +431,7 @@ export const projects = [
     heroVideo: uraraVideo,
     gallery: uraraGalleryImages.map((image, i) => ({
       image,
+      thumb: thumbsFor("urara")[i],
       caption: [
         "Home Page",
         "Characters Page",
@@ -430,8 +440,6 @@ export const projects = [
       ][i],
     })),
     caseStudy: {
-      overview: `Urara is a fan guide for Umamusume Pretty Derby, built because fan resources for the series are scattered across wikis, playlists, and social media. React and TypeScript, powered by the public Umapyoi API, no backend required.`,
-
       problem: `Existing Umamusume resources are scattered across wikis, YouTube playlists, and social media. Fans have no single destination to browse profiles, preview music, and catch up on news. I wanted to build that unified experience.`,
 
       solution: `Built a single-page React app with four main sections: character browser, music catalog, news feed, and birthday calendar. All data comes from the Umapyoi API via TanStack Query for caching and state management. The MyMemory API handles translations without any API key. Tailwind CSS and Framer Motion handle the responsive layout and animations.`,
@@ -481,7 +489,6 @@ export const projects = [
     category: "Frontend",
     description:
       "A Hololive stream tracker. See who's live, what's coming up, and watch in-app with live chat.",
-    longDescription: `Built because I wanted a clean, no-frills way to track Hololive streams without opening five tabs. Oshiwatch pulls live and upcoming stream data, lets you browse the full talent roster, and plays streams with embedded live chat directly in the app.\n\n• Built a Vercel serverless proxy layer to keep the Holodex API key server-side at all times — the key is never exposed to the client bundle in any environment.\n• Integrated the Holodex API v2 for live streams, upcoming schedules, full talent roster, VOD archives, shorts, and music — all filtered and sorted client-side.\n• Implemented branch filtering (JP/EN/ID/DEV_IS) with isolate-on-first-click UX, gen-based talent sorting with hardcoded debut order for Gen 0, and Holostars/official channel exclusion logic.\n• Built infinite pagination on stream, shorts, and music tabs using TanStack Query's useInfiniteQuery, loading 50 results per page on demand.\n• Designed a talent detail page with live/upcoming banners, tabbed VOD/shorts/music archives, and social links.\n• Embedded YouTube player with live chat support via YouTube's live_chat iframe API, scoped to the deployed domain.`,
     card: {
       why: "I wanted to track Hololive streams without opening five tabs.",
       how: "Holodex calls go through a Vercel serverless proxy so the API key never reaches the browser.",
@@ -520,6 +527,7 @@ export const projects = [
     heroVideo: oshiwatchVideo,
     gallery: oshiwatchGalleryImages.map((image, i) => ({
       image,
+      thumb: thumbsFor("oshiwatch")[i],
       caption: [
         "Home — Live & Upcoming",
         "Talents Page",
@@ -528,8 +536,6 @@ export const projects = [
       ][i],
     })),
     caseStudy: {
-      overview: `Oshiwatch is a Hololive stream tracker built on React, TypeScript, and Tailwind, deployed on Vercel with a serverless API proxy layer. It covers live streams, upcoming schedules, a full talent roster, and an in-app video player with live chat.`,
-
       problem: `Tracking Hololive streams meant juggling Holodex, YouTube, and Twitter simultaneously. I wanted one focused app that showed me who's live, what's coming up, and let me watch without leaving the page.`,
 
       solution: `Built a Vite + React SPA that proxies all Holodex API calls through Vercel serverless functions to keep the API key server-side. TanStack Query handles caching, polling every 5 minutes for live data, and infinite pagination for VOD archives. The watch page embeds YouTube's iframe player alongside the live chat iframe, scoped to the deployed domain.`,
@@ -578,7 +584,8 @@ export const projects = [
     category: "Full-Stack",
     description:
       "A PHP/MySQL application with CRUD-enabled database tables and session-based authentication.",
-    longDescription: `A deep dive into server-side fundamentals. Built to understand how session auth, relational schemas, and CRUD operations fit together end-to-end.\n\n• Designed a MySQL schema with three relational tables: users, movies, and reviews with foreign key constraints.\n• Implemented user registration and login with PHP session handling to guard protected routes for review submission, editing, and deletion.\n• Built full CRUD operations for movie reviews with star ratings, allowing logged-in users to submit, edit, and delete their own reviews.\n• Created a searchable movie browsing page that queries the database and displays movie details including genre, director, cast, and synopsis.`,
+    about:
+      "A deep dive into server-side fundamentals. Built to understand how session auth, relational schemas, and CRUD operations fit together end-to-end.",
     features: [
       {
         title: "Database",
@@ -604,6 +611,7 @@ export const projects = [
     heroVideo: movietopiaVideo,
     gallery: movietopiaGalleryImages.map((image, i) => ({
       image,
+      thumb: thumbsFor("movietopia")[i],
       caption: [
         "Home Page",
         "Search Function",
@@ -618,7 +626,8 @@ export const projects = [
     category: "Frontend",
     description:
       "A single-page fan site in plain HTML, CSS and JavaScript, with custom fonts and CSS animations.",
-    longDescription: `Started as a basic landing page project before enrolling into Republic Polytechnic to prepare for the course for a VTuber I enjoy watching. Recently refactored CSS and HTML for better maintainability.\n• Built a hamburger menu with animated icon toggle and auto-close on link click using vanilla JavaScript.\n• Designed a glowing CTA button with animated gradient borders via CSS keyframes.\n• Created a CSS-only modal using the :target pseudo-class for a zero-JavaScript disclaimer popup.\n• Optimized the layout with a centered content container and responsive media queries for mobile, tablet, and desktop.`,
+    about:
+      "Started as a basic landing page project before enrolling into Republic Polytechnic to prepare for the course for a VTuber I enjoy watching. Recently refactored CSS and HTML for better maintainability.",
     features: [
       {
         title: "Hamburger menu",
@@ -645,6 +654,7 @@ export const projects = [
     heroVideo: landingPageVideo,
     gallery: landingPageGalleryImages.map((image, i) => ({
       image,
+      thumb: thumbsFor("landing-page")[i],
       caption: [
         "Home Page",
         "Pop-up Text",
@@ -659,7 +669,8 @@ export const projects = [
     category: "Design",
     description:
       "A 154-screen high-fidelity mobile prototype mapping out navigation flows and touch-target sizing.",
-    longDescription: `Prototyped to produce developer handoff specs from design concepts.\n\n• Mapped user navigation stacks and interaction triggers in Adobe XD.\n• Established a design system for consistent type scaling and component spacing.\n• Defined grid alignments and component boundaries to guide front-end implementation.`,
+    about:
+      "Prototyped to produce developer handoff specs from design concepts.",
     features: [
       {
         title: "Navigation flows",
@@ -683,6 +694,7 @@ export const projects = [
     galleryPortrait: true,
     gallery: wireframeGalleryImages.map((image, i) => ({
       image,
+      thumb: thumbsFor("wireframe")[i],
       caption: ["Home Page", "About Me", "Portfolio Page", "Contact Page"][i],
     })),
   },

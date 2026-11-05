@@ -1,12 +1,11 @@
 import Grid from "./Grid";
 import { EmailIcon } from "../components/Icons";
-import { Link } from "react-router-dom"; // adjust if you're using a different router
 import personalLinks, { socialButtons } from "../data/personal-links.js";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  const { email, github, linkedin, resume } = personalLinks;
+  const { email } = personalLinks;
 
   return (
     <footer className="relative -left-[calc(50vw-50%)] w-screen overflow-hidden py-10 text-(--text-primary)">

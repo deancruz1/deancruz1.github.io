@@ -13,7 +13,7 @@ import "./Home.css";
 import AwardItem from "../components/AwardItem.jsx";
 import EducationItem from "../components/EducationItem.jsx";
 import Grid from "../components/Grid";
-import { EmailIcon, LocationIcon, GitHubIcon, LinkedInIcon } from "../components/Icons";
+import { LocationIcon, GitHubIcon, LinkedInIcon } from "../components/Icons";
 import SectionHeader from "../components/SectionHeader.jsx";
 import SkillCard from "../components/SkillCard.jsx";
 
@@ -70,7 +70,7 @@ const Home = () => {
   // own height instead of stretching to match
   const [rightColumnFree, setRightColumnFree] = useState(false);
 
-  const { email, github, linkedin, resume } = personalLinks;
+  const { resume } = personalLinks;
 
   const iconMap = {
     GitHub: <GitHubIcon className="w-8 h-8" />,

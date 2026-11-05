@@ -3,6 +3,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "./context/ThemeProvider";
 import "./index.css";
 import App from "./App.jsx";
+import HydrationGate from "./components/HydrationGate.jsx";
 
 // Import the single-page SSG wrapper instead of react-dom/client
 import { ViteReactSSG } from "vite-react-ssg/single-page";
@@ -26,7 +27,9 @@ export const createRoot = ViteReactSSG(
   <StrictMode>
     <HelmetProvider>
       <ThemeProvider>
-        <App />
+        <HydrationGate>
+          <App />
+        </HydrationGate>
       </ThemeProvider>
     </HelmetProvider>
   </StrictMode>

@@ -22,6 +22,39 @@ const Panel = ({ title, className = "", children }) => (
   </div>
 );
 
+const VISIBLE_CHALLENGES = 2;
+
+const ChallengeList = ({ items }) => {
+  const [showAll, setShowAll] = useState(false);
+  const visibleItems = showAll ? items : items.slice(0, VISIBLE_CHALLENGES);
+
+  return (
+    <>
+      <ul className="flex list-disc flex-col gap-2 pl-5 text-(--text-secondary) marker:text-(--accent)">
+        {visibleItems.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+      {items.length > VISIBLE_CHALLENGES && (
+        <div className="mt-4 flex justify-center">
+          <button
+            type="button"
+            aria-expanded={showAll}
+            onClick={() => setShowAll(!showAll)}
+            className={`cursor-pointer rounded-full border px-4 py-2 text-sm transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent) ${
+              showAll
+                ? "border-(--accent) bg-(--accent) text-(--button-primary)"
+                : "border-(--border) bg-(--bg-tertiary) text-(--text-secondary) hover:border-(--accent)"
+            }`}
+          >
+            {showAll ? "Show less" : "Show more"}
+          </button>
+        </div>
+      )}
+    </>
+  );
+};
+
 const ProjectDetail = () => {
   const { slug } = useParams();
   const [selectedImage, setSelectedImage] = useState(null);
@@ -33,6 +66,15 @@ const ProjectDetail = () => {
       behavior: "instant",
     });
   }, [slug]);
+
+  useEffect(() => {
+    if (!selectedImage) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setSelectedImage(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedImage]);
 
   const project = projects.find((p) => p.slug === slug);
 
@@ -52,8 +94,7 @@ const ProjectDetail = () => {
   const primaryButton = `rounded-full bg-(--text-primary) px-4 py-2 text-center text-sm font-semibold text-(--bg-primary) transition-colors duration-300 hover:bg-(--accent) hover:text-(--button-primary) ${focusRing}`;
   const secondaryButton = `rounded-full border border-(--border) bg-(--bg-tertiary) px-4 py-2 text-center text-sm font-semibold text-(--text-primary) transition-colors duration-300 hover:border-(--accent) ${focusRing}`;
 
-  const { caseStudy, features = [], gallery = [] } = project;
-  const about = project.longDescription?.split("\n")[0];
+  const { caseStudy, about, features = [], gallery = [] } = project;
   const nextProject =
     orderedProjects[
       (orderedProjects.indexOf(project) + 1) % orderedProjects.length
@@ -220,7 +261,7 @@ const ProjectDetail = () => {
                     className={`group block w-full cursor-pointer overflow-hidden rounded-2xl border border-(--border) ${focusRing}`}
                   >
                     <img
-                      src={item.image}
+                      src={item.thumb ?? item.image}
                       alt={item.caption}
                       loading="lazy"
                       decoding="async"
@@ -242,11 +283,7 @@ const ProjectDetail = () => {
             <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
               {caseStudy.challenges?.length > 0 && (
                 <Panel title="Challenges" className="md:col-span-3">
-                  <ul className="flex list-disc flex-col gap-2 pl-5 text-(--text-secondary) marker:text-(--accent)">
-                    {caseStudy.challenges.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
+                  <ChallengeList key={slug} items={caseStudy.challenges} />
                 </Panel>
               )}
               {caseStudy.improvements?.length > 0 && (
