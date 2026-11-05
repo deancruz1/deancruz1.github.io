@@ -10,7 +10,7 @@ export const workExperiences = [
     duration: "2026 — Present",
     location: "Singapore",
     summary:
-      "Legacy Java modernisation, plus a full-stack Angular and Spring Boot app where I designed the key front-end components. Planned and reviewed with NCS's in-house AI agent and OpenSpec. Part of the Fusion Work-Study Programme (sponsored UOW degree).",
+      "Designed the key front-end components of a full-stack Angular and Spring Boot app, alongside legacy Java modernisation. Planned and reviewed with NCS's in-house AI agent and OpenSpec. Part of the Fusion Work-Study Programme (sponsored UOW degree).",
     highlights: [
       {
         value: "800+",
@@ -31,7 +31,7 @@ export const workExperiences = [
           "Migrated 6 EJB endpoints to SOAP web services on both provider and consumer sides; now migrating 24 more consumer endpoints for another service.",
       },
     ],
-    tags: ["Java", "Spring Boot", "MyBatis", "Hibernate", "MySQL", "EJB", "SOAP", "JasperReports", "Angular"],
+    tags: ["Angular", "Java", "Spring Boot", "MyBatis", "Hibernate", "MySQL", "EJB", "SOAP", "JasperReports"],
   },
   {
     logo: ocbcLogo,

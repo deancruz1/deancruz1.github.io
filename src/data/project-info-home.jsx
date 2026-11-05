@@ -300,7 +300,7 @@ export const projects = [
       "An anime tracker with a watch list, seasonal calendar, recommendations and viewing stats.",
     card: {
       why: "Existing anime trackers never felt right, so I built my own.",
-      how: "It runs on Supabase Postgres because Vercel functions can't keep a SQLite file between requests.",
+      how: "Built on the Next.js App Router, so server components fetch the data and pages don't wait on client-side requests.",
     },
     features: [
       {

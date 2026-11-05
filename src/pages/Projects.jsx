@@ -47,7 +47,7 @@ const Projects = () => {
               All Projects
             </h1>
             <p className="text-lg text-(--text-secondary)">
-              Full-stack, frontend and design work
+              Frontend, full-stack and design work
             </p>
           </div>
 

@@ -34,7 +34,7 @@ const focusTiles = [
     title: "Work",
     stat: "1,600+",
     statLabel: "queries tuned at NCS",
-    text: "I work on legacy Java systems at NCS. Mostly migrations and upgrades.",
+    text: "At NCS I designed the key front-end components of a full-stack Angular app, alongside legacy Java modernisation.",
     links: [{ label: "Experience", to: "/#experience" }],
   },
   {
@@ -108,8 +108,8 @@ const Home = () => {
               <br className="sm:hidden" /> React, TypeScript, Next.js
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              I write Java at NCS
-              <br className="sm:hidden" /> and build React apps on the side
+              I build React apps,
+              <br className="sm:hidden" /> and write Angular and Java at NCS
             </p>
             <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
               IMDA Gold Medal <span className="hidden sm:inline">·</span>
