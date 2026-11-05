@@ -10,7 +10,7 @@ export const workExperiences = [
     duration: "2026 — Present",
     location: "Singapore",
     summary:
-      "Backend work on legacy Java systems, through NCS's Fusion Work-Study Programme (sponsored UOW degree).",
+      "Legacy Java modernisation, plus a full-stack Angular and Spring Boot app where I designed the key front-end components. Planned and reviewed with NCS's in-house AI agent and OpenSpec. Part of the Fusion Work-Study Programme (sponsored UOW degree).",
     highlights: [
       {
         value: "800+",
