@@ -13,6 +13,7 @@ const EducationCard = () => {
               <img
                 src={edu.logo}
                 alt={edu.school}
+                loading="lazy"
                 className="h-full w-full object-contain"
               />
             </div>
@@ -21,10 +22,11 @@ const EducationCard = () => {
                 {edu.degree}
               </p>
               <p className="text-sm text-(--text-secondary)">
-                {edu.school} · {edu.duration}
+                {edu.school} ·{" "}
+                <span className="whitespace-nowrap">{edu.duration}</span>
               </p>
               {edu.gpa && (
-                <p className="text-sm font-semibold text-(--accent)">
+                <p className="text-sm font-semibold text-(--accent-text)">
                   GPA: {edu.gpa}
                 </p>
               )}

@@ -6,6 +6,11 @@
   .dark {
     color-scheme: dark;
   }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
 }
 
 :root {
@@ -14,9 +19,11 @@
   --bg-tertiary: #1a1d24;
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-muted: #7c8aa0;
   --accent: #6d5dfc;
   --accent-hover: #8174ff;
+  /* Accent for small text, where --accent is too dim to read on dark */
+  --accent-text: #8174ff;
   --border: #222631;
   --border-accent: #6d5dfc;
   --shadow-accent: rgba(109, 93, 252, 0.35);
@@ -46,16 +53,17 @@ html.light {
   --bg-tertiary: #e4e7eb;
   --text-primary: #111827;
   --text-secondary: #4b5563;
-  --text-muted: #9ca3af;
+  --text-muted: #636b78;
   --accent: #4f3ee3;
   --accent-hover: #5b4ae3;
+  --accent-text: #4f3ee3;
   --border: #d1d5db;
   --border-accent: #4f3ee3;
   --shadow-accent: rgba(79, 62, 227, 0.15);
   --shadow-accent-strong: rgba(79, 62, 227, 0.3);
   --grid-line: rgba(17, 24, 39, 0.06);
   --text-overlay: #f8fafc;
-  --button-primary: #f8fafc;
+  --button-primary: #ffffff;
 }
 
 html.dark {
@@ -64,11 +72,12 @@ html.dark {
   --bg-tertiary: #1a1d24;
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-muted: #7c8aa0;
   --text-overlay: #f8fafc;
-  --button-primary: #f8fafc;
+  --button-primary: #ffffff;
   --accent: #6d5dfc;
   --accent-hover: #8174ff;
+  --accent-text: #8174ff;
   --border: #222631;
   --border-accent: #6d5dfc;
   --shadow-accent: rgba(109, 93, 252, 0.35);

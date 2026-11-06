@@ -43,7 +43,7 @@ const Projects = () => {
       <main id="main-content">
         <section className="min-h-screen pt-24 pb-12 px-5 lg:pt-32 lg:pb-16 relative">
           <div className="mt-3 mb-8">
-            <p className="text-xs font-bold tracking-[0.18em] text-(--accent) uppercase md:text-sm">
+            <p className="text-xs font-bold tracking-[0.18em] text-(--accent-text) uppercase md:text-sm">
               05 · Frontend, full-stack, design
             </p>
             <h1 className="mt-2 text-5xl font-bold tracking-tight text-(--text-primary) md:text-7xl">
@@ -75,7 +75,7 @@ const Projects = () => {
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             <AnimatePresence mode="popLayout" initial={false}>
-              {visibleProjects.map((project) => (
+              {visibleProjects.map((project, i) => (
                 <motion.div
                   key={project.slug}
                   layout
@@ -84,7 +84,7 @@ const Projects = () => {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <ProjectCardGrid {...project} />
+                  <ProjectCardGrid {...project} priority={i < 3} />
                 </motion.div>
               ))}
             </AnimatePresence>

@@ -86,6 +86,14 @@ const portfolioGalleryImages = Object.values(portfolioGallery).map(
   (m) => m.default,
 );
 
+const cardThumbs = import.meta.glob(
+  "../assets/img/project-cards/thumbs/*.webp",
+  { eager: true },
+);
+// Smaller copy of a card image for the All projects grid, if one exists
+const cardThumb = (name) =>
+  cardThumbs[`../assets/img/project-cards/thumbs/${name}.webp`]?.default;
+
 const galleryThumbs = import.meta.glob(
   "../assets/img/project-gallery/*/thumbs/*.webp",
   { eager: true },
@@ -146,6 +154,7 @@ export const projects = [
     ],
     tags: ["Angular", "TypeScript", "Java", "Spring Boot", "Hibernate", "PostgreSQL", "Tailwind"],
     image: skillforgeImg,
+    thumb: cardThumb("skillforge"),
     github: "https://github.com/deancruz1/SkillForge",
     slug: "skillforge",
     heroVideo: skillforgeVideo,
@@ -227,6 +236,7 @@ export const projects = [
     ],
     tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     image: portfolioImg,
+    thumb: cardThumb("portfolio-website"),
     liveDemo: "https://deancruz1.github.io/Foundations/",
     github: "https://github.com/deancruz1/Foundations",
     slug: "portfolio-website",
@@ -277,6 +287,7 @@ export const projects = [
     ],
     tags: ["React", "Tailwind"],
     image: fansiteImg,
+    thumb: cardThumb("fansite"),
     liveDemo: "https://deancruz1.github.io/Handler-One/",
     github: "https://github.com/deancruz1/Handler-One",
     slug: "fansite",
@@ -330,6 +341,7 @@ export const projects = [
     ],
     tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "NextAuth"],
     image: kirokuImg,
+    thumb: cardThumb("kiroku"),
     liveDemo: "https://kiroku-nyaa.vercel.app",
     github: "https://github.com/deancruz1/Kiroku",
     slug: "kiroku",
@@ -425,6 +437,7 @@ export const projects = [
     ],
     tags: ["React", "TypeScript", "TanStack Query", "Tailwind", "Framer Motion"],
     image: uraraImg,
+    thumb: cardThumb("urara"),
     liveDemo: "https://deancruz1.github.io/Urara/",
     github: "https://github.com/deancruz1/Urara",
     slug: "urara",
@@ -521,6 +534,7 @@ export const projects = [
     ],
     tags: ["React", "TypeScript", "TanStack Query", "Tailwind"],
     image: oshiwatchImg,
+    thumb: cardThumb("oshiwatch"),
     liveDemo: "https://oshiwatch.vercel.app",
     github: "https://github.com/deancruz1/Oshiwatch",
     slug: "oshiwatch",
@@ -606,6 +620,7 @@ export const projects = [
     ],
     tags: ["PHP", "MySQL", "CSS"],
     image: movietopiaImg,
+    thumb: cardThumb("movietopia"),
     github: "https://github.com/deancruz1/Movietopia",
     slug: "movietopia",
     heroVideo: movietopiaVideo,
@@ -648,6 +663,7 @@ export const projects = [
     ],
     tags: ["HTML", "CSS", "JavaScript"],
     image: landingPageImg,
+    thumb: cardThumb("landing-page"),
     liveDemo: "https://deancruz1.github.io/Shrine_of_Suisei/",
     github: "https://github.com/deancruz1/Shrine_of_Suisei",
     slug: "landing-page",
@@ -687,6 +703,7 @@ export const projects = [
     ],
     tags: ["XD", "Illustrator", "Photoshop"],
     image: mobileWireframeImg,
+    thumb: cardThumb("mobile-wireframe"),
     liveDemo:
       "https://xd.adobe.com/view/ff47b771-facc-42d4-9af3-0043a8316f16-aa14/",
     slug: "mobile-wireframe",

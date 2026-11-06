@@ -11,6 +11,8 @@ const ProjectCardGrid = ({
   description,
   tags = [],
   slug,
+  thumb,
+  priority = false,
 }) => {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [showAllTags, setShowAllTags] = useState(false);
@@ -44,7 +46,7 @@ const ProjectCardGrid = ({
         transition:
           "transform 0.1s ease, box-shadow 0.3s ease, border-color 0.3s ease",
       }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-transparent bg-(--bg-secondary) will-change-transform hover:border-(--accent) hover:shadow-[0_0_20px_var(--shadow-accent)] has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-(--accent)"
+      className="group relative flex h-full flex-row overflow-hidden rounded-2xl sm:flex-col border border-transparent bg-(--bg-secondary) will-change-transform hover:border-(--accent) hover:shadow-[0_0_20px_var(--shadow-accent)] has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-(--accent)"
     >
       <Grid />
 
@@ -55,31 +57,31 @@ const ProjectCardGrid = ({
         className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-none"
       />
 
-      <div className="relative aspect-video shrink-0 overflow-hidden">
+      <div className="relative w-28 shrink-0 overflow-hidden sm:aspect-video sm:w-auto">
         <img
-          src={imgSrc}
-          srcSet={imgSrcSet}
+          src={thumb ?? imgSrc}
+          srcSet={thumb ? undefined : imgSrcSet}
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
           alt=""
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
           decoding="async"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
 
-      <div className="pointer-events-none relative z-10 flex flex-1 flex-col gap-3 p-6">
+      <div className="pointer-events-none relative z-10 flex min-w-0 flex-1 flex-col gap-2 p-4 sm:gap-3 sm:p-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold text-(--text-primary)">{title}</h2>
+          <h2 className="text-lg font-bold text-(--text-primary) sm:text-xl">{title}</h2>
           <span className="ml-2 shrink-0 rounded-full border border-(--accent) bg-(--accent)/20 px-3 py-1 text-xs text-(--text-primary)">
             {category}
           </span>
         </div>
 
-        <p className="line-clamp-3 text-sm text-(--text-secondary)">
+        <p className="line-clamp-2 text-sm text-(--text-secondary) sm:line-clamp-3">
           {description}
         </p>
 
-        <div className="mt-auto flex flex-wrap gap-2 pt-1">
+        <div className="mt-auto hidden flex-wrap gap-2 pt-1 sm:flex">
           {visibleTags.map((tag) => (
             <span
               key={tag}

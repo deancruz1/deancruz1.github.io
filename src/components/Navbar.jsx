@@ -86,10 +86,10 @@ const Navbar = () => {
               key={link.label}
               smooth
               to={link.to}
-              className="flex items-center gap-1 text-sm text-(--text-primary) transition-colors duration-300 hover:text-(--accent)"
+              className="flex items-center gap-1 py-0.5 text-sm text-(--text-primary) transition-colors duration-300 hover:text-(--accent)"
             >
               {link.label}
-              <sup className="text-[10px] text-(--accent)">
+              <sup className="text-[10px] text-(--accent-text)">
                 {String(i + 1).padStart(2, "0")}
               </sup>
             </HashLink>
@@ -148,7 +148,7 @@ const Navbar = () => {
                 onClick={() => setMenuOpen(false)}
                 className="flex items-center gap-2 text-lg font-bold text-(--text-primary) transition-colors duration-300 hover:text-(--accent)"
               >
-                <sup className="text-[10px] text-(--accent)">
+                <sup className="text-[10px] text-(--accent-text)">
                   {String(i + 1).padStart(2, "0")}
                 </sup>
                 {link.label}

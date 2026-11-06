@@ -11,9 +11,15 @@ import Footer from "./components/Footer";
 const Router = typeof window !== "undefined" ? BrowserRouter : MemoryRouter;
 
 function App() {
+  // At build time scripts/prerender-meta.mjs sets which page to render
+  const routerProps =
+    typeof window !== "undefined"
+      ? {}
+      : { initialEntries: [globalThis.__prerenderPath ?? "/"] };
+
   return (
     // Use the dynamic Router instead of hardcoding BrowserRouter
-    <Router>
+    <Router {...routerProps}>
       <div className="flex min-h-screen flex-col">
         <Background />
         <Navbar />

@@ -15,13 +15,13 @@ const Footer = () => {
 
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5">
         <div className="mb-12 flex flex-col items-center gap-4">
-          <h1 className="text-5xl font-bold tracking-tight sm:text-6xl">
+          <p className="text-5xl font-bold tracking-tight sm:text-6xl">
             Dean<span className="text-(--accent)">.</span>
-          </h1>
+          </p>
 
           <a
             href={`mailto:${email}`}
-            className="flex items-center gap-2 text-sm font-medium transition-colors duration-200 hover:text-(--accent) sm:text-base"
+            className="flex items-center gap-2 py-1 text-sm font-medium transition-colors duration-200 hover:text-(--accent) sm:text-base"
           >
             <span className="text-base sm:text-lg"><EmailIcon /></span>
             <span>{email}</span>
@@ -43,7 +43,7 @@ const Footer = () => {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm transition-colors duration-200 hover:text-(--accent)"
+                className="py-1 text-sm transition-colors duration-200 hover:text-(--accent)"
               >
                 {label}
               </a>

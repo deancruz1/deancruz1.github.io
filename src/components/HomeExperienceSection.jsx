@@ -36,6 +36,7 @@ const HomeExperienceSection = () => {
             <img
               src={exp.logo}
               alt=""
+              loading="lazy"
               className="h-12 w-12 shrink-0 rounded-lg object-contain"
             />
             <span className="min-w-0">

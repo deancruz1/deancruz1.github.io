@@ -11,6 +11,7 @@ const AwardItem = () => {
           <img
             src={award.logo}
             alt={award.institution}
+            loading="lazy"
             className="mt-1 h-8 w-8 rounded object-contain"
           />
           <div>

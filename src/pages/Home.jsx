@@ -99,7 +99,7 @@ const Home = () => {
         <Grid />
         <div className="intro-container-left relative z-10 flex w-full flex-1 flex-col items-start justify-center text-left">
           <div className="title-container">
-            <div className="flex items-center gap-2 text-xs font-bold tracking-[0.18em] whitespace-nowrap text-(--accent) uppercase max-[359px]:text-[0.625rem] max-[359px]:tracking-[0.12em] md:text-sm">
+            <div className="flex items-center gap-2 text-xs font-bold tracking-[0.18em] whitespace-nowrap text-(--accent-text) uppercase max-[359px]:text-[0.625rem] max-[359px]:tracking-[0.12em] md:text-sm">
               <h1>Software Engineer</h1>
               <span aria-hidden="true">·</span>
               <span>Singapore</span>
@@ -242,7 +242,14 @@ const Home = () => {
                 }}
                 className="overflow-hidden"
               >
-                <div ref={ref} className="relative z-10 grid grid-cols-3 gap-3 md:grid-cols-4">
+                <div
+                  ref={ref}
+                  className={`relative z-10 grid grid-cols-3 gap-3 md:grid-cols-4 ${
+                    showAll
+                      ? ""
+                      : "max-md:[&>*:nth-child(4)]:hidden max-md:[&>*:nth-child(8)]:hidden"
+                  }`}
+                >
                   <AnimatePresence mode="popLayout">
                     {visibleTechs.map((tech) => (
                       <SkillCard key={tech.label} {...tech} />

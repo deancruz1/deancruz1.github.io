@@ -43,17 +43,27 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media = 'all'"
+      onload="this.onload = null; this.rel = 'stylesheet'"
     />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" />
+    </noscript>
     <title>Dean Cruz - Software Engineer</title>
 
     <script defer src="https://cloud.umami.is/script.js" data-website-id="704bd4f5-7786-4f11-b5c2-dfa052e91db7"></script>
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Unknown URLs arrive from 404.html as /?p=<path>. The pre-rendered home
+      // page is the wrong content for them, so clear it and let the app render.
+      if (new URLSearchParams(location.search).has("p")) {
+        document.getElementById("root").innerHTML = "";
+      }
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

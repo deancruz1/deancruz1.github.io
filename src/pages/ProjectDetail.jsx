@@ -181,6 +181,13 @@ const ProjectDetail = () => {
         <meta name="twitter:image" content={project.image} />
       </Helmet>
 
+      <link
+        rel="preload"
+        as="image"
+        href={project.image}
+        fetchPriority="high"
+      />
+
       <main id="main-content">
         <section className="relative flex min-h-screen flex-col gap-6 px-5 pt-24 pb-12 lg:pt-32 lg:pb-16">
           {/* Hero */}
@@ -197,7 +204,7 @@ const ProjectDetail = () => {
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-black/10" />
-              <div className="absolute inset-x-0 bottom-0 flex flex-col gap-4 p-6 md:flex-row md:items-end md:justify-between md:p-10">
+              <div className="absolute inset-x-0 bottom-0 flex flex-col gap-4 bg-linear-to-t from-black/95 from-60% to-transparent p-6 pt-16 md:flex-row md:items-end md:justify-between md:bg-none md:p-10">
                 <div className="flex flex-col gap-3">
                   <span className="w-fit rounded-full border border-(--accent) bg-(--accent)/20 px-3 py-1 text-xs text-(--text-overlay)">
                     {project.category}
