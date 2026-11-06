@@ -11,9 +11,3 @@
   margin-right: -50vw;
   width: 100vw;
 }
-
-@media (max-width: 767px) {
-  .intro-container-left {
-    padding: 0 24px;
-  }
-}

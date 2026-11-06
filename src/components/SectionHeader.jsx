@@ -1,12 +1,12 @@
-const SectionHeader = ({ title, subtitle, className }) => {
+const SectionHeader = ({ number, title, subtitle, className }) => {
   return (
     <div className={className}>
-      <h2 className="mb-2 text-center text-3xl font-semibold text-(--text-primary) md:text-5xl">
+      <p className="text-xs font-bold tracking-[0.18em] text-(--accent) uppercase md:text-sm">
+        {number} · {subtitle}
+      </p>
+      <h2 className="mt-2 text-4xl leading-tight font-bold tracking-tight text-(--text-primary) md:text-5xl">
         {title}
       </h2>
-      <h3 className="text-md text-center text-(--text-secondary) md:text-xl">
-        {subtitle}
-      </h3>
     </div>
   );
 };

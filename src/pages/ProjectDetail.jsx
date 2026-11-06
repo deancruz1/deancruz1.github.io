@@ -91,7 +91,7 @@ const ProjectDetail = () => {
   const liveLabel = project.category === "Design" ? "Live demo" : "Live site";
   const focusRing =
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)";
-  const primaryButton = `rounded-full bg-(--text-primary) px-4 py-2 text-center text-sm font-semibold text-(--bg-primary) transition-colors duration-300 hover:bg-(--accent) hover:text-(--button-primary) ${focusRing}`;
+  const primaryButton = `rounded-full bg-(--accent) px-4 py-2 text-center text-sm font-semibold text-(--button-primary) transition-colors duration-300 hover:bg-(--accent-hover) ${focusRing}`;
   const secondaryButton = `rounded-full border border-(--border) bg-(--bg-tertiary) px-4 py-2 text-center text-sm font-semibold text-(--text-primary) transition-colors duration-300 hover:border-(--accent) ${focusRing}`;
 
   const { caseStudy, about, features = [], gallery = [] } = project;
@@ -148,7 +148,7 @@ const ProjectDetail = () => {
                         href={project.liveDemo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`rounded-full bg-(--text-overlay) px-4 py-2 text-center text-sm font-semibold text-black transition-colors duration-300 hover:bg-(--accent) hover:text-(--button-primary) ${focusRing}`}
+                        className={primaryButton}
                       >
                         {liveLabel}
                       </a>

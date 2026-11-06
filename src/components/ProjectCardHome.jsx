@@ -90,7 +90,7 @@ const ProjectCardHome = ({
         <div className="mt-auto flex flex-wrap gap-2 pt-2">
           <Link
             to={caseStudyPath}
-            className={`rounded-full bg-(--text-primary) px-4 py-2 text-center text-sm font-semibold text-(--bg-primary) transition-colors duration-300 hover:bg-(--accent) hover:text-(--button-primary) ${focusRing}`}
+            className={`rounded-full bg-(--accent) px-4 py-2 text-center text-sm font-semibold text-(--button-primary) transition-colors duration-300 hover:bg-(--accent-hover) ${focusRing}`}
           >
             Case study
           </Link>

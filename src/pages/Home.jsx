@@ -13,7 +13,7 @@ import "./Home.css";
 import AwardItem from "../components/AwardItem.jsx";
 import EducationItem from "../components/EducationItem.jsx";
 import Grid from "../components/Grid";
-import { LocationIcon, GitHubIcon, LinkedInIcon } from "../components/Icons";
+import { GitHubIcon, LinkedInIcon } from "../components/Icons";
 import SectionHeader from "../components/SectionHeader.jsx";
 import SkillCard from "../components/SkillCard.jsx";
 
@@ -39,9 +39,9 @@ const focusTiles = [
   },
   {
     title: "Side Projects",
-    stat: "3",
-    statLabel: "apps live",
-    text: "React and Next.js apps I built because I wanted to use them.",
+    stat: "9",
+    statLabel: "projects built",
+    text: "My three favourites are React and Next.js apps I built because I wanted to use them.",
     links: [
       { label: "Urara", to: "/projects/urara" },
       { label: "Kiroku", to: "/projects/kiroku" },
@@ -50,13 +50,22 @@ const focusTiles = [
   },
 ];
 
+const heroStack = ["React", "TypeScript", "Next.js"];
+
+const heroStats = [
+  { value: "Gold", label: "IMDA Medal" },
+  { value: "3.97", label: "GPA, Republic Poly" },
+  { value: "3", label: "apps shipped" },
+];
+
 const hobbies = [
-  { icon: <FaGamepad size={28} />, label: "Ranked games" },
+  { icon: <FaGamepad size={28} />, label: "JRPGs" },
   { icon: <FaTv size={28} />, label: "Anime" },
 ];
 
 const Home = () => {
   const introButton ="bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
+  const introButtonPrimary ="bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--button-primary)] font-bold py-2 px-4 border border-[var(--accent)] hover:border-[var(--accent-hover)] transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
 
   const [showAll, setShowAll] = useState(false);
   const defaultTechs = ["frontend", "backend"].flatMap((group) =>
@@ -83,82 +92,102 @@ const Home = () => {
         <title>Dean Cruz - Software Engineer</title>
       </Helmet>
       <main
-        className="intro-container flex min-h-screen flex-col items-center justify-center px-8 lg:flex-row lg:justify-between"
+        className="intro-container flex min-h-svh flex-col items-center justify-center px-8 pt-24 pb-10 lg:flex-row lg:justify-between lg:py-0"
         id="hero"
       >
         <Grid />
-        <div className="intro-container-left flex w-full flex-1 flex-col items-center justify-center text-center lg:items-start lg:justify-start lg:text-left">
+        <div className="intro-container-left flex w-full flex-1 flex-col items-start justify-center text-left">
           <div className="title-container">
-            <h1 className="text-2xl text-(--text-primary) md:text-3xl lg:text-4xl">
-              Software Engineer
-            </h1>
-            <h2 className="text-5xl font-bold text-(--text-primary) sm:text-6xl md:py-1 md:text-7xl lg:py-2 lg:text-8xl">
-              Dean Cruz
-            </h2>
-            <div className="flex items-center justify-center gap-1 text-xs text-(--text-secondary) lg:justify-start md:-mt-1 lg:-mt-2">
-              <LocationIcon className="w-3 h-3 transition-colors duration-300 ease-in-out" />
+            <div className="flex items-center gap-2 text-xs font-bold tracking-[0.18em] whitespace-nowrap text-(--accent) uppercase max-[359px]:text-[0.625rem] max-[359px]:tracking-[0.12em] md:text-sm">
+              <h1>Software Engineer</h1>
+              <span aria-hidden="true">·</span>
               <span>Singapore</span>
             </div>
+            <h2 className="mt-2 text-[5.5rem] leading-[0.92] font-bold tracking-tight whitespace-nowrap text-(--text-primary) sm:text-8xl md:text-[7.5rem] lg:text-8xl xl:text-[6.5rem]">
+              Dean
+              <br className="sm:hidden" /> Cruz
+              <span className="text-(--accent)">.</span>
+            </h2>
           </div>
 
-          <div className="description-container my-2 mt-4 flex flex-col gap-2 sm:gap-0">
-            <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              Frontend-focused{" "}
-              <span className="hidden text-(--accent) sm:inline">|</span>
-              <br className="sm:hidden" /> React, TypeScript, Next.js
-            </p>
-            <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              I build React apps,
-              <br className="sm:hidden" /> and write Angular and Java at NCS
-            </p>
-            <p className="max-w-md text-base text-(--text-secondary) md:max-w-xl md:text-base lg:text-lg">
-              IMDA Gold Medal <span className="hidden sm:inline">·</span>
-              <br className="sm:hidden" /> 3.97 GPA, Republic Polytechnic
-            </p>
+          <p className="mt-6 max-w-md text-lg text-(--text-secondary) md:mt-7 md:text-xl">
+            <span className="font-bold text-(--text-primary)">
+              Frontend-focused.
+            </span>{" "}
+            I build React apps, and write Angular and Java at NCS.
+          </p>
+
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {heroStack.map((tech) => (
+              <li
+                key={tech}
+                className="rounded-full border border-(--border) bg-(--bg-secondary) px-3 py-1 text-sm font-semibold text-(--text-primary)"
+              >
+                {tech}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-6 flex w-full max-w-md gap-5 border-t border-(--border) pt-5 sm:gap-7 md:gap-11">
+            {heroStats.map(({ value, label }) => (
+              <div key={label}>
+                <p className="text-2xl leading-tight font-bold text-(--accent) md:text-3xl">
+                  {value}
+                </p>
+                <p className="text-xs text-(--text-secondary) md:text-sm">
+                  {label}
+                </p>
+              </div>
+            ))}
           </div>
 
-          <div className="mt-2 flex flex-wrap justify-center gap-3 lg:justify-start">
-            <HashLink
-              smooth
-              to="/#projects"
-              className={`${introButton} focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--accent)`}
-            >
-              View projects
-            </HashLink>
-            <a
-              href={resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${introButton} focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--accent)`}
-            >
-              Resume
-            </a>
-          </div>
+          <div className="mt-7 flex flex-wrap items-center gap-5">
+            <div className="flex gap-3">
+              <HashLink
+                smooth
+                to="/#projects"
+                className={`${introButtonPrimary} focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--accent)`}
+              >
+                View projects
+              </HashLink>
+              <a
+                href={resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${introButton} focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--accent)`}
+              >
+                Resume
+              </a>
+            </div>
 
-          <div className="buttons-container my-4 flex w-full max-w-md flex-wrap justify-center gap-6 md:max-w-xl lg:justify-start">
-            {socialButtons
-              .filter(({ label }) => label !== "Resume")
-              .map(({ label, href }) => (
-                <a
-                  key={label}
-                  aria-label={label}
-                  className="text-(--text-secondary) hover:text-(--accent) hover:scale-125 transition-all duration-300 ease-in-out cursor-pointer"
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {iconMap[label]}
-                </a>
-              ))}
+            <div className="buttons-container flex gap-5">
+              {socialButtons
+                .filter(({ label }) => label !== "Resume")
+                .map(({ label, href }) => (
+                  <a
+                    key={label}
+                    aria-label={label}
+                    className="text-(--text-secondary) hover:text-(--accent) hover:scale-125 transition-all duration-300 ease-in-out cursor-pointer"
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {iconMap[label]}
+                  </a>
+                ))}
+            </div>
           </div>
-
         </div>
 
         <div className="intro-container-right hidden w-full flex-1 lg:block"></div>
       </main>
 
       <section className="my-4 px-8 py-8 md:my-6 md:py-16 home-section" id="about">
-        <SectionHeader title="Short Profile" subtitle="Background and focus" />
+        <SectionHeader
+          number="02"
+          title="Short Profile"
+          subtitle="Background and focus"
+        />
 
         <div className="grid grid-cols-1 gap-6 py-6 md:grid-cols-2 lg:mt-5">
           {focusTiles.map((tile) => (
@@ -257,7 +286,7 @@ const Home = () => {
                   ))}
                 </div>
                 <p className="text-(--text-secondary)">
-                  Losing ranked games and falling behind on my anime backlog.
+                  Sinking 100 hours into a JRPG while my anime backlog keeps growing.
                 </p>
               </div>
             </div>

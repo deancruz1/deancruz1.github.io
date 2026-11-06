@@ -42,19 +42,19 @@ const Projects = () => {
 
       <main id="main-content">
         <section className="min-h-screen pt-24 pb-12 px-5 lg:pt-32 lg:pb-16 relative">
-          <div className="mt-3 mb-8 px-8 text-center">
-            <h1 className="mb-4 text-5xl font-bold text-(--text-primary) md:text-7xl">
+          <div className="mt-3 mb-8">
+            <p className="text-xs font-bold tracking-[0.18em] text-(--accent) uppercase md:text-sm">
+              05 · Frontend, full-stack, design
+            </p>
+            <h1 className="mt-2 text-5xl font-bold tracking-tight text-(--text-primary) md:text-7xl">
               All Projects
             </h1>
-            <p className="text-lg text-(--text-secondary)">
-              Frontend, full-stack and design work
-            </p>
           </div>
 
           <div
             role="group"
             aria-label="Filter by category"
-            className="mb-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3"
+            className="mb-8 flex flex-wrap items-center gap-2 sm:gap-3"
           >
             {categories.map((cat) => (
               <button

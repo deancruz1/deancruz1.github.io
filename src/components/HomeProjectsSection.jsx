@@ -21,6 +21,7 @@ const HomeProjectsSection = () => {
     >
       <div>
         <SectionHeader
+          number="04"
           title="Featured Projects"
           subtitle="Three apps I built"
           className="mb-6 md:mb-10"
