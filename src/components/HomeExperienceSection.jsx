@@ -1,12 +1,31 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import useMeasure from "react-use-measure";
 import { workExperiences } from "../data/work-experience.js";
 import SectionHeader from "../components/SectionHeader.jsx";
 import WorkExperienceCard from "../components/WorkExperienceCard.jsx";
 
+// The old card fading out (0.2s), then the height change (0.3s), with slack
+const ROLE_SWITCH_MS = 600;
+
 const HomeExperienceSection = () => {
   const [activeRole, setActiveRole] = useState(0);
   const role = workExperiences[activeRole];
+  // The cards differ in height. While switching, the space glides from one
+  // height to the other; the rest of the time the card sizes itself.
+  const [switching, setSwitching] = useState(false);
+  const switchTimer = useRef(null);
+  const [cardRef, { height: cardHeight }] = useMeasure();
+
+  useEffect(() => () => clearTimeout(switchTimer.current), []);
+
+  const selectRole = (i) => {
+    if (i === activeRole) return;
+    setActiveRole(i);
+    setSwitching(true);
+    clearTimeout(switchTimer.current);
+    switchTimer.current = setTimeout(() => setSwitching(false), ROLE_SWITCH_MS);
+  };
 
   return (
     <section className="my-4 px-8 py-8 md:my-6 md:py-16 home-section" id="experience">
@@ -26,7 +45,7 @@ const HomeExperienceSection = () => {
             key={exp.company}
             type="button"
             aria-pressed={activeRole === i}
-            onClick={() => setActiveRole(i)}
+            onClick={() => selectRole(i)}
             className={`flex cursor-pointer items-center gap-4 rounded-2xl border bg-(--bg-secondary) p-4 text-left transition-[border-color,box-shadow] duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent) ${
               activeRole === i
                 ? "border-(--accent) shadow-[0_0_20px_var(--shadow-accent)]"
@@ -54,17 +73,26 @@ const HomeExperienceSection = () => {
         ))}
       </div>
 
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={role.company}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.2 }}
-        >
-          <WorkExperienceCard {...role} />
-        </motion.div>
-      </AnimatePresence>
+      <motion.div
+        initial={false}
+        animate={{ height: switching && cardHeight ? cardHeight : "auto" }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className={switching ? "overflow-hidden" : ""}
+      >
+        <div ref={cardRef}>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={role.company}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+            >
+              <WorkExperienceCard {...role} />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </motion.div>
     </section>
   );
 };

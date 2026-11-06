@@ -34,7 +34,7 @@ const Projects = () => {
         <meta property="og:title" content="Dean Cruz - Projects" />
         <meta property="og:description" content="A collection of projects by Dean Cruz — full-stack, frontend, and design." />
         <meta property="og:image" content="https://deancruz1.github.io/preview.webp" />
-        <meta property="og:url" content="https://deancruz1.github.io/projects" />
+        <meta property="og:url" content="https://deancruz1.github.io/projects/" />
         <meta name="twitter:title" content="Dean Cruz - Projects" />
         <meta name="twitter:description" content="A collection of projects by Dean Cruz — full-stack, frontend, and design." />
         <meta name="twitter:image" content="https://deancruz1.github.io/preview.webp" />

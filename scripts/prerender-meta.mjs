@@ -4,7 +4,8 @@
 // page's own title, description and preview image, and with that page's
 // content rendered into it, so shared links, search engines and anything that
 // reads the raw HTML get the real page. The app then hydrates it in the browser.
-// The home page is rendered here too, so all pages are built the same way.
+// The home page is rendered here too, so all pages are built the same way,
+// and the sitemap is written from the same list of pages.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -62,10 +63,27 @@ const builtAssetPath = (devPath) => {
 };
 const builtAssetUrl = (devPath) => `${SITE}${builtAssetPath(devPath)}`;
 
+// React puts a page's <title> and <meta> tags at the very start of what it
+// renders. The page's <head> already carries the same ones, so drop the
+// copies and keep any other tag that sits there (image preloads).
+const dropHeadTags = (html) => {
+  let kept = "";
+  let rest = html;
+  for (;;) {
+    const tag = rest.match(/^(?:<title>[^<]*<\/title>|<(?:meta|link) [^>]*\/>)/);
+    if (!tag) return kept + rest;
+    if (tag[0].startsWith("<link")) kept += tag[0];
+    rest = rest.slice(tag[0].length);
+  }
+};
+
 // Rendering here uses dev-style asset paths; the browser's copy of the app
 // uses the hashed ones, so swap them before the page is written
 const renderBody = async (path) =>
-  (await renderPage(path)).replace(/\/src\/assets\/[^"'\s)&]+/g, builtAssetPath);
+  dropHeadTags(await renderPage(path)).replace(
+    /\/src\/assets\/[^"'\s)&]+/g,
+    builtAssetPath,
+  );
 
 // Each page's code is a separate file that the app only asks for once it is
 // running. These tags let the browser fetch it straight away instead: the
@@ -98,8 +116,11 @@ const preloadTags = (source) =>
     .map((file) => `<link rel="modulepreload" crossorigin href="/${file}">`)
     .join("");
 
+const writtenPaths = [];
+
 const writePage = async ({ path, source, title, description, image }) => {
   const url = `${SITE}${path}`;
+  writtenPaths.push(path);
   let html = template;
 
   // The home page keeps the title, description and link tags it was built with
@@ -176,6 +197,19 @@ for (const project of projects) {
   });
 }
 
+// The sitemap lists exactly the pages written above, at the addresses GitHub
+// Pages serves them (with the trailing slash, the same as each canonical link)
+const lastmod = new Date().toISOString();
+writeFileSync(
+  join(dist, "sitemap.xml"),
+  `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${writtenPaths
+    .map(
+      (path) =>
+        `<url><loc>${SITE}${path}</loc><lastmod>${lastmod}</lastmod></url>`,
+    )
+    .join("")}</urlset>\n`,
+);
+
 await vite.close();
 
-console.log(`prerender-meta: wrote ${projects.length + 2} pages`);
+console.log(`prerender-meta: wrote ${writtenPaths.length} pages and the sitemap`);
