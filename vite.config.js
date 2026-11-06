@@ -30,4 +30,9 @@ export default defineConfig({
     }),
   ],
   publicDir: "public",
+  build: {
+    // One stylesheet for the whole site. Pages load their code separately,
+    // and their styles must already be there when the saved HTML first shows.
+    cssCodeSplit: false,
+  },
 });

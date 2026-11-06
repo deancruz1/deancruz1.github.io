@@ -1,6 +1,7 @@
 import Grid from "./Grid";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import useMeasure from "react-use-measure";
 
 const WorkExperienceCard = ({
   type,
@@ -14,6 +15,7 @@ const WorkExperienceCard = ({
   const [overflowCount, setOverflowCount] = useState(0);
   const containerRef = useRef(null);
   const measureRef = useRef(null);
+  const [detailRef, { height: detailHeight }] = useMeasure();
 
   // Calculate how many tags overflow
   useEffect(() => {
@@ -101,20 +103,27 @@ const WorkExperienceCard = ({
                 </button>
               ))}
             </div>
-            <div aria-live="polite" className="md:min-h-12">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.p
-                  key={activeHighlight}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.2 }}
-                  className="text-sm text-(--text-secondary)"
-                >
-                  {highlights[activeHighlight].detail}
-                </motion.p>
-              </AnimatePresence>
-            </div>
+            <motion.div
+              initial={false}
+              animate={{ height: detailHeight || "auto" }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <div ref={detailRef} aria-live="polite" className="md:min-h-12">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.p
+                    key={activeHighlight}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-sm text-(--text-secondary)"
+                  >
+                    {highlights[activeHighlight].detail}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+            </motion.div>
           </>
         )}
 

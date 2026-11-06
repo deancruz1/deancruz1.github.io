@@ -4,6 +4,7 @@
 // page's own title, description and preview image, and with that page's
 // content rendered into it, so shared links, search engines and anything that
 // reads the raw HTML get the real page. The app then hydrates it in the browser.
+// The home page is rendered here too, so all pages are built the same way.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -63,45 +64,102 @@ const builtAssetUrl = (devPath) => `${SITE}${builtAssetPath(devPath)}`;
 
 // Rendering here uses dev-style asset paths; the browser's copy of the app
 // uses the hashed ones, so swap them before the page is written
-const renderBody = (path) =>
-  renderPage(path).replace(/\/src\/assets\/[^"'\s)&]+/g, builtAssetPath);
+const renderBody = async (path) =>
+  (await renderPage(path)).replace(/\/src\/assets\/[^"'\s)&]+/g, builtAssetPath);
 
-const writePage = ({ path, title, description, image }) => {
+// Each page's code is a separate file that the app only asks for once it is
+// running. These tags let the browser fetch it straight away instead: the
+// page's own file, the files that one imports, and the lazy sections it renders.
+const pageScripts = (source) => {
+  if (!manifest[source]) {
+    throw new Error(`prerender-meta: ${source} is not in the build manifest`);
+  }
+  const files = new Set();
+  const add = (key) => {
+    const entry = manifest[key];
+    if (!entry || files.has(entry.file)) return;
+    files.add(entry.file);
+    (entry.imports ?? []).forEach(add);
+  };
+  add(source);
+  (manifest[source].dynamicImports ?? []).forEach(add);
+  return [...files];
+};
+
+// React's browser half is loaded the same way on every page
+const appEntry = Object.values(manifest).find((entry) => entry.isEntry);
+const sharedScripts = (appEntry.dynamicImports ?? [])
+  .filter((key) => key.startsWith("node_modules/"))
+  .map((key) => manifest[key].file);
+
+const preloadTags = (source) =>
+  [...new Set([...sharedScripts, ...pageScripts(source)])]
+    .filter((file) => !template.includes(file))
+    .map((file) => `<link rel="modulepreload" crossorigin href="/${file}">`)
+    .join("");
+
+const writePage = async ({ path, source, title, description, image }) => {
   const url = `${SITE}${path}`;
   let html = template;
 
+  // The home page keeps the title, description and link tags it was built with
+  if (title) {
+    html = replaceOnce(
+      html,
+      /<title>[^<]*<\/title>/,
+      () => `<title>${escapeAttr(title)}</title>`,
+      "<title>",
+    );
+    html = replaceOnce(
+      html,
+      /(<link rel="canonical" href=")[^"]*(")/,
+      (_, before, after) => `${before}${url}${after}`,
+      "canonical link",
+    );
+    // The description of Dean as a person belongs to the home page only
+    html = replaceOnce(
+      html,
+      /<script type="application\/ld\+json">[\s\S]*?<\/script>\s*/,
+      () => "",
+      "structured data",
+    );
+    html = setMeta(html, "name", "title", title);
+    html = setMeta(html, "name", "description", description);
+    html = setMeta(html, "property", "og:url", url);
+    html = setMeta(html, "property", "og:title", title);
+    html = setMeta(html, "property", "og:description", description);
+    html = setMeta(html, "property", "og:image", image);
+    html = setMeta(html, "name", "twitter:url", url);
+    html = setMeta(html, "name", "twitter:title", title);
+    html = setMeta(html, "name", "twitter:description", description);
+    html = setMeta(html, "name", "twitter:image", image);
+  }
+
   html = replaceOnce(
     html,
-    /<title>[^<]*<\/title>/,
-    () => `<title>${escapeAttr(title)}</title>`,
-    "<title>",
+    /<\/head>/,
+    () => `${preloadTags(source)}</head>`,
+    "</head>",
   );
-  html = setMeta(html, "name", "title", title);
-  html = setMeta(html, "name", "description", description);
-  html = setMeta(html, "property", "og:url", url);
-  html = setMeta(html, "property", "og:title", title);
-  html = setMeta(html, "property", "og:description", description);
-  html = setMeta(html, "property", "og:image", image);
-  html = setMeta(html, "name", "twitter:url", url);
-  html = setMeta(html, "name", "twitter:title", title);
-  html = setMeta(html, "name", "twitter:description", description);
-  html = setMeta(html, "name", "twitter:image", image);
 
-  // Swap the pre-rendered home page markup for this page's own
+  // Swap the markup the build left in the page for this page's own
   const rootStart = html.indexOf('<div id="root"');
   const rootEnd = html.indexOf("<script>window.__VITE_REACT_SSG_HASH__");
   if (rootStart === -1 || rootEnd === -1 || rootEnd < rootStart) {
     throw new Error("prerender-meta: could not find the app root in dist/index.html");
   }
-  html = `${html.slice(0, rootStart)}<div id="root" data-server-rendered="true">${renderBody(path)}</div>${html.slice(rootEnd)}`;
+  html = `${html.slice(0, rootStart)}<div id="root" data-server-rendered="true">${await renderBody(path)}</div>${html.slice(rootEnd)}`;
 
   const file = join(dist, path, "index.html");
   mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, html);
 };
 
-writePage({
+await writePage({ path: "/", source: "src/pages/Home.jsx" });
+
+await writePage({
   path: "/projects/",
+  source: "src/pages/Projects.jsx",
   title: "Dean Cruz - Projects",
   description:
     "A collection of projects by Dean Cruz — full-stack, frontend, and design.",
@@ -109,8 +167,9 @@ writePage({
 });
 
 for (const project of projects) {
-  writePage({
+  await writePage({
     path: `/projects/${project.slug}/`,
+    source: "src/pages/ProjectDetail.jsx",
     title: `Dean Cruz - ${project.title}`,
     description: project.description,
     image: builtAssetUrl(project.image),
@@ -119,4 +178,4 @@ for (const project of projects) {
 
 await vite.close();
 
-console.log(`prerender-meta: wrote ${projects.length + 1} pages`);
+console.log(`prerender-meta: wrote ${projects.length + 2} pages`);

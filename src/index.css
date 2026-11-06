@@ -21,7 +21,7 @@
   --text-secondary: #94a3b8;
   --text-muted: #7c8aa0;
   --accent: #6d5dfc;
-  --accent-hover: #8174ff;
+  --accent-hover: #5b4ae3;
   /* Accent for small text, where --accent is too dim to read on dark */
   --accent-text: #8174ff;
   --border: #222631;
@@ -55,7 +55,7 @@ html.light {
   --text-secondary: #4b5563;
   --text-muted: #636b78;
   --accent: #4f3ee3;
-  --accent-hover: #5b4ae3;
+  --accent-hover: #4333c9;
   --accent-text: #4f3ee3;
   --border: #d1d5db;
   --border-accent: #4f3ee3;
@@ -76,7 +76,7 @@ html.dark {
   --text-overlay: #f8fafc;
   --button-primary: #ffffff;
   --accent: #6d5dfc;
-  --accent-hover: #8174ff;
+  --accent-hover: #5b4ae3;
   --accent-text: #8174ff;
   --border: #222631;
   --border-accent: #6d5dfc;
@@ -148,5 +148,15 @@ img {
   }
   to {
     clip-path: circle(150% at var(--x, 50%) var(--y, 50%));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  ::view-transition-new(root) {
+    animation: none;
   }
 }

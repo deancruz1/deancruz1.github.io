@@ -90,9 +90,20 @@ const cardThumbs = import.meta.glob(
   "../assets/img/project-cards/thumbs/*.webp",
   { eager: true },
 );
-// Smaller copy of a card image for the All projects grid, if one exists
-const cardThumb = (name) =>
-  cardThumbs[`../assets/img/project-cards/thumbs/${name}.webp`]?.default;
+const smallCardThumbs = import.meta.glob(
+  "../assets/img/project-cards/thumbs-small/*.webp",
+  { eager: true },
+);
+// Smaller copies of a card image for the All projects grid, if they exist:
+// 720px wide in thumbs/, plus an optional 480px one in thumbs-small/
+const cardThumb = (name) => {
+  const src =
+    cardThumbs[`../assets/img/project-cards/thumbs/${name}.webp`]?.default;
+  const small =
+    smallCardThumbs[`../assets/img/project-cards/thumbs-small/${name}.webp`]
+      ?.default;
+  return src && { src, srcSet: small && `${small} 480w, ${src} 720w` };
+};
 
 const galleryThumbs = import.meta.glob(
   "../assets/img/project-gallery/*/thumbs/*.webp",

@@ -59,9 +59,9 @@ const ProjectCardGrid = ({
 
       <div className="relative w-28 shrink-0 overflow-hidden sm:aspect-video sm:w-auto">
         <img
-          src={thumb ?? imgSrc}
-          srcSet={thumb ? undefined : imgSrcSet}
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
+          src={thumb?.src ?? imgSrc}
+          srcSet={thumb ? thumb.srcSet : imgSrcSet}
+          sizes="(max-width: 639px) 215px, (max-width: 767px) 100vw, (max-width: 1024px) 50vw, 400px"
           alt=""
           loading={priority ? "eager" : "lazy"}
           decoding="async"
