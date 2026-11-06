@@ -11,8 +11,8 @@ const navLinks = [
   { label: "Home", to: "/#hero" },
   { label: "About", to: "/#about" },
   { label: "Experience", to: "/#experience" },
-  { label: "Featured Projects", to: "/#projects" },
-  { label: "All Projects", to: "/projects" },
+  { label: "Featured projects", to: "/#projects" },
+  { label: "All projects", to: "/projects" },
 ];
 
 const Navbar = () => {
@@ -21,7 +21,7 @@ const Navbar = () => {
   const location = useLocation();
 
   const introButton =
-    "bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
+    "bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full hover:text-(--button-primary)";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +59,7 @@ const Navbar = () => {
 
       {/* Main Navigation Bar */}
       <nav
-        className={`fixed top-0 right-0 left-0 z-100 flex items-center border-b-[1.5px] px-8 py-6 transition-all duration-300 lg:px-32 lg:py-8 ${
+        className={`fixed top-0 right-0 left-0 z-100 flex items-center border-b-[1.5px] px-5 py-6 transition-all duration-300 lg:px-6 lg:py-8 xl:px-10 2xl:px-16 ${
           scrolled || menuOpen
             ? "border-(--accent) bg-(--bg-primary)/40 backdrop-blur-md"
             : "border-transparent bg-transparent"
@@ -138,7 +138,7 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-18 right-0 left-0 z-99 flex flex-col gap-6 border-b border-(--accent) bg-(--bg-primary)/40 px-8 py-6 backdrop-blur-md lg:hidden"
+            className="fixed top-18 right-0 left-0 z-99 flex flex-col gap-6 border-b border-(--accent) bg-(--bg-primary)/40 px-5 py-6 backdrop-blur-md lg:hidden"
           >
             {navLinks.map((link, i) => (
               <HashLink

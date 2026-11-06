@@ -20,6 +20,7 @@ import SkillCard from "../components/SkillCard.jsx";
 // Data
 import { techs } from "../data/tech-icons.jsx";
 import personalLinks, { socialButtons } from "../data/personal-links.js";
+import { projects } from "../data/project-info-home.jsx";
 
 // Lazy‑loaded sections – only fetched when they enter the viewport
 const HomeExperienceSection = lazy(
@@ -34,12 +35,12 @@ const focusTiles = [
     title: "Work",
     stat: "1,600+",
     statLabel: "queries tuned at NCS",
-    text: "At NCS I designed the key front-end components of a full-stack Angular app, alongside legacy Java modernisation.",
+    text: "At NCS I designed the key frontend components of a full-stack Angular app, alongside legacy Java modernisation.",
     links: [{ label: "Experience", to: "/#experience" }],
   },
   {
-    title: "Side Projects",
-    stat: "9",
+    title: "Side projects",
+    stat: String(projects.length),
     statLabel: "projects built",
     text: "My three favourites are React and Next.js apps I built because I wanted to use them.",
     links: [
@@ -64,7 +65,7 @@ const hobbies = [
 ];
 
 const Home = () => {
-  const introButton ="bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
+  const introButton ="bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full hover:text-(--button-primary)";
   const introButtonPrimary ="bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--button-primary)] font-bold py-2 px-4 border border-[var(--accent)] hover:border-[var(--accent-hover)] transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full";
 
   const [showAll, setShowAll] = useState(false);
@@ -92,11 +93,11 @@ const Home = () => {
         <title>Dean Cruz - Software Engineer</title>
       </Helmet>
       <main
-        className="intro-container flex min-h-svh flex-col items-center justify-center px-8 pt-24 pb-10 lg:flex-row lg:justify-between lg:py-0"
+        className="intro-container flex min-h-svh flex-col items-center justify-center px-5 pt-24 pb-10 lg:flex-row lg:justify-between lg:py-0"
         id="hero"
       >
         <Grid />
-        <div className="intro-container-left flex w-full flex-1 flex-col items-start justify-center text-left">
+        <div className="intro-container-left relative z-10 flex w-full flex-1 flex-col items-start justify-center text-left">
           <div className="title-container">
             <div className="flex items-center gap-2 text-xs font-bold tracking-[0.18em] whitespace-nowrap text-(--accent) uppercase max-[359px]:text-[0.625rem] max-[359px]:tracking-[0.12em] md:text-sm">
               <h1>Software Engineer</h1>
@@ -185,7 +186,7 @@ const Home = () => {
       <section className="my-4 px-8 py-8 md:my-6 md:py-16 home-section" id="about">
         <SectionHeader
           number="02"
-          title="Short Profile"
+          title="Short profile"
           subtitle="Background and focus"
         />
 
@@ -229,7 +230,7 @@ const Home = () => {
             {/* Technologies */}
             <div className="relative overflow-hidden rounded-2xl bg-(--bg-secondary) p-6">
               <Grid />
-              <p className="pb-4 text-2xl font-bold text-(--text-primary)">
+              <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
                 Technologies
               </p>
 
@@ -250,13 +251,13 @@ const Home = () => {
                 </div>
               </motion.div>
 
-              <div className="flex justify-center mt-4">
+              <div className="relative z-10 flex justify-center mt-4">
                 <button
                   onClick={() => {
                     if (!showAll) setRightColumnFree(true);
                     setShowAll(!showAll);
                   }}
-                  className={`cursor-pointer rounded-full border px-4 py-2 text-sm transition-colors duration-300 ${
+                  className={`cursor-pointer rounded-full border px-4 py-2 text-sm transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent) ${
                     showAll
                       ? "border-(--accent) bg-(--accent) text-(--button-primary)"
                       : "border-(--border) bg-(--bg-tertiary) text-(--text-secondary) hover:border-(--accent)"
@@ -304,11 +305,11 @@ const Home = () => {
               <EducationItem />
             </div>
 
-            {/* Awards & Honors */}
+            {/* Awards & honours */}
             <div className="relative flex-1 overflow-hidden rounded-2xl bg-(--bg-secondary) p-6">
               <Grid />
               <p className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
-                Awards & Honors
+                Awards & honours
               </p>
               <AwardItem />
             </div>

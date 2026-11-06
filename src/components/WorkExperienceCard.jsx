@@ -101,12 +101,20 @@ const WorkExperienceCard = ({
                 </button>
               ))}
             </div>
-            <p
-              aria-live="polite"
-              className="text-sm text-(--text-secondary) md:min-h-12"
-            >
-              {highlights[activeHighlight].detail}
-            </p>
+            <div aria-live="polite" className="md:min-h-12">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.p
+                  key={activeHighlight}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-sm text-(--text-secondary)"
+                >
+                  {highlights[activeHighlight].detail}
+                </motion.p>
+              </AnimatePresence>
+            </div>
           </>
         )}
 
@@ -160,7 +168,7 @@ const WorkExperienceCard = ({
                   transition={{ duration: 0.25, ease: "easeOut" }}
                   layout
                   onClick={() => setExpanded(true)}
-                  className="cursor-pointer rounded-full border border-(--border) bg-(--bg-tertiary) px-3 py-1 text-xs whitespace-nowrap text-(--text-secondary) transition-colors duration-300 hover:border-(--accent) md:whitespace-normal"
+                  className="cursor-pointer rounded-full border border-(--border) bg-(--bg-tertiary) px-3 py-1 text-xs whitespace-nowrap text-(--text-secondary) transition-colors duration-300 hover:border-(--accent) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent) md:whitespace-normal"
                 >
                   +{overflowCount}
                 </motion.button>
@@ -175,7 +183,7 @@ const WorkExperienceCard = ({
                   transition={{ duration: 0.25, ease: "easeOut" }}
                   layout
                   onClick={() => setExpanded(false)}
-                  className="shrink-0 cursor-pointer rounded-full border border-(--accent) bg-(--accent) px-3 py-1 text-xs whitespace-nowrap text-(--button-primary) transition-colors duration-300 hover:border-(--accent-hover) hover:bg-(--accent-hover)"
+                  className="shrink-0 cursor-pointer rounded-full border border-(--accent) bg-(--accent) px-3 py-1 text-xs whitespace-nowrap text-(--button-primary) transition-colors duration-300 hover:border-(--accent-hover) hover:bg-(--accent-hover) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
                 >
                   Show less
                 </motion.button>

@@ -10,7 +10,7 @@ export const workExperiences = [
     duration: "2026 — Present",
     location: "Singapore",
     summary:
-      "Designed the key front-end components of a full-stack Angular and Spring Boot app, alongside legacy Java modernisation. Planned and reviewed with NCS's in-house AI agent and OpenSpec. Part of the Fusion Work-Study Programme (sponsored UOW degree).",
+      "Designed the key frontend components of a full-stack Angular and Spring Boot app, alongside legacy Java modernisation. Planned and reviewed with NCS's in-house AI agent and OpenSpec. Part of the Fusion Work-Study Programme (sponsored UOW degree).",
     highlights: [
       {
         value: "800+",

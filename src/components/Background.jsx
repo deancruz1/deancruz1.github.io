@@ -9,12 +9,16 @@ export default function Background() {
   const backgroundRef = useRef(null);
 
   useEffect(() => {
+    // Touch screens have no cursor to follow: the lights stay at their
+    // resting spot (Background.css) and the grid glow stays off
+    if (window.matchMedia("(hover: none)").matches) return;
+
     // Cursor position, or a resting spot until it first moves
     // (same spot as --orb-rest-x/y in Background.css)
     const narrow = window.innerWidth < 768;
     const light = {
       x: window.innerWidth * (narrow ? 0.8 : 0.75),
-      y: window.innerHeight * (narrow ? 0.78 : 0.45),
+      y: window.innerHeight * (narrow ? 0.38 : 0.45),
     };
 
     // Grid glow: sits exactly on the cursor
@@ -77,25 +81,9 @@ export default function Background() {
     window.addEventListener("scroll", requestGlow, { passive: true });
     requestGlow();
 
-    // No cursor on touch screens, so the target drifts on its own
-    let drift;
-    if (window.matchMedia("(hover: none)").matches) {
-      const place = (t) => {
-        light.x = window.innerWidth * (0.5 + 0.3 * Math.cos(t / 4000));
-        light.y = window.innerHeight * (0.6 + 0.2 * Math.sin(t / 5500));
-        requestGlow();
-        startChase();
-      };
-      place(0);
-      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        drift = setInterval(() => place(performance.now()), 50);
-      }
-    }
-
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("scroll", requestGlow);
-      clearInterval(drift);
       cancelAnimationFrame(glowFrame);
       cancelAnimationFrame(chaseFrame);
     };

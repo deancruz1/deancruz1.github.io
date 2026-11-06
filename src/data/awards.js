@@ -20,9 +20,9 @@ export const awardsData = [
     logo: rpLogo,
   },
   {
-    title: "Director's Roll of Honor (Years 1 - 3)",
+    title: "Director's Roll of Honour (Years 1 — 3)",
     institution: "Republic Polytechnic",
-    year: "2023 - 2025",
+    year: "2023 — 2025",
     logo: rpLogo,
   },
 ];

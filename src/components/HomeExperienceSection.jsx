@@ -12,7 +12,7 @@ const HomeExperienceSection = () => {
     <section className="my-4 px-8 py-8 md:my-6 md:py-16 home-section" id="experience">
       <SectionHeader
         number="03"
-        title="Work Experience"
+        title="Work experience"
         subtitle="Where I've worked"
         className="mb-6 md:mb-10"
       />

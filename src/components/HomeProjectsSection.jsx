@@ -22,7 +22,7 @@ const HomeProjectsSection = () => {
       <div>
         <SectionHeader
           number="04"
-          title="Featured Projects"
+          title="Featured projects"
           subtitle="Three apps I built"
           className="mb-6 md:mb-10"
         />
@@ -69,7 +69,7 @@ const HomeProjectsSection = () => {
 
       <div className="mt-8 text-center md:mt-12 md:shrink-0">
         <Link className={introButton} to="/projects">
-          View All Projects
+          View all projects
         </Link>
       </div>
     </section>

@@ -115,7 +115,7 @@ export const projects = [
   {
     title: "SkillForge",
     featured: false,
-    category: "Full-Stack",
+    category: "Full-stack",
     description:
       "An e-learning platform where instructors build courses and quizzes, and students get graded automatically.",
     features: [
@@ -225,7 +225,7 @@ export const projects = [
         text: "Front-End, Programming and Design, each with an image preview gallery.",
       },
     ],
-    tags: ["HTML", "CSS", "JS", "Bootstrap"],
+    tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     image: portfolioImg,
     liveDemo: "https://deancruz1.github.io/Foundations/",
     github: "https://github.com/deancruz1/Foundations",
@@ -295,7 +295,7 @@ export const projects = [
   {
     title: "Kiroku",
     featured: true,
-    category: "Full-Stack",
+    category: "Full-stack",
     description:
       "An anime tracker with a watch list, seasonal calendar, recommendations and viewing stats.",
     card: {
@@ -375,9 +375,9 @@ export const projects = [
       challenges: [
         "Jikan API enforces a strict 3 requests per second rate limit, so exponential backoff with retry logic was needed to handle request bursts on data-heavy pages without crashing",
         "The seasonal calendar required parsing inconsistent broadcast data formats from the API, building countdown timers with timezone awareness, and handling edge cases like missing air times",
-        "The recommendation engine needed to analyze watch history, cross-reference genre data, filter out already-watched shows and low-rated entries, then attribute each result to a specific show the user liked",
+        "The recommendation engine needed to analyse watch history, cross-reference genre data, filter out already-watched shows and low-rated entries, then attribute each result to a specific show the user liked",
         "Converting the 7-column desktop calendar layout to horizontal scroll rows on mobile required rethinking the entire component structure without duplicating logic",
-        "The bento-grid stats dashboard needed to feel personal and playful rather than like a generic analytics panel, so every card uses dynamic color palettes and personality-driven copy",
+        "The bento-grid stats dashboard needed to feel personal and playful rather than like a generic analytics panel, so every card uses dynamic colour palettes and personality-driven copy",
       ],
 
       improvements: [
@@ -419,8 +419,8 @@ export const projects = [
         text: "Today's and this month's upcoming character birthdays.",
       },
       {
-        title: "Accent colors",
-        text: "Each character's primary color drives the buttons, borders and highlights on their page.",
+        title: "Accent colours",
+        text: "Each character's primary colour drives the buttons, borders and highlights on their page.",
       },
     ],
     tags: ["React", "TypeScript", "TanStack Query", "Tailwind", "Framer Motion"],
@@ -470,14 +470,14 @@ export const projects = [
       challenges: [
         "The Umapyoi API returns raw HTML in news content, so the news detail modal had to safely render HTML strings while avoiding XSS vulnerabilities",
         "Designing a responsive character filter that works as a vertical sidebar on desktop but a horizontal scroll row on mobile required two distinct layout strategies",
-        "Implementing dynamic accent colors meant every component needed to accept and apply a character-specific color prop without hardcoding values",
+        "Implementing dynamic accent colours meant every component needed to accept and apply a character-specific colour prop without hardcoding values",
         "The music preview player uses HTML5 audio elements that don't support multiple simultaneous playbacks, so coordinating play/pause across track items required lifting state up and managing a single audio instance",
         "Translating profile text on demand meant handling API latency gracefully with loading spinners while caching results to avoid redundant requests",
       ],
 
       improvements: [
         "Implement static site generation (SSG) for character and music pages so search engines can index API-driven content",
-        "Add user accounts with Supabase to enable favoriting characters and saving music playlists",
+        "Add user accounts with Supabase to enable favouriting characters and saving music playlists",
         "Add music search filters by album, artist, and song type beyond just character filtering",
       ],
     },
@@ -519,7 +519,7 @@ export const projects = [
         text: "An embedded YouTube player with live chat beside it.",
       },
     ],
-    tags: ["React", "TypeScript", "TanStack Query", "Vercel Functions", "Tailwind"],
+    tags: ["React", "TypeScript", "TanStack Query", "Tailwind"],
     image: oshiwatchImg,
     liveDemo: "https://oshiwatch.vercel.app",
     github: "https://github.com/deancruz1/Oshiwatch",
@@ -581,7 +581,7 @@ export const projects = [
     {
     title: "Movietopia",
     featured: false,
-    category: "Full-Stack",
+    category: "Full-stack",
     description:
       "A PHP/MySQL application with CRUD-enabled database tables and session-based authentication.",
     about:
@@ -643,10 +643,10 @@ export const projects = [
       },
       {
         title: "Responsive layout",
-        text: "A centered content container with media queries for mobile, tablet and desktop.",
+        text: "A centred content container with media queries for mobile, tablet and desktop.",
       },
     ],
-    tags: ["HTML", "CSS", "JS"],
+    tags: ["HTML", "CSS", "JavaScript"],
     image: landingPageImg,
     liveDemo: "https://deancruz1.github.io/Shrine_of_Suisei/",
     github: "https://github.com/deancruz1/Shrine_of_Suisei",
@@ -682,7 +682,7 @@ export const projects = [
       },
       {
         title: "Handoff specs",
-        text: "Grid alignments and component boundaries defined for front-end implementation.",
+        text: "Grid alignments and component boundaries defined for frontend implementation.",
       },
     ],
     tags: ["XD", "Illustrator", "Photoshop"],

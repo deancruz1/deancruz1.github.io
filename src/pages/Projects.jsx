@@ -7,7 +7,7 @@ import { useLayoutEffect, useState } from "react";
 const featuredFirst = [...projects].sort(
   (a, b) => Number(b.featured) - Number(a.featured),
 );
-const categories = ["All", "Full-Stack", "Frontend", "Design"].filter(
+const categories = ["All", "Full-stack", "Frontend", "Design"].filter(
   (cat) => cat === "All" || projects.some((p) => p.category === cat),
 );
 
@@ -47,7 +47,7 @@ const Projects = () => {
               05 · Frontend, full-stack, design
             </p>
             <h1 className="mt-2 text-5xl font-bold tracking-tight text-(--text-primary) md:text-7xl">
-              All Projects
+              All projects
             </h1>
           </div>
 

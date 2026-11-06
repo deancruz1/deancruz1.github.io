@@ -2,16 +2,19 @@ import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { projects } from "../data/project-info-home.jsx";
 import Grid from "../components/Grid";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import useMeasure from "react-use-measure";
 
 // Same order as the All Projects page, so "Next" follows the grid
 const orderedProjects = [...projects].sort(
   (a, b) => Number(b.featured) - Number(a.featured),
 );
 
-const Panel = ({ title, className = "", children }) => (
+const Panel = ({ title, className = "", children, ref, style }) => (
   <div
+    ref={ref}
+    style={style}
     className={`relative overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 ${className}`}
   >
     <Grid />
@@ -24,23 +27,50 @@ const Panel = ({ title, className = "", children }) => (
 
 const VISIBLE_CHALLENGES = 2;
 
-const ChallengeList = ({ items }) => {
+const ChallengeList = ({ items, onOpenChange }) => {
   const [showAll, setShowAll] = useState(false);
+  const [ref, { height }] = useMeasure();
   const visibleItems = showAll ? items : items.slice(0, VISIBLE_CHALLENGES);
 
   return (
     <>
-      <ul className="flex list-disc flex-col gap-2 pl-5 text-(--text-secondary) marker:text-(--accent)">
-        {visibleItems.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
+      <motion.div
+        initial={false}
+        animate={{ height: height || "auto" }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        onAnimationComplete={() => {
+          if (!showAll) onOpenChange(false);
+        }}
+        className="overflow-hidden"
+      >
+        <ul
+          ref={ref}
+          className="relative flex list-disc flex-col gap-2 pl-5 text-(--text-secondary) marker:text-(--accent)"
+        >
+          <AnimatePresence mode="popLayout" initial={false}>
+            {visibleItems.map((item) => (
+              <motion.li
+                key={item}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {item}
+              </motion.li>
+            ))}
+          </AnimatePresence>
+        </ul>
+      </motion.div>
       {items.length > VISIBLE_CHALLENGES && (
         <div className="mt-4 flex justify-center">
           <button
             type="button"
             aria-expanded={showAll}
-            onClick={() => setShowAll(!showAll)}
+            onClick={() => {
+              if (!showAll) onOpenChange(true);
+              setShowAll(!showAll);
+            }}
             className={`cursor-pointer rounded-full border px-4 py-2 text-sm transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent) ${
               showAll
                 ? "border-(--accent) bg-(--accent) text-(--button-primary)"
@@ -52,6 +82,44 @@ const ChallengeList = ({ items }) => {
         </div>
       )}
     </>
+  );
+};
+
+const Reflection = ({ challenges = [], improvements = [] }) => {
+  const improvementsRef = useRef(null);
+  // While Challenges is open (or still closing), the other panel keeps the
+  // height it had instead of stretching to match
+  const [heldHeight, setHeldHeight] = useState(null);
+
+  return (
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
+      {challenges.length > 0 && (
+        <Panel title="Challenges" className="md:col-span-3">
+          <ChallengeList
+            items={challenges}
+            onOpenChange={(open) =>
+              setHeldHeight(
+                open ? (improvementsRef.current?.offsetHeight ?? null) : null,
+              )
+            }
+          />
+        </Panel>
+      )}
+      {improvements.length > 0 && (
+        <Panel
+          ref={improvementsRef}
+          title="What I'd do differently"
+          className={`md:col-span-2 ${heldHeight ? "md:self-start" : ""}`}
+          style={heldHeight ? { minHeight: heldHeight } : undefined}
+        >
+          <ul className="flex list-disc flex-col gap-2 pl-5 text-(--text-secondary) marker:text-(--accent)">
+            {improvements.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </Panel>
+      )}
+    </div>
   );
 };
 
@@ -197,27 +265,6 @@ const ProjectDetail = () => {
             )
           )}
 
-          {/* Decisions */}
-          {caseStudy?.technicalDecisions?.length > 0 && (
-            <Panel title="Decisions">
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {caseStudy.technicalDecisions.map((item) => (
-                  <div
-                    key={item.decision}
-                    className="rounded-xl bg-(--bg-tertiary) p-4"
-                  >
-                    <h3 className="font-semibold text-(--text-primary)">
-                      {item.decision}
-                    </h3>
-                    <p className="text-sm text-(--text-secondary)">
-                      {item.reason}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </Panel>
-          )}
-
           {/* Features */}
           {features.length > 0 && (
             <Panel title="What it does">
@@ -278,24 +325,34 @@ const ProjectDetail = () => {
             </div>
           )}
 
+          {/* Decisions */}
+          {caseStudy?.technicalDecisions?.length > 0 && (
+            <Panel title="Decisions">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {caseStudy.technicalDecisions.map((item) => (
+                  <div
+                    key={item.decision}
+                    className="rounded-xl bg-(--bg-tertiary) p-4"
+                  >
+                    <h3 className="font-semibold text-(--text-primary)">
+                      {item.decision}
+                    </h3>
+                    <p className="text-sm text-(--text-secondary)">
+                      {item.reason}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </Panel>
+          )}
+
           {/* Challenges and improvements */}
           {caseStudy && (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
-              {caseStudy.challenges?.length > 0 && (
-                <Panel title="Challenges" className="md:col-span-3">
-                  <ChallengeList key={slug} items={caseStudy.challenges} />
-                </Panel>
-              )}
-              {caseStudy.improvements?.length > 0 && (
-                <Panel title="What I'd do differently" className="md:col-span-2">
-                  <ul className="flex list-disc flex-col gap-2 pl-5 text-(--text-secondary) marker:text-(--accent)">
-                    {caseStudy.improvements.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </Panel>
-              )}
-            </div>
+            <Reflection
+              key={slug}
+              challenges={caseStudy.challenges}
+              improvements={caseStudy.improvements}
+            />
           )}
 
           {/* Navigation */}
