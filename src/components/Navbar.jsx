@@ -9,8 +9,8 @@ const { linkedin } = personalLinks;
 
 const navLinks = [
   { label: "Home", to: "/#hero" },
-  { label: "About", to: "/#about" },
-  { label: "Experience", to: "/#experience" },
+  { label: "Short profile", to: "/#about" },
+  { label: "Work experience", to: "/#experience" },
   { label: "Featured projects", to: "/#projects" },
   { label: "All projects", to: "/projects" },
 ];
@@ -59,14 +59,14 @@ const Navbar = () => {
 
       {/* Main Navigation Bar */}
       <nav
-        className={`fixed top-0 right-0 left-0 z-100 flex items-center border-b-[1.5px] px-5 py-6 transition-all duration-300 lg:px-6 lg:py-8 xl:px-10 2xl:px-16 ${
+        className={`fixed top-0 right-0 left-0 z-100 flex items-center justify-between border-b-[1.5px] px-5 py-6 transition-all duration-300 lg:px-6 lg:py-8 xl:px-10 2xl:px-16 ${
           scrolled || menuOpen
             ? "border-(--accent) bg-(--bg-primary)/40 backdrop-blur-md"
             : "border-transparent bg-transparent"
         }`}
       >
         {/* Left - Name */}
-        <div className="flex-1">
+        <div className="flex-1 lg:flex-none xl:flex-1">
           <Link
             to="/"
             className="text-2xl font-bold text-(--text-primary) lg:text-4xl"
@@ -77,7 +77,7 @@ const Navbar = () => {
 
         {/* Center - Nav Links (Desktop only) */}
         <div
-          className={`hidden items-center gap-8 rounded-full border-2 px-8 py-3 font-bold transition-all duration-300 lg:flex ${
+          className={`hidden items-center gap-5 rounded-full border-2 px-5 py-3 font-bold transition-all duration-300 lg:flex xl:gap-8 xl:px-8 ${
             scrolled ? "border-transparent" : "border-(--accent)"
           }`}
         >
@@ -86,7 +86,7 @@ const Navbar = () => {
               key={link.label}
               smooth
               to={link.to}
-              className="flex items-center gap-1 py-0.5 text-sm text-(--text-primary) transition-colors duration-300 hover:text-(--accent)"
+              className="flex items-center gap-1 py-0.5 text-[0.8rem] text-(--text-primary) xl:text-sm transition-colors duration-300 hover:text-(--accent)"
             >
               {link.label}
               <sup className="text-[10px] text-(--accent-text)">
@@ -97,7 +97,7 @@ const Navbar = () => {
         </div>
 
         {/* Right */}
-        <div className="flex flex-1 items-center justify-end gap-4">
+        <div className="flex flex-1 items-center justify-end gap-4 lg:flex-none xl:flex-1">
           <ThemeToggle />
 
           {/* Connect Button - Desktop only */}

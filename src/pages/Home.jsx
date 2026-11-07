@@ -36,7 +36,7 @@ const focusTiles = [
     stat: "1,600+",
     statLabel: "queries tuned at NCS",
     text: "At NCS I designed the key frontend components of a full-stack Angular app, alongside legacy Java modernisation.",
-    links: [{ label: "Experience", to: "/#experience" }],
+    links: [{ label: "Work experience", to: "/#experience" }],
   },
   {
     title: "Side projects",
