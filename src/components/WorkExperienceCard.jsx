@@ -1,6 +1,6 @@
 import Grid from "./Grid";
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { animate, motion, AnimatePresence, useMotionValue } from "framer-motion";
 import useMeasure from "react-use-measure";
 
 const WorkExperienceCard = ({
@@ -16,6 +16,23 @@ const WorkExperienceCard = ({
   const containerRef = useRef(null);
   const measureRef = useRef(null);
   const [detailRef, { height: detailHeight }] = useMeasure();
+  // Height of the detail text area: natural until first measured, then it
+  // glides between the texts. The measurement is 0 for a moment during a
+  // swap, which is ignored.
+  const detailBox = useMotionValue("auto");
+
+  useEffect(() => {
+    if (!detailHeight) return;
+    if (detailBox.get() === "auto") {
+      detailBox.set(detailHeight);
+      return;
+    }
+    const controls = animate(detailBox, detailHeight, {
+      duration: 0.3,
+      ease: "easeInOut",
+    });
+    return () => controls.stop();
+  }, [detailHeight, detailBox]);
 
   // Calculate how many tags overflow
   useEffect(() => {
@@ -103,12 +120,7 @@ const WorkExperienceCard = ({
                 </button>
               ))}
             </div>
-            <motion.div
-              initial={false}
-              animate={{ height: detailHeight || "auto" }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="overflow-hidden"
-            >
+            <motion.div style={{ height: detailBox }} className="overflow-hidden">
               <div ref={detailRef} aria-live="polite" className="md:min-h-12">
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.p

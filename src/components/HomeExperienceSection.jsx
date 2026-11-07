@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { animate, AnimatePresence, motion, useMotionValue } from "framer-motion";
 import useMeasure from "react-use-measure";
 import { workExperiences } from "../data/work-experience.js";
 import SectionHeader from "../components/SectionHeader.jsx";
@@ -16,6 +16,23 @@ const HomeExperienceSection = () => {
   const [switching, setSwitching] = useState(false);
   const switchTimer = useRef(null);
   const [cardRef, { height: cardHeight }] = useMeasure();
+  // Height of the space the card sits in: follows the card exactly, except
+  // during a switch, when it glides to the new card. The measurement is 0
+  // for a moment during a swap, which is ignored.
+  const cardBox = useMotionValue("auto");
+
+  useEffect(() => {
+    if (!cardHeight) return;
+    if (!switching || cardBox.get() === "auto") {
+      cardBox.set(cardHeight);
+      return;
+    }
+    const controls = animate(cardBox, cardHeight, {
+      duration: 0.3,
+      ease: "easeInOut",
+    });
+    return () => controls.stop();
+  }, [cardHeight, switching, cardBox]);
 
   useEffect(() => () => clearTimeout(switchTimer.current), []);
 
@@ -74,9 +91,7 @@ const HomeExperienceSection = () => {
       </div>
 
       <motion.div
-        initial={false}
-        animate={{ height: switching && cardHeight ? cardHeight : "auto" }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        style={{ height: cardBox }}
         className={switching ? "overflow-hidden" : ""}
       >
         <div ref={cardRef}>

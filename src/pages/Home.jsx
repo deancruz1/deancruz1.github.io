@@ -1,7 +1,7 @@
 // Third-party Libs
 import { Helmet } from "react-helmet-async";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState, lazy, Suspense } from "react";
+import { useRef, useState, lazy, Suspense } from "react";
 import { HashLink } from "react-router-hash-link";
 import { FaGamepad, FaTv } from "react-icons/fa";
 import useMeasure from "react-use-measure";
@@ -76,9 +76,10 @@ const Home = () => {
     ? [...defaultTechs, ...techs.filter((t) => !defaultTechs.includes(t))]
     : defaultTechs;
   const [ref, { height }] = useMeasure();
-  // While Technologies is open (or still closing), the right column keeps its
-  // own height instead of stretching to match
-  const [rightColumnFree, setRightColumnFree] = useState(false);
+  // While Technologies is open (or still closing), the right column keeps the
+  // height it had instead of stretching to match
+  const rightColumnRef = useRef(null);
+  const [rightColumnHeight, setRightColumnHeight] = useState(null);
 
   const { resume } = personalLinks;
 
@@ -238,7 +239,7 @@ const Home = () => {
                 animate={{ height }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 onAnimationComplete={() => {
-                  if (!showAll) setRightColumnFree(false);
+                  if (!showAll) setRightColumnHeight(null);
                 }}
                 className="overflow-hidden"
               >
@@ -261,7 +262,7 @@ const Home = () => {
               <div className="relative z-10 flex justify-center mt-4">
                 <button
                   onClick={() => {
-                    if (!showAll) setRightColumnFree(true);
+                    if (!showAll) setRightColumnHeight(rightColumnRef.current?.offsetHeight || null);
                     setShowAll(!showAll);
                   }}
                   className={`cursor-pointer rounded-full border px-4 py-2 text-sm transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent) ${
@@ -301,7 +302,9 @@ const Home = () => {
           </div>
 
           <div
-            className={`contents md:flex md:flex-col md:gap-6 ${rightColumnFree ? "md:self-start" : ""}`}
+            ref={rightColumnRef}
+            style={rightColumnHeight ? { minHeight: rightColumnHeight } : undefined}
+            className={`contents md:flex md:flex-col md:gap-6 ${rightColumnHeight ? "md:self-start" : ""}`}
           >
             {/* Education */}
             <div className="relative overflow-hidden rounded-2xl bg-(--bg-secondary) p-6">
