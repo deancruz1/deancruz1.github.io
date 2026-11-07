@@ -129,7 +129,7 @@ const Home = () => {
             ))}
           </ul>
 
-          <div className="mt-6 flex w-full max-w-md gap-5 border-t border-(--border) pt-5 sm:gap-7 md:gap-11">
+          <div className="mt-7 flex w-full max-w-md gap-5 sm:gap-7 md:gap-11">
             {heroStats.map(({ value, label }) => (
               <div key={label}>
                 <p className="text-2xl leading-tight font-bold text-(--accent) md:text-3xl">
