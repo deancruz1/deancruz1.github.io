@@ -1,1 +1,0 @@
-import{l as e}from"./app-BFgMcmgE.js";var t=e();function n(){return(0,t.jsx)(`div`,{className:`grid-overlay`})}export{n as t};

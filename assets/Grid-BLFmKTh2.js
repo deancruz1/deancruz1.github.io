@@ -1,0 +1,1 @@
+import{u as e}from"./app-Dbmn-86Q.js";var t=e();function n(){return(0,t.jsx)(`div`,{className:`grid-overlay`})}export{n as t};
