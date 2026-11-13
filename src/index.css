@@ -14,7 +14,7 @@ html[data-theme="dean-dark"] {
 
   --text-bright: #f3f4f6;
   --text-dim: #9ca3af;
-  --text-muted: #6b7280;
+  --text-muted: #79808e;
 
   --accent: #6d5dfc;
   --accent-hover: #5b4be8;
@@ -51,7 +51,7 @@ html[data-theme="foundations"] {
 
   --text-bright: #eef6f4;
   --text-dim: #9bb0ab;
-  --text-muted: #5e7470;
+  --text-muted: #708682;
 
   --accent: #68b096;
   --accent-hover: #529980;
@@ -77,7 +77,7 @@ html[data-theme="dean-light"] {
 
   --text-bright: #1e1e2e;
   --text-dim: #4c4f69;
-  --text-muted: #6c6f85;
+  --text-muted: #686b81;
 
   --accent: #4f3ee3;
   --accent-hover: #3f2ed4;

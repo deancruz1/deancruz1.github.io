@@ -5,7 +5,8 @@ export default function NotFound() {
   return (
     <>
       <Helmet>
-        <title>Dean Cruz - Page Not Found</title>
+        <title>Dean Cruz - Page not found</title>
+        <meta name="robots" content="noindex" />
       </Helmet>
 
       <main className="site-container view-fade">
