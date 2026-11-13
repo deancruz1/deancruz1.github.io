@@ -132,7 +132,7 @@ html[data-theme="dean-light"] {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 1040px;
+  max-width: 1116px;
   margin: 0 auto;
   padding: 0 36px;
 }
@@ -147,7 +147,7 @@ html[data-theme="dean-light"] {
    SHARED DOUBLE-BEZEL & MAC WINDOW CHROME
    ========================================================================== */
 .bezel-outer {
-  padding: 7px;
+  padding: 8px;
   border-radius: 24px;
   background: var(--surface-outer);
   border: 1px solid var(--border-outer);
@@ -173,7 +173,7 @@ html[data-theme="dean-light"] .bezel-outer {
 
 .bezel-inner {
   position: relative;
-  border-radius: 18px;
+  border-radius: 16px;
   background: linear-gradient(180deg, var(--surface-inner) 0%, var(--surface-inner-bottom) 100%);
   border: 1px solid var(--border-inner);
   overflow: hidden;
@@ -183,7 +183,7 @@ html[data-theme="dean-light"] .bezel-outer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 22px;
+  padding: 11px 14px 11px 20px;
   border-bottom: 1px solid var(--border-inner);
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
 }

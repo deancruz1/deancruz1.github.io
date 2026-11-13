@@ -5,12 +5,19 @@
   pointer-events: none;
 }
 
+.topbar-wrap > .site-container {
+  max-width: none;
+  padding: 0 48px;
+}
+
 .topbar {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
-  padding: 28px 0;
+  min-height: 56px;
+  padding: 24px 0;
+  box-sizing: content-box;
 }
 
 .topbar > * {
@@ -20,6 +27,7 @@
 .brand-lockup {
   display: inline-flex;
   flex-direction: column;
+  justify-self: start;
   text-decoration: none;
 }
 
@@ -39,13 +47,15 @@
   font-size: 12px;
   color: var(--text-muted);
   line-height: 1.2;
+  margin-top: 6px;
 }
 
 .nav-pill {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 5px;
+  gap: 6px;
+  height: 48px;
+  padding: 0 6px;
   border-radius: 999px;
   background: rgba(18, 20, 26, 0.78);
   backdrop-filter: blur(20px);
@@ -64,9 +74,10 @@ html[data-theme="dean-light"] .nav-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 22px;
+  width: 80px;
+  height: 36px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--text-dim);
   text-decoration: none;
@@ -102,23 +113,39 @@ html[data-theme="dean-light"] .nav-pill-link.active {
 .nav-action-links {
   display: flex;
   align-items: center;
-  gap: 22px;
-  font-size: 13.5px;
+  justify-self: end;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .nav-action-links a {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 12px 0 16px;
+  border-radius: 24px;
   color: var(--text-dim);
   text-decoration: none;
-  transition: color 0.18s ease;
+  transition: color 0.18s ease, background-color 0.18s ease;
 }
 
 .nav-action-links a:hover {
   color: var(--text-bright);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+html[data-theme="dean-light"] .nav-action-links a:hover {
+  background: rgba(0, 0, 0, 0.04);
 }
 
 @media (max-width: 900px) {
+  .topbar-wrap > .site-container {
+    padding: 0 18px;
+  }
+
   .topbar {
-    padding: 20px 0;
+    padding: 16px 0;
   }
 
   .nav-action-links {
@@ -127,11 +154,20 @@ html[data-theme="dean-light"] .nav-pill-link.active {
 }
 
 @media (max-width: 640px) {
+  .topbar {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+  }
+
+  .brand-wordmark {
+    white-space: nowrap;
+  }
+
   .brand-role {
     display: none;
   }
 
   .nav-pill-link {
-    padding: 6px 18px;
+    width: 68px;
   }
 }
