@@ -183,7 +183,7 @@ await writePage({
   source: "src/pages/Info.jsx",
   title: "Dean Cruz - Info",
   description:
-    "About Dean Cruz — frontend-focused software engineer at NCS Group, previously OCBC and Republic Polytechnic, studying Computer Science at UOW.",
+    "About Dean Cruz — full-stack engineer, strongest on the frontend. Software Engineer at NCS Group, previously OCBC and Republic Polytechnic, studying Computer Science at UOW.",
   image: `${SITE}/preview.webp`,
 });
 
