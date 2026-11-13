@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 // Each page's code is its own file, so a visitor only downloads the page
 // they open. scripts/prerender-meta.mjs adds the matching preload to each page.
 const Home = lazy(() => import("./pages/Home"));
+const Info = lazy(() => import("./pages/Info"));
 const Projects = lazy(() => import("./pages/Projects"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -48,6 +49,7 @@ function App() {
             <Suspense fallback={null}>
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/info" element={<Info />} />
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/projects/:slug" element={<ProjectDetail />} />
                 <Route path="*" element={<NotFound />} />

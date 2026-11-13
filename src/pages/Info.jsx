@@ -1,0 +1,329 @@
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
+
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+import foundations01 from "../assets/img/project-gallery/portfolio-website/01.webp";
+import foundations02 from "../assets/img/project-gallery/portfolio-website/02.webp";
+import foundations03 from "../assets/img/project-gallery/portfolio-website/03.webp";
+import foundations04 from "../assets/img/project-gallery/portfolio-website/04.webp";
+import { xpEntries } from "../data/work-experience";
+import "../styles/uf-explorer.css";
+import "./Info.css";
+
+const STORY_ITEMS = [
+  {
+    image: foundations01,
+    alt: "Foundations (2023) moonlit mountain hero",
+    title: "Where it started: Foundations ('23)",
+    body: "My first portfolio site with the moonlit mountain hero—built to learn semantic HTML, CSS and Bootstrap, and picked by Republic Polytechnic faculty as the cohort reference for code structure.",
+  },
+  {
+    image: foundations03,
+    alt: "Foundations About section with diploma achievements",
+    title: "Top of cohort & IMDA Gold Medal",
+    body: "Graduated with a 3.97 GPA and the IMDA Gold Medal at RP, automated 800+ banking test cases at OCBC, and joined NCS Group's Fusion Work-Study Programme.",
+  },
+  {
+    image: foundations02,
+    alt: "Early front-end builds including 86 Eighty-Six fansite and Shrine of Suisei",
+    title: "100-hour JRPGs & anime side builds",
+    body: "Even back on Foundations, my earliest sites were an 86 Eighty-Six fansite and a Hoshimachi Suisei page. That same itch grew into Kiroku, Urara, and Oshiwatch.",
+  },
+  {
+    image: foundations04,
+    alt: "Individual project breakdown from Foundations portfolio",
+    title: "Design flows to production SQL",
+    body: "From wiring 40-screen mobile prototypes in Adobe XD to tuning 1,600+ MyBatis queries at NCS, I care equally about tactile UI and clean data models underneath.",
+  },
+];
+
+const TOOLBOX_COLUMNS = [
+  {
+    heading: "Frontend",
+    items: ["React", "TypeScript", "Next.js", "Angular", "Tailwind", "TanStack Query", "Framer Motion"],
+  },
+  {
+    heading: "Backend and data",
+    items: ["Java", "Spring Boot", "MyBatis", "Hibernate", "PostgreSQL", "MySQL", "Prisma"],
+  },
+  {
+    heading: "Also",
+    items: ["Vite", "Git", "Vercel", "Supabase", "Python", "PHP"],
+  },
+];
+
+export default function Info() {
+  const { hash } = useLocation();
+  const [storyIndex, setStoryIndex] = useState(0);
+  const [activeXp, setActiveXp] = useState(xpEntries[0].id);
+  const [showAll, setShowAll] = useState(false);
+  const [openRows, setOpenRows] = useState(() =>
+    xpEntries.reduce((acc, entry) => {
+      if (entry.accordions?.length) acc[entry.id] = 0;
+      return acc;
+    }, {}),
+  );
+
+  const storyNotesRef = useRef(null);
+  const storyItemRefs = useRef([]);
+  const [storyBarStyle, setStoryBarStyle] = useState({ height: 0, transform: "translateY(0px)" });
+
+  const xpContainerRef = useRef(null);
+  const xpItemRefs = useRef({});
+  const [xpIndStyle, setXpIndStyle] = useState({ width: 0, height: 0, transform: "translate(0px, 0px)" });
+
+  useEffect(() => {
+    if (hash === "#ncs") {
+      document.getElementById("ncs")?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [hash]);
+
+  useIsomorphicLayoutEffect(() => {
+    const updateStoryBar = () => {
+      const el = storyItemRefs.current[storyIndex];
+      if (!el || !el.offsetHeight) return;
+      setStoryBarStyle({
+        height: `${Math.max(0, el.offsetHeight - 24)}px`,
+        transform: `translateY(${el.offsetTop + 12}px)`,
+      });
+    };
+
+    updateStoryBar();
+    const notesEl = storyNotesRef.current;
+    if (!notesEl || typeof ResizeObserver === "undefined") return undefined;
+    const observer = new ResizeObserver(updateStoryBar);
+    observer.observe(notesEl);
+    return () => observer.disconnect();
+  }, [storyIndex]);
+
+  useIsomorphicLayoutEffect(() => {
+    const updateXpInd = () => {
+      if (showAll) return;
+      const el = xpItemRefs.current[activeXp];
+      if (!el || !el.offsetWidth) return;
+      setXpIndStyle({
+        width: `${el.offsetWidth}px`,
+        height: `${el.offsetHeight}px`,
+        transform: `translate(${el.offsetLeft}px, ${el.offsetTop}px)`,
+      });
+    };
+
+    updateXpInd();
+    const xpEl = xpContainerRef.current;
+    if (!xpEl || typeof ResizeObserver === "undefined") return undefined;
+    const observer = new ResizeObserver(updateXpInd);
+    observer.observe(xpEl);
+    return () => observer.disconnect();
+  }, [activeXp, showAll]);
+
+  const handleXpKeyDown = (index, e) => {
+    const delta =
+      e.key === "ArrowDown" || e.key === "ArrowRight"
+        ? 1
+        : e.key === "ArrowUp" || e.key === "ArrowLeft"
+          ? -1
+          : 0;
+    if (!delta) return;
+    e.preventDefault();
+    const nextEntry = xpEntries[(index + delta + xpEntries.length) % xpEntries.length];
+    setActiveXp(nextEntry.id);
+    xpItemRefs.current[nextEntry.id]?.focus();
+  };
+
+  const toggleAccordion = (entryId, rowIndex) => {
+    if (showAll) return;
+    setOpenRows((prev) => ({
+      ...prev,
+      [entryId]: prev[entryId] === rowIndex ? -1 : rowIndex,
+    }));
+  };
+
+  const activeStory = STORY_ITEMS[storyIndex];
+
+  return (
+    <>
+      <Helmet>
+        <title>Info - Dean Cruz</title>
+        <meta
+          name="description"
+          content="About Dean Cruz — frontend-focused software engineer at NCS Group, previously OCBC and Republic Polytechnic, studying Computer Science at UOW."
+        />
+      </Helmet>
+
+      <main className="site-container view-fade">
+        <section className="info-intro">
+          <h1 className="info-headline">
+            I&apos;m a <span className="hi-accent">frontend-focused</span> software engineer. I
+            build React apps, and write Angular and Java at NCS
+            <span className="accent-dot">.</span>
+          </h1>
+          <p className="info-sub">
+            Based in Singapore, pursuing Computer Science part-time at the University of
+            Wollongong, and sinking 100 hours into JRPGs while my anime backlog keeps growing.
+          </p>
+        </section>
+
+        <section className="uf-section" aria-label="Story and background">
+          <div className="uf uf-story">
+            <div className="uf-frame story-frame">
+              <img className="full-fit" src={activeStory.image} alt={activeStory.alt} />
+            </div>
+
+            <div className="uf-notes" ref={storyNotesRef}>
+              <div className="uf-bar" style={storyBarStyle} aria-hidden="true" />
+              {STORY_ITEMS.map((item, index) => (
+                <button
+                  key={item.title}
+                  ref={(el) => {
+                    storyItemRefs.current[index] = el;
+                  }}
+                  type="button"
+                  className={`uf-note story-item${storyIndex === index ? " active" : ""}`}
+                  aria-pressed={storyIndex === index}
+                  onMouseEnter={() => setStoryIndex(index)}
+                  onFocus={() => setStoryIndex(index)}
+                  onClick={() => setStoryIndex(index)}
+                >
+                  <span className="t">{item.title}</span>
+                  <p>{item.body}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="xp-section" id="ncs" aria-labelledby="xp-heading">
+          <div className="xp-head">
+            <h2 className="xp-title" id="xp-heading">
+              Where I&apos;ve worked and studied
+            </h2>
+            <button
+              type="button"
+              className="xp-all"
+              aria-pressed={showAll}
+              onClick={() => setShowAll((prev) => !prev)}
+            >
+              {showAll ? "Back to the list" : "Show everything"}
+            </button>
+          </div>
+
+          <div ref={xpContainerRef} className={`xp${showAll ? " all" : ""}`}>
+            <div className="xp-list" role="tablist" aria-orientation="vertical" aria-label="Work and study">
+              <div className="xp-ind" style={xpIndStyle} aria-hidden="true" />
+              {xpEntries.map((entry, index) => {
+                const prevGroup = index > 0 ? xpEntries[index - 1].group : entry.group;
+                const showSeparator = entry.group !== prevGroup;
+                const isSelected = activeXp === entry.id;
+                return (
+                  <Fragment key={entry.id}>
+                    {showSeparator && <div className="xp-sep" role="separator" aria-hidden="true" />}
+                    <button
+                      ref={(el) => {
+                        xpItemRefs.current[entry.id] = el;
+                      }}
+                      type="button"
+                      id={`xp-tab-${entry.id}`}
+                      role="tab"
+                      aria-selected={isSelected}
+                      aria-controls={`xp-panel-${entry.id}`}
+                      tabIndex={isSelected ? 0 : -1}
+                      className={`xp-item${isSelected ? " active" : ""}`}
+                      onClick={() => setActiveXp(entry.id)}
+                      onKeyDown={(e) => handleXpKeyDown(index, e)}
+                    >
+                      <img src={entry.logo} alt="" />
+                      <div>
+                        <b>{entry.name}</b>
+                        <span>{entry.navSub}</span>
+                      </div>
+                    </button>
+                  </Fragment>
+                );
+              })}
+            </div>
+
+            <div>
+              {xpEntries.map((entry) => {
+                const isActive = activeXp === entry.id;
+                return (
+                  <div
+                    key={entry.id}
+                    id={`xp-panel-${entry.id}`}
+                    role="tabpanel"
+                    aria-labelledby={`xp-tab-${entry.id}`}
+                    className={`xp-panel${isActive ? " active" : ""}`}
+                  >
+                    <h3 className="xp-role">{entry.role}</h3>
+                    <div className="xp-meta">{entry.meta}</div>
+                    {entry.summary && <p className="xp-sum">{entry.summary}</p>}
+
+                    {entry.facts && (
+                      <div className="xp-facts">
+                        {entry.facts.map((fact) => (
+                          <div key={fact.label}>
+                            <b>{fact.value}</b>
+                            <span>{fact.label}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {entry.accordions?.map((row, rowIndex) => {
+                      const isOpen = showAll || openRows[entry.id] === rowIndex;
+                      return (
+                        <div key={row.title} className={`xp-row${isOpen ? " open" : ""}`}>
+                          <button
+                            type="button"
+                            aria-expanded={isOpen}
+                            onClick={() => toggleAccordion(entry.id, rowIndex)}
+                          >
+                            <span className="t">{row.title}</span>
+                            <span className="c" aria-hidden="true">
+                              ▶
+                            </span>
+                          </button>
+                          <div className="xp-body">
+                            <div>
+                              <p>{row.body}</p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                    {entry.lines?.map((line) => (
+                      <div key={line.label} className="xp-line">
+                        {line.label} <span>{line.value}</span>
+                      </div>
+                    ))}
+
+                    {entry.stack && <div className="xp-stack">{entry.stack}</div>}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="tb-section" aria-label="Technical toolbox">
+          <div className="tb">
+            {TOOLBOX_COLUMNS.map((col) => (
+              <div key={col.heading}>
+                <h3>{col.heading}</h3>
+                <p>
+                  {col.items.map((tech, idx) => (
+                    <Fragment key={tech}>
+                      {idx > 0 && <br />}
+                      {tech}
+                    </Fragment>
+                  ))}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
