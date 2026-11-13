@@ -47,7 +47,7 @@ function ProjectDetailBody({ project }) {
   return (
     <>
       <Helmet>
-        <title>{`${project.title} — Dean Cruz`}</title>
+        <title>{`Dean Cruz - ${project.title}`}</title>
         <meta name="description" content={project.description} />
       </Helmet>
 

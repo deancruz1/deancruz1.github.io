@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, MemoryRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, MemoryRouter, Navigate, Routes, Route } from "react-router-dom";
 import { MotionConfig } from "framer-motion";
 import Background from "./components/Background";
 import Navbar from "./components/Navbar";
@@ -9,7 +9,6 @@ import Footer from "./components/Footer";
 // they open. scripts/prerender-meta.mjs adds the matching preload to each page.
 const Home = lazy(() => import("./pages/Home"));
 const Info = lazy(() => import("./pages/Info"));
-const Projects = lazy(() => import("./pages/Projects"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -50,7 +49,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/info" element={<Info />} />
-                <Route path="/projects" element={<Projects />} />
+                <Route path="/projects" element={<Navigate to="/" replace />} />
                 <Route path="/projects/:slug" element={<ProjectDetail />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

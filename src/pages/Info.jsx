@@ -144,7 +144,7 @@ export default function Info() {
   return (
     <>
       <Helmet>
-        <title>Info - Dean Cruz</title>
+        <title>Dean Cruz - Info</title>
         <meta
           name="description"
           content="About Dean Cruz — frontend-focused software engineer at NCS Group, previously OCBC and Republic Polytechnic, studying Computer Science at UOW."

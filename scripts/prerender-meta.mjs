@@ -179,11 +179,11 @@ const writePage = async ({ path, source, title, description, image }) => {
 await writePage({ path: "/", source: "src/pages/Home.jsx" });
 
 await writePage({
-  path: "/projects/",
-  source: "src/pages/Projects.jsx",
-  title: "Dean Cruz - Projects",
+  path: "/info/",
+  source: "src/pages/Info.jsx",
+  title: "Dean Cruz - Info",
   description:
-    "A collection of projects by Dean Cruz — full-stack, frontend, and design.",
+    "About Dean Cruz — frontend-focused software engineer at NCS Group, previously OCBC and Republic Polytechnic, studying Computer Science at UOW.",
   image: `${SITE}/preview.webp`,
 });
 
