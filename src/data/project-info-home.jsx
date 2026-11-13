@@ -504,7 +504,7 @@ export const projects = [
       "An anime tracker with a watch list, seasonal calendar, recommendations and viewing stats.",
     stageMeta: {
       stack: "Next.js, '25",
-      summary: "An anime tracker with a watch list, broadcast calendar, and viewing stats.",
+      summary: "An anime tracker that works within Jikan's 3-requests-a-second limit.",
       glow: "glow-kiroku",
       alt: "Kiroku dashboard",
     },
@@ -653,7 +653,7 @@ export const projects = [
       "A fan guide to Umamusume Pretty Derby with character profiles, music previews, news and birthdays.",
     stageMeta: {
       stack: "React, '25",
-      summary: "Umamusume character guide with on-demand translation and dynamic theming.",
+      summary: "An Umamusume guide that translates Japanese profiles on demand.",
       glow: "glow-urara",
       alt: "Urara character guide",
     },
@@ -802,7 +802,7 @@ export const projects = [
       "A Hololive stream tracker. See who's live, what's coming up, and watch in-app with live chat.",
     stageMeta: {
       stack: "React, '25",
-      summary: "Hololive live and upcoming stream tracker with embedded chat.",
+      summary: "A Hololive stream tracker that keeps its API key off the client.",
       glow: "glow-oshiwatch",
       alt: "Oshiwatch stream tracker",
     },

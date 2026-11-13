@@ -27,22 +27,22 @@ const STORY_ITEMS = [
   {
     scene: "flows",
     title: "Design flows to production SQL",
-    body: "From wiring 40-screen mobile prototypes in Adobe XD to tuning 1,600+ MyBatis queries at NCS, I care equally about tactile UI and clean data models underneath.",
+    body: "From wiring a 154-screen mobile prototype in Adobe XD to tuning 1,600+ MyBatis queries at NCS, I care equally about tactile UI and clean data models underneath.",
   },
 ];
 
 const TOOLBOX_COLUMNS = [
   {
     heading: "Frontend",
-    items: ["React", "TypeScript", "Next.js", "Angular", "Tailwind", "TanStack Query", "Framer Motion"],
+    items: ["React", "TypeScript", "Next.js", "Tailwind", "TanStack Query"],
   },
   {
     heading: "Backend and data",
-    items: ["Java", "Spring Boot", "MyBatis", "Hibernate", "PostgreSQL", "MySQL", "Prisma"],
+    items: ["Java", "Spring Boot", "MyBatis", "Hibernate", "MySQL", "PostgreSQL", "Prisma"],
   },
   {
     heading: "Also",
-    items: ["Vite", "Git", "Vercel", "Supabase", "Python", "PHP"],
+    items: ["Angular", "Vite", "Git", "Vercel", "Supabase", "Python", "PHP"],
   },
 ];
 
@@ -171,15 +171,16 @@ export default function Info() {
         <title>Dean Cruz - Info</title>
         <meta
           name="description"
-          content="About Dean Cruz — frontend-focused software engineer at NCS Group, previously OCBC and Republic Polytechnic, studying Computer Science at UOW."
+          content="About Dean Cruz — full-stack engineer, strongest on the frontend. Software Engineer at NCS Group, previously OCBC and Republic Polytechnic, studying Computer Science at UOW."
         />
       </Helmet>
 
       <main className="site-container view-fade">
         <section className="info-intro">
           <h1 className="info-headline">
-            I&apos;m a <span className="hi-accent">frontend-focused</span> software engineer. I
-            build React apps, and write Angular and Java at NCS
+            I&apos;m a full-stack engineer who&apos;s strongest on the{" "}
+            <span className="hi-accent">frontend</span>. I build React and Next.js apps, and
+            modernise Java systems at NCS
             <span className="accent-dot">.</span>
           </h1>
           <p className="info-sub">

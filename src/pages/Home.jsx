@@ -23,10 +23,10 @@ export default function Home() {
               <div className="hero-stage">
                 <p className="hero-overline">Dean Cruz — Software Engineer</p>
                 <h1 className="hero-headline">
-                  I build <span className="hi-accent whitespace-nowrap">web apps</span>
+                  Frontend by <span className="hi-accent">choice</span>,
                   <br />
-                  &amp; modernise <span className="whitespace-nowrap">
-                    <span className="hi-accent">old code</span>
+                  backend by <span className="whitespace-nowrap">
+                    <span className="hi-accent">trade</span>
                     <span className="accent-dot">.</span>
                   </span>
                 </h1>
