@@ -137,6 +137,10 @@ export const projects = [
     category: "Full-stack",
     description:
       "An e-learning platform where instructors build courses and quizzes, and students get graded automatically.",
+    archiveMeta: {
+      desc: "Full-stack e-learning platform with auto-graded quizzes, JWT auth & 9-table schema",
+      stack: "Angular · Spring Boot · Postgres",
+    },
     features: [
       {
         title: "Database",
@@ -229,6 +233,10 @@ export const projects = [
     category: "Frontend",
     description:
       "My first portfolio site, built during my diploma and picked by faculty as the cohort's reference for code structure.",
+    archiveMeta: {
+      desc: "First diploma portfolio—selected by Republic Polytechnic faculty as cohort reference",
+      stack: "HTML · CSS · Bootstrap",
+    },
     about:
       "The project that started it all. Built to learn the fundamentals, then selected by faculty as the cohort reference implementation for code structure.",
     features: [
@@ -268,6 +276,10 @@ export const projects = [
     featured: false,
     category: "Frontend",
     description: "A fansite for 86 Eighty-Six, styled as a Handler's military terminal with dossiers, mech specs and a combat log.",
+    archiveMeta: {
+      desc: "86 Eighty-Six military terminal archive with CRT scanlines, dossiers & mech specs",
+      stack: "React · Tailwind",
+    },
     about:
       "The concept is simple: you're a Handler logged into HQ. The site covers the full series: plot breakdowns by act, Spearhead Squadron dossiers with Para-RAID sync status, a mech database with armament specs, faction geopolitical profiles with threat classifications, and a combat log archive across all episodes.",
     features: [
@@ -320,6 +332,12 @@ export const projects = [
     category: "Full-stack",
     description:
       "An anime tracker with a watch list, seasonal calendar, recommendations and viewing stats.",
+    stageMeta: {
+      stack: "Next.js, '25",
+      summary: "An anime tracker with a watch list, broadcast calendar, and viewing stats.",
+      glow: "glow-kiroku",
+      alt: "Kiroku dashboard",
+    },
     card: {
       why: "Existing anime trackers never felt right, so I built my own.",
       how: "Built on the Next.js App Router, so server components fetch the data and pages don't wait on client-side requests.",
@@ -416,6 +434,12 @@ export const projects = [
     category: "Frontend",
     description:
       "A fan guide to Umamusume Pretty Derby with character profiles, music previews, news and birthdays.",
+    stageMeta: {
+      stack: "React, '25",
+      summary: "Umamusume character guide with on-demand translation and dynamic theming.",
+      glow: "glow-urara",
+      alt: "Urara character guide",
+    },
     card: {
       why: "Umamusume fan info was scattered across wikis and playlists, so I put it in one place.",
       how: "Part of the API only returns Japanese, so each entry translates on demand and caches the result.",
@@ -513,6 +537,12 @@ export const projects = [
     category: "Frontend",
     description:
       "A Hololive stream tracker. See who's live, what's coming up, and watch in-app with live chat.",
+    stageMeta: {
+      stack: "React, '25",
+      summary: "Hololive live and upcoming stream tracker with embedded chat.",
+      glow: "glow-oshiwatch",
+      alt: "Oshiwatch stream tracker",
+    },
     card: {
       why: "I wanted to track Hololive streams without opening five tabs.",
       how: "Holodex calls go through a Vercel serverless proxy so the API key never reaches the browser.",
@@ -609,6 +639,10 @@ export const projects = [
     category: "Full-stack",
     description:
       "A PHP/MySQL application with CRUD-enabled database tables and session-based authentication.",
+    archiveMeta: {
+      desc: "Server-rendered movie review CRUD web app with session auth & foreign keys",
+      stack: "PHP · MySQL · CSS",
+    },
     about:
       "A deep dive into server-side fundamentals. Built to understand how session auth, relational schemas, and CRUD operations fit together end-to-end.",
     features: [
@@ -727,3 +761,14 @@ export const projects = [
     })),
   },
 ];
+
+export const FEATURED_SLUGS = ["kiroku", "urara", "oshiwatch"];
+export const ARCHIVE_SLUGS = ["skillforge", "fansite", "portfolio-website", "movietopia"];
+
+export function getFeaturedProjects() {
+  return FEATURED_SLUGS.map((slug) => projects.find((p) => p.slug === slug)).filter(Boolean);
+}
+
+export function getArchiveProjects() {
+  return ARCHIVE_SLUGS.map((slug) => projects.find((p) => p.slug === slug)).filter(Boolean);
+}
