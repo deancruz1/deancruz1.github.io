@@ -164,24 +164,3 @@ html[data-theme="dean-light"] .orb-3 {
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 80px 80px;
 }
-
-.dean-grid-cursor {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    linear-gradient(to right, var(--grid-spot) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-spot) 1px, transparent 1px);
-  background-size: 80px 80px;
-  -webkit-mask-image: radial-gradient(
-    320px circle at var(--mx, -999px) var(--my, -999px),
-    black 0%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(
-    320px circle at var(--mx, -999px) var(--my, -999px),
-    black 0%,
-    transparent 100%
-  );
-}
