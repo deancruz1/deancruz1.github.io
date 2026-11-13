@@ -1,175 +1,88 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { HashLink } from "react-router-hash-link";
-import { useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import ThemeToggle from "./ThemeToggle";
-import personalLinks from "../data/personal-links.js";
-const { linkedin } = personalLinks;
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { socialButtons } from "../data/personal-links";
+import "./Navbar.css";
 
-const navLinks = [
-  { label: "Home", to: "/#hero" },
-  { label: "Short profile", to: "/#about" },
-  { label: "Work experience", to: "/#experience" },
-  { label: "Featured projects", to: "/#projects" },
-  { label: "All projects", to: "/projects" },
-];
-
-const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
-
-  const introButton =
-    "bg-transparent hover:bg-[var(--accent)] text-[var(--text-primary)] font-bold py-2 px-4 border border-[var(--text-primary)] hover:border-[var(--accent)] rounded transition-colors duration-300 ease-in-out text-center cursor-pointer rounded-full hover:text-(--button-primary)";
+export default function Navbar() {
+  const { pathname } = useLocation();
+  const isInfo = pathname === "/info" || pathname === "/info/";
+  const isWork = !isInfo;
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    let rafId = null;
+
+    const updateProgress = () => {
+      rafId = null;
+      const doc = document.documentElement;
+      const maxScroll = doc.scrollHeight - doc.clientHeight;
+      const pct = maxScroll > 0 ? Math.min(100, Math.max(0, (doc.scrollTop / maxScroll) * 100)) : 0;
+      doc.style.setProperty("--scroll-pct", `${pct.toFixed(2)}%`);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setMenuOpen(false), 0);
-    return () => clearTimeout(timer);
-  }, [location]);
+    const scheduleUpdate = () => {
+      if (rafId === null) {
+        rafId = window.requestAnimationFrame(updateProgress);
+      }
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
+    };
+  }, [pathname]);
 
   return (
     <>
-      {/* Scroll Progress Bar */}
-      <div className="fixed top-0 left-0 z-110 h-0.5 w-full bg-transparent">
-        <div
-          className="standard-progress-bar h-full origin-left bg-(--accent)"
-          style={{
-            animationTimeline: "scroll()",
-            animationName: "grow-progress",
-            animationTimingFunction: "linear",
-            animationFillMode: "both",
-          }}
-        />
-        <style>{`
-          @keyframes grow-progress {
-            from { transform: scaleX(0); }
-            to { transform: scaleX(1); }
-          }
-        `}</style>
-      </div>
+      <div className="scroll-progress" aria-hidden="true" />
+      <header className="topbar-wrap">
+        <div className="site-container">
+          <div className="topbar">
+            <Link to="/" className="brand-lockup">
+              <span className="brand-wordmark">
+                Dean Cruz<span className="brand-dot">.</span>
+              </span>
+              <span className="brand-role">Software Engineer</span>
+            </Link>
 
-      {/* Main Navigation Bar */}
-      <nav
-        className={`fixed top-0 right-0 left-0 z-100 flex items-center justify-between border-b-[1.5px] px-5 py-6 transition-all duration-300 lg:px-6 lg:py-8 xl:px-10 2xl:px-16 ${
-          scrolled || menuOpen
-            ? "border-(--accent) bg-(--bg-primary)/40 backdrop-blur-md"
-            : "border-transparent bg-transparent"
-        }`}
-      >
-        {/* Left - Name */}
-        <div className="flex-1 lg:flex-none xl:flex-1">
-          <Link
-            to="/"
-            className="text-2xl font-bold text-(--text-primary) lg:text-4xl"
-          >
-            Dean<span className="text-(--accent)">.</span>
-          </Link>
-        </div>
-
-        {/* Center - Nav Links (Desktop only) */}
-        <div
-          className={`hidden items-center gap-5 rounded-full border-2 px-5 py-3 font-bold transition-all duration-300 lg:flex xl:gap-8 xl:px-8 ${
-            scrolled ? "border-transparent" : "border-(--accent)"
-          }`}
-        >
-          {navLinks.map((link, i) => (
-            <HashLink
-              key={link.label}
-              smooth
-              to={link.to}
-              className="flex items-center gap-1 py-0.5 text-[0.8rem] text-(--text-primary) xl:text-sm transition-colors duration-300 hover:text-(--accent)"
-            >
-              {link.label}
-              <sup className="text-[10px] text-(--accent-text)">
-                {String(i + 1).padStart(2, "0")}
-              </sup>
-            </HashLink>
-          ))}
-        </div>
-
-        {/* Right */}
-        <div className="flex flex-1 items-center justify-end gap-4 lg:flex-none xl:flex-1">
-          <ThemeToggle />
-
-          {/* Connect Button - Desktop only */}
-          <a
-            href={linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`hidden lg:inline-flex ${introButton}`}
-          >
-            Connect
-          </a>
-
-          {/* Hamburger - Mobile/Tablet only */}
-          <button
-            className="flex flex-col gap-1.5 p-2 lg:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-          >
-            <span
-              className={`block h-0.5 w-6 bg-(--text-primary) transition-all duration-300 ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
-            />
-            <span
-              className={`block h-0.5 w-6 bg-(--text-primary) transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
-            />
-            <span
-              className={`block h-0.5 w-6 bg-(--text-primary) transition-all duration-300 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
-            />
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile/Tablet Menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-18 right-0 left-0 z-99 flex flex-col gap-6 border-b border-(--accent) bg-(--bg-primary)/40 px-5 py-6 backdrop-blur-md lg:hidden"
-          >
-            {navLinks.map((link, i) => (
-              <HashLink
-                key={link.label}
-                smooth
-                to={link.to}
-                onClick={() => setMenuOpen(false)}
-                className="flex items-center gap-2 text-lg font-bold text-(--text-primary) transition-colors duration-300 hover:text-(--accent)"
+            <nav className="nav-pill" aria-label="Primary">
+              <Link
+                to="/"
+                className={`nav-pill-link${isWork ? " active" : ""}`}
+                aria-current={isWork ? "page" : undefined}
               >
-                <sup className="text-[10px] text-(--accent-text)">
-                  {String(i + 1).padStart(2, "0")}
-                </sup>
-                {link.label}
-              </HashLink>
-            ))}
-            <div className="hidden lg:block">
-              <ThemeToggle />
+                Work
+              </Link>
+              <Link
+                to="/info"
+                className={`nav-pill-link${isInfo ? " active" : ""}`}
+                aria-current={isInfo ? "page" : undefined}
+              >
+                Info
+              </Link>
+            </nav>
+
+            <div className="nav-action-links">
+              {socialButtons.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {item.label} ↗
+                </a>
+              ))}
             </div>
-            <a
-              href={linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={introButton}
-            >
-              Connect
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      </header>
     </>
   );
-};
-
-export default Navbar;
+}

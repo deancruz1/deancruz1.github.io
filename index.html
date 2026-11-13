@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dean-dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
@@ -12,15 +12,15 @@
     <meta name="title" content="Dean Cruz - Software Engineer" />
     <meta
       name="description"
-      content="Dean Cruz, software engineer in Singapore. Strongest on the frontend (React, TypeScript, Next.js), with Angular, Java and Spring Boot at work."
+      content="Dean Cruz, software engineer in Singapore. Crafting fast interfaces and modernising systems with React, TypeScript, Angular, and Java."
     />
     <meta
       name="keywords"
-      content="Dean Cruz, software engineer, frontend developer, React developer, TypeScript, Next.js, portfolio, Singapore"
+      content="Dean Cruz, software engineer, frontend developer, React developer, TypeScript, Next.js, Angular, Java, portfolio, Singapore"
     />
     <meta name="author" content="Dean Cruz" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#6864e7" />
+    <meta name="theme-color" content="#6d5dfc" />
 
     <!-- Open Graph / Facebook / LinkedIn / Discord -->
     <meta property="og:type" content="website" />
@@ -28,7 +28,7 @@
     <meta property="og:title" content="Dean Cruz - Software Engineer" />
     <meta
       property="og:description"
-      content="Dean Cruz, software engineer in Singapore. Strongest on the frontend (React, TypeScript, Next.js), with Angular, Java and Spring Boot at work."
+      content="Dean Cruz, software engineer in Singapore. Crafting fast interfaces and modernising systems with React, TypeScript, Angular, and Java."
     />
     <meta property="og:image" content="https://deancruz1.github.io/preview.webp" />
     <meta property="og:site_name" content="Dean Cruz | Software Engineer" />
@@ -39,20 +39,33 @@
     <meta name="twitter:title" content="Dean Cruz - Software Engineer" />
     <meta
       name="twitter:description"
-      content="Dean Cruz, software engineer in Singapore. Strongest on the frontend (React, TypeScript, Next.js), with Angular, Java and Spring Boot at work."
+      content="Dean Cruz, software engineer in Singapore. Crafting fast interfaces and modernising systems with React, TypeScript, Angular, and Java."
     />
     <meta name="twitter:image" content="https://deancruz1.github.io/preview.webp" />
+
+    <script>
+      (function () {
+        try {
+          var raw = localStorage.getItem("theme");
+          var map = { dark: "dean-dark", light: "dean-light" };
+          var next = map[raw] || raw;
+          if (next === "dean-dark" || next === "foundations" || next === "dean-light") {
+            document.documentElement.setAttribute("data-theme", next);
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
       onload="this.onload = null; this.rel = 'stylesheet'"
     />
     <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" />
     </noscript>
     <title>Dean Cruz - Software Engineer</title>
 

@@ -2,153 +2,272 @@
 @import "tailwindcss/theme" layer(theme);
 @import "tailwindcss/utilities" layer(utilities);
 
-@layer base {
-  .dark {
-    color-scheme: dark;
-  }
+:root,
+html[data-theme="dean-dark"] {
+  --bg: #0a0b0e;
+  --surface-outer: rgba(18, 20, 26, 0.65);
+  --surface-inner: #12141a;
+  --surface-inner-bottom: #0c0e13;
+  --border-outer: #222631;
+  --border-inner: rgba(255, 255, 255, 0.075);
+  --border-hairline: #222631;
 
-  :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
+  --text-bright: #f3f4f6;
+  --text-dim: #9ca3af;
+  --text-muted: #6b7280;
 
-:root {
-  --bg-primary: #0a0b0e;
-  --bg-secondary: #12141a;
-  --bg-tertiary: #1a1d24;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #7c8aa0;
   --accent: #6d5dfc;
-  --accent-hover: #5b4ae3;
-  /* Accent for small text, where --accent is too dim to read on dark */
+  --accent-hover: #5b4be8;
   --accent-text: #8174ff;
-  --border: #222631;
-  --border-accent: #6d5dfc;
+  --accent-soft: rgba(109, 93, 252, 0.12);
+  --accent-glow: rgba(109, 93, 252, 0.38);
+  --orb-2: #0066ff;
+  --orb-3: #ff00aa;
+
+  --grid-line: rgba(255, 255, 255, 0.028);
+  --grid-spot: rgba(109, 93, 252, 0.26);
+
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  /* Compatibility aliases while remaining routes transition */
+  --bg-primary: var(--bg);
+  --bg-secondary: var(--surface-inner);
+  --bg-tertiary: #1a1d24;
+  --text-primary: var(--text-bright);
+  --text-secondary: var(--text-dim);
+  --text-overlay: #f8fafc;
+  --button-primary: #ffffff;
+  --border: var(--border-outer);
+  --border-accent: var(--accent);
   --shadow-accent: rgba(109, 93, 252, 0.35);
   --shadow-accent-strong: rgba(109, 93, 252, 0.55);
-  --grid-line: rgba(255, 255, 255, 0.03);
-  --sans: "Nunito", system-ui, sans-serif;
-  --heading: "Nunito", system-ui, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text-primary);
-  background: var(--bg-primary);
+
+  color-scheme: dark;
+  color: var(--text-dim);
+  background: var(--bg);
+  font-family: var(--sans);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
-html.light {
-  --bg-primary: #eff1f5;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #e4e7eb;
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --text-muted: #636b78;
+html[data-theme="foundations"] {
+  --bg: #080b0f;
+  --surface-outer: rgba(17, 24, 32, 0.68);
+  --surface-inner: #10171f;
+  --surface-inner-bottom: #0a0f15;
+  --border-outer: #1e2c38;
+  --border-inner: rgba(132, 217, 186, 0.11);
+  --border-hairline: #1e2c38;
+
+  --text-bright: #eef6f4;
+  --text-dim: #9bb0ab;
+  --text-muted: #5e7470;
+
+  --accent: #68b096;
+  --accent-hover: #529980;
+  --accent-text: #84d9ba;
+  --accent-soft: rgba(104, 176, 150, 0.13);
+  --accent-glow: rgba(104, 176, 150, 0.36);
+  --orb-2: #0284c7;
+  --orb-3: #6366f1;
+
+  --grid-line: rgba(132, 217, 186, 0.03);
+  --grid-spot: rgba(104, 176, 150, 0.25);
+
+  --bg-tertiary: #16202a;
+  color-scheme: dark;
+}
+
+html[data-theme="dean-light"] {
+  --bg: #eff1f5;
+  --surface-outer: rgba(230, 233, 239, 0.85);
+  --surface-inner: #ffffff;
+  --surface-inner-bottom: #f6f7fb;
+  --border-outer: #ccd0da;
+  --border-inner: #dce0e8;
+  --border-hairline: #ccd0da;
+
+  --text-bright: #1e1e2e;
+  --text-dim: #4c4f69;
+  --text-muted: #6c6f85;
+
   --accent: #4f3ee3;
-  --accent-hover: #4333c9;
+  --accent-hover: #3f2ed4;
   --accent-text: #4f3ee3;
-  --border: #d1d5db;
-  --border-accent: #4f3ee3;
+  --accent-soft: rgba(79, 62, 227, 0.09);
+  --accent-glow: rgba(79, 62, 227, 0.22);
+  --orb-2: #3b82f6;
+  --orb-3: #ec4899;
+
+  --grid-line: rgba(30, 30, 46, 0.045);
+  --grid-spot: rgba(79, 62, 227, 0.22);
+
+  --bg-tertiary: #e4e7eb;
   --shadow-accent: rgba(79, 62, 227, 0.15);
   --shadow-accent-strong: rgba(79, 62, 227, 0.3);
-  --grid-line: rgba(17, 24, 39, 0.06);
-  --text-overlay: #f8fafc;
-  --button-primary: #ffffff;
+  color-scheme: light;
 }
 
-html.dark {
-  --bg-primary: #0a0b0e;
-  --bg-secondary: #12141a;
-  --bg-tertiary: #1a1d24;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #7c8aa0;
-  --text-overlay: #f8fafc;
-  --button-primary: #ffffff;
-  --accent: #6d5dfc;
-  --accent-hover: #5b4ae3;
-  --accent-text: #8174ff;
-  --border: #222631;
-  --border-accent: #6d5dfc;
-  --shadow-accent: rgba(109, 93, 252, 0.35);
-  --shadow-accent-strong: rgba(109, 93, 252, 0.55);
-  --grid-line: rgba(255, 255, 255, 0.03);
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text-dim);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.65;
+    letter-spacing: -0.01em;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 2px;
+  }
+
+  img {
+    -webkit-user-drag: none;
+    user-select: none;
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 100px;
-}
-
-body {
-  margin: 0;
-  overflow-x: hidden;
-}
-
-#root {
-  overflow: visible;
-  width: 1200px;
-  max-width: 100%;
+.site-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1040px;
   margin: 0 auto;
-  min-height: 100svh;
+  padding: 0 36px;
+}
+
+@media (max-width: 900px) {
+  .site-container {
+    padding: 0 18px;
+  }
+}
+
+/* ==========================================================================
+   SHARED DOUBLE-BEZEL & MAC WINDOW CHROME
+   ========================================================================== */
+.bezel-outer {
+  padding: 7px;
+  border-radius: 24px;
+  background: var(--surface-outer);
+  border: 1px solid var(--border-outer);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  position: relative;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+html[data-theme="dean-light"] .bezel-outer {
+  box-shadow: 0 18px 46px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.bezel-outer::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  pointer-events: none;
+}
+
+.bezel-inner {
+  position: relative;
+  border-radius: 18px;
+  background: linear-gradient(180deg, var(--surface-inner) 0%, var(--surface-inner-bottom) 100%);
+  border: 1px solid var(--border-inner);
+  overflow: hidden;
+}
+
+.window-bar {
   display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--border-inner);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
+html[data-theme="dean-light"] .window-bar {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.015), rgba(0, 0, 0, 0.035), rgba(0, 0, 0, 0.015));
 }
 
-p {
-  margin: 0;
+.window-dots {
+  display: flex;
+  gap: 8px;
 }
 
-code {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-primary);
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--bg-tertiary);
+.window-dots span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
 }
 
-img {
-  -webkit-user-drag: none;
-  user-select: none;
+.window-dots span:nth-child(1) {
+  background: #f43f5e;
+  box-shadow: 0 0 8px rgba(244, 63, 94, 0.5);
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
+.window-dots span:nth-child(2) {
+  background: #f59e0b;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
 }
 
-::view-transition-new(root) {
-  animation: clip-expand 0.5s ease-in forwards;
+.window-dots span:nth-child(3) {
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
 }
 
-@keyframes clip-expand {
+.window-plus {
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.hi {
+  color: var(--text-bright);
+  font-weight: 500;
+}
+
+.hi-accent {
+  color: var(--accent-text);
+  text-shadow: 0 0 28px var(--accent-glow);
+}
+
+.accent-dot {
+  color: var(--accent);
+}
+
+@keyframes viewFade {
   from {
-    /* Fallbacks added just in case, but Chrome will now read --x and --y perfectly */
-    clip-path: circle(0px at var(--x, 50%) var(--y, 50%));
+    opacity: 0;
+    transform: translateY(6px);
   }
   to {
-    clip-path: circle(150% at var(--x, 50%) var(--y, 50%));
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+.view-fade {
+  animation: viewFade 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -156,7 +275,7 @@ img {
     scroll-behavior: auto;
   }
 
-  ::view-transition-new(root) {
+  .view-fade {
     animation: none;
   }
 }

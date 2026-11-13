@@ -1,31 +1,35 @@
-import { useState, useEffect } from "react";
-import ThemeContext from "./ThemeContext"; // Adjust path if needed based on your setup
+import { useState, useEffect, useCallback } from "react";
+import ThemeContext from "./ThemeContext";
+import { normalizeTheme } from "./themes";
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
+  const [theme, setThemeState] = useState(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") || "dark";
+      return normalizeTheme(localStorage.getItem("theme"));
     }
-    return "dark";
+    return "dean-dark";
   });
 
-  // Sets the starting theme class; toggleTheme also sets it synchronously
   useEffect(() => {
-    document.documentElement.className = theme;
+    document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.classList.remove("dark", "light");
+    document.documentElement.classList.add(theme === "dean-light" ? "light" : "dark");
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => {
-      const nextTheme = prev === "dark" ? "light" : "dark";
-      
-      // Synchronously update the DOM before React state finishes updating
-      // so the View Transitions API takes an accurate snapshot
-      document.documentElement.className = nextTheme;
-      localStorage.setItem("theme", nextTheme);
-      
-      return nextTheme;
-    });
-  };
+  const setTheme = useCallback((nextValue) => {
+    const next = normalizeTheme(nextValue);
+    setThemeState(next);
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("data-theme", next);
+      document.documentElement.classList.remove("dark", "light");
+      document.documentElement.classList.add(next === "dean-light" ? "light" : "dark");
+      localStorage.setItem("theme", next);
+    }
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    setTheme(theme === "dean-light" ? "dean-dark" : "dean-light");
+  }, [theme, setTheme]);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>

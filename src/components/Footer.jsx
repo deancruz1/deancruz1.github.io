@@ -1,58 +1,49 @@
-import Grid from "./Grid";
-import { EmailIcon } from "../components/Icons";
-import personalLinks, { socialButtons } from "../data/personal-links.js";
+import personalLinks, { socialButtons } from "../data/personal-links";
+import { THEMES } from "../context/themes";
+import { useTheme } from "../hooks/useTheme";
+import "./Footer.css";
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
-  const { email } = personalLinks;
+export default function Footer() {
+  const { theme, setTheme } = useTheme();
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="relative -left-[calc(50vw-50%)] w-screen overflow-hidden py-10 text-(--text-primary)">
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <Grid />
-      </div>
-
-      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5">
-        <div className="mb-12 flex flex-col items-center gap-4">
-          <p className="text-5xl font-bold tracking-tight sm:text-6xl">
-            Dean<span className="text-(--accent)">.</span>
-          </p>
-
-          <a
-            href={`mailto:${email}`}
-            className="flex items-center gap-2 py-1 text-sm font-medium transition-colors duration-200 hover:text-(--accent) sm:text-base"
-          >
-            <span className="text-base sm:text-lg"><EmailIcon /></span>
-            <span>{email}</span>
-          </a>
-
-        </div>
-
-        <div className="mx-auto mb-8 h-0.75 w-full max-w-300 rounded-full bg-(--accent)" />
-
-        <div className="flex flex-col items-center gap-6 text-center md:flex-row md:items-center md:justify-between md:text-left">
-          <p className="text-xs text-(--text-primary)/70 sm:text-sm">
-            © Dean Cruz, {currentYear}
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
-            {socialButtons.map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="py-1 text-sm transition-colors duration-200 hover:text-(--accent)"
-              >
-                {label}
-              </a>
+    <div className="site-container">
+      <footer className="site-footer">
+        <div className="site-footer-left">
+          <span>
+            © {year} <span className="hi">Dean Cruz</span>
+          </span>
+          <span className="theme-dots" role="group" aria-label="Color theme">
+            {THEMES.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className={theme === item.id ? "active" : undefined}
+                onClick={() => setTheme(item.id)}
+                title={item.label}
+                aria-label={`Switch to ${item.label} theme`}
+                aria-pressed={theme === item.id}
+                style={{ background: item.swatch }}
+              />
             ))}
-          </div>
+          </span>
         </div>
-      </div>
-    </footer>
-  );
-};
 
-export default Footer;
+        <div className="site-footer-links">
+          <a href={`mailto:${personalLinks.email}`}>{personalLinks.email}</a>
+          {socialButtons.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {item.label} ↗
+            </a>
+          ))}
+        </div>
+      </footer>
+    </div>
+  );
+}
