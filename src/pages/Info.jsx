@@ -12,22 +12,22 @@ const STORY_ITEMS = [
   {
     scene: "foundations",
     title: "Where it started: Foundations ('23)",
-    body: "My first portfolio site with the moonlit mountain hero—built to learn semantic HTML, CSS and Bootstrap, and picked by Republic Polytechnic faculty as the cohort reference for code structure.",
+    body: "My first portfolio, built to learn HTML, CSS and Bootstrap. Faculty later picked it as the cohort's reference for code structure.",
   },
   {
     scene: "medal",
-    title: "Top of cohort & IMDA Gold Medal",
-    body: "Graduated with a 3.97 GPA and the IMDA Gold Medal at RP, automated 800+ banking test cases at OCBC, and joined NCS Group's Fusion Work-Study Programme.",
+    title: "RP, then OCBC, then NCS",
+    body: "A diploma, an internship during it, then a full-time role. The details are further down.",
   },
   {
     scene: "builds",
     title: "100-hour JRPGs & anime side builds",
-    body: "Even back on Foundations, my earliest sites were an 86 Eighty-Six fansite and a Hoshimachi Suisei page. That same itch grew into Kiroku, Urara, and Oshiwatch.",
+    body: "My first sites were fan projects. Kiroku, Urara and Oshiwatch came from the same habit.",
   },
   {
     scene: "flows",
     title: "Design flows to production SQL",
-    body: "From wiring a 154-screen mobile prototype in Adobe XD to tuning 1,600+ MyBatis queries at NCS, I care equally about tactile UI and clean data models underneath.",
+    body: "From a 154-screen prototype in Adobe XD to tuning 1,600+ MyBatis queries at NCS.",
   },
 ];
 
