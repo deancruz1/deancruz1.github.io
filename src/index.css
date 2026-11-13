@@ -132,7 +132,7 @@ html[data-theme="dean-light"] {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 1116px;
+  max-width: clamp(1116px, calc(1116px + (100vw - 1440px) * 0.825), 1512px);
   margin: 0 auto;
   padding: 0 36px;
 }
@@ -147,8 +147,8 @@ html[data-theme="dean-light"] {
    SHARED DOUBLE-BEZEL & MAC WINDOW CHROME
    ========================================================================== */
 .bezel-outer {
-  padding: 8px;
-  border-radius: 24px;
+  padding: clamp(8px, calc(8px + (100vw - 1440px) * 0.00833), 12px);
+  border-radius: clamp(24px, calc(24px + (100vw - 1440px) * 0.025), 36px);
   background: var(--surface-outer);
   border: 1px solid var(--border-outer);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -173,7 +173,7 @@ html[data-theme="dean-light"] .bezel-outer {
 
 .bezel-inner {
   position: relative;
-  border-radius: 16px;
+  border-radius: clamp(16px, calc(16px + (100vw - 1440px) * 0.01667), 24px);
   background: linear-gradient(180deg, var(--surface-inner) 0%, var(--surface-inner-bottom) 100%);
   border: 1px solid var(--border-inner);
   overflow: hidden;
@@ -183,7 +183,7 @@ html[data-theme="dean-light"] .bezel-outer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 11px 14px 11px 20px;
+  padding: clamp(11px, calc(11px + (100vw - 1440px) * 0.01667), 19px) clamp(14px, calc(14px + (100vw - 1440px) * 0.00417), 16px) clamp(11px, calc(11px + (100vw - 1440px) * 0.01667), 19px) clamp(20px, calc(20px + (100vw - 1440px) * 0.01667), 28px);
   border-bottom: 1px solid var(--border-inner);
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
 }

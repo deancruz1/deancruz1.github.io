@@ -1,5 +1,5 @@
 .hero-section {
-  margin: 56px 0 48px;
+  margin: clamp(56px, calc(56px + (100vw - 1440px) * 0.06667), 88px) 0 clamp(48px, calc(48px + (100vw - 1440px) * 0.03333), 64px);
   position: relative;
 }
 
@@ -10,13 +10,13 @@
 
 .hero-stage {
   position: relative;
-  padding: 96px 72px 200px;
+  padding: clamp(96px, calc(96px + (100vw - 1440px) * 0.05), 120px) clamp(72px, calc(72px + (100vw - 1440px) * 0.03333), 88px) clamp(200px, calc(200px + (100vw - 1440px) * 0.16667), 280px);
   background: radial-gradient(ellipse 65% 55% at 50% 0%, var(--accent-soft), transparent 72%);
 }
 
 .hero-headline {
   margin: 0;
-  font-size: clamp(40px, 5.8vw, 84px);
+  font-size: clamp(40px, max(5.8vw, calc(84px + (100vw - 1440px) * 0.075)), 120px);
   line-height: 0.98;
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -24,10 +24,10 @@
 }
 
 .hero-bio-right {
-  margin-top: 72px;
+  margin-top: clamp(72px, calc(72px + (100vw - 1440px) * 0.05), 96px);
   margin-left: auto;
-  max-width: 560px;
-  font-size: 24px;
+  max-width: clamp(560px, calc(560px + (100vw - 1440px) * 0.39583), 750px);
+  font-size: clamp(24px, calc(24px + (100vw - 1440px) * 0.01667), 32px);
   line-height: 1.4;
 }
 
@@ -46,10 +46,10 @@
 .hero-down-arrow {
   position: absolute;
   left: 50%;
-  bottom: 60px;
+  bottom: clamp(60px, calc(60px + (100vw - 1440px) * 0.025), 72px);
   transform: translateX(-50%);
   color: var(--text-dim);
-  font-size: 40px;
+  font-size: clamp(40px, calc(40px + (100vw - 1440px) * 0.01667), 48px);
   font-weight: 300;
   line-height: 1;
   text-decoration: none;
@@ -66,7 +66,7 @@
 .work-stack {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: clamp(48px, calc(48px + (100vw - 1440px) * 0.06667), 80px);
   margin-bottom: 64px;
   scroll-margin-top: 96px;
 }
@@ -88,7 +88,7 @@ html[data-theme="dean-light"] .stage-card:hover {
 }
 
 .stage-card-head {
-  padding: 36px 32px 0;
+  padding: clamp(36px, calc(36px + (100vw - 1440px) * 0.01667), 44px) clamp(32px, calc(32px + (100vw - 1440px) * 0.025), 44px) 0;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -99,16 +99,16 @@ html[data-theme="dean-light"] .stage-card:hover {
 
 .stage-title {
   margin: 0;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: clamp(24px, calc(24px + (100vw - 1440px) * 0.01667), 32px);
+  line-height: clamp(32px, calc(32px + (100vw - 1440px) * 0.03333), 48px);
   font-weight: 600;
   color: var(--text-bright);
   letter-spacing: -0.02em;
 }
 
 .stage-subline {
-  margin: 8px 0 0;
-  font-size: 16px;
+  margin: clamp(8px, calc(8px + (100vw - 1440px) * 0.00833), 12px) 0 0;
+  font-size: clamp(16px, calc(16px + (100vw - 1440px) * 0.00417), 18px);
   color: var(--text-dim);
 }
 
@@ -119,7 +119,7 @@ html[data-theme="dean-light"] .stage-card:hover {
 
 .stage-arrow {
   color: var(--text-dim);
-  font-size: 28px;
+  font-size: clamp(28px, calc(28px + (100vw - 1440px) * 0.025), 40px);
   line-height: 1;
   padding-top: 2px;
   flex-shrink: 0;
@@ -133,7 +133,7 @@ html[data-theme="dean-light"] .stage-card:hover {
 
 .stage-viewport {
   position: relative;
-  padding: 64px 80px 0;
+  padding: clamp(64px, calc(64px + (100vw - 1440px) * 0.05), 88px) clamp(80px, calc(80px + (100vw - 1440px) * 0.05), 104px) 0;
   overflow: hidden;
 }
 
