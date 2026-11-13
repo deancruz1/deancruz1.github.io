@@ -19,6 +19,74 @@
   border-color: var(--text-dim);
 }
 
+/* Contents list, only where there's room beside the page */
+.pd-toc {
+  display: none;
+}
+
+@media (min-width: 1400px) {
+  .pd-toc {
+    position: fixed;
+    top: 150px;
+    right: 32px;
+    z-index: 5;
+    display: block;
+    width: 150px;
+  }
+}
+
+.pd-toc p {
+  margin: 0 0 16px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.pd-toc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pd-toc button {
+  all: unset;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: 6px 0 6px 12px;
+  border-left: 1px solid var(--border-hairline);
+  font-size: 13.5px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.pd-toc button:hover {
+  color: var(--text-bright);
+}
+
+.pd-toc button.active {
+  color: var(--text-bright);
+  border-left-color: var(--accent);
+}
+
+.pd-toc button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Sections land below the sticky nav when jumped to */
+#overview,
+#under-the-interface,
+#decisions,
+#what-was-hard,
+#screens,
+#next-project {
+  scroll-margin-top: 110px;
+}
+
 /* Centred title block, like a product page */
 .pd-header {
   display: flex;

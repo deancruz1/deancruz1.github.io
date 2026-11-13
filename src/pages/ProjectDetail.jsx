@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
 import AnnotatedScreenInspector from "../components/AnnotatedScreenInspector";
@@ -10,9 +10,93 @@ import {
 } from "../data/project-info-home.jsx";
 import "./ProjectDetail.css";
 
+function HeroVideo({ src, poster, label }) {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video || typeof IntersectionObserver === "undefined") return undefined;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      className="pd-media-el"
+      src={src}
+      poster={poster}
+      aria-label={label}
+      preload="none"
+      loop
+      muted
+      playsInline
+    />
+  );
+}
+
+// "On this page" list for wide screens; highlights the section in view
+function ContentsNav({ sections }) {
+  const [current, setCurrent] = useState(sections[0]?.id);
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return undefined;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting);
+        if (visible.length) setCurrent(visible[0].target.id);
+      },
+      { rootMargin: "-35% 0px -55% 0px" },
+    );
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [sections]);
+
+  return (
+    <nav className="pd-toc" aria-label="On this page">
+      <p>Contents</p>
+      <ul>
+        {sections.map(({ id, label }) => (
+          <li key={id}>
+            <button
+              type="button"
+              className={current === id ? "active" : undefined}
+              aria-current={current === id ? "true" : undefined}
+              onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })}
+            >
+              {label}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
 function ProjectDetailBody({ project }) {
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const gallery = project.gallery || [];
+  const [sections] = useState(() =>
+    [
+      { id: "overview", label: "Overview" },
+      project.annotatedScreen && { id: "under-the-interface", label: "Under the interface" },
+      project.notes && { id: "decisions", label: "Decisions" },
+      project.notes && { id: "what-was-hard", label: "What was hard" },
+      gallery.length > 0 && { id: "screens", label: "Screens" },
+      { id: "next-project", label: "Next project" },
+    ].filter(Boolean),
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -56,6 +140,8 @@ function ProjectDetailBody({ project }) {
           ← Back
         </Link>
 
+        <ContentsNav sections={sections} />
+
         <header className="pd-header">
           <h1 className="pd-title">{project.title}</h1>
           <p className="pd-desc">{project.description}</p>
@@ -79,15 +165,7 @@ function ProjectDetailBody({ project }) {
             <div className="bezel-inner">
               <WindowBar />
               {project.heroVideo ? (
-                <video
-                  className="pd-media-el"
-                  src={project.heroVideo}
-                  poster={project.image}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                />
+                <HeroVideo src={project.heroVideo} poster={project.image} label={`${project.title} demo`} />
               ) : (
                 <img className="pd-media-el" src={project.image} alt={project.title} />
               )}
@@ -95,7 +173,7 @@ function ProjectDetailBody({ project }) {
           </div>
         </section>
 
-        <section className="pd-overview">
+        <section className="pd-overview" id="overview">
           <dl className="pd-facts">
             <div>
               <dt>Built with</dt>
@@ -104,7 +182,7 @@ function ProjectDetailBody({ project }) {
             {project.features?.length > 0 && (
               <div>
                 <dt>Features</dt>
-                <dd>{project.features.map((feat) => feat.title).join(", ")}</dd>
+                <dd>{project.features.join(", ")}</dd>
               </div>
             )}
             {project.github && (
@@ -128,14 +206,14 @@ function ProjectDetailBody({ project }) {
         </section>
 
         {project.annotatedScreen && (
-          <section className="pd-panel">
+          <section className="pd-panel" id="under-the-interface">
             <AnnotatedScreenInspector key={project.slug} project={project} />
           </section>
         )}
 
         {project.notes && (
           <>
-            <section className="pd-chapter" aria-labelledby="pd-decisions-heading">
+            <section className="pd-chapter" id="decisions" aria-labelledby="pd-decisions-heading">
               <div className="pd-chapter-head">
                 <p className="pd-overline">Decisions</p>
                 <h2 id="pd-decisions-heading">Why it&apos;s built this way.</h2>
@@ -149,7 +227,7 @@ function ProjectDetailBody({ project }) {
               </ul>
             </section>
 
-            <section className="pd-chapter" aria-labelledby="pd-hard-heading">
+            <section className="pd-chapter" id="what-was-hard" aria-labelledby="pd-hard-heading">
               <div className="pd-chapter-head">
                 <p className="pd-overline">What was hard</p>
                 <h2 id="pd-hard-heading">The parts that fought back.</h2>
@@ -171,7 +249,7 @@ function ProjectDetailBody({ project }) {
         )}
 
         {gallery.length > 0 && (
-          <section className="pd-panel pd-screens" aria-label="Screenshots">
+          <section className="pd-panel pd-screens" id="screens" aria-label="Screenshots">
             <p className="pd-overline">Screens</p>
             <div className={`pd-figures${project.galleryPortrait ? " portrait" : ""}`}>
               {gallery.map((shot, idx) => (
@@ -196,7 +274,7 @@ function ProjectDetailBody({ project }) {
         )}
 
         {nextProject && nextProject.slug !== project.slug && (
-          <section className="pd-next" aria-labelledby="pd-next-heading">
+          <section className="pd-next" id="next-project" aria-labelledby="pd-next-heading">
             <h2 id="pd-next-heading">Next project:</h2>
             <Link to={`/projects/${nextProject.slug}`} className="bezel-outer pd-next-card">
               <div className="bezel-inner">
@@ -274,7 +352,8 @@ export default function ProjectDetail() {
     return (
       <>
         <Helmet>
-          <title>Project Not Found — Dean Cruz</title>
+          <title>Dean Cruz - Project not found</title>
+          <meta name="robots" content="noindex" />
         </Helmet>
         <main className="site-container view-fade">
           <Link to="/" className="pd-back">

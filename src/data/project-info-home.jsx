@@ -87,60 +87,23 @@ const portfolioGalleryImages = Object.values(portfolioGallery).map(
 );
 
 export const projects = [
-  // Case study:
-  //   caseStudy: {
-  //   problem: ``,
-  //   solution: ``,
-  //   technicalDecisions: [
-  //     {
-  //       decision: "",
-  //       reason: "",
-  //     },
-  //   ],
-  //   challenges: [``],
-  //   improvements: [``],
-  // },
 
   {
     title: "SkillForge",
-    featured: false,
-    category: "Full-stack",
     description:
       "An e-learning platform where instructors build courses and quizzes, and students get graded automatically.",
     archiveMeta: {
-      desc: "Full-stack e-learning platform with auto-graded quizzes, JWT auth & 9-table schema",
+      desc: "E-learning platform with server-graded quizzes and role-checked JWT auth",
       stack: "Angular · Spring Boot · Postgres",
     },
     features: [
-      {
-        title: "Database",
-        text: "A 9-table PostgreSQL schema with composite keys, cascades, CHECK constraints and UUID primary keys.",
-      },
-      {
-        title: "REST API",
-        text: "Spring Boot with Spring Security, JWT auth, BCrypt hashing, role-based access and DTOs.",
-      },
-      {
-        title: "ORM mapping",
-        text: "Hibernate entities with many-to-many junction tables, lazy loading and embedded composite IDs.",
-      },
-      {
-        title: "Quiz engine",
-        text: "Multiple-choice quizzes with auto-grading, passing scores, single attempts and attempt history.",
-      },
-      {
-        title: "Angular frontend",
-        text: "Standalone components, lazy-loaded routes, reactive forms and Tailwind.",
-      },
-      {
-        title: "Deployment",
-        text: "Backend on Render with Docker, frontend on Vercel, database on Supabase.",
-      },
+      "Database",
+      "REST API",
+      "ORM mapping",
+      "Quiz engine",
+      "Angular frontend",
+      "Deployment",
     ],
-    card: {
-      why: "I wanted to learn enterprise Java by building a full e-learning platform from scratch.",
-      how: "An Angular frontend on a Spring Boot REST API, with Hibernate mapping 9 PostgreSQL tables.",
-    },
     tags: ["Angular", "TypeScript", "Java", "Spring Boot", "Hibernate", "PostgreSQL", "Tailwind"],
     image: skillforgeImg,
     github: "https://github.com/deancruz1/SkillForge",
@@ -203,75 +166,19 @@ export const projects = [
         "Course Details - Student",
       ][i],
     })),
-    caseStudy: {
-      problem: `Most e-learning platforms are either too complex or too basic. I wanted to build one from scratch that covered the full feature set while learning enterprise Java patterns.`,
-
-      solution: `Built on Spring Boot 4.0 with Hibernate ORM mapping 9 relational tables on Supabase PostgreSQL. Spring Security handles JWT authentication with role-based access for instructors and students. The Angular frontend communicates via REST APIs with DTOs for clean data transfer. The quiz engine auto-grades submissions against stored correct answers and enforces single-attempt rules.`,
-
-      technicalDecisions: [
-        {
-          decision: "Spring Boot and Hibernate",
-          reason:
-            "Enterprise standard for Java backends. Hibernate eliminates boilerplate SQL while Spring Boot handles server setup, connection pooling, and dependency injection.",
-        },
-        {
-          decision: "Supabase PostgreSQL",
-          reason:
-            "Managed PostgreSQL with a generous free tier. Used purely as a database host with all SQL written manually. No Supabase client libraries or auto-generated APIs.",
-        },
-        {
-          decision: "Angular over React",
-          reason:
-            "Angular's opinionated structure mirrors enterprise patterns. Built-in router, HTTP client, and form handling mean fewer third-party dependencies.",
-        },
-        {
-          decision: "JWT in localStorage",
-          reason:
-            "Simplest auth persistence for a portfolio project. The JWT is attached to every request and verified by a Spring Security filter chain.",
-        },
-      ],
-
-      challenges: [
-        "Mapping composite keys for junction tables required EmbeddedId with MapsId annotations, a Hibernate pattern with specific syntax that took several iterations to get right.",
-        "Supabase's PgBouncer connection pooler does not support server-side prepared statements, causing prepared statement already exists errors that required adding prepareThreshold=0 to the JDBC URL.",
-        "Angular's change detection does not always trigger on async data loads, so multiple components needed explicit ChangeDetectorRef.detectChanges calls after HTTP responses.",
-        "The quiz engine had to store correct answers without exposing them to students. The instructor view shows answers highlighted in green while students only see scores after submission.",
-        "Deploying Spring Boot on Render required a Dockerfile with multi-stage builds because Render does not natively support Java runtimes.",
-      ],
-
-      improvements: [
-        "Add Google OAuth as an alternative login method using Spring Security OAuth2 client support.",
-        "Implement certificate generation on course completion with Spring Batch for PDF processing.",
-        "Add discussion forums per course with threaded comments and real-time updates via WebSocket.",
-        "Build an instructor analytics dashboard showing enrollment trends, completion rates, and average quiz scores.",
-      ],
-    },
   },
   {
     title: "Foundations",
-    featured: false,
-    category: "Frontend",
     description:
       "My first portfolio site, built during my diploma and picked by faculty as the cohort's reference for code structure.",
     archiveMeta: {
-      desc: "First diploma portfolio—selected by Republic Polytechnic faculty as cohort reference",
+      desc: "First portfolio, picked by faculty as the cohort's code reference",
       stack: "HTML · CSS · Bootstrap",
     },
-    about:
-      "The project that started it all. Built to learn the fundamentals, then selected by faculty as the cohort reference implementation for code structure.",
     features: [
-      {
-        title: "Responsive layout",
-        text: "Three breakpoints (mobile, tablet, desktop) on the Bootstrap grid.",
-      },
-      {
-        title: "Semantic HTML",
-        text: "Structured for accessibility and SEO.",
-      },
-      {
-        title: "Project sections",
-        text: "Front-End, Programming and Design, each with an image preview gallery.",
-      },
+      "Responsive layout",
+      "Semantic HTML",
+      "Project sections",
     ],
     tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     image: portfolioImg,
@@ -324,35 +231,6 @@ export const projects = [
         },
       ],
     },
-    card: {
-      why: "My first real website, built during my diploma to learn the fundamentals.",
-      how: "A multi-page site on the Bootstrap Grayscale theme, with my own JavaScript for the effects.",
-    },
-    caseStudy: {
-      problem: "I needed a portfolio for my diploma and wanted to properly learn HTML, CSS and Bootstrap while making it. It was later picked by faculty as the cohort's reference for code structure.",
-      solution: "I started from the Start Bootstrap Grayscale theme and grew it into a multi-page site: a home page, a projects page, and a page for each project with a lightbox gallery. On top of the theme I wrote a mouse trail, a drag-to-scroll image track and a particles.js starfield.",
-      technicalDecisions: [
-        {
-          decision: "Start from a theme",
-          reason: "The Grayscale theme gave me a working responsive layout, so I could focus on structure and content and learn how a real Bootstrap project is put together.",
-        },
-        {
-          decision: "A mouse trail with easing",
-          reason: "A chain of circles follows the cursor, each one easing towards the next on every animation frame. It switches off on touch devices, where there's no cursor to follow.",
-        },
-        {
-          decision: "Drag-to-scroll image track",
-          reason: "The track keeps its state in data attributes, moves with the Web Animations API and shifts each image's object-position for a parallax effect. It only runs on wide screens.",
-        },
-      ],
-      challenges: [
-        "The drag handler ignores presses that start on a link, so the cards in the track stay clickable, and it clamps the track so it can't be dragged past either end.",
-      ],
-      improvements: [
-        "Load a single Bootstrap version. The home page loads the Bootstrap 5.2.3 and 4.5.2 scripts together.",
-        "Stop the auto-scroll loop and the drag code fighting over the track. Both set its position on every frame.",
-      ],
-    },
     gallery: portfolioGalleryImages.map((image, i) => ({
       image,
       caption: [
@@ -365,40 +243,18 @@ export const projects = [
   },
 {
     title: "// HANDLER ONE",
-    featured: false,
-    category: "Frontend",
     description: "A fansite for 86 Eighty-Six, styled as a Handler's military terminal with dossiers, mech specs and a combat log.",
     archiveMeta: {
-      desc: "86 Eighty-Six military terminal archive with CRT scanlines, dossiers & mech specs",
+      desc: "86 Eighty-Six fansite with deep links that survive a refresh on GitHub Pages",
       stack: "React · Tailwind",
     },
-    about:
-      "The concept is simple: you're a Handler logged into HQ. The site covers the full series: plot breakdowns by act, Spearhead Squadron dossiers with Para-RAID sync status, a mech database with armament specs, faction geopolitical profiles with threat classifications, and a combat log archive across all episodes.",
     features: [
-      {
-        title: "Series archive",
-        text: "Plot breakdowns by act, a mech database, faction profiles and a combat log.",
-      },
-      {
-        title: "Terminal UI",
-        text: "CRT scanline overlays, vignette effects and alert themes that change with operational status.",
-      },
-      {
-        title: "Processor dossiers",
-        text: "Cards with sync rates, operational history and Para-RAID status for each Spearhead member.",
-      },
-      {
-        title: "Deep links on GitHub Pages",
-        text: "A 404.html interception script makes refreshes and direct links work on static hosting.",
-      },
-      {
-        title: "Responsive layouts",
-        text: "Desktop terminal grids that collapse into mobile screens.",
-      },
-      {
-        title: "Data structure",
-        text: "Processor dossiers kept separate from the unit insignia and mecha asset mappings.",
-      },
+      "Series archive",
+      "Terminal UI",
+      "Processor dossiers",
+      "Deep links on GitHub Pages",
+      "Responsive layouts",
+      "Data structure",
     ],
     tags: ["React", "Tailwind"],
     image: fansiteImg,
@@ -453,39 +309,6 @@ export const projects = [
         },
       ],
     },
-    card: {
-      why: "I wanted a fansite that felt like part of 86 Eighty-Six rather than another wiki.",
-      how: "You log in as a Handler, so every page is built as a screen on HQ's terminal.",
-    },
-    caseStudy: {
-      problem: "Fan wikis cover the facts but none of the mood. I wanted something that felt like sitting at a Handler's console: plot breakdowns, processor dossiers, mech specs and faction profiles, all presented as classified HQ records.",
-      solution: "A Vite and React app with six routes for home, intel, characters, arsenal, factions and missions. Tailwind v4 holds the design tokens, tsparticles draws the ember particles, and a boot sequence plays the first time you open the site in a session. It's deployed as static files on GitHub Pages.",
-      technicalDecisions: [
-        {
-          decision: "404.html redirect for deep links",
-          reason: "GitHub Pages only serves files, so refreshing /characters would 404. The 404 page redirects to the app with the path in a query parameter, and the app restores it before rendering.",
-        },
-        {
-          decision: "Tailwind v4 with @theme tokens",
-          reason: "The terminal colours and fonts live in one @theme block through the Vite plugin, with no separate config file.",
-        },
-        {
-          decision: "CRT scanlines in pure CSS",
-          reason: "The scanlines are a repeating gradient of 2px dark lines every 4px, written as a Tailwind arbitrary value, with vignette layers on top.",
-        },
-        {
-          decision: "Boot sequence once per session",
-          reason: "A sessionStorage flag is read when the component first sets its state, so the intro doesn't flash and replay when you come back to the home page.",
-        },
-      ],
-      challenges: [
-        "The boot sequence prints each line after a random 500-900ms delay. Leaving the page mid-boot clears every pending timeout, so nothing fires after you've gone.",
-        "On phones, picking a processor scrolls back to the top so their dossier is in view.",
-      ],
-      improvements: [
-        "Remove the unused Swiper dependency and a leftover redirect handler in index.html that no longer matches the 404 page.",
-      ],
-    },
     gallery: fansiteGalleryImages.map((image, i) => ({
       image,
       caption: [
@@ -498,8 +321,6 @@ export const projects = [
   },
   {
     title: "Kiroku",
-    featured: true,
-    category: "Full-stack",
     description:
       "An anime tracker with a watch list, seasonal calendar, recommendations and viewing stats.",
     stageMeta: {
@@ -508,35 +329,13 @@ export const projects = [
       glow: "glow-kiroku",
       alt: "Kiroku dashboard",
     },
-    card: {
-      why: "Existing anime trackers never felt right, so I built my own.",
-      how: "Built on the Next.js App Router, so server components fetch the data and pages don't wait on client-side requests.",
-    },
     features: [
-      {
-        title: "Sign-in",
-        text: "Discord OAuth or email and password, with bcrypt hashing and JWT sessions.",
-      },
-      {
-        title: "Watch list",
-        text: "Add shows, then update status, episode progress and star ratings inline.",
-      },
-      {
-        title: "Seasonal calendar",
-        text: "A 7-day broadcast view with episode countdowns and genre filters.",
-      },
-      {
-        title: "Recommendations",
-        text: "Finds your top genres from watch history and suggests unwatched shows from the Jikan API.",
-      },
-      {
-        title: "Stats",
-        text: "A bento grid of summary cards and a Recharts donut chart of watch status.",
-      },
-      {
-        title: "Collections",
-        text: "Create, rename and delete custom lists, and add or remove shows.",
-      },
+      "Sign-in",
+      "Watch list",
+      "Seasonal calendar",
+      "Recommendations",
+      "Stats",
+      "Collections",
     ],
     tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "NextAuth"],
     image: kirokuImg,
@@ -602,53 +401,9 @@ export const projects = [
         "Watch List Page",
       ][i],
     })),
-    caseStudy: {
-      problem: `Most anime trackers are fragmented. Users bounce between MyAnimeList for tracking, separate sites for seasonal schedules, and Reddit for recommendations. I wanted one clean app that handled all three without the bloat.`,
-
-      solution: `Built on Next.js App Router with React Server Components, Prisma ORM on Supabase PostgreSQL, and NextAuth v5 for dual authentication with Discord OAuth. The Jikan API drives all anime data. Users track shows with full CRUD, browse a 7-day broadcast calendar, get genre-based recommendations, and view stats in a Spotify Wrapped-style bento dashboard.`,
-
-      technicalDecisions: [
-        {
-          decision: "Next.js App Router",
-          reason:
-            "Server components and streaming eliminate unnecessary client-side fetching. Layouts and loading states are built-in.",
-        },
-        {
-          decision: "Jikan API",
-          reason:
-            "Free, no API key required, and comprehensive anime data. The rate limit was a real constraint that pushed me to implement proper retry logic.",
-        },
-        {
-          decision: "Supabase PostgreSQL",
-          reason:
-            "Vercel serverless functions use ephemeral filesystems. SQLite writes do not persist between invocations.",
-        },
-        {
-          decision: "Vercel",
-          reason:
-            "GitHub Pages only serves static files. Vercel supports serverless functions, which are needed to run backend logic and keep API keys out of the client.",
-        },
-      ],
-
-      challenges: [
-        "Jikan API enforces a strict 3 requests per second rate limit, so exponential backoff with retry logic was needed to handle request bursts on data-heavy pages without crashing",
-        "The seasonal calendar required parsing inconsistent broadcast data formats from the API, building countdown timers with timezone awareness, and handling edge cases like missing air times",
-        "The recommendation engine needed to analyse watch history, cross-reference genre data, filter out already-watched shows and low-rated entries, then attribute each result to a specific show the user liked",
-        "Converting the 7-column desktop calendar layout to horizontal scroll rows on mobile required rethinking the entire component structure without duplicating logic",
-        "The bento-grid stats dashboard needed to feel personal and playful rather than like a generic analytics panel, so every card uses dynamic colour palettes and personality-driven copy",
-      ],
-
-      improvements: [
-        "Store anime metadata in the database when a user adds a show, eliminating redundant Jikan API calls and reducing rate limit exposure",
-        "Implement email verification system for new accounts",
-        "Implement password reset via email for account recovery",
-      ],
-    },
   },
     {
     title: "Urara",
-    featured: true,
-    category: "Frontend",
     description:
       "A fan guide to Umamusume Pretty Derby with character profiles, music previews, news and birthdays.",
     stageMeta: {
@@ -657,35 +412,13 @@ export const projects = [
       glow: "glow-urara",
       alt: "Urara character guide",
     },
-    card: {
-      why: "Umamusume fan info was scattered across wikis and playlists, so I put it in one place.",
-      how: "Part of the API only returns Japanese, so each entry translates on demand and caches the result.",
-    },
     features: [
-      {
-        title: "Character profiles",
-        text: "Bios, stats, fun facts, voice samples and an image gallery with a lightbox.",
-      },
-      {
-        title: "Translation",
-        text: "Japanese profile text translates to English on demand through the MyMemory API, with a toggle back to the original.",
-      },
-      {
-        title: "Music browser",
-        text: "Filter tracks by character and play previews.",
-      },
-      {
-        title: "News feed",
-        text: "Keyword search, pagination and full articles in a modal.",
-      },
-      {
-        title: "Birthday calendar",
-        text: "Today's and this month's upcoming character birthdays.",
-      },
-      {
-        title: "Accent colours",
-        text: "Each character's primary colour drives the buttons, borders and highlights on their page.",
-      },
+      "Character profiles",
+      "Translation",
+      "Music browser",
+      "News feed",
+      "Birthday calendar",
+      "Accent colours",
     ],
     tags: ["React", "TypeScript", "TanStack Query", "Tailwind", "Framer Motion"],
     image: uraraImg,
@@ -750,54 +483,10 @@ export const projects = [
         "News Page",
       ][i],
     })),
-    caseStudy: {
-      problem: `Existing Umamusume resources are scattered across wikis, YouTube playlists, and social media. Fans have no single destination to browse profiles, preview music, and catch up on news. I wanted to build that unified experience.`,
-
-      solution: `Built a single-page React app with four main sections: character browser, music catalog, news feed, and birthday calendar. All data comes from the Umapyoi API via TanStack Query for caching and state management. The MyMemory API handles translations without any API key. Tailwind CSS and Framer Motion handle the responsive layout and animations.`,
-
-      technicalDecisions: [
-        {
-          decision: "TanStack Query",
-          reason:
-            "Handles caching, background refetching, and loading states out of the box - cleaner than managing useEffect chains for every API call.",
-        },
-        {
-          decision: "Umapyoi API",
-          reason:
-            "Free, no authentication required, and provides all the character, music, and news data needed. The community maintains it actively.",
-        },
-        {
-          decision: "GitHub Pages",
-          reason:
-            "The app is fully static with no server-side logic. All API calls happen client-side, so free static hosting was the obvious choice.",
-        },
-        {
-          decision: "MyMemory API for translation",
-          reason:
-            "Machine translation of Japanese text to English without any API key setup or rate limit concerns for a fan project of this scale.",
-        },
-      ],
-
-      challenges: [
-        "The Umapyoi API returns raw HTML in news content, so the news detail modal had to safely render HTML strings while avoiding XSS vulnerabilities",
-        "Designing a responsive character filter that works as a vertical sidebar on desktop but a horizontal scroll row on mobile required two distinct layout strategies",
-        "Implementing dynamic accent colours meant every component needed to accept and apply a character-specific colour prop without hardcoding values",
-        "The music preview player uses HTML5 audio elements that don't support multiple simultaneous playbacks, so coordinating play/pause across track items required lifting state up and managing a single audio instance",
-        "Translating profile text on demand meant handling API latency gracefully with loading spinners while caching results to avoid redundant requests",
-      ],
-
-      improvements: [
-        "Implement static site generation (SSG) for character and music pages so search engines can index API-driven content",
-        "Add user accounts with Supabase to enable favouriting characters and saving music playlists",
-        "Add music search filters by album, artist, and song type beyond just character filtering",
-      ],
-    },
   },
 
   {
     title: "Oshiwatch",
-    featured: true,
-    category: "Frontend",
     description:
       "A Hololive stream tracker. See who's live, what's coming up, and watch in-app with live chat.",
     stageMeta: {
@@ -806,35 +495,13 @@ export const projects = [
       glow: "glow-oshiwatch",
       alt: "Oshiwatch stream tracker",
     },
-    card: {
-      why: "I wanted to track Hololive streams without opening five tabs.",
-      how: "Holodex calls go through a Vercel serverless proxy so the API key never reaches the browser.",
-    },
     features: [
-      {
-        title: "API proxy",
-        text: "Holodex calls go through Vercel serverless functions, so the API key stays on the server.",
-      },
-      {
-        title: "Live and upcoming",
-        text: "Streams, schedules, the talent roster, VODs, shorts and music from the Holodex API v2.",
-      },
-      {
-        title: "Branch filters",
-        text: "Filter by JP, EN, ID or DEV_IS, with talents sorted by generation.",
-      },
-      {
-        title: "Infinite pagination",
-        text: "Streams, shorts and music load 50 at a time with TanStack Query's useInfiniteQuery.",
-      },
-      {
-        title: "Talent pages",
-        text: "Live and upcoming banners, tabbed VOD, shorts and music archives, and social links.",
-      },
-      {
-        title: "In-app player",
-        text: "An embedded YouTube player with live chat beside it.",
-      },
+      "API proxy",
+      "Live and upcoming",
+      "Branch filters",
+      "Infinite pagination",
+      "Talent pages",
+      "In-app player",
     ],
     tags: ["React", "TypeScript", "TanStack Query", "Tailwind"],
     image: oshiwatchImg,
@@ -900,78 +567,20 @@ export const projects = [
         "Watch Page",
       ][i],
     })),
-    caseStudy: {
-      problem: `Tracking Hololive streams meant juggling Holodex, YouTube, and Twitter simultaneously. I wanted one focused app that showed me who's live, what's coming up, and let me watch without leaving the page.`,
-
-      solution: `Built a Vite + React SPA that proxies all Holodex API calls through Vercel serverless functions to keep the API key server-side. TanStack Query handles caching, polling every 5 minutes for live data, and infinite pagination for VOD archives. The watch page embeds YouTube's iframe player alongside the live chat iframe, scoped to the deployed domain.`,
-
-      technicalDecisions: [
-        {
-          decision: "Vercel serverless proxy for API key security",
-          reason:
-            "A VITE_ prefixed env var ships the key in the client bundle. The proxy keeps it strictly server-side with no exposure risk.",
-        },
-        {
-          decision: "TanStack Query with useInfiniteQuery",
-          reason:
-            "VOD archives can span hundreds of entries. Infinite pagination loads 50 at a time on demand rather than hammering the API on mount.",
-        },
-        {
-          decision: "Holodex API v2",
-          reason:
-            "Purpose-built for Hololive tracking. Returns live status, upcoming schedules, talent metadata, and video archives in one consistent API.",
-        },
-        {
-          decision: "Client-side branch and gen filtering",
-          reason:
-            "The Holodex group and suborg fields are inconsistent between endpoints. Normalising them client-side gave full control over filtering logic without depending on API params.",
-        },
-      ],
-
-      challenges: [
-        "The /channels and /live endpoints return different field schemas for the same data — channels use group while live streams use suborg — requiring separate branch detection functions for each context",
-        "Holodex returns official brand channels, graduated talents, sub-channels, and Holostars alongside active talents, all requiring distinct exclusion logic based on group field values",
-        "YouTube's live chat iframe only works on the exact deployed domain, making local development impossible without workarounds — vercel dev was the only viable local testing path",
-        "The VOD archive mixes streams, shorts, and music under a single type:stream field with no native distinction, requiring duration thresholds and topic_id filtering to separate tabs correctly",
-        "Filtering 15 non-Hololive affiliated streams from the homepage required checking channel.org rather than name patterns, after name-based matching incorrectly excluded JP talents",
-      ],
-
-      improvements: [
-        "Implement favourites with localStorage to pin tracked talents to the top of the roster and filter the live view",
-        "Add gen headers to the talents page to visually group talents by generation",
-        "Revisit Holodex search endpoint once the request body format is confirmed — would enable full-archive video search across all of a talent's content",
-      ],
-    },
   },
     {
     title: "Movietopia",
-    featured: false,
-    category: "Full-stack",
     description:
       "A PHP/MySQL application with CRUD-enabled database tables and session-based authentication.",
     archiveMeta: {
-      desc: "Server-rendered movie review CRUD web app with session auth & foreign keys",
+      desc: "PHP review site with session auth and cascading foreign keys",
       stack: "PHP · MySQL · CSS",
     },
-    about:
-      "A deep dive into server-side fundamentals. Built to understand how session auth, relational schemas, and CRUD operations fit together end-to-end.",
     features: [
-      {
-        title: "Database",
-        text: "Three related MySQL tables (users, movies, reviews) with foreign keys.",
-      },
-      {
-        title: "Accounts",
-        text: "Registration and login, with PHP sessions guarding the review pages.",
-      },
-      {
-        title: "Reviews",
-        text: "Logged-in users can submit, edit and delete their own star-rated reviews.",
-      },
-      {
-        title: "Search",
-        text: "A searchable movie list showing genre, director, cast and synopsis.",
-      },
+      "Database",
+      "Accounts",
+      "Reviews",
+      "Search",
     ],
     tags: ["PHP", "MySQL", "CSS"],
     image: movietopiaImg,
@@ -1024,37 +633,6 @@ export const projects = [
         },
       ],
     },
-    card: {
-      why: "A graded assignment for my server-side programming module.",
-      how: "Procedural PHP with mysqli and PHP sessions, running locally on XAMPP.",
-    },
-    caseStudy: {
-      problem: "The module asked for a working CRUD web app. I used it to understand how sessions, relational tables and create, read, update and delete operations fit together end to end.",
-      solution: "Three MySQL tables (users, movies and reviews) behind server-rendered PHP pages. You can register, log in, search and sort movies, and write, edit and delete your own star-rated reviews.",
-      technicalDecisions: [
-        {
-          decision: "Foreign keys with cascades",
-          reason: "Reviews depend on both a movie and a user, so the schema enforces that and cleans up a user's reviews when the account goes.",
-        },
-        {
-          decision: "Session flags for the navbar",
-          reason: "One logged-in check in each template switches between the guest and member navigation.",
-        },
-        {
-          decision: "Remember me with a cookie",
-          reason: "Ticking it stores your username in a long-lived cookie, and the login form fills it in.",
-        },
-      ],
-      challenges: [
-        "Every Edit and Delete button is named after its review ID, so the handler loops through the possible IDs to work out which row was clicked.",
-        "Add Review can be opened from a movie's page or from the header, so the form has to handle arriving with or without a movie already chosen.",
-      ],
-      improvements: [
-        "Move every query to prepared statements. They're built by joining strings at the moment.",
-        "Hash passwords with password_hash instead of storing them as plain text.",
-        "Check on the server that a review belongs to you before editing or deleting it, and escape user text with htmlspecialchars.",
-      ],
-    },
     gallery: movietopiaGalleryImages.map((image, i) => ({
       image,
       caption: [
@@ -1067,29 +645,13 @@ export const projects = [
   },
     {
     title: "Shrine of Suisei",
-    featured: false,
-    category: "Frontend",
     description:
       "A single-page fan site in plain HTML, CSS and JavaScript, with custom fonts and CSS animations.",
-    about:
-      "Started as a basic landing page project before enrolling into Republic Polytechnic to prepare for the course for a VTuber I enjoy watching. Recently refactored CSS and HTML for better maintainability.",
     features: [
-      {
-        title: "Hamburger menu",
-        text: "An animated icon toggle that closes when a link is clicked, in vanilla JavaScript.",
-      },
-      {
-        title: "Glowing button",
-        text: "A call-to-action with animated gradient borders using CSS keyframes.",
-      },
-      {
-        title: "CSS-only modal",
-        text: "A disclaimer popup built on the :target pseudo-class, with no JavaScript.",
-      },
-      {
-        title: "Responsive layout",
-        text: "A centred content container with media queries for mobile, tablet and desktop.",
-      },
+      "Hamburger menu",
+      "Glowing button",
+      "CSS-only modal",
+      "Responsive layout",
     ],
     tags: ["HTML", "CSS", "JavaScript"],
     image: landingPageImg,
@@ -1142,35 +704,6 @@ export const projects = [
         },
       ],
     },
-    card: {
-      why: "My first project, made to practise HTML and CSS before my diploma started.",
-      how: "Plain HTML, CSS and JavaScript, with the effects done in CSS wherever possible.",
-    },
-    caseStudy: {
-      problem: "Before enrolling at Republic Polytechnic I wanted a real project to practise on, so I built a fan shrine for a VTuber I enjoy watching, inspired by Lyrenide's Hakurei Shrine.",
-      solution: "A single page in plain HTML, CSS and JavaScript: a sticky blurred header, fixed-background parallax, a glowing call-to-action button, a CSS-only disclaimer modal and a hamburger menu for phones. I later refactored the HTML and CSS to make it easier to maintain.",
-      technicalDecisions: [
-        {
-          decision: "CSS before JavaScript",
-          reason: "The modal, the glowing button and the parallax are all CSS. JavaScript only toggles the hamburger menu.",
-        },
-        {
-          decision: "Fluid type with clamp()",
-          reason: "Font sizes grow and shrink with the screen between a minimum and maximum, so fewer media queries are needed.",
-        },
-        {
-          decision: "Animated nav links",
-          reason: "On hover, a border scales from 10% to full width while the letter spacing opens up.",
-        },
-      ],
-      challenges: [
-        "Fading the modal in and out meant hiding it with visibility and opacity instead of display, since display can't be transitioned.",
-      ],
-      improvements: [
-        "Restore the disclaimer text inside the modal. The refactor left the modal empty.",
-        "Open the external links in the mobile menu in a new tab, like the desktop ones.",
-      ],
-    },
     gallery: landingPageGalleryImages.map((image, i) => ({
       image,
       caption: [
@@ -1183,25 +716,12 @@ export const projects = [
   },
   {
     title: "Mobile XD",
-    featured: false,
-    category: "Design",
     description:
       "A 154-screen high-fidelity mobile prototype mapping out navigation flows and touch-target sizing.",
-    about:
-      "Prototyped to produce developer handoff specs from design concepts.",
     features: [
-      {
-        title: "Navigation flows",
-        text: "User navigation stacks and interaction triggers mapped in Adobe XD.",
-      },
-      {
-        title: "Design system",
-        text: "Consistent type scaling and component spacing.",
-      },
-      {
-        title: "Handoff specs",
-        text: "Grid alignments and component boundaries defined for frontend implementation.",
-      },
+      "Navigation flows",
+      "Design system",
+      "Handoff specs",
     ],
     tags: ["XD", "Illustrator", "Photoshop"],
     image: mobileWireframeImg,
@@ -1252,32 +772,6 @@ export const projects = [
           rect: [40, 1015, 520, 150],
           tag: "tl",
         },
-      ],
-    },
-    card: {
-      why: "I wanted to see what my portfolio would look like as a mobile app.",
-      how: "A 154-screen prototype in Adobe XD, with assets made in Illustrator and Photoshop.",
-    },
-    caseStudy: {
-      problem: "I designed this to practise mobile UI and to produce specs a developer could build from, using my own portfolio as the content.",
-      solution: "A high-fidelity prototype in Adobe XD covering the home, about, portfolio and contact sections. Navigation stacks and interaction triggers are mapped out, the type scale and spacing stay consistent across screens, and grid alignments and component boundaries are marked for handoff.",
-      decisionsTitle: "Design decisions",
-      technicalDecisions: [
-        {
-          decision: "A three-colour scheme",
-          reason: "Charcoal and grey carry the layout, and peach is kept for the things you can act on, like the active tab and the Get Started button.",
-        },
-        {
-          decision: "Bottom tab bar",
-          reason: "The main sections stay one tap away and within reach of your thumb.",
-        },
-        {
-          decision: "Specs for handoff",
-          reason: "Grid alignments and component boundaries are defined so the screens could be built without guessing.",
-        },
-      ],
-      challenges: [
-        "Making interactive elements stand out through colour and detail, while keeping the interface simple enough to find your way around.",
       ],
     },
     galleryPortrait: true,
