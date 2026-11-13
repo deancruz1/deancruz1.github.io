@@ -13,7 +13,7 @@ export const xpEntries = [
     role: "AI Software Engineer",
     meta: "NCS Group · 2026 — Present · Permanent · Singapore",
     summary:
-      "Designed the key frontend components of a full-stack Angular and Spring Boot app, alongside legacy Java modernisation.",
+      "Modernising legacy Java applications: the data layer, reporting and service endpoints.",
     accordions: [
       {
         title: "800+ JDBC queries migrated to MyBatis 3",
@@ -65,7 +65,7 @@ export const xpEntries = [
     navSub: "Computer Science · 2026 — 2028",
     role: "Bachelor of Computer Science (Artificial Intelligence and Big Data)",
     meta: "University of Wollongong · 2026 — 2028 · Part-time · Singapore",
-    summary: "Studied part-time alongside full-time work at NCS.",
+    summary: "Studying part-time alongside full-time work at NCS.",
     lines: [
       {
         label: "NCS Fusion Work-Study Programme",

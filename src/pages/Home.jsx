@@ -23,15 +23,17 @@ export default function Home() {
               <div className="hero-stage">
                 <p className="hero-overline">Dean Cruz — Software Engineer</p>
                 <h1 className="hero-headline">
-                  I craft fast <span className="hi-accent">interfaces</span>
+                  I build <span className="hi-accent whitespace-nowrap">web apps</span>
                   <br />
-                  &amp; modernise <span className="hi-accent">systems</span>
-                  <span className="accent-dot">.</span>
+                  &amp; modernise <span className="whitespace-nowrap">
+                    <span className="hi-accent">old code</span>
+                    <span className="accent-dot">.</span>
+                  </span>
                 </h1>
 
                 <div className="hero-bio-right">
-                  <strong>Engineer at NCS Group. Based in Singapore.</strong>
-                  <span>Formerly at OCBC Bank &amp; Republic Polytechnic.</span>
+                  <strong>Software Engineer at NCS Group. Based in Singapore.</strong>
+                  <span>IMDA Gold Medallist. Formerly at OCBC.</span>
                 </div>
               </div>
             </div>

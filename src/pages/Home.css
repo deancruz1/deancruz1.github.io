@@ -26,7 +26,7 @@
 .hero-bio-right {
   margin-top: clamp(72px, calc(72px + (100vw - 1440px) * 0.05), 96px);
   margin-left: auto;
-  max-width: clamp(560px, calc(560px + (100vw - 1440px) * 0.39583), 750px);
+  max-width: clamp(640px, calc(640px + (100vw - 1440px) * 0.45833), 860px);
   font-size: clamp(24px, calc(24px + (100vw - 1440px) * 0.01667), 32px);
   line-height: 1.4;
 }
