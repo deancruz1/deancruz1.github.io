@@ -127,6 +127,11 @@
   color: var(--text-bright);
 }
 
+.xp-panels {
+  overflow: clip;
+  transition: height 0.32s cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+
 .xp-panel {
   display: none;
   padding: 30px 34px 32px;
@@ -263,6 +268,7 @@
 
 .xp.all {
   grid-template-columns: 1fr;
+  overflow: clip;
 }
 
 .xp.all .xp-list {
@@ -270,9 +276,67 @@
 }
 
 .xp.all .xp-panel {
-  display: block;
+  display: grid;
+  grid-template-columns: 310px minmax(0, 1fr);
+  padding: 0;
   min-height: 0;
   border-top: 1px solid var(--border-hairline);
+}
+
+.xp-org {
+  padding: 22px 16px;
+  border-right: 1px solid var(--border-hairline);
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.xp-group {
+  padding: 0 12px 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.xp-org-card {
+  position: sticky;
+  top: 128px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+}
+
+.xp-org-card img {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  object-fit: contain;
+  background: #fff;
+  padding: 2px;
+}
+
+.xp-org-card b {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-bright);
+  letter-spacing: -0.02em;
+}
+
+.xp-org-card span {
+  display: block;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.xp.all .xp-content {
+  padding: 30px 34px 32px;
+}
+
+.xp.all .xp-row > button {
+  cursor: default;
 }
 
 .xp.all .xp-panel:first-child {
@@ -364,6 +428,28 @@
     min-height: 0;
   }
 
+  .xp.all .xp-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .xp-org {
+    padding: 14px 10px 6px;
+    border-right: 0;
+  }
+
+  .xp-org-card {
+    position: static;
+    padding: 4px 8px;
+  }
+
+  .xp-group {
+    padding: 0 8px 8px;
+  }
+
+  .xp.all .xp-content {
+    padding: 12px 18px 22px;
+  }
+
   .xp-role {
     font-size: 18.5px;
     line-height: 1.25;
@@ -425,5 +511,11 @@
   .tb p {
     font-size: 13.5px;
     line-height: 1.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xp-panels {
+    transition: none;
   }
 }

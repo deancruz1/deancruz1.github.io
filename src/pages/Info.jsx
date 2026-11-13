@@ -73,6 +73,9 @@ export default function Info() {
   const xpItemRefs = useRef({});
   const [xpIndStyle, setXpIndStyle] = useState({ width: 0, height: 0, transform: "translate(0px, 0px)" });
 
+  const xpPanelsRef = useRef(null);
+  const [xpPanelsHeight, setXpPanelsHeight] = useState(null);
+
   useEffect(() => {
     if (hash === "#ncs") {
       document.getElementById("ncs")?.scrollIntoView({ behavior: "smooth" });
@@ -116,6 +119,17 @@ export default function Info() {
     observer.observe(xpEl);
     return () => observer.disconnect();
   }, [activeXp, showAll]);
+
+  // The outer box copies the panel height so switching tabs animates instead of snapping
+  useIsomorphicLayoutEffect(() => {
+    const inner = xpPanelsRef.current;
+    if (!inner || typeof ResizeObserver === "undefined") return undefined;
+    const updateHeight = () => setXpPanelsHeight(inner.offsetHeight);
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(inner);
+    return () => observer.disconnect();
+  }, []);
 
   const handleXpKeyDown = (index, e) => {
     const delta =
@@ -202,7 +216,14 @@ export default function Info() {
               type="button"
               className="xp-all"
               aria-pressed={showAll}
-              onClick={() => setShowAll((prev) => !prev)}
+              onClick={(e) => {
+                // Collapsing a long list would leave the page scrolled past the section
+                const section = e.currentTarget.closest("section");
+                if (showAll && section.getBoundingClientRect().top < 0) {
+                  section.scrollIntoView();
+                }
+                setShowAll((prev) => !prev);
+              }}
             >
               {showAll ? "Back to the list" : "Show everything"}
             </button>
@@ -243,65 +264,88 @@ export default function Info() {
               })}
             </div>
 
-            <div>
-              {xpEntries.map((entry) => {
-                const isActive = activeXp === entry.id;
-                return (
-                  <div
-                    key={entry.id}
-                    id={`xp-panel-${entry.id}`}
-                    role="tabpanel"
-                    aria-labelledby={`xp-tab-${entry.id}`}
-                    className={`xp-panel${isActive ? " active" : ""}`}
-                  >
-                    <h3 className="xp-role">{entry.role}</h3>
-                    <div className="xp-meta">{entry.meta}</div>
-                    {entry.summary && <p className="xp-sum">{entry.summary}</p>}
-
-                    {entry.facts && (
-                      <div className="xp-facts">
-                        {entry.facts.map((fact) => (
-                          <div key={fact.label}>
-                            <b>{fact.value}</b>
-                            <span>{fact.label}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {entry.accordions?.map((row, rowIndex) => {
-                      const isOpen = showAll || openRows[entry.id] === rowIndex;
-                      return (
-                        <div key={row.title} className={`xp-row${isOpen ? " open" : ""}`}>
-                          <button
-                            type="button"
-                            aria-expanded={isOpen}
-                            onClick={() => toggleAccordion(entry.id, rowIndex)}
-                          >
-                            <span className="t">{row.title}</span>
-                            <span className="c" aria-hidden="true">
-                              ▶
-                            </span>
-                          </button>
-                          <div className="xp-body">
+            <div
+              className="xp-panels"
+              style={showAll || xpPanelsHeight === null ? undefined : { height: xpPanelsHeight }}
+            >
+              <div ref={xpPanelsRef}>
+                {xpEntries.map((entry, index) => {
+                  const isActive = activeXp === entry.id;
+                  const startsGroup = index === 0 || xpEntries[index - 1].group !== entry.group;
+                  return (
+                    <div
+                      key={entry.id}
+                      id={`xp-panel-${entry.id}`}
+                      role="tabpanel"
+                      aria-labelledby={`xp-tab-${entry.id}`}
+                      className={`xp-panel${isActive ? " active" : ""}`}
+                    >
+                      {showAll && (
+                        <div className="xp-org">
+                          {startsGroup && (
+                            <div className="xp-group">{entry.group === "work" ? "Work" : "Study"}</div>
+                          )}
+                          <div className="xp-org-card">
+                            <img src={entry.logo} alt="" />
                             <div>
-                              <p>{row.body}</p>
+                              <b>{entry.name}</b>
+                              <span>{entry.navSub}</span>
                             </div>
                           </div>
                         </div>
-                      );
-                    })}
+                      )}
 
-                    {entry.lines?.map((line) => (
-                      <div key={line.label} className="xp-line">
-                        {line.label} <span>{line.value}</span>
+                      <div className="xp-content">
+                        <h3 className="xp-role">{entry.role}</h3>
+                        <div className="xp-meta">{entry.meta}</div>
+                        {entry.summary && <p className="xp-sum">{entry.summary}</p>}
+
+                        {entry.facts && (
+                          <div className="xp-facts">
+                            {entry.facts.map((fact) => (
+                              <div key={fact.label}>
+                                <b>{fact.value}</b>
+                                <span>{fact.label}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        {entry.accordions?.map((row, rowIndex) => {
+                          const isOpen = showAll || openRows[entry.id] === rowIndex;
+                          return (
+                            <div key={row.title} className={`xp-row${isOpen ? " open" : ""}`}>
+                              <button
+                                type="button"
+                                aria-expanded={isOpen}
+                                onClick={() => toggleAccordion(entry.id, rowIndex)}
+                              >
+                                <span className="t">{row.title}</span>
+                                <span className="c" aria-hidden="true">
+                                  ▶
+                                </span>
+                              </button>
+                              <div className="xp-body">
+                                <div>
+                                  <p>{row.body}</p>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+
+                        {entry.lines?.map((line) => (
+                          <div key={line.label} className="xp-line">
+                            {line.label} <span>{line.value}</span>
+                          </div>
+                        ))}
+
+                        {entry.stack && <div className="xp-stack">{entry.stack}</div>}
                       </div>
-                    ))}
-
-                    {entry.stack && <div className="xp-stack">{entry.stack}</div>}
-                  </div>
-                );
-              })}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
