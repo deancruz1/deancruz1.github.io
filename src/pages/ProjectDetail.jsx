@@ -1,427 +1,313 @@
-import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { projects } from "../data/project-info-home.jsx";
-import Grid from "../components/Grid";
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import useMeasure from "react-use-measure";
+import { Link, useParams } from "react-router-dom";
+import AnnotatedScreenInspector from "../components/AnnotatedScreenInspector";
+import WindowBar from "../components/WindowBar";
+import {
+  ARCHIVE_SLUGS,
+  FEATURED_SLUGS,
+  projects,
+} from "../data/project-info-home.jsx";
+import "./ProjectDetail.css";
 
-// Same order as the All Projects page, so "Next" follows the grid
-const orderedProjects = [...projects].sort(
-  (a, b) => Number(b.featured) - Number(a.featured),
-);
-
-const Panel = ({ title, className = "", children, ref, style }) => (
-  <div
-    ref={ref}
-    style={style}
-    className={`relative overflow-hidden rounded-2xl bg-(--bg-secondary) p-6 ${className}`}
-  >
-    <Grid />
-    <h2 className="relative z-10 pb-4 text-2xl font-bold text-(--text-primary)">
-      {title}
-    </h2>
-    <div className="relative z-10">{children}</div>
-  </div>
-);
-
-const VISIBLE_CHALLENGES = 2;
-
-const ChallengeList = ({ items, onOpenChange }) => {
-  const [showAll, setShowAll] = useState(false);
-  const [ref, { height }] = useMeasure();
-  const visibleItems = showAll ? items : items.slice(0, VISIBLE_CHALLENGES);
-
-  return (
-    <>
-      <motion.div
-        initial={false}
-        animate={{ height: height || "auto" }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        onAnimationComplete={() => {
-          if (!showAll) onOpenChange(false);
-        }}
-        className="overflow-hidden"
-      >
-        <ul
-          ref={ref}
-          className="relative flex list-disc flex-col gap-2 pl-5 text-(--text-secondary) marker:text-(--accent)"
-        >
-          <AnimatePresence mode="popLayout" initial={false}>
-            {visibleItems.map((item) => (
-              <motion.li
-                key={item}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                {item}
-              </motion.li>
-            ))}
-          </AnimatePresence>
-        </ul>
-      </motion.div>
-      {items.length > VISIBLE_CHALLENGES && (
-        <div className="mt-4 flex justify-center">
-          <button
-            type="button"
-            aria-expanded={showAll}
-            onClick={() => {
-              if (!showAll) onOpenChange(true);
-              setShowAll(!showAll);
-            }}
-            className={`cursor-pointer rounded-full border px-4 py-2 text-sm transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent) ${
-              showAll
-                ? "border-(--accent) bg-(--accent) text-(--button-primary)"
-                : "border-(--border) bg-(--bg-tertiary) text-(--text-secondary) hover:border-(--accent)"
-            }`}
-          >
-            {showAll ? "Show less" : "Show more"}
-          </button>
-        </div>
-      )}
-    </>
-  );
-};
-
-const Reflection = ({ challenges = [], improvements = [] }) => {
-  const improvementsRef = useRef(null);
-  // While Challenges is open (or still closing), the other panel keeps the
-  // height it had instead of stretching to match
-  const [heldHeight, setHeldHeight] = useState(null);
-
-  return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
-      {challenges.length > 0 && (
-        <Panel title="Challenges" className="md:col-span-3">
-          <ChallengeList
-            items={challenges}
-            onOpenChange={(open) =>
-              setHeldHeight(
-                open ? (improvementsRef.current?.offsetHeight ?? null) : null,
-              )
-            }
-          />
-        </Panel>
-      )}
-      {improvements.length > 0 && (
-        <Panel
-          ref={improvementsRef}
-          title="What I'd do differently"
-          className={`md:col-span-2 ${heldHeight ? "md:self-start" : ""}`}
-          style={heldHeight ? { minHeight: heldHeight } : undefined}
-        >
-          <ul className="flex list-disc flex-col gap-2 pl-5 text-(--text-secondary) marker:text-(--accent)">
-            {improvements.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </Panel>
-      )}
-    </div>
-  );
-};
-
-const ProjectDetail = () => {
-  const { slug } = useParams();
-  const [selectedImage, setSelectedImage] = useState(null);
+function ProjectDetailBody({ project }) {
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const gallery = project.gallery || [];
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
-  }, [slug]);
+    window.scrollTo(0, 0);
+  }, [project.slug]);
 
   useEffect(() => {
-    if (!selectedImage) return;
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") setSelectedImage(null);
+    if (lightboxIndex === null || gallery.length === 0) return undefined;
+    document.body.style.overflow = "hidden";
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setLightboxIndex(null);
+      } else if (e.key === "ArrowRight") {
+        setLightboxIndex((prev) => (prev + 1) % gallery.length);
+      } else if (e.key === "ArrowLeft") {
+        setLightboxIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
+      }
     };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedImage]);
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [lightboxIndex, gallery.length]);
 
-  const project = projects.find((p) => p.slug === slug);
-
-  if (!project) {
-    return (
-      <main id="main-content">
-        <div className="flex min-h-screen items-center justify-center">
-          <p className="text-2xl text-(--text-primary)">Project not found.</p>
-        </div>
-      </main>
-    );
-  }
-
-  const liveLabel = project.category === "Design" ? "Live demo" : "Live site";
-  const focusRing =
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)";
-  const primaryButton = `rounded-full bg-(--accent) px-4 py-2 text-center text-sm font-semibold text-(--button-primary) transition-colors duration-300 hover:bg-(--accent-hover) ${focusRing}`;
-  const secondaryButton = `rounded-full border border-(--border) bg-(--bg-tertiary) px-4 py-2 text-center text-sm font-semibold text-(--text-primary) transition-colors duration-300 hover:border-(--accent) ${focusRing}`;
-
-  const { caseStudy, about, features = [], gallery = [] } = project;
-  const nextProject =
-    orderedProjects[
-      (orderedProjects.indexOf(project) + 1) % orderedProjects.length
-    ];
+  const orderedSlugs = [...FEATURED_SLUGS, ...ARCHIVE_SLUGS];
+  const cycleList = orderedSlugs.includes(project.slug)
+    ? orderedSlugs.map((s) => projects.find((p) => p.slug === s)).filter(Boolean)
+    : projects;
+  const currentCycleIndex = cycleList.findIndex((p) => p.slug === project.slug);
+  const nextProject = cycleList[(currentCycleIndex + 1) % cycleList.length];
 
   return (
     <>
       <Helmet>
-        <title>{`Dean Cruz - ${project.title}`}</title>
+        <title>{`${project.title} — Dean Cruz`}</title>
         <meta name="description" content={project.description} />
-        <meta property="og:title" content={`Dean Cruz - ${project.title}`} />
-        <meta property="og:description" content={project.description} />
-        <meta property="og:image" content={project.image} />
-        <meta name="twitter:title" content={`Dean Cruz - ${project.title}`} />
-        <meta name="twitter:description" content={project.description} />
-        <meta name="twitter:image" content={project.image} />
       </Helmet>
 
-      <link
-        rel="preload"
-        as="image"
-        href={project.image}
-        fetchPriority="high"
-      />
+      <main className="site-container view-fade">
+        <div className="pd-back-wrap">
+          <Link to="/" className="pd-back">
+            ← Back
+          </Link>
+        </div>
 
-      <main id="main-content">
-        <section className="relative flex min-h-screen flex-col gap-6 px-5 pt-24 pb-12 lg:pt-32 lg:pb-16">
-          {/* Hero */}
-          <div>
-            <div className="relative h-[45vh] min-h-80 overflow-hidden rounded-2xl border-b-5 border-(--accent) shadow-[0_4px_40px_var(--shadow-accent)]">
-              <video
-                src={project.heroVideo}
-                poster={project.image}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="none"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-black/10" />
-              <div className="absolute inset-x-0 bottom-0 flex flex-col gap-4 bg-linear-to-t from-black/95 from-60% to-transparent p-6 pt-16 md:flex-row md:items-end md:justify-between md:bg-none md:p-10">
-                <div className="flex flex-col gap-3">
-                  <span className="w-fit rounded-full border border-(--accent) bg-(--accent)/20 px-3 py-1 text-xs text-(--text-overlay)">
-                    {project.category}
-                  </span>
-                  <h1 className="text-4xl font-bold text-(--text-overlay) md:text-7xl">
-                    {project.title}
-                  </h1>
-                  <p className="max-w-xl text-(--text-overlay)/80">
-                    {project.description}
-                  </p>
-                </div>
-                {(project.liveDemo || project.github) && (
-                  <div className="flex shrink-0 flex-wrap gap-2">
-                    {project.liveDemo && (
-                      <a
-                        href={project.liveDemo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={primaryButton}
-                      >
-                        {liveLabel}
-                      </a>
-                    )}
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`rounded-full border border-white/30 bg-black/40 px-4 py-2 text-center text-sm font-semibold text-(--text-overlay) backdrop-blur-sm transition-colors duration-300 hover:border-(--accent) ${focusRing}`}
-                      >
-                        Code
-                      </a>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-2 pt-4">
+        <header className="pd-header">
+          <div className="pd-meta">
+            {project.stageMeta?.stack || `${project.category} · ${project.tags.slice(0, 3).join(" · ")}`}
+          </div>
+          <h1 className="pd-title">{project.title}</h1>
+          <p className="pd-desc">{project.description}</p>
+
+          <div className="pd-head-bar">
+            <div className="pd-tags">
               {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-(--border) bg-(--bg-secondary) px-3 py-1 text-xs whitespace-nowrap text-(--text-secondary)"
-                >
+                <span key={tag} className="pd-tag">
                   {tag}
                 </span>
               ))}
             </div>
-          </div>
 
-          {/* Why and how */}
-          {caseStudy ? (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <Panel title="Why I built it">
-                <p className="text-(--text-secondary)">{caseStudy.problem}</p>
-              </Panel>
-              <Panel title="How it works">
-                <p className="text-(--text-secondary)">{caseStudy.solution}</p>
-              </Panel>
+            <div className="pd-links">
+              {project.liveDemo && (
+                <a
+                  href={project.liveDemo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="pd-link-primary"
+                >
+                  Live site ↗
+                </a>
+              )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="pd-link-muted"
+                >
+                  GitHub ↗
+                </a>
+              )}
             </div>
-          ) : (
-            about && (
-              <Panel title="About">
-                <p className="text-(--text-secondary)">{about}</p>
-              </Panel>
-            )
-          )}
+          </div>
+        </header>
 
-          {/* Features */}
-          {features.length > 0 && (
-            <Panel title="What it does">
-              <div
-                className={`grid grid-cols-1 gap-3 sm:grid-cols-2 ${
-                  features.length % 3 === 0 ? "lg:grid-cols-3" : ""
-                }`}
-              >
-                {features.map((item) => (
-                  <div
-                    key={item.title}
-                    className="rounded-xl bg-(--bg-tertiary) p-4"
-                  >
-                    <h3 className="font-semibold text-(--text-primary)">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-(--text-secondary)">
-                      {item.text}
-                    </p>
+        {project.annotatedScreen ? (
+          <AnnotatedScreenInspector key={project.slug} project={project} />
+        ) : (
+          <section className="pd-hero-media" aria-label={`${project.title} preview`}>
+            <div className="pd-browser-frame">
+              <WindowBar />
+              {project.heroVideo ? (
+                <video
+                  className="pd-media-el"
+                  src={project.heroVideo}
+                  poster={project.image}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                />
+              ) : (
+                <img
+                  className="pd-media-el"
+                  src={project.image}
+                  alt={project.title}
+                />
+              )}
+            </div>
+          </section>
+        )}
+
+        <div className="pd-sections">
+          {project.caseStudy ? (
+            <>
+              <section className="pd-section">
+                <h2 className="pd-section-title">Why I built it</h2>
+                <div className="pd-prose">
+                  {project.card?.why && <p className="pd-lead">{project.card.why}</p>}
+                  <p>{project.caseStudy.problem}</p>
+                </div>
+              </section>
+
+              <section className="pd-section">
+                <h2 className="pd-section-title">How it works</h2>
+                <div className="pd-prose">
+                  {project.card?.how && <p className="pd-lead">{project.card.how}</p>}
+                  <p>{project.caseStudy.solution}</p>
+                </div>
+              </section>
+
+              {project.caseStudy.technicalDecisions?.length > 0 && (
+                <section className="pd-section">
+                  <h2 className="pd-section-title">Technical decisions</h2>
+                  <div className="pd-decisions">
+                    {project.caseStudy.technicalDecisions.map((item) => (
+                      <div key={item.decision} className="pd-decision-item">
+                        <h3>{item.decision}</h3>
+                        <p>{item.reason}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </Panel>
-          )}
+                </section>
+              )}
 
-          {/* Screens */}
-          {gallery.length > 0 && (
-            <div
-              className={`grid gap-6 ${
-                project.galleryPortrait
-                  ? "grid-cols-2 md:grid-cols-4"
-                  : "grid-cols-1 md:grid-cols-2"
-              }`}
-            >
-              {gallery.map((item) => (
-                <figure key={item.caption}>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedImage(item)}
-                    aria-label={`Enlarge screenshot: ${item.caption}`}
-                    className={`group block w-full cursor-pointer overflow-hidden rounded-2xl border border-(--border) ${focusRing}`}
-                  >
+              {(project.caseStudy.challenges?.length > 0 ||
+                project.caseStudy.improvements?.length > 0) && (
+                <section className="pd-section">
+                  <h2 className="pd-section-title">Challenges &amp; reflections</h2>
+                  <ul className="pd-list">
+                    {project.caseStudy.challenges?.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                    {project.caseStudy.improvements?.map((item) => (
+                      <li key={item}>Next: {item}</li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+            </>
+          ) : (
+            <>
+              {project.about && (
+                <section className="pd-section">
+                  <h2 className="pd-section-title">Overview</h2>
+                  <div className="pd-prose">
+                    <p>{project.about}</p>
+                  </div>
+                </section>
+              )}
+
+              {project.features?.length > 0 && (
+                <section className="pd-section">
+                  <h2 className="pd-section-title">Key features</h2>
+                  <div className="pd-decisions">
+                    {project.features.map((feat) => (
+                      <div key={feat.title} className="pd-decision-item">
+                        <h3>{feat.title}</h3>
+                        <p>{feat.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+            </>
+          )}
+        </div>
+
+        {gallery.length > 0 && (
+          <section className="pd-gallery-section" aria-label="Screenshots">
+            <h2 className="pd-gallery-heading">Screens</h2>
+            <div className={`pd-gallery${project.galleryPortrait ? " portrait" : ""}`}>
+              {gallery.map((shot, idx) => (
+                <button
+                  key={shot.caption || idx}
+                  type="button"
+                  className="pd-shot-btn"
+                  onClick={() => setLightboxIndex(idx)}
+                >
+                  <div className="pd-shot-frame">
                     <img
-                      src={item.thumb ?? item.image}
-                      alt={item.caption}
+                      src={shot.image}
+                      alt={shot.caption || `${project.title} screen ${idx + 1}`}
                       loading="lazy"
-                      decoding="async"
-                      className={`w-full object-cover object-top transition-transform duration-500 group-hover:scale-105 ${
-                        project.galleryPortrait ? "aspect-1/2" : "aspect-video"
-                      }`}
                     />
-                  </button>
-                  <figcaption className="pt-2 text-sm text-(--text-secondary)">
-                    {item.caption}
-                  </figcaption>
-                </figure>
+                  </div>
+                  {shot.caption && <span className="pd-shot-cap">{shot.caption}</span>}
+                </button>
               ))}
             </div>
-          )}
+          </section>
+        )}
 
-          {/* Decisions */}
-          {caseStudy?.technicalDecisions?.length > 0 && (
-            <Panel title="Decisions">
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {caseStudy.technicalDecisions.map((item) => (
-                  <div
-                    key={item.decision}
-                    className="rounded-xl bg-(--bg-tertiary) p-4"
-                  >
-                    <h3 className="font-semibold text-(--text-primary)">
-                      {item.decision}
-                    </h3>
-                    <p className="text-sm text-(--text-secondary)">
-                      {item.reason}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </Panel>
-          )}
-
-          {/* Challenges and improvements */}
-          {caseStudy && (
-            <Reflection
-              key={slug}
-              challenges={caseStudy.challenges}
-              improvements={caseStudy.improvements}
-            />
-          )}
-
-          {/* Navigation */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-4">
-            <Link to="/projects" className={secondaryButton}>
-              All projects
+        <nav className="pd-bottom-nav" aria-label="Project navigation">
+          <Link to="/">← All work</Link>
+          {nextProject && nextProject.slug !== project.slug && (
+            <Link to={`/projects/${nextProject.slug}`}>
+              Next: {nextProject.title} →
             </Link>
-            <Link
-              to={`/projects/${nextProject.slug}`}
-              className={primaryButton}
-            >
-              Next: {nextProject.title}
-            </Link>
-          </div>
-        </section>
+          )}
+        </nav>
       </main>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-200 flex items-center justify-center bg-black/90 p-8"
-            onClick={() => setSelectedImage(null)}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Image lightbox"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="relative w-full max-w-5xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={selectedImage.image}
-                alt={selectedImage.caption}
-                className="max-h-[80vh] w-full rounded-2xl object-contain"
-              />
-              <div className="mt-4 flex justify-center">
-                <p className="inline-block rounded-2xl bg-black/60 px-4 py-2 font-semibold text-white">
-                  {selectedImage.caption}
-                </p>
+      {lightboxIndex !== null && gallery[lightboxIndex] && (
+        <div
+          className="pd-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={gallery[lightboxIndex].caption || `${project.title} screenshot`}
+          onClick={() => setLightboxIndex(null)}
+        >
+          <div className="pd-lightbox-inner" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={gallery[lightboxIndex].image}
+              alt={gallery[lightboxIndex].caption || `${project.title} screenshot`}
+            />
+            <div className="pd-lightbox-bar">
+              <span>
+                {gallery[lightboxIndex].caption || `Screen ${lightboxIndex + 1}`} (
+                {lightboxIndex + 1} / {gallery.length})
+              </span>
+              <div className="pd-lightbox-controls">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setLightboxIndex((prev) => (prev - 1 + gallery.length) % gallery.length)
+                  }
+                >
+                  Prev
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLightboxIndex((prev) => (prev + 1) % gallery.length)}
+                >
+                  Next
+                </button>
+                <button type="button" onClick={() => setLightboxIndex(null)}>
+                  Close ×
+                </button>
               </div>
-              <button
-                onClick={() => setSelectedImage(null)}
-                aria-label="Close lightbox"
-                className="absolute -top-4 -right-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-(--accent) text-(--text-primary) transition-colors duration-300 hover:bg-(--text-primary) hover:text-(--bg-primary)"
-              >
-                ✕
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
-};
+}
 
-export default ProjectDetail;
+export default function ProjectDetail() {
+  const { slug } = useParams();
+  const project = projects.find((item) => item.slug === slug);
+
+  if (!project) {
+    return (
+      <>
+        <Helmet>
+          <title>Project Not Found — Dean Cruz</title>
+        </Helmet>
+        <main className="site-container view-fade">
+          <div className="pd-back-wrap">
+            <Link to="/" className="pd-back">
+              ← Back to work
+            </Link>
+          </div>
+          <div className="pd-header">
+            <h1 className="pd-title">Project not found</h1>
+            <p className="pd-desc">
+              No project exists at this route. Head back to Work to browse selected builds.
+            </p>
+          </div>
+        </main>
+      </>
+    );
+  }
+
+  return <ProjectDetailBody key={project.slug} project={project} />;
+}

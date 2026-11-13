@@ -375,6 +375,36 @@ export const projects = [
     github: "https://github.com/deancruz1/Kiroku",
     slug: "kiroku",
     heroVideo: kirokuVideo,
+    annotatedScreen: {
+      image: kirokuGalleryImages[3],
+      caption: "Kiroku · the watch list",
+      view: [232, 0, 724, 407.25],
+      baseWidth: 1200,
+      notes: [
+        {
+          title: "Server components fetch the data",
+          body: "Built on the Next.js App Router, so pages don't wait on client-side requests.",
+        },
+        {
+          title: "Retries for a strict rate limit",
+          body: "Show data comes from the Jikan API, which allows 3 requests a second. Bursts on data-heavy pages retry with exponential backoff.",
+          rect: [424, 107, 346, 72],
+          tag: "tl",
+        },
+        {
+          title: "PostgreSQL, not SQLite",
+          body: "Status, progress and ratings are edited inline and saved through Prisma. Vercel's serverless functions have ephemeral filesystems, so SQLite writes would not persist.",
+          rect: [424, 184, 346, 104],
+          tag: "tl",
+        },
+        {
+          title: "Two ways to sign in",
+          body: "Discord OAuth or email and password, with bcrypt hashing and JWT sessions through NextAuth.",
+          rect: [903, 10, 45, 18],
+          tag: "l",
+        },
+      ],
+    },
     gallery: kirokuGalleryImages.map((image, i) => ({
       image,
       thumb: thumbsFor("kiroku")[i],
@@ -477,6 +507,36 @@ export const projects = [
     github: "https://github.com/deancruz1/Urara",
     slug: "urara",
     heroVideo: uraraVideo,
+    annotatedScreen: {
+      image: uraraGalleryImages[1],
+      caption: "Urara · a character page",
+      view: [0, 0, 1200, 675],
+      baseWidth: 1200,
+      notes: [
+        {
+          title: "All data through TanStack Query",
+          body: "Everything comes from the Umapyoi API. TanStack Query handles caching, background refetching and loading states, which is cleaner than a useEffect chain for every call.",
+        },
+        {
+          title: "Translated on demand",
+          body: "Part of the API only returns Japanese. A profile is translated through the MyMemory API when you ask for it, the result is cached, and a toggle goes back to the original.",
+          rect: [146, 156, 518, 272],
+          tag: "tl",
+        },
+        {
+          title: "One colour per character",
+          body: "Each character's primary colour drives the buttons, borders and highlights on their page. Components take it as a prop, so nothing is hardcoded.",
+          rect: [822, 172, 212, 24],
+          tag: "l",
+        },
+        {
+          title: "Two layouts for one filter",
+          body: "A vertical sidebar on desktop and a horizontal scroll row on phones.",
+          rect: [2, 30, 132, 643],
+          tag: "tr",
+        },
+      ],
+    },
     gallery: uraraGalleryImages.map((image, i) => ({
       image,
       thumb: thumbsFor("urara")[i],
@@ -580,6 +640,36 @@ export const projects = [
     github: "https://github.com/deancruz1/Oshiwatch",
     slug: "oshiwatch",
     heroVideo: oshiwatchVideo,
+    annotatedScreen: {
+      image: oshiwatchGalleryImages[0],
+      caption: "Oshiwatch · the home page, live and upcoming streams",
+      view: [150, 0, 900, 506.25],
+      baseWidth: 1200,
+      notes: [
+        {
+          title: "The API key never reaches the browser",
+          body: "Every stream here comes from the Holodex API. A `VITE_` env var would ship the key inside the client bundle, so the calls go through a Vercel serverless function.",
+        },
+        {
+          title: "Refetched every 5 minutes",
+          body: "TanStack Query polls for live data every 5 minutes and handles the caching.",
+          rect: [244, 106, 706, 284],
+          tag: "tr",
+        },
+        {
+          title: "Filtered in the browser",
+          body: "Holodex names a talent's branch `group` on one endpoint and `suborg` on another. I normalise both client-side, so the filters don't depend on API parameters.",
+          rect: [843, 49, 106, 20],
+          tag: "l",
+        },
+        {
+          title: "Only Hololive streams",
+          body: "15 unaffiliated streams kept showing up on this page. Matching on names wrongly hid JP talents, so the filter checks the channel's org instead.",
+          rect: [244, 421, 706, 80],
+          tag: "tr",
+        },
+      ],
+    },
     gallery: oshiwatchGalleryImages.map((image, i) => ({
       image,
       thumb: thumbsFor("oshiwatch")[i],
