@@ -1,6 +1,4 @@
 import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { getFeaturedProjects } from "../data/project-info-home.jsx";
 import "../styles/uf-explorer.css";
 
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -26,7 +24,6 @@ function rectToStyle(rect, view) {
 
 export default function AnnotatedScreenInspector({ project }) {
   const screen = project.annotatedScreen;
-  const featured = getFeaturedProjects();
   const [activeIndex, setActiveIndex] = useState(0);
   const [instantSpot, setInstantSpot] = useState(true);
   const [barStyle, setBarStyle] = useState({ height: 0, transform: "translateY(0px)" });
@@ -91,23 +88,14 @@ export default function AnnotatedScreenInspector({ project }) {
         <h2 className="xp-title" id="inspector-heading">
           What&apos;s under the interface
         </h2>
-        <div className="uf-tabs" role="navigation" aria-label="Featured projects">
-          {featured.map((item) => (
-            <Link
-              key={item.slug}
-              to={`/projects/${item.slug}`}
-              className={`uf-tab${item.slug === project.slug ? " active" : ""}`}
-              aria-current={item.slug === project.slug ? "page" : undefined}
-            >
-              {item.title}
-            </Link>
-          ))}
-        </div>
       </div>
 
       <div className="uf">
         <div>
-          <div className="uf-frame">
+          <div
+            className={`uf-frame${screen.portrait ? " portrait" : ""}`}
+            style={screen.portrait ? { aspectRatio: `${screen.view[2]} / ${screen.view[3]}` } : undefined}
+          >
             <img
               className="pan-fit"
               src={screen.image}

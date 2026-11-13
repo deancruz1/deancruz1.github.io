@@ -137,11 +137,45 @@ export const projects = [
         text: "Backend on Render with Docker, frontend on Vercel, database on Supabase.",
       },
     ],
+    card: {
+      why: "I wanted to learn enterprise Java by building a full e-learning platform from scratch.",
+      how: "An Angular frontend on a Spring Boot REST API, with Hibernate mapping 9 PostgreSQL tables.",
+    },
     tags: ["Angular", "TypeScript", "Java", "Spring Boot", "Hibernate", "PostgreSQL", "Tailwind"],
     image: skillforgeImg,
     github: "https://github.com/deancruz1/SkillForge",
     slug: "skillforge",
     heroVideo: skillforgeVideo,
+    annotatedScreen: {
+      image: skillforgeGalleryImages[1],
+      caption: "SkillForge · a course page, seen by its instructor",
+      view: [240, 40, 720, 405],
+      baseWidth: 1200,
+      notes: [
+        {
+          title: "Stateless JWT auth",
+          body: "Spring Security checks a JWT on every request through a custom filter, and passwords are hashed with BCrypt.",
+        },
+        {
+          title: "Controls for the course owner",
+          body: "The frontend reads the role and user ID from the JWT. If you own the course, you get these controls. The API also checks roles: only instructors can create courses, and only a course's own instructor can add its quiz.",
+          rect: [394, 108, 406, 48],
+          tag: "tl",
+        },
+        {
+          title: "Graded on the server",
+          body: "`QuizService` rejects a submission unless every question is answered, compares answers case-insensitively, totals the points and checks them against this passing score.",
+          rect: [394, 238, 406, 52],
+          tag: "tl",
+        },
+        {
+          title: "Answer preview",
+          body: "The instructor sees each question with its correct answer highlighted in green, to check the quiz before students take it.",
+          rect: [426, 403, 362, 28],
+          tag: "tl",
+        },
+      ],
+    },
     gallery: skillforgeGalleryImages.map((image, i) => ({
       image,
       caption: [
@@ -227,6 +261,65 @@ export const projects = [
     github: "https://github.com/deancruz1/Foundations",
     slug: "portfolio-website",
     heroVideo: portfolioVideo,
+    annotatedScreen: {
+      image: portfolioGalleryImages[1],
+      caption: "Foundations · the projects section on the home page",
+      view: [180, 0, 840, 472.5],
+      baseWidth: 1200,
+      notes: [
+        {
+          title: "A Bootstrap theme, reworked",
+          body: "Built on the Start Bootstrap Grayscale theme with Bootstrap 5, then extended into a home page, a projects page and one page per project.",
+        },
+        {
+          title: "Navbar that follows you",
+          body: "Bootstrap ScrollSpy highlights the section you're reading, and on phones the menu collapses as soon as you tap a link.",
+          rect: [655, 4, 230, 26],
+          tag: "l",
+        },
+        {
+          title: "Three kinds of work",
+          body: "Front-End, Programming and Design each get a row with two previews and a link through to their projects.",
+          rect: [310, 110, 570, 135],
+          tag: "tl",
+        },
+        {
+          title: "Rows that switch sides",
+          body: "Each row flips which side the previews sit on, so the section doesn't read as one long column. The Bootstrap grid reflows them on smaller screens.",
+          rect: [310, 284, 570, 135],
+          tag: "tl",
+        },
+      ],
+    },
+    card: {
+      why: "My first real website, built during my diploma to learn the fundamentals.",
+      how: "A multi-page site on the Bootstrap Grayscale theme, with my own JavaScript for the effects.",
+    },
+    caseStudy: {
+      problem: "I needed a portfolio for my diploma and wanted to properly learn HTML, CSS and Bootstrap while making it. It was later picked by faculty as the cohort's reference for code structure.",
+      solution: "I started from the Start Bootstrap Grayscale theme and grew it into a multi-page site: a home page, a projects page, and a page for each project with a lightbox gallery. On top of the theme I wrote a mouse trail, a drag-to-scroll image track and a particles.js starfield.",
+      technicalDecisions: [
+        {
+          decision: "Start from a theme",
+          reason: "The Grayscale theme gave me a working responsive layout, so I could focus on structure and content and learn how a real Bootstrap project is put together.",
+        },
+        {
+          decision: "A mouse trail with easing",
+          reason: "A chain of circles follows the cursor, each one easing towards the next on every animation frame. It switches off on touch devices, where there's no cursor to follow.",
+        },
+        {
+          decision: "Drag-to-scroll image track",
+          reason: "The track keeps its state in data attributes, moves with the Web Animations API and shifts each image's object-position for a parallax effect. It only runs on wide screens.",
+        },
+      ],
+      challenges: [
+        "The drag handler ignores presses that start on a link, so the cards in the track stay clickable, and it clamps the track so it can't be dragged past either end.",
+      ],
+      improvements: [
+        "Load a single Bootstrap version. The home page loads the Bootstrap 5.2.3 and 4.5.2 scripts together.",
+        "Stop the auto-scroll loop and the drag code fighting over the track. Both set its position on every frame.",
+      ],
+    },
     gallery: portfolioGalleryImages.map((image, i) => ({
       image,
       caption: [
@@ -280,6 +373,69 @@ export const projects = [
     github: "https://github.com/deancruz1/Handler-One",
     slug: "fansite",
     heroVideo: fansiteVideo,
+    annotatedScreen: {
+      image: fansiteGalleryImages[1],
+      caption: "Handler One · the processor roster",
+      view: [220, 0, 760, 427.5],
+      baseWidth: 1200,
+      notes: [
+        {
+          title: "Six routes, one terminal",
+          body: "A Vite and React 19 app with React Router 7. Each section of HQ is its own route, styled with Tailwind v4 design tokens.",
+        },
+        {
+          title: "Deep links on static hosting",
+          body: "GitHub Pages has no server routing, so a 404.html page sends unknown paths back to the app with the path in a `?p=` parameter. The app swaps it back into the URL before React Router renders.",
+          rect: [575, 6, 405, 20],
+          tag: "l",
+        },
+        {
+          title: "Live feed or dead signal",
+          body: "Each processor's portrait plays their clip. Anyone without one falls back to a static noise layer, like a lost feed.",
+          rect: [249, 72, 87, 118],
+          tag: "tl",
+        },
+        {
+          title: "Roster from one data file",
+          body: "Every dossier comes from a single character data module that also imports their media. Processors marked KIA switch to red styling.",
+          rect: [570, 64, 382, 360],
+          tag: "tr",
+        },
+      ],
+    },
+    card: {
+      why: "I wanted a fansite that felt like part of 86 Eighty-Six rather than another wiki.",
+      how: "You log in as a Handler, so every page is built as a screen on HQ's terminal.",
+    },
+    caseStudy: {
+      problem: "Fan wikis cover the facts but none of the mood. I wanted something that felt like sitting at a Handler's console: plot breakdowns, processor dossiers, mech specs and faction profiles, all presented as classified HQ records.",
+      solution: "A Vite and React app with six routes for home, intel, characters, arsenal, factions and missions. Tailwind v4 holds the design tokens, tsparticles draws the ember particles, and a boot sequence plays the first time you open the site in a session. It's deployed as static files on GitHub Pages.",
+      technicalDecisions: [
+        {
+          decision: "404.html redirect for deep links",
+          reason: "GitHub Pages only serves files, so refreshing /characters would 404. The 404 page redirects to the app with the path in a query parameter, and the app restores it before rendering.",
+        },
+        {
+          decision: "Tailwind v4 with @theme tokens",
+          reason: "The terminal colours and fonts live in one @theme block through the Vite plugin, with no separate config file.",
+        },
+        {
+          decision: "CRT scanlines in pure CSS",
+          reason: "The scanlines are a repeating gradient of 2px dark lines every 4px, written as a Tailwind arbitrary value, with vignette layers on top.",
+        },
+        {
+          decision: "Boot sequence once per session",
+          reason: "A sessionStorage flag is read when the component first sets its state, so the intro doesn't flash and replay when you come back to the home page.",
+        },
+      ],
+      challenges: [
+        "The boot sequence prints each line after a random 500-900ms delay. Leaving the page mid-boot clears every pending timeout, so nothing fires after you've gone.",
+        "On phones, picking a processor scrolls back to the top so their dossier is in view.",
+      ],
+      improvements: [
+        "Remove the unused Swiper dependency and a leftover redirect handler in index.html that no longer matches the 404 page.",
+      ],
+    },
     gallery: fansiteGalleryImages.map((image, i) => ({
       image,
       caption: [
@@ -716,6 +872,67 @@ export const projects = [
     github: "https://github.com/deancruz1/Movietopia",
     slug: "movietopia",
     heroVideo: movietopiaVideo,
+    annotatedScreen: {
+      image: movietopiaGalleryImages[2],
+      caption: "Movietopia · the reviews page, logged in",
+      view: [200, 70, 800, 450],
+      baseWidth: 1200,
+      notes: [
+        {
+          title: "Server-rendered PHP",
+          body: "Procedural PHP and mysqli against a local MySQL database on XAMPP. Logging in stores your user ID in the PHP session, and every template checks it to decide what to show.",
+        },
+        {
+          title: "Three linked tables",
+          body: "Reviews reference both movies and users through foreign keys with `ON DELETE CASCADE`, so removing a user removes their reviews too.",
+          rect: [214, 140, 772, 220],
+          tag: "tl",
+        },
+        {
+          title: "Only on your own reviews",
+          body: "Edit and Delete only appear on rows where the review's user ID matches the one in your session.",
+          rect: [906, 207, 76, 20],
+          tag: "l",
+        },
+        {
+          title: "Ratings drawn as stars",
+          body: "A rating is saved as a number and drawn as filled and empty stars on this page.",
+          rect: [722, 168, 52, 190],
+          tag: "tr",
+        },
+      ],
+    },
+    card: {
+      why: "A graded assignment for my server-side programming module.",
+      how: "Procedural PHP with mysqli and PHP sessions, running locally on XAMPP.",
+    },
+    caseStudy: {
+      problem: "The module asked for a working CRUD web app. I used it to understand how sessions, relational tables and create, read, update and delete operations fit together end to end.",
+      solution: "Three MySQL tables (users, movies and reviews) behind server-rendered PHP pages. You can register, log in, search and sort movies, and write, edit and delete your own star-rated reviews.",
+      technicalDecisions: [
+        {
+          decision: "Foreign keys with cascades",
+          reason: "Reviews depend on both a movie and a user, so the schema enforces that and cleans up a user's reviews when the account goes.",
+        },
+        {
+          decision: "Session flags for the navbar",
+          reason: "One logged-in check in each template switches between the guest and member navigation.",
+        },
+        {
+          decision: "Remember me with a cookie",
+          reason: "Ticking it stores your username in a long-lived cookie, and the login form fills it in.",
+        },
+      ],
+      challenges: [
+        "Every Edit and Delete button is named after its review ID, so the handler loops through the possible IDs to work out which row was clicked.",
+        "Add Review can be opened from a movie's page or from the header, so the form has to handle arriving with or without a movie already chosen.",
+      ],
+      improvements: [
+        "Move every query to prepared statements. They're built by joining strings at the moment.",
+        "Hash passwords with password_hash instead of storing them as plain text.",
+        "Check on the server that a review belongs to you before editing or deleting it, and escape user text with htmlspecialchars.",
+      ],
+    },
     gallery: movietopiaGalleryImages.map((image, i) => ({
       image,
       caption: [
@@ -758,6 +975,65 @@ export const projects = [
     github: "https://github.com/deancruz1/Shrine_of_Suisei",
     slug: "landing-page",
     heroVideo: landingPageVideo,
+    annotatedScreen: {
+      image: landingPageGalleryImages[1],
+      caption: "Shrine of Suisei · the home page with the disclaimer open",
+      view: [0, 0, 1200, 675],
+      baseWidth: 1200,
+      notes: [
+        {
+          title: "No frameworks",
+          body: "One HTML file, one stylesheet and a small script. Six custom fonts load through @font-face, and text sizes scale with clamp().",
+        },
+        {
+          title: "A modal with no JavaScript",
+          body: "The disclaimer opens with the `:target` pseudo-class. It fades with visibility and opacity, which can animate where display can't.",
+          rect: [2, 45, 380, 85],
+          tag: "tr",
+        },
+        {
+          title: "The glowing button",
+          body: "A blurred `::before` layer holds a 9-colour gradient at 400% size, and a keyframe animation slides it around on hover. An `::after` layer covers the middle so only the edge glows.",
+          rect: [290, 263, 117, 38],
+          tag: "tl",
+        },
+        {
+          title: "Blurred sticky header",
+          body: "The header stays at the top with a backdrop blur. On phones the links fold into a hamburger that turns into an X and closes when you pick a link.",
+          rect: [868, 4, 328, 28],
+          tag: "l",
+        },
+      ],
+    },
+    card: {
+      why: "My first project, made to practise HTML and CSS before my diploma started.",
+      how: "Plain HTML, CSS and JavaScript, with the effects done in CSS wherever possible.",
+    },
+    caseStudy: {
+      problem: "Before enrolling at Republic Polytechnic I wanted a real project to practise on, so I built a fan shrine for a VTuber I enjoy watching, inspired by Lyrenide's Hakurei Shrine.",
+      solution: "A single page in plain HTML, CSS and JavaScript: a sticky blurred header, fixed-background parallax, a glowing call-to-action button, a CSS-only disclaimer modal and a hamburger menu for phones. I later refactored the HTML and CSS to make it easier to maintain.",
+      technicalDecisions: [
+        {
+          decision: "CSS before JavaScript",
+          reason: "The modal, the glowing button and the parallax are all CSS. JavaScript only toggles the hamburger menu.",
+        },
+        {
+          decision: "Fluid type with clamp()",
+          reason: "Font sizes grow and shrink with the screen between a minimum and maximum, so fewer media queries are needed.",
+        },
+        {
+          decision: "Animated nav links",
+          reason: "On hover, a border scales from 10% to full width while the letter spacing opens up.",
+        },
+      ],
+      challenges: [
+        "Fading the modal in and out meant hiding it with visibility and opacity instead of display, since display can't be transitioned.",
+      ],
+      improvements: [
+        "Restore the disclaimer text inside the modal. The refactor left the modal empty.",
+        "Open the external links in the mobile menu in a new tab, like the desktop ones.",
+      ],
+    },
     gallery: landingPageGalleryImages.map((image, i) => ({
       image,
       caption: [
@@ -796,6 +1072,63 @@ export const projects = [
       "https://xd.adobe.com/view/ff47b771-facc-42d4-9af3-0043a8316f16-aa14/",
     slug: "mobile-wireframe",
     heroVideo: wireframeVideo,
+    annotatedScreen: {
+      image: wireframeGalleryImages[2],
+      caption: "Mobile XD · the portfolio screen",
+      view: [0, 0, 600, 1210],
+      baseWidth: 600,
+      portrait: true,
+      notes: [
+        {
+          title: "154 linked screens",
+          body: "Every screen is wired up in Adobe XD with interaction triggers, so the prototype can be clicked through like the real app.",
+        },
+        {
+          title: "A stack you can back out of",
+          body: "Inner pages sit on a navigation stack, so the back arrow returns you to wherever you came from.",
+          rect: [70, 75, 70, 65],
+          tag: "tl",
+        },
+        {
+          title: "Work in a carousel",
+          body: "Samples sit in a carousel, with the next cards peeking in from the sides so it's clear there's more to swipe through.",
+          rect: [80, 350, 440, 510],
+          tag: "tl",
+        },
+        {
+          title: "Tabs within thumb reach",
+          body: "The three main sections live in a bottom tab bar with large touch targets. The active tab switches to the peach accent from the colour scheme.",
+          rect: [40, 1015, 520, 150],
+          tag: "tl",
+        },
+      ],
+    },
+    card: {
+      why: "I wanted to see what my portfolio would look like as a mobile app.",
+      how: "A 154-screen prototype in Adobe XD, with assets made in Illustrator and Photoshop.",
+    },
+    caseStudy: {
+      problem: "I designed this to practise mobile UI and to produce specs a developer could build from, using my own portfolio as the content.",
+      solution: "A high-fidelity prototype in Adobe XD covering the home, about, portfolio and contact sections. Navigation stacks and interaction triggers are mapped out, the type scale and spacing stay consistent across screens, and grid alignments and component boundaries are marked for handoff.",
+      decisionsTitle: "Design decisions",
+      technicalDecisions: [
+        {
+          decision: "A three-colour scheme",
+          reason: "Charcoal and grey carry the layout, and peach is kept for the things you can act on, like the active tab and the Get Started button.",
+        },
+        {
+          decision: "Bottom tab bar",
+          reason: "The main sections stay one tap away and within reach of your thumb.",
+        },
+        {
+          decision: "Specs for handoff",
+          reason: "Grid alignments and component boundaries are defined so the screens could be built without guessing.",
+        },
+      ],
+      challenges: [
+        "Making interactive elements stand out through colour and detail, while keeping the interface simple enough to find your way around.",
+      ],
+    },
     galleryPortrait: true,
     gallery: wireframeGalleryImages.map((image, i) => ({
       image,

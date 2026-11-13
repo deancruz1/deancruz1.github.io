@@ -19,32 +19,6 @@
   letter-spacing: -0.03em;
 }
 
-.uf-tabs {
-  display: flex;
-  gap: 24px;
-}
-
-.uf-tab {
-  all: unset;
-  box-sizing: border-box;
-  cursor: pointer;
-  padding: 2px 0 7px;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--text-dim);
-  border-bottom: 1.5px solid transparent;
-  transition: color 0.18s ease, border-color 0.18s ease;
-}
-
-.uf-tab:hover {
-  color: var(--text-bright);
-}
-
-.uf-tab.active {
-  color: var(--text-bright);
-  border-bottom-color: var(--accent);
-}
-
 .uf {
   display: grid;
   grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
@@ -63,6 +37,15 @@
   border-radius: 14px;
   border: 1px solid var(--border-outer);
   background: #050608;
+}
+
+/* Phone screens: tall frame, centred, height capped so it fits the viewport */
+.uf-frame.portrait {
+  height: min(620px, 72vh);
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 28px;
 }
 
 .uf.uf-story .uf-frame.story-frame {

@@ -147,7 +147,9 @@ function ProjectDetailBody({ project }) {
 
               {project.caseStudy.technicalDecisions?.length > 0 && (
                 <section className="pd-section">
-                  <h2 className="pd-section-title">Technical decisions</h2>
+                  <h2 className="pd-section-title">
+                    {project.caseStudy.decisionsTitle || "Technical decisions"}
+                  </h2>
                   <div className="pd-decisions">
                     {project.caseStudy.technicalDecisions.map((item) => (
                       <div key={item.decision} className="pd-decision-item">
