@@ -143,6 +143,12 @@ html[data-theme="dean-light"] {
   }
 }
 
+@media (max-width: 640px) {
+  .site-container {
+    padding: 0 16px;
+  }
+}
+
 /* ==========================================================================
    SHARED DOUBLE-BEZEL & MAC WINDOW CHROME
    ========================================================================== */

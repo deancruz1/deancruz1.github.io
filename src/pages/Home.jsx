@@ -21,6 +21,7 @@ export default function Home() {
               <WindowBar />
 
               <div className="hero-stage">
+                <p className="hero-overline">Dean Cruz — Software Engineer</p>
                 <h1 className="hero-headline">
                   I craft fast <span className="hi-accent">interfaces</span>
                   <br />
@@ -43,6 +44,10 @@ export default function Home() {
           >
             ↓
           </a>
+
+          <a href="#selected-work" className="hero-scroll-row">
+            <span aria-hidden="true">↓</span> Selected Work
+          </a>
         </section>
 
         <section className="work-stack" id="selected-work" aria-label="Selected projects">
@@ -53,6 +58,7 @@ export default function Home() {
               className="bezel-outer stage-card"
             >
               <div className="bezel-inner">
+                <div className={`stage-wash ${project.stageMeta.glow}`} aria-hidden="true" />
                 <div className="stage-card-head">
                   <div>
                     <h2 className="stage-title">{project.title}</h2>
@@ -66,7 +72,6 @@ export default function Home() {
                 </div>
 
                 <div className="stage-viewport">
-                  <div className={`stage-glow ${project.stageMeta.glow}`} aria-hidden="true" />
                   <div className="stage-browser">
                     <WindowBar />
                     <img

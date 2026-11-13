@@ -5,6 +5,15 @@
   pointer-events: none;
 }
 
+/* Dims whatever scrolls under the nav so it doesn't clash with the links */
+.topbar-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 150px;
+  background: linear-gradient(var(--bg) 35%, transparent);
+}
+
 .topbar-wrap > .site-container {
   max-width: none;
   padding: 0 48px;
@@ -110,10 +119,15 @@ html[data-theme="dean-light"] .nav-pill-link.active {
   box-shadow: 0 2px 12px 2px var(--accent-glow);
 }
 
+.nav-right {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+}
+
 .nav-action-links {
   display: flex;
   align-items: center;
-  justify-self: end;
   gap: 8px;
   font-size: clamp(14px, calc(14px + (100vw - 1440px) * 0.00417), 16px);
   font-weight: 500;
@@ -139,9 +153,95 @@ html[data-theme="dean-light"] .nav-action-links a:hover {
   background: rgba(0, 0, 0, 0.04);
 }
 
+.nav-menu {
+  position: relative;
+  display: none;
+}
+
+.nav-menu-btn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--text-bright);
+  background: rgba(18, 20, 26, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-outer);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.nav-menu-popup {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 168px;
+  padding: 6px;
+  border-radius: 16px;
+  background: rgba(18, 20, 26, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-outer);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  animation: navMenuIn 0.18s ease;
+}
+
+html[data-theme="dean-light"] .nav-menu-btn,
+html[data-theme="dean-light"] .nav-menu-popup {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 26px rgba(17, 24, 39, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.nav-menu-popup a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 48px;
+  padding: 0 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-bright);
+  text-decoration: none;
+  transition: background-color 0.18s ease;
+}
+
+.nav-menu-popup a span {
+  color: var(--text-dim);
+}
+
+.nav-menu-popup a:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+html[data-theme="dean-light"] .nav-menu-popup a:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+@keyframes navMenuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 900px) {
   .topbar-wrap > .site-container {
     padding: 0 18px;
+  }
+
+  .nav-menu {
+    display: block;
   }
 
   .topbar {
@@ -157,17 +257,15 @@ html[data-theme="dean-light"] .nav-action-links a:hover {
   .topbar {
     grid-template-columns: auto auto;
     justify-content: space-between;
+    padding: 20px 0;
   }
 
-  .brand-wordmark {
-    white-space: nowrap;
+  .topbar-wrap > .site-container {
+    padding: 0 16px;
   }
 
-  .brand-role {
+  /* On phones the name moves into the hero, like the reference layout */
+  .brand-lockup {
     display: none;
-  }
-
-  .nav-pill-link {
-    width: 68px;
   }
 }
