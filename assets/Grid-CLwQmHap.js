@@ -1,0 +1,1 @@
+import{u as e}from"./app-_Tsp0mKC.js";var t=e();function n(){return(0,t.jsx)(`div`,{className:`grid-overlay`})}export{n as t};

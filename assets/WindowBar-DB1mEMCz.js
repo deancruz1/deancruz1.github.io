@@ -1,0 +1,1 @@
+import{u as e}from"./app-_Tsp0mKC.js";var t=e();function n(){return(0,t.jsxs)(`div`,{className:`window-bar`,"aria-hidden":`true`,children:[(0,t.jsxs)(`div`,{className:`window-dots`,children:[(0,t.jsx)(`span`,{}),(0,t.jsx)(`span`,{}),(0,t.jsx)(`span`,{})]}),(0,t.jsx)(`span`,{className:`window-plus`,children:`+`})]})}export{n as t};
