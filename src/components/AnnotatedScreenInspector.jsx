@@ -127,7 +127,6 @@ export default function AnnotatedScreenInspector({ project }) {
           </div>
 
           <div className="uf-cap">
-            <span>{screen.caption}</span>
             <span>
               {project.liveDemo && (
                 <a href={project.liveDemo} target="_blank" rel="noreferrer">

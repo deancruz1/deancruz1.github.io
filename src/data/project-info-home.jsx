@@ -145,6 +145,24 @@ export const projects = [
     image: skillforgeImg,
     github: "https://github.com/deancruz1/SkillForge",
     slug: "skillforge",
+    notes: {
+      decisions: [
+        ["Spring Boot and Hibernate", "The standard enterprise Java stack, with most SQL handled by Hibernate."],
+        ["PostgreSQL on Supabase", "Managed Postgres used purely as a database, with the schema written by hand."],
+        ["Angular", "Routing, HTTP and forms built in, like the codebases I work in."],
+        ["JWT auth", "Stateless sessions checked by a Spring Security filter on every request."],
+      ],
+      hard: [
+        "Composite keys on junction tables with @EmbeddedId and @MapsId.",
+        "Supabase's connection pooler rejecting prepared statements until prepareThreshold=0.",
+        "A multi-stage Docker build to run Spring Boot on Render.",
+      ],
+      next: "Enforce one quiz attempt on the server, and keep answers out of students' API responses.",
+    },
+    overview: [
+      "SkillForge is an e-learning platform. Instructors create courses, lessons and quizzes, and students enrol, track their progress and get their quizzes graded automatically.",
+      "I built it to learn enterprise Java properly: a Spring Boot REST API with Spring Security and JWT, Hibernate over a 9-table PostgreSQL schema, and an Angular frontend.",
+    ],
     heroVideo: skillforgeVideo,
     annotatedScreen: {
       image: skillforgeGalleryImages[1],
@@ -260,6 +278,21 @@ export const projects = [
     liveDemo: "https://deancruz1.github.io/Foundations/",
     github: "https://github.com/deancruz1/Foundations",
     slug: "portfolio-website",
+    notes: {
+      decisions: [
+        ["Bootstrap Grayscale theme", "A working responsive base to learn structure from."],
+        ["Mouse trail", "Circles ease towards the cursor each frame, and switch off on touch screens."],
+        ["Drag-to-scroll track", "Web Animations API with a parallax shift per image, on wide screens only."],
+      ],
+      hard: [
+        "Keeping the cards clickable inside a track you can drag.",
+      ],
+      next: "Load one version of Bootstrap instead of two.",
+    },
+    overview: [
+      "Foundations was my first portfolio site, made during my diploma. It has a home page, a projects page and a page for each project with an image gallery.",
+      "I built it on the Start Bootstrap Grayscale theme and added my own JavaScript on top: a mouse trail, a drag-to-scroll image track and a particle background. Faculty later picked it as the cohort's reference for code structure.",
+    ],
     heroVideo: portfolioVideo,
     annotatedScreen: {
       image: portfolioGalleryImages[1],
@@ -372,6 +405,23 @@ export const projects = [
     liveDemo: "https://deancruz1.github.io/Handler-One/",
     github: "https://github.com/deancruz1/Handler-One",
     slug: "fansite",
+    notes: {
+      decisions: [
+        ["404.html redirect", "Deep links survive a refresh on GitHub Pages."],
+        ["Tailwind v4 @theme", "All the terminal colours and fonts in one token block."],
+        ["CSS scanlines", "A repeating 2px gradient instead of an image overlay."],
+        ["sessionStorage flag", "The boot sequence plays once per visit, not on every return."],
+      ],
+      hard: [
+        "Clearing every pending timeout if you leave halfway through the boot sequence.",
+        "A static-noise fallback for processors with no video.",
+      ],
+      next: "Drop the unused Swiper dependency.",
+    },
+    overview: [
+      "Handler One is a fansite for 86 Eighty-Six, set up as the terminal a Handler would use. It covers the plot by act, the Spearhead Squadron dossiers, a mech database, faction profiles and a mission log.",
+      "It's a React app with six routes, styled with Tailwind and deployed as static files on GitHub Pages.",
+    ],
     heroVideo: fansiteVideo,
     annotatedScreen: {
       image: fansiteGalleryImages[1],
@@ -493,6 +543,25 @@ export const projects = [
     liveDemo: "https://kiroku-nyaa.vercel.app",
     github: "https://github.com/deancruz1/Kiroku",
     slug: "kiroku",
+    notes: {
+      decisions: [
+        ["Next.js App Router", "Server components fetch the data, so pages don't wait on client-side requests."],
+        ["Jikan API", "Free and keyless, but limited to 3 requests a second."],
+        ["PostgreSQL on Supabase", "Vercel's filesystem is ephemeral, so SQLite writes wouldn't persist."],
+        ["Vercel", "Serverless functions keep API keys off the client. GitHub Pages can't run them."],
+      ],
+      hard: [
+        "Retrying request bursts against Jikan's 3-per-second limit with exponential backoff.",
+        "Turning inconsistent broadcast times into timezone-aware countdowns.",
+        "Recommendations that skip watched and low-rated shows, and say which show they came from.",
+        "Reworking the 7-column calendar into scrolling rows on phones without duplicating logic.",
+      ],
+      next: "Store show data when it's added, to cut repeat Jikan calls.",
+    },
+    overview: [
+      "Kiroku is an anime tracker. You keep a watch list with status, episode progress and ratings, check a 7-day broadcast calendar, get recommendations from the genres you watch most, and see your stats on one page.",
+      "I built it because I was splitting tracking, schedules and recommendations across different sites. It runs on the Next.js App Router with Prisma and PostgreSQL, and the show data comes from the Jikan API.",
+    ],
     heroVideo: kirokuVideo,
     annotatedScreen: {
       image: kirokuGalleryImages[3],
@@ -623,6 +692,24 @@ export const projects = [
     liveDemo: "https://deancruz1.github.io/Urara/",
     github: "https://github.com/deancruz1/Urara",
     slug: "urara",
+    notes: {
+      decisions: [
+        ["TanStack Query", "Caching, refetching and loading states without a useEffect chain per call."],
+        ["Umapyoi API", "Free, no auth, and covers characters, music and news."],
+        ["MyMemory API", "Translates Japanese profile text without an API key."],
+        ["GitHub Pages", "Everything runs in the browser, so static hosting is enough."],
+      ],
+      hard: [
+        "Rendering the raw HTML the news API returns without opening an XSS hole.",
+        "One character filter that's a sidebar on desktop and a scroll row on phones.",
+        "A single shared audio player, so only one music preview plays at a time.",
+      ],
+      next: "Pre-render character and music pages so search engines can index them.",
+    },
+    overview: [
+      "Urara is a fan guide to Umamusume Pretty Derby: character profiles with voice samples and galleries, a music browser with previews, a news feed and a birthday calendar.",
+      "Umamusume info was spread across wikis and playlists, so I put it in one place. It's a React app on the Umapyoi API, and Japanese profile text can be translated on demand.",
+    ],
     heroVideo: uraraVideo,
     annotatedScreen: {
       image: uraraGalleryImages[1],
@@ -754,6 +841,25 @@ export const projects = [
     liveDemo: "https://oshiwatch.vercel.app",
     github: "https://github.com/deancruz1/Oshiwatch",
     slug: "oshiwatch",
+    notes: {
+      decisions: [
+        ["Vercel serverless proxy", "A VITE_ env var would ship the Holodex key inside the bundle."],
+        ["useInfiniteQuery", "Archives load 50 videos at a time instead of all at once."],
+        ["Holodex API v2", "Live status, schedules, talents and archives from one API."],
+        ["Client-side filtering", "Branch fields differ between endpoints, so I normalise them myself."],
+      ],
+      hard: [
+        "The same branch is called group on /channels and suborg on /live.",
+        "Keeping brand channels, graduates and sub-channels out of the roster.",
+        "YouTube's live chat only embeds on the deployed domain, so local testing needed vercel dev.",
+        "Telling streams, shorts and music apart in one archive feed.",
+      ],
+      next: "Favourites saved in the browser, to pin talents to the top.",
+    },
+    overview: [
+      "Oshiwatch tracks Hololive streams. It shows who's live and what's coming up, filters by branch, and lets you watch in the app with live chat beside the player.",
+      "I wanted to follow streams without keeping five tabs open. The data comes from the Holodex API through a Vercel serverless proxy, so the API key stays off the client.",
+    ],
     heroVideo: oshiwatchVideo,
     annotatedScreen: {
       image: oshiwatchGalleryImages[0],
@@ -871,6 +977,22 @@ export const projects = [
     image: movietopiaImg,
     github: "https://github.com/deancruz1/Movietopia",
     slug: "movietopia",
+    notes: {
+      decisions: [
+        ["Foreign keys with cascades", "Deleting a user removes their reviews too."],
+        ["Session checks per template", "One flag switches between the guest and member views."],
+        ["Remember-me cookie", "Fills in your username on the login form."],
+      ],
+      hard: [
+        "Working out which row's Edit or Delete button was clicked.",
+        "An Add Review form that works with or without a movie already chosen.",
+      ],
+      next: "Prepared statements and hashed passwords.",
+    },
+    overview: [
+      "Movietopia is a movie review site. You can register, log in, search and sort movies, and write, edit and delete your own star-rated reviews.",
+      "It was a graded assignment for my server-side programming module, built with PHP, MySQL and sessions, and run locally on XAMPP.",
+    ],
     heroVideo: movietopiaVideo,
     annotatedScreen: {
       image: movietopiaGalleryImages[2],
@@ -974,6 +1096,21 @@ export const projects = [
     liveDemo: "https://deancruz1.github.io/Shrine_of_Suisei/",
     github: "https://github.com/deancruz1/Shrine_of_Suisei",
     slug: "landing-page",
+    notes: {
+      decisions: [
+        ["CSS before JavaScript", "The pop-up, the glow and the parallax are all CSS."],
+        ["clamp() for type", "Font sizes scale with the screen without extra media queries."],
+        [":target pop-up", "A disclaimer modal with no JavaScript."],
+      ],
+      hard: [
+        "Fading the pop-up in and out, which display can't animate, so it uses visibility and opacity.",
+      ],
+      next: "Put the disclaimer text back in the pop-up.",
+    },
+    overview: [
+      "Shrine of Suisei is a one-page fan site for Hoshimachi Suisei, a VTuber I watch.",
+      "I made it before starting my diploma to practise HTML and CSS. It's plain HTML, CSS and a little JavaScript, with a sticky header, a glowing button, a CSS-only pop-up and a hamburger menu for phones.",
+    ],
     heroVideo: landingPageVideo,
     annotatedScreen: {
       image: landingPageGalleryImages[1],
@@ -1071,6 +1208,20 @@ export const projects = [
     liveDemo:
       "https://xd.adobe.com/view/ff47b771-facc-42d4-9af3-0043a8316f16-aa14/",
     slug: "mobile-wireframe",
+    notes: {
+      decisions: [
+        ["Three-colour scheme", "Peach is kept for the things you can tap."],
+        ["Bottom tab bar", "The main sections stay within thumb reach."],
+        ["Handoff specs", "Grid alignments and component boundaries marked for developers."],
+      ],
+      hard: [
+        "Making tappable elements stand out without cluttering the screen.",
+      ],
+    },
+    overview: [
+      "Mobile XD is my portfolio redesigned as a mobile app: a 154-screen prototype covering the home, about, portfolio and contact sections.",
+      "I made it in Adobe XD, with assets from Illustrator and Photoshop, and linked the screens together so the prototype can be clicked through like a real app.",
+    ],
     heroVideo: wireframeVideo,
     annotatedScreen: {
       image: wireframeGalleryImages[2],

@@ -52,58 +52,31 @@ function ProjectDetailBody({ project }) {
       </Helmet>
 
       <main className="site-container view-fade">
-        <div className="pd-back-wrap">
-          <Link to="/" className="pd-back">
-            ← Back
-          </Link>
-        </div>
+        <Link to="/" className="pd-back">
+          ← Back
+        </Link>
 
         <header className="pd-header">
-          <div className="pd-meta">
-            {project.stageMeta?.stack || `${project.category} · ${project.tags.slice(0, 3).join(" · ")}`}
-          </div>
           <h1 className="pd-title">{project.title}</h1>
           <p className="pd-desc">{project.description}</p>
 
-          <div className="pd-head-bar">
-            <div className="pd-tags">
-              {project.tags.map((tag) => (
-                <span key={tag} className="pd-tag">
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            <div className="pd-links">
-              {project.liveDemo && (
-                <a
-                  href={project.liveDemo}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="pd-link-primary"
-                >
-                  Live site ↗
-                </a>
-              )}
-              {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="pd-link-muted"
-                >
-                  GitHub ↗
-                </a>
-              )}
-            </div>
+          <div className="pd-links">
+            {project.liveDemo && (
+              <a href={project.liveDemo} target="_blank" rel="noreferrer" className="pd-link-primary">
+                Live site ↗
+              </a>
+            )}
+            {project.github && (
+              <a href={project.github} target="_blank" rel="noreferrer" className="pd-link-muted">
+                GitHub ↗
+              </a>
+            )}
           </div>
         </header>
 
-        {project.annotatedScreen ? (
-          <AnnotatedScreenInspector key={project.slug} project={project} />
-        ) : (
-          <section className="pd-hero-media" aria-label={`${project.title} preview`}>
-            <div className="pd-browser-frame">
+        <section className="pd-hero-media" aria-label={`${project.title} preview`}>
+          <div className="bezel-outer">
+            <div className="bezel-inner">
               <WindowBar />
               {project.heroVideo ? (
                 <video
@@ -116,127 +89,137 @@ function ProjectDetailBody({ project }) {
                   playsInline
                 />
               ) : (
-                <img
-                  className="pd-media-el"
-                  src={project.image}
-                  alt={project.title}
-                />
+                <img className="pd-media-el" src={project.image} alt={project.title} />
               )}
             </div>
+          </div>
+        </section>
+
+        <section className="pd-overview">
+          <dl className="pd-facts">
+            <div>
+              <dt>Built with</dt>
+              <dd>{project.tags.join(", ")}</dd>
+            </div>
+            {project.features?.length > 0 && (
+              <div>
+                <dt>Features</dt>
+                <dd>{project.features.map((feat) => feat.title).join(", ")}</dd>
+              </div>
+            )}
+            {project.github && (
+              <div>
+                <dt>Source</dt>
+                <dd>
+                  <a href={project.github} target="_blank" rel="noreferrer">
+                    {project.github.replace("https://", "")} ↗
+                  </a>
+                </dd>
+              </div>
+            )}
+          </dl>
+
+          <div className="pd-overview-text">
+            <h2>Overview</h2>
+            {(project.overview || [project.description]).map((para) => (
+              <p key={para}>{para}</p>
+            ))}
+          </div>
+        </section>
+
+        {project.annotatedScreen && (
+          <section className="pd-panel">
+            <AnnotatedScreenInspector key={project.slug} project={project} />
           </section>
         )}
 
-        <div className="pd-sections">
-          {project.caseStudy ? (
-            <>
-              <section className="pd-section">
-                <h2 className="pd-section-title">Why I built it</h2>
-                <div className="pd-prose">
-                  {project.card?.why && <p className="pd-lead">{project.card.why}</p>}
-                  <p>{project.caseStudy.problem}</p>
-                </div>
+        {project.notes && (
+          <>
+            <section className="pd-chapter" aria-labelledby="pd-decisions-heading">
+              <div className="pd-chapter-head">
+                <p className="pd-overline">Decisions</p>
+                <h2 id="pd-decisions-heading">Why it&apos;s built this way.</h2>
+              </div>
+              <ul className="pd-rows">
+                {project.notes.decisions.map(([choice, why]) => (
+                  <li key={choice}>
+                    <b>{choice}.</b> {why}
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="pd-chapter" aria-labelledby="pd-hard-heading">
+              <div className="pd-chapter-head">
+                <p className="pd-overline">What was hard</p>
+                <h2 id="pd-hard-heading">The parts that fought back.</h2>
+              </div>
+              <ol className="pd-rows numbered">
+                {project.notes.hard.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ol>
+            </section>
+
+            {project.notes.next && (
+              <section className="pd-callout">
+                <p className="pd-overline">If I picked it back up</p>
+                <p className="pd-callout-text">{project.notes.next}</p>
               </section>
-
-              <section className="pd-section">
-                <h2 className="pd-section-title">How it works</h2>
-                <div className="pd-prose">
-                  {project.card?.how && <p className="pd-lead">{project.card.how}</p>}
-                  <p>{project.caseStudy.solution}</p>
-                </div>
-              </section>
-
-              {project.caseStudy.technicalDecisions?.length > 0 && (
-                <section className="pd-section">
-                  <h2 className="pd-section-title">
-                    {project.caseStudy.decisionsTitle || "Technical decisions"}
-                  </h2>
-                  <div className="pd-decisions">
-                    {project.caseStudy.technicalDecisions.map((item) => (
-                      <div key={item.decision} className="pd-decision-item">
-                        <h3>{item.decision}</h3>
-                        <p>{item.reason}</p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {(project.caseStudy.challenges?.length > 0 ||
-                project.caseStudy.improvements?.length > 0) && (
-                <section className="pd-section">
-                  <h2 className="pd-section-title">Challenges &amp; reflections</h2>
-                  <ul className="pd-list">
-                    {project.caseStudy.challenges?.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                    {project.caseStudy.improvements?.map((item) => (
-                      <li key={item}>Next: {item}</li>
-                    ))}
-                  </ul>
-                </section>
-              )}
-            </>
-          ) : (
-            <>
-              {project.about && (
-                <section className="pd-section">
-                  <h2 className="pd-section-title">Overview</h2>
-                  <div className="pd-prose">
-                    <p>{project.about}</p>
-                  </div>
-                </section>
-              )}
-
-              {project.features?.length > 0 && (
-                <section className="pd-section">
-                  <h2 className="pd-section-title">Key features</h2>
-                  <div className="pd-decisions">
-                    {project.features.map((feat) => (
-                      <div key={feat.title} className="pd-decision-item">
-                        <h3>{feat.title}</h3>
-                        <p>{feat.text}</p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-            </>
-          )}
-        </div>
+            )}
+          </>
+        )}
 
         {gallery.length > 0 && (
-          <section className="pd-gallery-section" aria-label="Screenshots">
-            <h2 className="pd-gallery-heading">Screens</h2>
-            <div className={`pd-gallery${project.galleryPortrait ? " portrait" : ""}`}>
+          <section className="pd-panel pd-screens" aria-label="Screenshots">
+            <p className="pd-overline">Screens</p>
+            <div className={`pd-figures${project.galleryPortrait ? " portrait" : ""}`}>
               {gallery.map((shot, idx) => (
-                <button
-                  key={shot.caption || idx}
-                  type="button"
-                  className="pd-shot-btn"
-                  onClick={() => setLightboxIndex(idx)}
-                >
-                  <div className="pd-shot-frame">
+                <figure key={shot.caption || idx} className="pd-figure">
+                  <button
+                    type="button"
+                    className="pd-shot-btn"
+                    aria-label={`Open screenshot ${idx + 1}`}
+                    onClick={() => setLightboxIndex(idx)}
+                  >
                     <img
                       src={shot.image}
                       alt={shot.caption || `${project.title} screen ${idx + 1}`}
                       loading="lazy"
                     />
-                  </div>
-                  {shot.caption && <span className="pd-shot-cap">{shot.caption}</span>}
-                </button>
+                  </button>
+                  <figcaption>0.{idx + 1}</figcaption>
+                </figure>
               ))}
             </div>
           </section>
         )}
 
-        <nav className="pd-bottom-nav" aria-label="Project navigation">
-          <Link to="/">← All work</Link>
-          {nextProject && nextProject.slug !== project.slug && (
-            <Link to={`/projects/${nextProject.slug}`}>
-              Next: {nextProject.title} →
+        {nextProject && nextProject.slug !== project.slug && (
+          <section className="pd-next" aria-labelledby="pd-next-heading">
+            <h2 id="pd-next-heading">Next project:</h2>
+            <Link to={`/projects/${nextProject.slug}`} className="bezel-outer pd-next-card">
+              <div className="bezel-inner">
+                <div className="pd-next-head">
+                  <div>
+                    <h3>{nextProject.title}</h3>
+                    <p>
+                      <b>{nextProject.stageMeta?.stack || nextProject.archiveMeta?.stack}</b> —{" "}
+                      {nextProject.stageMeta?.summary || nextProject.description}
+                    </p>
+                  </div>
+                  <span aria-hidden="true">→</span>
+                </div>
+                <div className="pd-next-shot">
+                  <div className="pd-next-browser">
+                    <WindowBar />
+                    <img src={nextProject.image} alt="" loading="lazy" />
+                  </div>
+                </div>
+              </div>
             </Link>
-          )}
-        </nav>
+          </section>
+        )}
       </main>
 
       {lightboxIndex !== null && gallery[lightboxIndex] && (
@@ -254,8 +237,7 @@ function ProjectDetailBody({ project }) {
             />
             <div className="pd-lightbox-bar">
               <span>
-                {gallery[lightboxIndex].caption || `Screen ${lightboxIndex + 1}`} (
-                {lightboxIndex + 1} / {gallery.length})
+                {lightboxIndex + 1} / {gallery.length}
               </span>
               <div className="pd-lightbox-controls">
                 <button
@@ -295,11 +277,9 @@ export default function ProjectDetail() {
           <title>Project Not Found — Dean Cruz</title>
         </Helmet>
         <main className="site-container view-fade">
-          <div className="pd-back-wrap">
-            <Link to="/" className="pd-back">
-              ← Back to work
-            </Link>
-          </div>
+          <Link to="/" className="pd-back">
+            ← Back to work
+          </Link>
           <div className="pd-header">
             <h1 className="pd-title">Project not found</h1>
             <p className="pd-desc">
