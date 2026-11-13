@@ -1,5 +1,13 @@
-import { lazy, Suspense } from "react";
-import { BrowserRouter, MemoryRouter, Navigate, Routes, Route } from "react-router-dom";
+import { lazy, Suspense, useEffect } from "react";
+import {
+  BrowserRouter,
+  MemoryRouter,
+  Navigate,
+  Routes,
+  Route,
+  useLocation,
+  useNavigationType,
+} from "react-router-dom";
 import Background from "./components/Background";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -13,6 +21,20 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Dynamically select the router based on the environment
 const Router = typeof window !== "undefined" ? BrowserRouter : MemoryRouter;
+
+// Start each new page at the top. Back/forward keeps the browser's own
+// scroll position, and hash links scroll to their target instead.
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+  const navigationType = useNavigationType();
+
+  useEffect(() => {
+    if (navigationType === "POP" || hash) return;
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname, hash, navigationType]);
+
+  return null;
+}
 
 const skipToContent = (e) => {
   e.preventDefault();
@@ -29,6 +51,7 @@ function App() {
   return (
     // Use the dynamic Router instead of hardcoding BrowserRouter
     <Router {...routerProps}>
+      <ScrollToTop />
       <div className="flex min-h-screen flex-col">
         {/* Off screen until a keyboard user tabs to it */}
         <a
