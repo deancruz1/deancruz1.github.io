@@ -1,6 +1,5 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, MemoryRouter, Navigate, Routes, Route } from "react-router-dom";
-import { MotionConfig } from "framer-motion";
 import Background from "./components/Background";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -30,35 +29,32 @@ function App() {
   return (
     // Use the dynamic Router instead of hardcoding BrowserRouter
     <Router {...routerProps}>
-      {/* Drops slide and scale animations for people who ask for less motion */}
-      <MotionConfig reducedMotion="user">
-        <div className="flex min-h-screen flex-col">
-          {/* Off screen until a keyboard user tabs to it */}
-          <a
-            href="#content"
-            onClick={skipToContent}
-            className="fixed top-3 left-3 z-120 -translate-y-24 rounded-full bg-(--accent) px-4 py-2 font-bold text-(--button-primary) focus:translate-y-0"
-          >
-            Skip to content
-          </a>
-          <Background />
-          <Navbar />
+      <div className="flex min-h-screen flex-col">
+        {/* Off screen until a keyboard user tabs to it */}
+        <a
+          href="#content"
+          onClick={skipToContent}
+          className="fixed top-3 left-3 z-120 -translate-y-24 rounded-full bg-(--accent) px-4 py-2 font-bold text-white focus:translate-y-0"
+        >
+          Skip to content
+        </a>
+        <Background />
+        <Navbar />
 
-          <div className="grow outline-none" id="content" tabIndex={-1}>
-            <Suspense fallback={null}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/info" element={<Info />} />
-                <Route path="/projects" element={<Navigate to="/" replace />} />
-                <Route path="/projects/:slug" element={<ProjectDetail />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </div>
-
-          <Footer />
+        <div className="grow outline-none" id="content" tabIndex={-1}>
+          <Suspense fallback={null}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/info" element={<Info />} />
+              <Route path="/projects" element={<Navigate to="/" replace />} />
+              <Route path="/projects/:slug" element={<ProjectDetail />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </div>
-      </MotionConfig>
+
+        <Footer />
+      </div>
     </Router>
   );
 }

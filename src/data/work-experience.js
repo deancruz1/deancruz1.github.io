@@ -90,5 +90,3 @@ export const xpEntries = [
     ],
   },
 ];
-
-export const workExperiences = xpEntries.filter((e) => e.group === "work");

@@ -86,36 +86,6 @@ const portfolioGalleryImages = Object.values(portfolioGallery).map(
   (m) => m.default,
 );
 
-const cardThumbs = import.meta.glob(
-  "../assets/img/project-cards/thumbs/*.webp",
-  { eager: true },
-);
-const smallCardThumbs = import.meta.glob(
-  "../assets/img/project-cards/thumbs-small/*.webp",
-  { eager: true },
-);
-// Smaller copies of a card image for the All projects grid, if they exist:
-// 720px wide in thumbs/, plus an optional 480px one in thumbs-small/
-const cardThumb = (name) => {
-  const src =
-    cardThumbs[`../assets/img/project-cards/thumbs/${name}.webp`]?.default;
-  const small =
-    smallCardThumbs[`../assets/img/project-cards/thumbs-small/${name}.webp`]
-      ?.default;
-  return src && { src, srcSet: small && `${small} 480w, ${src} 720w` };
-};
-
-const galleryThumbs = import.meta.glob(
-  "../assets/img/project-gallery/*/thumbs/*.webp",
-  { eager: true },
-);
-// Smaller copies of a project's gallery images, in the same order
-const thumbsFor = (folder) =>
-  Object.keys(galleryThumbs)
-    .filter((path) => path.includes(`/project-gallery/${folder}/thumbs/`))
-    .sort()
-    .map((path) => galleryThumbs[path].default);
-
 export const projects = [
   // Case study:
   //   caseStudy: {
@@ -169,13 +139,11 @@ export const projects = [
     ],
     tags: ["Angular", "TypeScript", "Java", "Spring Boot", "Hibernate", "PostgreSQL", "Tailwind"],
     image: skillforgeImg,
-    thumb: cardThumb("skillforge"),
     github: "https://github.com/deancruz1/SkillForge",
     slug: "skillforge",
     heroVideo: skillforgeVideo,
     gallery: skillforgeGalleryImages.map((image, i) => ({
       image,
-      thumb: thumbsFor("skillforge")[i],
       caption: [
         "Courses Page - Instructor",
         "Course Details - Instructor",
@@ -255,14 +223,12 @@ export const projects = [
     ],
     tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     image: portfolioImg,
-    thumb: cardThumb("portfolio-website"),
     liveDemo: "https://deancruz1.github.io/Foundations/",
     github: "https://github.com/deancruz1/Foundations",
     slug: "portfolio-website",
     heroVideo: portfolioVideo,
     gallery: portfolioGalleryImages.map((image, i) => ({
       image,
-      thumb: thumbsFor("portfolio-website")[i],
       caption: [
         "Home - Hero",
         "Home - Projects",
@@ -310,14 +276,12 @@ export const projects = [
     ],
     tags: ["React", "Tailwind"],
     image: fansiteImg,
-    thumb: cardThumb("fansite"),
     liveDemo: "https://deancruz1.github.io/Handler-One/",
     github: "https://github.com/deancruz1/Handler-One",
     slug: "fansite",
     heroVideo: fansiteVideo,
     gallery: fansiteGalleryImages.map((image, i) => ({
       image,
-      thumb: thumbsFor("fansite")[i],
       caption: [
         "Intel Page",
         "Character Roster Page",
@@ -370,7 +334,6 @@ export const projects = [
     ],
     tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "NextAuth"],
     image: kirokuImg,
-    thumb: cardThumb("kiroku"),
     liveDemo: "https://kiroku-nyaa.vercel.app",
     github: "https://github.com/deancruz1/Kiroku",
     slug: "kiroku",
@@ -407,7 +370,6 @@ export const projects = [
     },
     gallery: kirokuGalleryImages.map((image, i) => ({
       image,
-      thumb: thumbsFor("kiroku")[i],
       caption: [
         "Home Page",
         "Stats Page",
@@ -502,7 +464,6 @@ export const projects = [
     ],
     tags: ["React", "TypeScript", "TanStack Query", "Tailwind", "Framer Motion"],
     image: uraraImg,
-    thumb: cardThumb("urara"),
     liveDemo: "https://deancruz1.github.io/Urara/",
     github: "https://github.com/deancruz1/Urara",
     slug: "urara",
@@ -539,7 +500,6 @@ export const projects = [
     },
     gallery: uraraGalleryImages.map((image, i) => ({
       image,
-      thumb: thumbsFor("urara")[i],
       caption: [
         "Home Page",
         "Characters Page",
@@ -635,7 +595,6 @@ export const projects = [
     ],
     tags: ["React", "TypeScript", "TanStack Query", "Tailwind"],
     image: oshiwatchImg,
-    thumb: cardThumb("oshiwatch"),
     liveDemo: "https://oshiwatch.vercel.app",
     github: "https://github.com/deancruz1/Oshiwatch",
     slug: "oshiwatch",
@@ -672,7 +631,6 @@ export const projects = [
     },
     gallery: oshiwatchGalleryImages.map((image, i) => ({
       image,
-      thumb: thumbsFor("oshiwatch")[i],
       caption: [
         "Home — Live & Upcoming",
         "Talents Page",
@@ -755,13 +713,11 @@ export const projects = [
     ],
     tags: ["PHP", "MySQL", "CSS"],
     image: movietopiaImg,
-    thumb: cardThumb("movietopia"),
     github: "https://github.com/deancruz1/Movietopia",
     slug: "movietopia",
     heroVideo: movietopiaVideo,
     gallery: movietopiaGalleryImages.map((image, i) => ({
       image,
-      thumb: thumbsFor("movietopia")[i],
       caption: [
         "Home Page",
         "Search Function",
@@ -798,14 +754,12 @@ export const projects = [
     ],
     tags: ["HTML", "CSS", "JavaScript"],
     image: landingPageImg,
-    thumb: cardThumb("landing-page"),
     liveDemo: "https://deancruz1.github.io/Shrine_of_Suisei/",
     github: "https://github.com/deancruz1/Shrine_of_Suisei",
     slug: "landing-page",
     heroVideo: landingPageVideo,
     gallery: landingPageGalleryImages.map((image, i) => ({
       image,
-      thumb: thumbsFor("landing-page")[i],
       caption: [
         "Home Page",
         "Pop-up Text",
@@ -838,7 +792,6 @@ export const projects = [
     ],
     tags: ["XD", "Illustrator", "Photoshop"],
     image: mobileWireframeImg,
-    thumb: cardThumb("mobile-wireframe"),
     liveDemo:
       "https://xd.adobe.com/view/ff47b771-facc-42d4-9af3-0043a8316f16-aa14/",
     slug: "mobile-wireframe",
@@ -846,7 +799,6 @@ export const projects = [
     galleryPortrait: true,
     gallery: wireframeGalleryImages.map((image, i) => ({
       image,
-      thumb: thumbsFor("wireframe")[i],
       caption: ["Home Page", "About Me", "Portfolio Page", "Contact Page"][i],
     })),
   },

@@ -31,19 +31,6 @@ html[data-theme="dean-dark"] {
   --heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
 
-  /* Compatibility aliases while remaining routes transition */
-  --bg-primary: var(--bg);
-  --bg-secondary: var(--surface-inner);
-  --bg-tertiary: #1a1d24;
-  --text-primary: var(--text-bright);
-  --text-secondary: var(--text-dim);
-  --text-overlay: #f8fafc;
-  --button-primary: #ffffff;
-  --border: var(--border-outer);
-  --border-accent: var(--accent);
-  --shadow-accent: rgba(109, 93, 252, 0.35);
-  --shadow-accent-strong: rgba(109, 93, 252, 0.55);
-
   color-scheme: dark;
   color: var(--text-dim);
   background: var(--bg);
@@ -78,7 +65,6 @@ html[data-theme="foundations"] {
   --grid-line: rgba(132, 217, 186, 0.03);
   --grid-spot: rgba(104, 176, 150, 0.25);
 
-  --bg-tertiary: #16202a;
   color-scheme: dark;
 }
 
@@ -106,9 +92,6 @@ html[data-theme="dean-light"] {
   --grid-line: rgba(30, 30, 46, 0.045);
   --grid-spot: rgba(79, 62, 227, 0.22);
 
-  --bg-tertiary: #e4e7eb;
-  --shadow-accent: rgba(79, 62, 227, 0.15);
-  --shadow-accent-strong: rgba(79, 62, 227, 0.3);
   color-scheme: light;
 }
 
