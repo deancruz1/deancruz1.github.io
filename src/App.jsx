@@ -11,6 +11,7 @@ import {
 import Background from "./components/Background";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { PageSpinner, ProjectSkeleton } from "./components/PageFallbacks";
 
 // Each page's code is its own file, so a visitor only downloads the page
 // they open. scripts/prerender-meta.mjs adds the matching preload to each page.
@@ -43,9 +44,11 @@ const skipToContent = (e) => {
 
 function App() {
   // At build time scripts/prerender-meta.mjs sets which page to render
+  // Navigations skip React transitions, so a page that is still loading shows
+  // its fallback instead of leaving the old page frozen on screen
   const routerProps =
     typeof window !== "undefined"
-      ? {}
+      ? { useTransitions: false }
       : { initialEntries: [globalThis.__prerenderPath ?? "/"] };
 
   return (
@@ -65,12 +68,19 @@ function App() {
         <Navbar />
 
         <div className="grow outline-none" id="content" tabIndex={-1}>
-          <Suspense fallback={null}>
+          <Suspense fallback={<PageSpinner />}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/info" element={<Info />} />
               <Route path="/projects" element={<Navigate to="/" replace />} />
-              <Route path="/projects/:slug" element={<ProjectDetail />} />
+              <Route
+                path="/projects/:slug"
+                element={
+                  <Suspense fallback={<ProjectSkeleton />}>
+                    <ProjectDetail />
+                  </Suspense>
+                }
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
