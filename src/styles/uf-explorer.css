@@ -48,6 +48,42 @@
   border-radius: 28px;
 }
 
+/* The story bar doubles as a timer: it fills, then the next chapter opens */
+.uf-bar.story-bar {
+  overflow: hidden;
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  box-shadow: none;
+}
+
+.story-bar-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+  transform-origin: top;
+  animation: storyFill 7s linear both;
+}
+
+.uf-story[data-paused="true"] .story-bar-fill {
+  animation-play-state: paused;
+}
+
+@keyframes storyFill {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-bar-fill {
+    animation: none;
+  }
+}
+
 .uf.uf-story .uf-frame.story-frame {
   aspect-ratio: auto;
   height: 100%;
@@ -144,7 +180,7 @@
 .uf-cap {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 8px 16px;
   margin-top: 12px;
   font-size: 13px;
@@ -269,7 +305,7 @@
   }
 
   .uf.uf-story .uf-frame.story-frame {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
     height: auto;
     min-height: 0;
   }

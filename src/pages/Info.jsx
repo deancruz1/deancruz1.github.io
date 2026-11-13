@@ -3,36 +3,29 @@ import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
-import foundations01 from "../assets/img/project-gallery/portfolio-website/01.webp";
-import foundations02 from "../assets/img/project-gallery/portfolio-website/02.webp";
-import foundations03 from "../assets/img/project-gallery/portfolio-website/03.webp";
-import foundations04 from "../assets/img/project-gallery/portfolio-website/04.webp";
+import StoryScene from "../components/StoryScenes";
 import { xpEntries } from "../data/work-experience";
 import "../styles/uf-explorer.css";
 import "./Info.css";
 
 const STORY_ITEMS = [
   {
-    image: foundations01,
-    alt: "Foundations (2023) moonlit mountain hero",
+    scene: "foundations",
     title: "Where it started: Foundations ('23)",
     body: "My first portfolio site with the moonlit mountain hero—built to learn semantic HTML, CSS and Bootstrap, and picked by Republic Polytechnic faculty as the cohort reference for code structure.",
   },
   {
-    image: foundations03,
-    alt: "Foundations About section with diploma achievements",
+    scene: "medal",
     title: "Top of cohort & IMDA Gold Medal",
     body: "Graduated with a 3.97 GPA and the IMDA Gold Medal at RP, automated 800+ banking test cases at OCBC, and joined NCS Group's Fusion Work-Study Programme.",
   },
   {
-    image: foundations02,
-    alt: "Early front-end builds including 86 Eighty-Six fansite and Shrine of Suisei",
+    scene: "builds",
     title: "100-hour JRPGs & anime side builds",
     body: "Even back on Foundations, my earliest sites were an 86 Eighty-Six fansite and a Hoshimachi Suisei page. That same itch grew into Kiroku, Urara, and Oshiwatch.",
   },
   {
-    image: foundations04,
-    alt: "Individual project breakdown from Foundations portfolio",
+    scene: "flows",
     title: "Design flows to production SQL",
     body: "From wiring 40-screen mobile prototypes in Adobe XD to tuning 1,600+ MyBatis queries at NCS, I care equally about tactile UI and clean data models underneath.",
   },
@@ -68,6 +61,23 @@ export default function Info() {
   const storyNotesRef = useRef(null);
   const storyItemRefs = useRef([]);
   const [storyBarStyle, setStoryBarStyle] = useState({ height: 0, transform: "translateY(0px)" });
+
+  // The story moves to the next chapter on its own, but holds while you're
+  // hovering or focused on it, or while it's off screen
+  const storyRef = useRef(null);
+  const [storyHeld, setStoryHeld] = useState(false);
+  const [storyInView, setStoryInView] = useState(false);
+  const storyPaused = storyHeld || !storyInView;
+
+  useEffect(() => {
+    const el = storyRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return undefined;
+    const observer = new IntersectionObserver(([entry]) => setStoryInView(entry.isIntersecting), {
+      threshold: 0.4,
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const xpContainerRef = useRef(null);
   const xpItemRefs = useRef({});
@@ -179,13 +189,29 @@ export default function Info() {
         </section>
 
         <section className="uf-section" aria-label="Story and background">
-          <div className="uf uf-story">
+          <div
+            ref={storyRef}
+            className="uf uf-story"
+            data-paused={storyPaused}
+            onMouseEnter={() => setStoryHeld(true)}
+            onMouseLeave={() => setStoryHeld(false)}
+            onFocus={() => setStoryHeld(true)}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget)) setStoryHeld(false);
+            }}
+          >
             <div className="uf-frame story-frame">
-              <img className="full-fit" src={activeStory.image} alt={activeStory.alt} />
+              <StoryScene key={storyIndex} scene={activeStory.scene} />
             </div>
 
             <div className="uf-notes" ref={storyNotesRef}>
-              <div className="uf-bar" style={storyBarStyle} aria-hidden="true" />
+              <div className="uf-bar story-bar" style={storyBarStyle} aria-hidden="true">
+                <span
+                  key={storyIndex}
+                  className="story-bar-fill"
+                  onAnimationEnd={() => setStoryIndex((storyIndex + 1) % STORY_ITEMS.length)}
+                />
+              </div>
               {STORY_ITEMS.map((item, index) => (
                 <button
                   key={item.title}
