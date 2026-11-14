@@ -12,6 +12,25 @@ import kirokuImg from "../assets/img/project-cards/kiroku.webp";
 import kirokuVideo from "../assets/videos/kiroku.mp4";
 import uraraImg from "../assets/img/project-cards/urara.webp";
 import uraraVideo from "../assets/videos/urara.mp4";
+import uraraLoopTheme from "../assets/videos/highlights/urara/loop-01-theme-toggle.mp4";
+import uraraLoopSearch from "../assets/videos/highlights/urara/loop-02-character-search.mp4";
+import uraraLoopOutfits from "../assets/videos/highlights/urara/loop-03-outfits.mp4";
+import uraraLoopSong from "../assets/videos/highlights/urara/loop-04-song-preview.mp4";
+import uraraLoopNews from "../assets/videos/highlights/urara/loop-05-news-post.mp4";
+import uraraMobileMusic from "../assets/img/highlights/urara/mobile-03-music.webp";
+import uraraBeforeHome from "../assets/img/before-after/urara/before-01-home.webp";
+import uraraAfterHome from "../assets/img/before-after/urara/after-01-home.webp";
+import uraraBeforeCharacter from "../assets/img/before-after/urara/before-02-character.webp";
+import uraraAfterCharacter from "../assets/img/before-after/urara/after-02-character.webp";
+import uraraBeforeMusic from "../assets/img/before-after/urara/before-03-music.webp";
+import uraraAfterMusic from "../assets/img/before-after/urara/after-03-music.webp";
+import uraraBeforeNews from "../assets/img/before-after/urara/before-04-news.webp";
+import uraraAfterNews from "../assets/img/before-after/urara/after-04-news.webp";
+import uraraBeforeCard from "../assets/img/before-after/urara/before-card.webp";
+import uraraBeforeVideo from "../assets/videos/before-after/urara/before-walkthrough.mp4";
+import uraraDeepLinksSvg from "../assets/diagrams/urara/diagram-deep-links.svg?raw";
+import uraraPrerenderSvg from "../assets/diagrams/urara/diagram-prerender.svg?raw";
+import uraraThemeToggleSvg from "../assets/diagrams/urara/diagram-theme-toggle.svg?raw";
 import skillforgeImg from "../assets/img/project-cards/skillforge.webp";
 import skillforgeVideo from "../assets/videos/skillforge.mp4";
 import oshiwatchImg from "../assets/img/project-cards/oshiwatch.webp";
@@ -405,82 +424,175 @@ export const projects = [
     {
     title: "Urara",
     description:
-      "A fan guide to Umamusume Pretty Derby with character profiles, music previews, news and birthdays.",
+      "A fan guide to Umamusume Pretty Derby with character profiles, song previews, official news and birthdays.",
     stageMeta: {
-      stack: "React, '25",
-      summary: "An Umamusume guide that translates Japanese profiles on demand.",
+      stack: "React, '26",
+      summary: "An Umamusume guide where every character and song page is pre-rendered, so search engines get real pages from a static host.",
       glow: "glow-urara",
       alt: "Urara character guide",
     },
     features: [
       "Character profiles",
-      "Translation",
-      "Music browser",
+      "Music previews",
       "News feed",
-      "Birthday calendar",
-      "Accent colours",
+      "Birthday countdown",
+      "Weekly featured field",
+      "Pre-rendered pages",
+      "Light and dark themes",
     ],
-    tags: ["React", "TypeScript", "TanStack Query", "Tailwind", "Framer Motion"],
+    tags: ["React", "TypeScript", "TanStack Query", "Tailwind", "React DOM Server"],
     image: uraraImg,
     liveDemo: "https://deancruz1.github.io/Urara/",
     github: "https://github.com/deancruz1/Urara",
     slug: "urara",
-    notes: {
+    facts: {
+      role: "Solo: design, frontend, build tooling, deployment",
+      timeline: "2 weeks, May to June 2026; rebuilt in November 2026",
+      status: "Live, rebuilt in November 2026",
+    },
+    highlights: {
+      summary: "Each character and singer has its own page that arrives as finished HTML, and the site is laid out like a Japanese race card.",
+      items: [
+        { video: uraraLoopTheme, caption: "Switching themes plays a gate break: eight lanes in the gate colours race across as the new theme slides in" },
+        { video: uraraLoopSearch, caption: "Search by English name, Japanese name or category, and each result is its own address" },
+        { video: uraraLoopOutfits, caption: "Outfit sets in tabs, with an enlarged view" },
+        { video: uraraLoopSong, caption: "Song previews with the full list of singers; only one sound plays at a time" },
+        { video: uraraLoopNews, caption: "News posts open in a dialog and have their own link" },
+        { image: uraraMobileMusic, portrait: true, caption: "On phones the singer filter becomes a scroll row" },
+      ],
+    },
+    constraints: [
+      ["GitHub Pages serves static files only", "There is no server to render a page when it's requested, so anything a crawler sees has to exist as a file at build time."],
+      ["Umapyoi is the only data source", "It has no auth and no write access, and some profiles have no English translation yet, so those pages say so instead of showing blanks."],
+      ["No new dependencies for pre-rendering", "I wanted to keep the plain Vite app, so the build uses React DOM's own server renderer and a Node script."],
+      ["The site lives under /Urara/", "Every route, link and canonical URL has to carry that base path."],
+    ],
+    diagrams: {
       decisions: [
-        ["TanStack Query", "Caching, refetching and loading states without a useEffect chain per call."],
-        ["Umapyoi API", "Free, no auth, and covers characters, music and news."],
-        ["MyMemory API", "Translates Japanese profile text without an API key."],
-        ["GitHub Pages", "Everything runs in the browser, so static hosting is enough."],
+        { svg: uraraDeepLinksSvg, caption: "What a crawler gets when it opens a character page: a pre-rendered file that answers 200" },
+        { svg: uraraPrerenderSvg, caption: "How the build renders a page, fetches what it asked for and renders again" },
       ],
       hard: [
-        "Rendering the raw HTML the news API returns without opening an XSS hole.",
-        "One character filter that's a sidebar on desktop and a scroll row on phones.",
-        "A single shared audio player, so only one music preview plays at a time.",
+        { svg: uraraThemeToggleSvg, caption: "The theme toggle I wanted (staircase edge) and the one that ships (straight edge)" },
       ],
-      next: "Pre-render character and music pages so search engines can index them.",
+    },
+    callouts: {
+      decisions: "GitHub Pages already serves /a/b from a/b.html. Once I knew that, pre-rendering on a static host was just writing the right files.",
+      hard: "The theme toggle was meant to have a staircase edge. Animating it with clip-path fell behind on a 4K screen, so the shipped version has a straight edge, and the problem is written up for later.",
+    },
+    beforeAfter: [
+      { label: "Home", caption: "The home page", before: uraraBeforeHome, after: uraraAfterHome, ratio: "16 / 9" },
+      { label: "Character page", caption: "A character page (T.M. Opera O)", before: uraraBeforeCharacter, after: uraraAfterCharacter, ratio: "16 / 9" },
+      { label: "Music page", caption: "The music page (Aston Machan)", before: uraraBeforeMusic, after: uraraAfterMusic, ratio: "16 / 9" },
+      { label: "News page", caption: "The news page", before: uraraBeforeNews, after: uraraAfterNews, ratio: "16 / 9" },
+      { label: "Walkthrough", caption: "The walkthrough", before: uraraBeforeVideo, after: uraraVideo, video: true, ratio: "16 / 10" },
+      { label: "Card", caption: "The card thumbnail on the Work page", before: uraraBeforeCard, after: uraraImg, ratio: "1848 / 841" },
+    ],
+    outcomes: [
+      {
+        from: "3 of 4",
+        to: "0",
+        detail: "Main pages that answered 404. Before, only / returned 200. Now /characters, /music and /news, plus pages like /characters/king-halo and /music/haru-urara, return 200 with their own title.",
+        source: "curl against the live site before and after the deploy, 14 Nov 2026",
+      },
+      {
+        from: "4",
+        to: "354",
+        detail: "URLs in the sitemap.",
+        source: "Counted in public/sitemap.xml before and dist/sitemap.xml after, 14 Nov 2026",
+      },
+      {
+        from: "448.9 kB",
+        to: "370.2 kB",
+        detail: "The JavaScript bundle, or 138.0 kB to 117.0 kB gzipped. Framer Motion was removed in the rebuild.",
+        source: "The old build at commit fbed7f2 against the current one, gzip -9, 14 Nov 2026",
+      },
+      {
+        from: "1,349 MB",
+        to: "101.9 MB",
+        detail: "Total HTML for the 354 pre-rendered pages, before and after keeping only each page's own data.",
+        source: "Reported by the pre-render script, 14 Nov 2026",
+      },
+      {
+        value: "About 35 KB",
+        detail: "One character page gzipped (king-halo), data included.",
+        source: "gzip on the built file, 14 Nov 2026",
+      },
+      {
+        value: "36",
+        detail: "Unit tests across dates, birthdays, the weekly shuffle, redirects, sanitising and the pre-render HTML step.",
+        source: "vitest, 14 Nov 2026",
+      },
+    ],
+    takeaways: [
+      "Check what a crawler actually gets. The site looked fine in a browser while three of its four main pages answered 404.",
+      "Measure the output, not just the code. The pre-render worked first time and was still 13 times too big.",
+      "When an animation stutters, find out which part of it is expensive before adding tricks.",
+    ],
+    notes: {
+      decisions: [
+        ["Pre-render with React DOM's server renderer in a build script", "GitHub Pages serves /characters/king-halo from characters/king-halo.html, so writing one file per route gives every page a 200 and real content without a server or a framework."],
+        ["Render each page more than once", "A profile page doesn't know which profile to ask for until the character list has loaded, so the script renders, fetches whatever the page asked for, and renders again until nothing new is needed."],
+        ["Ship only the data each page used", "The browser picks up from the build's data with no loading flash, and each page carries only its own queries, not the whole site's."],
+        ["Slugs instead of ?id=", "/characters/king-halo reads better and can be pre-rendered; old ?id= links still redirect to the new address."],
+      ],
+      hard: [
+        "My first pre-render shipped every page's data inside every page, and the build came to 1,349 MB.",
+        "Working out which queries a page really used, not just which ones were already in the cache.",
+        "The staircase edge I wanted on the theme toggle stuttered on a 4K screen, so I shipped a straight edge and wrote up the problem.",
+        "Keeping the scroll position when you pick a character, now that each one is a new address.",
+      ],
+      next: "Rebuild the theme toggle's staircase edge from transforms only, one lane at a time, instead of one full-screen clip-path.",
     },
     overview: [
-      "Urara is a fan guide to Umamusume Pretty Derby: character profiles with voice samples and galleries, a music browser with previews, a news feed and a birthday calendar.",
-      "Umamusume info was spread across wikis and playlists, so I put it in one place. It's a React app on the Umapyoi API, and Japanese profile text can be translated on demand.",
+      "Urara is a fan guide to Umamusume Pretty Derby. You can browse all 175 characters with their profiles, official colours, voice lines and outfit art, play song previews filtered by singer, read the official news, and see whose birthday is next.",
+      "Umamusume info was spread across wikis and playlists, so I put it in one place. It's a React and TanStack Query app on the community Umapyoi API, hosted on GitHub Pages. In the November rebuild I gave it a race-card design and a dark theme, and made the build render every page to static HTML so search engines can index them.",
     ],
     heroVideo: uraraVideo,
     annotatedScreen: {
-      image: uraraGalleryImages[1],
+      image: uraraGalleryImages[3],
       caption: "Urara · a character page",
-      view: [0, 0, 1200, 675],
+      view: [0, 0, 1200, 750],
       baseWidth: 1200,
       notes: [
         {
-          title: "All data through TanStack Query",
-          body: "Everything comes from the Umapyoi API. TanStack Query handles caching, background refetching and loading states, which is cleaner than a useEffect chain for every call.",
-        },
-        {
-          title: "Translated on demand",
-          body: "Part of the API only returns Japanese. A profile is translated through the MyMemory API when you ask for it, the result is cached, and a toggle goes back to the original.",
-          rect: [146, 156, 518, 272],
+          title: "Every character has an address",
+          body: "The list links to /characters/tm-opera-o and so on, and each of those is a pre-rendered page with its own title, description and preview tags.",
+          rect: [120, 83, 250, 667],
           tag: "tl",
         },
         {
-          title: "One colour per character",
-          body: "Each character's primary colour drives the buttons, borders and highlights on their page. Components take it as a prop, so nothing is hardcoded.",
-          rect: [822, 172, 212, 24],
-          tag: "l",
+          title: "Official colours from the API",
+          body: "The two blocks are the character's main and sub colours as Umapyoi lists them, not colours I picked.",
+          rect: [397, 83, 683, 170],
+          tag: "tl",
         },
         {
-          title: "Two layouts for one filter",
-          body: "A vertical sidebar on desktop and a horizontal scroll row on phones.",
-          rect: [2, 30, 132, 643],
-          tag: "tr",
+          title: "Outfits by set",
+          body: "Uniform, racewear and concept art sit in tabs, and clicking an outfit opens it larger in a dialog.",
+          rect: [397, 277, 303, 473],
+          tag: "tl",
+        },
+        {
+          title: "English and Japanese labels",
+          body: "Every profile row pairs the Japanese label with the English one, like a real race programme, and Japanese text is marked for screen readers.",
+          rect: [727, 277, 353, 329],
+          tag: "tl",
         },
       ],
     },
     gallery: uraraGalleryImages.map((image, i) => ({
       image,
       caption: [
-        "Home Page",
-        "Characters Page",
-        "Music Page",
-        "News Page",
+        "The home page: title block and key art",
+        "Days to the next birthday and the six dates after it",
+        "This week's field, in the eight gate colours",
+        "A character page: list, official colours, outfits and profile",
+        "Songs by one singer, with previews",
+        "The latest official news",
+        "A news post in a dialog",
+        "The home page in the dark theme",
+        "A character page in the dark theme",
       ][i],
     })),
   },

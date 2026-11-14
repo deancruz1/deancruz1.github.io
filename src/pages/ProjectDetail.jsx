@@ -10,7 +10,7 @@ import {
 } from "../data/project-info-home.jsx";
 import "./ProjectDetail.css";
 
-function HeroVideo({ src, poster, label }) {
+function HeroVideo({ src, poster, label, className = "pd-media-el", preload = "none" }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -31,15 +31,163 @@ function HeroVideo({ src, poster, label }) {
   return (
     <video
       ref={ref}
-      className="pd-media-el"
+      className={className}
       src={src}
       poster={poster}
       aria-label={label}
-      preload="none"
+      preload={preload}
       loop
       muted
       playsInline
     />
+  );
+}
+
+function FigureCaption({ text }) {
+  return <figcaption className="pd-cap">{text}</figcaption>;
+}
+
+function Callout({ lead, text }) {
+  return (
+    <section className="pd-callout">
+      <p className="pd-callout-text">
+        {lead && <span className="pd-callout-lead">{lead} </span>}
+        {text}
+      </p>
+    </section>
+  );
+}
+
+function DiagramFigure({ svg, caption }) {
+  return (
+    <figure className="pd-figure pd-diagram-figure">
+      {/* Inlined so the drawing picks up the theme's text colour */}
+      <div className="pd-diagram" dangerouslySetInnerHTML={{ __html: svg }} />
+      <FigureCaption text={caption} />
+    </figure>
+  );
+}
+
+function Highlights({ highlights }) {
+  const stripRef = useRef(null);
+  const [index, setIndex] = useState(0);
+  const [atEnd, setAtEnd] = useState(false);
+  const total = highlights.items.length;
+
+  const stepWidth = () => {
+    const strip = stripRef.current;
+    const first = strip.firstElementChild;
+    return first.getBoundingClientRect().width + parseFloat(getComputedStyle(strip).columnGap || 0);
+  };
+
+  const onScroll = () => {
+    const strip = stripRef.current;
+    const end = strip.scrollLeft >= strip.scrollWidth - strip.clientWidth - 2;
+    setAtEnd(end);
+    setIndex(end ? total - 1 : Math.round(strip.scrollLeft / stepWidth()));
+  };
+
+  const move = (dir) => stripRef.current.scrollBy({ left: dir * stepWidth(), behavior: "smooth" });
+
+  return (
+    <section className="pd-highlights" id="highlights" aria-label="Highlights">
+      <div className="pd-hl-head">
+        <p className="pd-hl-lead">{highlights.summary}</p>
+      </div>
+
+      <div className="pd-hl-controls">
+        <span>
+          {index + 1} / {total}
+        </span>
+        <button type="button" aria-label="Previous highlight" disabled={index === 0} onClick={() => move(-1)}>
+          ‹
+        </button>
+        <button type="button" aria-label="Next highlight" disabled={atEnd} onClick={() => move(1)}>
+          ›
+        </button>
+      </div>
+
+      <div className="pd-hl-strip" ref={stripRef} onScroll={onScroll}>
+        {highlights.items.map((item, idx) => (
+          <figure key={item.caption} className="pd-hl-item">
+            <div className="pd-frame">
+              {item.video ? (
+                <HeroVideo className="" src={item.video} label={item.caption} preload="metadata" />
+              ) : (
+                <img
+                  className={item.portrait ? "portrait" : undefined}
+                  src={item.image}
+                  alt={item.caption}
+                  loading="lazy"
+                />
+              )}
+            </div>
+            <FigureCaption text={item.caption} />
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function BeforeAfter({ pairs }) {
+  const [active, setActive] = useState(0);
+  const [pos, setPos] = useState(50);
+  const pair = pairs[active];
+
+  const media = (src, label) =>
+    pair.video ? (
+      <HeroVideo className="" src={src} label={label} preload="metadata" />
+    ) : (
+      <img src={src} alt={label} loading="lazy" draggable="false" />
+    );
+
+  return (
+    <section className="pd-panel pd-ba" id="before-and-after" aria-label="Before and after">
+      <div className="pd-ba-tabs">
+        {pairs.map((p, idx) => (
+          <button
+            key={p.label}
+            type="button"
+            className={idx === active ? "active" : undefined}
+            aria-pressed={idx === active}
+            onClick={() => {
+              setActive(idx);
+              setPos(50);
+            }}
+          >
+            {p.label}
+          </button>
+        ))}
+      </div>
+
+      <figure className="pd-figure">
+        <div
+          key={active}
+          className="pd-ba-compare"
+          style={{ aspectRatio: pair.ratio, "--pos": `${pos}%` }}
+        >
+          <div className="pd-ba-layer">{media(pair.after, `After: ${pair.caption}`)}</div>
+          <div className="pd-ba-layer pd-ba-before">{media(pair.before, `Before: ${pair.caption}`)}</div>
+          <input
+            className="pd-ba-range"
+            type="range"
+            min="0"
+            max="100"
+            value={pos}
+            onChange={(e) => setPos(Number(e.target.value))}
+            aria-label={`Compare before and after: ${pair.caption}`}
+          />
+          <div className="pd-ba-handle" aria-hidden="true" />
+          <span className="pd-ba-tag start" aria-hidden="true">
+            Before
+          </span>
+          <span className="pd-ba-tag end" aria-hidden="true">
+            After
+          </span>
+        </div>
+      </figure>
+    </section>
   );
 }
 
@@ -65,7 +213,6 @@ function ContentsNav({ sections }) {
 
   return (
     <nav className="pd-toc" aria-label="On this page">
-      <p>Contents</p>
       <ul>
         {sections.map(({ id, label }) => (
           <li key={id}>
@@ -87,12 +234,18 @@ function ContentsNav({ sections }) {
 function ProjectDetailBody({ project }) {
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const gallery = project.gallery || [];
+  const hasTakeaways = project.takeaways?.length > 0;
   const [sections] = useState(() =>
     [
+      project.highlights && { id: "highlights", label: "Highlights" },
       { id: "overview", label: "Overview" },
+      project.constraints?.length > 0 && { id: "constraints", label: "Constraints" },
       project.annotatedScreen && { id: "under-the-interface", label: "Under the interface" },
       project.notes && { id: "decisions", label: "Decisions" },
-      project.notes && { id: "what-was-hard", label: "What was hard" },
+      project.notes && { id: "what-was-hard", label: "Challenges" },
+      project.beforeAfter?.length > 0 && { id: "before-and-after", label: "Before and after" },
+      project.outcomes?.length > 0 && { id: "outcomes", label: "Outcomes" },
+      hasTakeaways && { id: "takeaways", label: "Takeaways" },
       gallery.length > 0 && { id: "screens", label: "Screens" },
       { id: "next-project", label: "Next project" },
     ].filter(Boolean),
@@ -158,6 +311,23 @@ function ProjectDetailBody({ project }) {
               </a>
             )}
           </div>
+
+          {project.facts && (
+            <dl className="pd-meta">
+              {[
+                ["Role", project.facts.role],
+                ["Timeline", project.facts.timeline],
+                ["Status", project.facts.status],
+              ]
+                .filter(([, value]) => value)
+                .map(([term, value]) => (
+                  <div key={term}>
+                    <dt>{term}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+            </dl>
+          )}
         </header>
 
         <section className="pd-hero-media" aria-label={`${project.title} preview`}>
@@ -172,6 +342,8 @@ function ProjectDetailBody({ project }) {
             </div>
           </div>
         </section>
+
+        {project.highlights && <Highlights highlights={project.highlights} />}
 
         <section className="pd-overview" id="overview">
           <dl className="pd-facts">
@@ -205,6 +377,21 @@ function ProjectDetailBody({ project }) {
           </div>
         </section>
 
+        {project.constraints?.length > 0 && (
+          <section className="pd-chapter" id="constraints" aria-labelledby="pd-constraints-heading">
+            <div className="pd-chapter-head">
+              <h2 id="pd-constraints-heading">Constraints</h2>
+            </div>
+            <ul className="pd-rows">
+              {project.constraints.map(([limit, detail]) => (
+                <li key={limit}>
+                  <b>{limit}.</b> {detail}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         {project.annotatedScreen && (
           <section className="pd-panel" id="under-the-interface">
             <AnnotatedScreenInspector key={project.slug} project={project} />
@@ -215,8 +402,7 @@ function ProjectDetailBody({ project }) {
           <>
             <section className="pd-chapter" id="decisions" aria-labelledby="pd-decisions-heading">
               <div className="pd-chapter-head">
-                <p className="pd-overline">Decisions</p>
-                <h2 id="pd-decisions-heading">Why it&apos;s built this way.</h2>
+                <h2 id="pd-decisions-heading">Decisions</h2>
               </div>
               <ul className="pd-rows">
                 {project.notes.decisions.map(([choice, why]) => (
@@ -227,10 +413,18 @@ function ProjectDetailBody({ project }) {
               </ul>
             </section>
 
+            {project.diagrams?.decisions?.map((d) => (
+              <DiagramFigure
+                key={d.caption}
+                svg={d.svg}
+                caption={d.caption}
+              />
+            ))}
+            {project.callouts?.decisions && <Callout text={project.callouts.decisions} />}
+
             <section className="pd-chapter" id="what-was-hard" aria-labelledby="pd-hard-heading">
               <div className="pd-chapter-head">
-                <p className="pd-overline">What was hard</p>
-                <h2 id="pd-hard-heading">The parts that fought back.</h2>
+                <h2 id="pd-hard-heading">Challenges</h2>
               </div>
               <ol className="pd-rows numbered">
                 {project.notes.hard.map((item) => (
@@ -239,18 +433,71 @@ function ProjectDetailBody({ project }) {
               </ol>
             </section>
 
-            {project.notes.next && (
-              <section className="pd-callout">
-                <p className="pd-overline">If I picked it back up</p>
-                <p className="pd-callout-text">{project.notes.next}</p>
-              </section>
+            {project.diagrams?.hard?.map((d) => (
+              <DiagramFigure
+                key={d.caption}
+                svg={d.svg}
+                caption={d.caption}
+              />
+            ))}
+            {project.callouts?.hard && <Callout text={project.callouts.hard} />}
+
+            {/* With takeaways, this line closes that section instead */}
+            {project.notes.next && !hasTakeaways && (
+              <Callout lead="If I picked it back up." text={project.notes.next} />
             )}
           </>
         )}
 
+        {project.beforeAfter?.length > 0 && (
+          <BeforeAfter pairs={project.beforeAfter} />
+        )}
+
+        {project.outcomes?.length > 0 && (
+          <section className="pd-chapter" id="outcomes" aria-labelledby="pd-outcomes-heading">
+            <div className="pd-chapter-head">
+              <h2 id="pd-outcomes-heading">Outcomes</h2>
+            </div>
+            <ul className="pd-outcomes">
+              {project.outcomes.map((o) => (
+                <li key={o.detail}>
+                  <p className="v">
+                    {o.value ?? (
+                      <>
+                        {o.from} <span>to</span> {o.to}
+                      </>
+                    )}
+                  </p>
+                  <p className="d">{o.detail}</p>
+                  <p className="s">{o.source}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {hasTakeaways && (
+          <section className="pd-chapter" id="takeaways" aria-labelledby="pd-takeaways-heading">
+            <div className="pd-chapter-head">
+              <h2 id="pd-takeaways-heading">Takeaways</h2>
+            </div>
+            <div>
+              <ol className="pd-rows numbered">
+                {project.takeaways.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ol>
+              {project.notes?.next && (
+                <p className="pd-next-line">
+                  <b>If I picked it back up.</b> {project.notes.next}
+                </p>
+              )}
+            </div>
+          </section>
+        )}
+
         {gallery.length > 0 && (
           <section className="pd-panel pd-screens" id="screens" aria-label="Screenshots">
-            <p className="pd-overline">Screens</p>
             <div className={`pd-figures${project.galleryPortrait ? " portrait" : ""}`}>
               {gallery.map((shot, idx) => (
                 <figure key={shot.caption || idx} className="pd-figure">
@@ -266,7 +513,6 @@ function ProjectDetailBody({ project }) {
                       loading="lazy"
                     />
                   </button>
-                  <figcaption>0.{idx + 1}</figcaption>
                 </figure>
               ))}
             </div>

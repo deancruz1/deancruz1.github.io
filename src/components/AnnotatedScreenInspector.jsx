@@ -86,7 +86,7 @@ export default function AnnotatedScreenInspector({ project }) {
     <section className="uf-section pd-inspector-section" aria-labelledby="inspector-heading">
       <div className="xp-head">
         <h2 className="xp-title" id="inspector-heading">
-          What&apos;s under the interface
+          Under the interface
         </h2>
       </div>
 
@@ -94,7 +94,7 @@ export default function AnnotatedScreenInspector({ project }) {
         <div>
           <div
             className={`uf-frame${screen.portrait ? " portrait" : ""}`}
-            style={screen.portrait ? { aspectRatio: `${screen.view[2]} / ${screen.view[3]}` } : undefined}
+            style={{ aspectRatio: `${screen.view[2]} / ${screen.view[3]}` }}
           >
             <img
               className="pan-fit"

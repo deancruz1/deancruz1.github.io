@@ -35,15 +35,6 @@
   }
 }
 
-.pd-toc p {
-  margin: 0 0 16px;
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
 .pd-toc ul {
   margin: 0;
   padding: 0;
@@ -83,7 +74,12 @@
 #decisions,
 #what-was-hard,
 #screens,
-#next-project {
+#next-project,
+#highlights,
+#constraints,
+#before-and-after,
+#outcomes,
+#takeaways {
   scroll-margin-top: 110px;
 }
 
@@ -166,6 +162,38 @@ html[data-theme="foundations"] .pd-link-primary {
   transform: translateY(-1px);
 }
 
+/* Role, timeline and status under the links */
+.pd-meta {
+  display: flex;
+  justify-content: center;
+  margin: 18px 0 0;
+}
+
+.pd-meta > div {
+  max-width: 250px;
+  padding: 0 28px;
+  text-align: left;
+  border-left: 1px solid var(--border-hairline);
+}
+
+.pd-meta > div:first-child {
+  border-left: 0;
+}
+
+.pd-meta dt {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+.pd-meta dd {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
 .pd-hero-media .pd-media-el {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -235,6 +263,10 @@ html[data-theme="foundations"] .pd-link-primary {
   border: 1px solid var(--border-outer);
 }
 
+.pd-chapter + .pd-panel {
+  margin-top: 72px;
+}
+
 .pd-panel .pd-inspector-section {
   margin-top: 0;
 }
@@ -245,11 +277,11 @@ html[data-theme="foundations"] .pd-link-primary {
 }
 
 .pd-panel .xp-title {
-  font-size: 12px;
+  font-size: clamp(24px, 2.4vw, 32px);
   font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--text-bright);
 }
 
 .pd-figures {
@@ -261,11 +293,6 @@ html[data-theme="foundations"] .pd-link-primary {
 /* The screenshots get their own panel after the engineering notes */
 .pd-screens {
   margin-top: 72px;
-}
-
-.pd-screens > .pd-overline {
-  justify-content: center;
-  margin-bottom: 32px;
 }
 
 .pd-figures.portrait {
@@ -305,15 +332,340 @@ html[data-theme="foundations"] .pd-link-primary {
   display: block;
 }
 
-.pd-figure figcaption {
-  margin-top: 10px;
-  text-align: right;
+.pd-cap {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-dim);
+  text-align: left;
+}
+
+.pd-frame {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--border-outer);
+  background: var(--surface-inner);
+}
+
+.pd-frame video,
+.pd-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pd-frame img.portrait {
+  box-sizing: border-box;
+  padding: 16px 0;
+  object-fit: contain;
+}
+
+/* Highlights: a summary line, then a strip of short loops */
+.pd-highlights {
+  margin-top: 112px;
+}
+
+.pd-hl-head {
+  max-width: 760px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.pd-hl-lead {
+  margin: 0;
+  font-size: clamp(20px, 2.1vw, 26px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: var(--text-bright);
+  text-wrap: balance;
+}
+
+.pd-hl-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 
-/* Engineering chapters: small label and heading on the left, rows on the right */
+.pd-hl-controls span {
+  margin-right: 6px;
+}
+
+.pd-hl-controls button {
+  all: unset;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid var(--border-outer);
+  font-size: 18px;
+  line-height: 1;
+  color: var(--text-bright);
+  cursor: pointer;
+  transition: border-color 0.18s ease, opacity 0.18s ease;
+}
+
+.pd-hl-controls button:hover:not(:disabled) {
+  border-color: var(--text-dim);
+}
+
+.pd-hl-controls button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pd-hl-controls button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.pd-hl-strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 24px) / 2.2);
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.pd-hl-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.pd-hl-item {
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+/* Diagrams draw in currentColor, so they follow the theme */
+.pd-diagram-figure {
+  margin-top: 48px;
+}
+
+.pd-diagram {
+  padding: 36px 40px;
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid var(--border-outer);
+  background: var(--surface-inner);
+  color: var(--text-dim);
+}
+
+.pd-diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 680px;
+}
+
+/* Before and after: one slider, tabs to pick the pair */
+.pd-ba {
+  margin-top: 72px;
+}
+
+.pd-ba-tabs {
+  display: flex;
+  gap: 4px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 24px;
+  padding: 4px;
+  overflow-x: auto;
+  border-radius: 999px;
+  border: 1px solid var(--border-outer);
+  scrollbar-width: none;
+}
+
+.pd-ba-tabs button {
+  all: unset;
+  flex: none;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.18s ease, background-color 0.18s ease;
+}
+
+.pd-ba-tabs button:hover {
+  color: var(--text-bright);
+}
+
+.pd-ba-tabs button.active {
+  color: var(--text-bright);
+  background: var(--accent-soft);
+}
+
+.pd-ba-tabs button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.pd-ba-compare {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--border-outer);
+  background: #0c0e14;
+  user-select: none;
+}
+
+.pd-ba-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.pd-ba-layer img,
+.pd-ba-layer video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pd-ba-before {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.pd-ba-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+.pd-ba-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+.pd-ba-handle::after {
+  content: "\2039\00a0\203A";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font-size: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.pd-ba-range:focus-visible ~ .pd-ba-handle::after {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.pd-ba-tag {
+  position: absolute;
+  bottom: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(10, 11, 14, 0.72);
+  color: #f3f4f6;
+  font-size: 12px;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.pd-ba-tag.start {
+  left: 12px;
+}
+
+.pd-ba-tag.end {
+  right: 12px;
+}
+
+/* Outcomes: measured numbers as plain rows, each with its source */
+.pd-outcomes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pd-outcomes li {
+  padding: 22px 0;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.pd-outcomes li:first-child {
+  padding-top: 2px;
+  border-top: 0;
+}
+
+.pd-outcomes p {
+  margin: 0;
+}
+
+.pd-outcomes .v {
+  margin-bottom: 6px;
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-bright);
+}
+
+.pd-outcomes .v span {
+  margin: 0 0.2em;
+  font-size: 0.7em;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.pd-outcomes .d {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.pd-outcomes .s {
+  margin-top: 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.pd-next-line {
+  margin: 20px 0 0;
+  padding: 0 22px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.pd-next-line b {
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
+/* Engineering chapters: heading on the left, rows on the right */
 .pd-chapter {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
@@ -326,27 +678,6 @@ html[data-theme="foundations"] .pd-link-primary {
 .pd-chapter + .pd-chapter {
   border-top: 0;
   margin-top: 24px;
-}
-
-.pd-overline {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 14px;
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.pd-overline::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--text-bright);
-  box-shadow: 0 0 8px var(--accent-glow);
 }
 
 .pd-chapter-head h2 {
@@ -419,8 +750,8 @@ html[data-theme="foundations"] .pd-link-primary {
   border: 1px solid var(--border-outer);
 }
 
-.pd-callout .pd-overline {
-  margin-bottom: 18px;
+.pd-callout-lead {
+  color: var(--text-dim);
 }
 
 .pd-callout-text {
@@ -604,6 +935,45 @@ html[data-theme="dean-light"] .pd-next-card:hover .bezel-inner {
 }
 
 @media (max-width: 900px) {
+  .pd-meta {
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .pd-meta > div {
+    max-width: none;
+    padding: 14px 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--border-hairline);
+  }
+
+  .pd-highlights {
+    margin-top: 72px;
+  }
+
+  .pd-hl-strip {
+    grid-auto-columns: 86%;
+    gap: 14px;
+  }
+
+  .pd-diagram {
+    padding: 20px;
+  }
+
+  .pd-ba {
+    margin-top: 48px;
+  }
+
+  .pd-ba-tabs {
+    margin-left: 0;
+  }
+
+  .pd-next-line {
+    padding: 0 16px;
+  }
+
   .pd-chapter {
     grid-template-columns: minmax(0, 1fr);
     gap: 22px;

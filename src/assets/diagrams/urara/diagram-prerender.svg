@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 410" width="960" height="410" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>How the build pre-renders every page</title>
+  <defs>
+    <marker id="pr-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="currentColor" stroke="none"/>
+    </marker>
+  </defs>
+
+  <g stroke-width="1.5">
+    <rect x="0" y="40" width="170" height="64" rx="4"/>
+    <path d="M170 72 H226" marker-end="url(#pr-arrow)"/>
+    <!-- loop frame -->
+    <rect x="230" y="12" width="500" height="300" rx="6" stroke-dasharray="6 5"/>
+    <rect x="270" y="40" width="190" height="64" rx="4"/>
+    <rect x="520" y="40" width="190" height="64" rx="4"/>
+    <rect x="520" y="200" width="190" height="64" rx="4"/>
+    <rect x="270" y="200" width="190" height="64" rx="4"/>
+    <path d="M460 72 H516" marker-end="url(#pr-arrow)"/>
+    <path d="M615 104 V196" marker-end="url(#pr-arrow)"/>
+    <path d="M520 232 H464" marker-end="url(#pr-arrow)"/>
+    <path d="M365 200 V108" marker-end="url(#pr-arrow)"/>
+    <!-- exit -->
+    <path d="M710 72 H808" marker-end="url(#pr-arrow)"/>
+    <rect x="812" y="40" width="148" height="64" rx="4"/>
+    <!-- shared store -->
+    <rect x="520" y="336" width="190" height="64" rx="4"/>
+    <path d="M615 268 V332" stroke-dasharray="4 4" marker-end="url(#pr-arrow)" marker-start="url(#pr-arrow)"/>
+  </g>
+
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="85" y="68">vite build, then</text>
+    <text x="85" y="88">354 routes</text>
+
+    <text x="365" y="68">Render the route</text>
+    <text x="365" y="88">to HTML (no effects run)</text>
+
+    <text x="615" y="68">Which queries did</text>
+    <text x="615" y="88">it ask for?</text>
+
+    <text x="615" y="228">Fetch the new ones</text>
+    <text x="615" y="248">from Umapyoi</text>
+
+    <text x="365" y="228">Seed them and</text>
+    <text x="365" y="248">render again</text>
+
+    <text x="886" y="68">Write page.html</text>
+    <text x="886" y="88">+ only its data</text>
+
+    <text x="615" y="364">Results shared by</text>
+    <text x="615" y="384">every page in the build</text>
+  </g>
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.8">
+    <text x="736" y="62" font-size="12">nothing new</text>
+    <text x="244" y="284">repeat: a profile page needs the list</text><text x="244" y="302">before it knows which profile to ask for</text>
+  </g>
+</svg>
