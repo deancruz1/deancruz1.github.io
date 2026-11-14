@@ -5,7 +5,9 @@
     <meta name="robots" content="noindex" />
     <script>
       const path = window.location.pathname;
-      window.location.replace(
+      if (decodeURIComponent(path) === "/Dean Cruz Resume.pdf") {
+        window.location.replace(window.location.origin + "/Dean-Cruz-Resume.pdf");
+      } else window.location.replace(
         window.location.origin + "/?p=" + encodeURIComponent(path),
       );
     </script>

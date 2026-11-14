@@ -2,7 +2,7 @@ const personalLinks = {
   email: "deancruzgg@gmail.com",
   github: "https://github.com/deancruz1/",
   linkedin: "https://www.linkedin.com/in/dean-cruz/",
-  resume: "/Dean Cruz Resume.pdf",
+  resume: "/Dean-Cruz-Resume.pdf",
 };
 
 export const socialButtons = [
