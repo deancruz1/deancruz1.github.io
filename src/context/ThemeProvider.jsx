@@ -5,7 +5,9 @@ import { normalizeTheme } from "./themes";
 export const ThemeProvider = ({ children }) => {
   const [theme, setThemeState] = useState(() => {
     if (typeof window !== "undefined") {
-      return normalizeTheme(localStorage.getItem("theme"));
+      const saved = localStorage.getItem("theme");
+      if (saved) return normalizeTheme(saved);
+      return window.matchMedia("(prefers-color-scheme: light)").matches ? "dean-light" : "dean-dark";
     }
     return "dean-dark";
   });

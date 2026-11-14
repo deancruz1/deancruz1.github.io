@@ -51,6 +51,8 @@
           var next = map[raw] || raw;
           if (next === "dean-dark" || next === "foundations" || next === "dean-light") {
             document.documentElement.setAttribute("data-theme", next);
+          } else if (!raw && window.matchMedia("(prefers-color-scheme: light)").matches) {
+            document.documentElement.setAttribute("data-theme", "dean-light");
           }
         } catch (e) {}
       })();

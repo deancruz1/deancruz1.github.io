@@ -1,10 +1,16 @@
+import { useSyncExternalStore } from "react";
 import personalLinks, { socialButtons } from "../data/personal-links";
 import { THEMES } from "../context/themes";
 import { useTheme } from "../hooks/useTheme";
 import "./Footer.css";
 
+const subscribe = () => () => {};
+
 export default function Footer() {
-  const { theme, setTheme } = useTheme();
+  const { theme: savedTheme, setTheme } = useTheme();
+  // Prerendered pages hydrate with the default theme, so the real one is shown after mount
+  const mounted = useSyncExternalStore(subscribe, () => true, () => false);
+  const theme = mounted ? savedTheme : "dean-dark";
   const year = new Date().getFullYear();
 
   return (
