@@ -108,7 +108,7 @@ function Highlights({ highlights }) {
       </div>
 
       <div className="pd-hl-strip" ref={stripRef} onScroll={onScroll}>
-        {highlights.items.map((item, idx) => (
+        {highlights.items.map((item) => (
           <figure key={item.caption} className="pd-hl-item">
             <div className="pd-frame">
               {item.video ? (
