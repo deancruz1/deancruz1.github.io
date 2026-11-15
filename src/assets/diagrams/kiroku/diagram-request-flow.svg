@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>Where a page's show data comes from</title>
+  <defs>
+    <marker id="rf-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="currentColor" stroke="none"/>
+    </marker>
+  </defs>
+
+  <g stroke-width="1.5">
+    <rect x="0" y="40" width="150" height="64" rx="4"/>
+    <path d="M150 72 H196" marker-end="url(#rf-arrow)"/>
+    <rect x="200" y="40" width="200" height="64" rx="4"/>
+    <path d="M400 64 H456" marker-end="url(#rf-arrow)"/>
+    <rect x="460" y="40" width="210" height="64" rx="4"/>
+
+    <path d="M565 104 V176" marker-end="url(#rf-arrow)"/>
+    <rect x="460" y="180" width="210" height="64" rx="4"/>
+    <path d="M670 212 H716" marker-end="url(#rf-arrow)"/>
+    <rect x="720" y="180" width="240" height="64" rx="4"/>
+    <path d="M840 244 V316" marker-end="url(#rf-arrow)"/>
+    <rect x="720" y="320" width="240" height="64" rx="4"/>
+
+    <path d="M760 244 V272 H600 V248" stroke-dasharray="5 4" marker-end="url(#rf-arrow)"/>
+
+    <path d="M400 92 H430 V212 H456" stroke-dasharray="5 4" marker-end="url(#rf-arrow)"/>
+
+    <path d="M250 108 V316" marker-start="url(#rf-arrow)" marker-end="url(#rf-arrow)"/>
+    <rect x="160" y="320" width="230" height="64" rx="4"/>
+  </g>
+
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="75" y="68" font-weight="600">Browser</text>
+    <text x="75" y="88">calls only Kiroku</text>
+
+    <text x="300" y="68" font-weight="600">Next.js server</text>
+    <text x="300" y="88">page or API route</text>
+
+    <text x="565" y="68" font-weight="600">unstable_cache</text>
+    <text x="565" y="88">10 min to 1 day by type</text>
+
+    <text x="565" y="208" font-weight="600">rate-scheduler</text>
+    <text x="565" y="228">3 per 1.1 s, 100 per min</text>
+
+    <text x="840" y="208" font-weight="600">One attempt</text>
+    <text x="840" y="228">4 s timeout, 10 s budget</text>
+
+    <text x="840" y="348" font-weight="600">Tenrai</text>
+    <text x="840" y="368">Jikan v4 schema, MAL ids</text>
+
+    <text x="275" y="348" font-weight="600">Postgres</text>
+    <text x="275" y="368">users, entries, stored shows</text>
+  </g>
+
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.85">
+    <text x="690" y="64">a hit returns the stored reply;</text>
+    <text x="690" y="82">errors and empty replies</text>
+    <text x="690" y="100">are never stored</text>
+    <text x="574" y="146">miss</text>
+
+    <text x="462" y="294">retry on 429, 502 to 504 or a timeout,</text>
+    <text x="462" y="312">backing off from 0.5 s, at most 3 tries</text>
+
+    <text x="422" y="250" text-anchor="end">ensureShows batch,</text>
+    <text x="422" y="268" text-anchor="end">not cached</text>
+
+    <text x="240" y="200" text-anchor="end">entries, collections</text>
+    <text x="240" y="218" text-anchor="end">and stored shows</text>
+  </g>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" width="960" height="300" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>How long a page waits when the show data API never answers, before and after</title>
+  <!-- scale: x = 170 + seconds * 11.5 (0 s at 170, 66 s at 929) -->
+
+  <g fill="currentColor" stroke="none">
+    <text x="0" y="62" font-weight="600">Before</text>
+    <text x="0" y="82" font-size="13" opacity="0.85">four 15 s attempts</text>
+    <text x="0" y="172" font-weight="600">After</text>
+    <text x="0" y="192" font-size="13" opacity="0.85">4 s attempts, 10 s budget</text>
+  </g>
+
+  <!-- before: attempts 0-15, 16-31, 33-48, 51-66 s -->
+  <g stroke-width="1.5" fill="currentColor" fill-opacity="0.12">
+    <rect x="170" y="56" width="172.5" height="28"/>
+    <rect x="354" y="56" width="172.5" height="28"/>
+    <rect x="549.5" y="56" width="172.5" height="28"/>
+    <rect x="756.5" y="56" width="172.5" height="28"/>
+  </g>
+  <g fill="currentColor" stroke="none" text-anchor="middle" font-size="13">
+    <text x="256" y="75">15 s</text>
+    <text x="440" y="75">15 s</text>
+    <text x="636" y="75">15 s</text>
+    <text x="843" y="75">15 s</text>
+    <text x="348" y="46" opacity="0.85">1 s</text>
+    <text x="538" y="46" opacity="0.85">2 s</text>
+    <text x="739" y="46" opacity="0.85">3 s</text>
+  </g>
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.85">
+    <text x="929" y="108" text-anchor="end">error line at 66 s</text>
+  </g>
+
+  <!-- after: attempts 0-4 s and 4.5-8.5 s, budget ends at 10 s -->
+  <g stroke-width="1.5" fill="currentColor" fill-opacity="0.12">
+    <rect x="170" y="166" width="46" height="28"/>
+    <rect x="221.75" y="166" width="46" height="28"/>
+  </g>
+  <g fill="currentColor" stroke="none" text-anchor="middle" font-size="13">
+    <text x="193" y="185">4 s</text>
+    <text x="244.75" y="185">4 s</text>
+  </g>
+  <path d="M285 150 V210" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.85">
+    <text x="294" y="162">10 s budget</text>
+    <text x="294" y="186">gives up by 8.5 s: a third 4 s attempt would not fit in</text>
+    <text x="294" y="204">what is left, so the page gets an error it can show with a retry</text>
+  </g>
+
+  <!-- axis -->
+  <g stroke-width="1">
+    <path d="M170 240 H929"/>
+    <path d="M170 240 V246 M285 240 V246 M400 240 V246 M515 240 V246 M630 240 V246 M745 240 V246 M860 240 V246 M929 240 V246"/>
+  </g>
+  <g fill="currentColor" stroke="none" text-anchor="middle" font-size="13" opacity="0.85">
+    <text x="170" y="264">0 s</text>
+    <text x="285" y="264">10 s</text>
+    <text x="400" y="264">20 s</text>
+    <text x="515" y="264">30 s</text>
+    <text x="630" y="264">40 s</text>
+    <text x="745" y="264">50 s</text>
+    <text x="860" y="264">60 s</text>
+    <text x="929" y="284">66 s</text>
+  </g>
+</svg>

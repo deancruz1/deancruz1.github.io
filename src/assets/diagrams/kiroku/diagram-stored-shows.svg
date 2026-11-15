@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>How ensureShows keeps stored show details fresh</title>
+  <defs>
+    <marker id="ss-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="currentColor" stroke="none"/>
+    </marker>
+  </defs>
+
+  <g stroke-width="1.5">
+    <!-- row 1 -->
+    <rect x="0" y="40" width="170" height="72" rx="4"/>
+    <path d="M170 76 H206" marker-end="url(#ss-arrow)"/>
+    <rect x="210" y="40" width="180" height="72" rx="4"/>
+    <path d="M390 76 H426" marker-end="url(#ss-arrow)"/>
+    <rect x="430" y="40" width="200" height="72" rx="4"/>
+    <path d="M630 76 H676" marker-end="url(#ss-arrow)"/>
+    <rect x="680" y="40" width="280" height="72" rx="4"/>
+
+    <!-- paused: straight to the return box -->
+    <path d="M470 112 V150 H300 V206" marker-end="url(#ss-arrow)"/>
+
+    <!-- row 2 -->
+    <path d="M820 112 V206" marker-end="url(#ss-arrow)"/>
+    <rect x="680" y="210" width="280" height="72" rx="4"/>
+    <path d="M680 246 H634" marker-end="url(#ss-arrow)"/>
+    <rect x="430" y="210" width="200" height="72" rx="4"/>
+    <path d="M430 246 H394" marker-end="url(#ss-arrow)"/>
+    <rect x="210" y="210" width="180" height="72" rx="4"/>
+
+    <!-- failure -->
+    <path d="M820 282 V336" marker-end="url(#ss-arrow)"/>
+    <rect x="680" y="340" width="280" height="64" rx="4"/>
+    <path d="M680 372 H300 V286" marker-end="url(#ss-arrow)"/>
+  </g>
+
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="85" y="62" font-weight="600">A route needs shows</text>
+    <text x="85" y="82">list, stats, For you,</text>
+    <text x="85" y="100">collections</text>
+
+    <text x="300" y="70" font-weight="600">Read Anime rows</text>
+    <text x="300" y="90">from Postgres</text>
+
+    <text x="530" y="70" font-weight="600">Refreshes paused?</text>
+    <text x="530" y="90">after a failure, for 1 min</text>
+
+    <text x="820" y="62" font-weight="600">planFetches</text>
+    <text x="820" y="82">missing ids first, then the stalest</text>
+    <text x="820" y="100">at most 25 per request</text>
+
+    <text x="820" y="240" font-weight="600">getAnimeByIds</text>
+    <text x="820" y="260">one batch request to Tenrai</text>
+
+    <text x="530" y="240" font-weight="600">Match by mal_id</text>
+    <text x="530" y="260">upsert in one transaction</text>
+
+    <text x="300" y="240" font-weight="600">Return the shows</text>
+    <text x="300" y="260">stored and refreshed</text>
+
+    <text x="820" y="368" font-weight="600">Request failed</text>
+    <text x="820" y="388">pause refreshes for 1 min</text>
+  </g>
+
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.85">
+    <text x="640" y="68">no</text>
+    <text x="310" y="172">yes: return the stored rows as they are</text>
+    <text x="810" y="146" text-anchor="end">stale: older than 1 day, or 30 days</text>
+    <text x="810" y="164" text-anchor="end">once a show has finished airing</text>    <text x="530" y="304" text-anchor="middle">ids left out of the reply are skipped for 6 h</text>
+    <text x="660" y="362" text-anchor="end">stored rows are returned unchanged</text>
+  </g>
+</svg>

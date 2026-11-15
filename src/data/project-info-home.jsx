@@ -10,6 +10,35 @@ import wireframeVideo from "../assets/videos/wireframe.mp4";
 import portfolioVideo from "../assets/videos/portfolio-website.mp4";
 import kirokuImg from "../assets/img/project-cards/kiroku.webp";
 import kirokuVideo from "../assets/videos/kiroku.mp4";
+import kirokuLoopTheme from "../assets/videos/highlights/kiroku/loop-01-theme-toggle.mp4";
+import kirokuLoopEdit from "../assets/videos/highlights/kiroku/loop-02-inline-edit.mp4";
+import kirokuLoopCalendar from "../assets/videos/highlights/kiroku/loop-03-season-calendar.mp4";
+import kirokuLoopFilter from "../assets/videos/highlights/kiroku/loop-04-season-filter.mp4";
+import kirokuLoopAdd from "../assets/videos/highlights/kiroku/loop-05-add-to-list.mp4";
+import kirokuBeforeHome from "../assets/img/before-after/kiroku/before-01-home.webp";
+import kirokuAfterHome from "../assets/img/project-gallery/kiroku/01-home.webp";
+import kirokuBeforeTop from "../assets/img/before-after/kiroku/before-03-top.webp";
+import kirokuAfterTop from "../assets/img/project-gallery/kiroku/03-top.webp";
+import kirokuBeforeSeason from "../assets/img/before-after/kiroku/before-05-season.webp";
+import kirokuAfterSeason from "../assets/img/project-gallery/kiroku/05-season.webp";
+import kirokuBeforeSearch from "../assets/img/before-after/kiroku/before-07-search.webp";
+import kirokuAfterSearch from "../assets/img/project-gallery/kiroku/07-search.webp";
+import kirokuBeforeList from "../assets/img/before-after/kiroku/before-08-list.webp";
+import kirokuAfterList from "../assets/img/project-gallery/kiroku/08-list.webp";
+import kirokuBeforeAnime from "../assets/img/before-after/kiroku/before-11-anime.webp";
+import kirokuAfterAnime from "../assets/img/project-gallery/kiroku/11-anime.webp";
+import kirokuBeforeRecommendations from "../assets/img/before-after/kiroku/before-13-recommendations.webp";
+import kirokuAfterRecommendations from "../assets/img/project-gallery/kiroku/13-recommendations.webp";
+import kirokuBeforeStats from "../assets/img/before-after/kiroku/before-15-stats.webp";
+import kirokuAfterStats from "../assets/img/project-gallery/kiroku/15-stats.webp";
+import kirokuBeforeCollections from "../assets/img/before-after/kiroku/before-16-collections.webp";
+import kirokuAfterCollections from "../assets/img/project-gallery/kiroku/16-collections.webp";
+import kirokuBeforeCard from "../assets/img/before-after/kiroku/before-card.webp";
+import kirokuBeforeVideo from "../assets/videos/before-after/kiroku/before-walkthrough.mp4";
+import kirokuRequestFlowSvg from "../assets/diagrams/kiroku/diagram-request-flow.svg?raw";
+import kirokuRetryTimelineSvg from "../assets/diagrams/kiroku/diagram-retry-timeline.svg?raw";
+import kirokuStoredShowsSvg from "../assets/diagrams/kiroku/diagram-stored-shows.svg?raw";
+import kirokuBroadcastTimeSvg from "../assets/diagrams/kiroku/diagram-broadcast-time.svg?raw";
 import uraraImg from "../assets/img/project-cards/urara.webp";
 import uraraVideo from "../assets/videos/urara.mp4";
 import uraraLoopTheme from "../assets/videos/highlights/urara/loop-01-theme-toggle.mp4";
@@ -364,72 +393,198 @@ export const projects = [
   {
     title: "Kiroku",
     description:
-      "An anime tracker with a watch list, seasonal calendar, recommendations and viewing stats.",
+      "An anime watch tracker with a watch list, a weekly season calendar in your own time zone, collections, recommendations and viewing stats.",
     stageMeta: {
-      stack: "Next.js, '25",
-      summary: "An anime tracker that works within Jikan's 3-requests-a-second limit.",
+      stack: "Next.js, '26",
+      summary: "An anime tracker I rebuilt after its data API shut down, so a failing upstream costs a page seconds instead of a minute, and the watch list no longer calls the API once per show.",
       glow: "glow-kiroku",
-      alt: "Kiroku dashboard",
+      alt: "Kiroku anime tracker",
     },
     features: [
-      "Sign-in",
+      "Search",
+      "Top shows",
+      "Show pages",
+      "Season calendar",
       "Watch list",
-      "Seasonal calendar",
-      "Recommendations",
-      "Stats",
       "Collections",
+      "Stats",
+      "Recommendations",
+      "Discord and password sign-in",
+      "Light and dark themes",
     ],
-    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "NextAuth"],
+    tags: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "NextAuth", "TanStack Query", "Vitest"],
     image: kirokuImg,
     liveDemo: "https://kiroku-nyaa.vercel.app",
     github: "https://github.com/deancruz1/Kiroku",
     slug: "kiroku",
-    notes: {
+    facts: {
+      role: "Solo: design, frontend, backend, deployment",
+      timeline: "First built in May 2026, rebuilt on 15 and 16 November 2026",
+      status: "Live, rebuilt in November 2026",
+    },
+    highlights: {
+      summary: "Kiroku is set like a ruled notebook, and every request for show data goes through one rate-limited client on the server.",
+      items: [
+        { video: kirokuLoopCalendar, caption: "The season calendar in your own time zone, counting down to each show's next episode" },
+        { video: kirokuLoopEdit, caption: "One more episode and a rating, saved in place on the watch list; the change shows at once and rolls back if the server refuses it" },
+        { video: kirokuLoopFilter, caption: "Filtering the season by genre, all in the browser with no extra requests" },
+        { video: kirokuLoopAdd, caption: "Adding a show to the watch list from its page" },
+        { video: kirokuLoopTheme, caption: "Light and dark themes; the choice is applied before the first paint, so the page never flashes" },
+        { image: kirokuAfterStats, caption: "Stats drawn with plain CSS: status split, ratings and genres" },
+      ],
+    },
+    constraints: [
+      ["The old API was gone", "Jikan shut down on 1 October 2026, so when I started on 15 November the server-rendered pages that needed show data waited about 66 seconds and then showed an error, and the watch list showed ids instead of titles. The fix had to come before the redesign."],
+      ["Stored ids are MyAnimeList ids", "Every watch list entry, collection and /anime/<id> URL uses them, so a new data source had to use the same ids or every row would need migrating."],
+      ["Tenrai allows 4 requests a second and 120 a minute per IP, and sends no rate-limit headers", "The app has to pace itself, so I keep it at 3 per 1.1 seconds and 100 a minute."],
+      ["A 60-second cap on the season route", "I capped it at 60 seconds so it fits the free hosting tier whether or not Fluid compute is on, and that limits how long a cold season load can run."],
+      ["Free hosting tier, image quota", "Next's image optimiser would use up the free quota, so posters load unoptimised straight from MyAnimeList's CDN."],
+      ["Serverless instances don't share memory", "The rate scheduler, the in-flight request sharing and the outage pause are per instance, so several busy instances behind one IP could still go over Tenrai's limit."],
+      ["AniList's terms forbid tracker apps", "Its API was the strongest I tested, but the terms ban use in \"anime and manga list or tracker services\", so I couldn't use it."],
+    ],
+    diagrams: {
       decisions: [
-        ["Next.js App Router", "Server components fetch the data, so pages don't wait on client-side requests."],
-        ["Jikan API", "Free and keyless, but limited to 3 requests a second."],
-        ["PostgreSQL on Supabase", "Vercel's filesystem is ephemeral, so SQLite writes wouldn't persist."],
-        ["Vercel", "Serverless functions keep API keys off the client. GitHub Pages can't run them."],
+        { svg: kirokuRequestFlowSvg, caption: "Where a page's show data comes from: the server cache, the rate scheduler, one timed attempt and the retry loop to Tenrai, and the stored shows in Postgres" },
+        { svg: kirokuRetryTimelineSvg, caption: "How long a page waits when the API never answers: four 15-second attempts and 66 seconds before, two 4-second attempts inside a 10-second budget after" },
+        { svg: kirokuStoredShowsSvg, caption: "How ensureShows decides which stored shows to refresh, and what happens when the batch request fails" },
       ],
       hard: [
-        "Retrying request bursts against Jikan's 3-per-second limit with exponential backoff.",
-        "Turning inconsistent broadcast times into timezone-aware countdowns.",
-        "Recommendations that skip watched and low-rated shows, and say which show they came from.",
-        "Reworking the 7-column calendar into scrolling rows on phones without duplicating logic.",
+        { svg: kirokuBroadcastTimeSvg, caption: "How a Friday 23:00 Japan-time slot becomes a Friday 22:00 row and a countdown for a viewer in Singapore" },
       ],
-      next: "Store show data when it's added, to cut repeat Jikan calls.",
+    },
+    callouts: {
+      decisions: "Tenrai is unofficial, anonymous and labelled beta, the same kind of dependency as the API that shut down. The cache, the stored shows and the outage pause soften a failure, but they don't remove it.",
+      hard: "The API Kiroku was built on shut down on 1 October 2026. When I started the rebuild, every server-rendered page that needed show data waited about 66 seconds and then showed one line of error text.",
+    },
+    beforeAfter: [
+      { label: "Home", caption: "The home page", before: kirokuBeforeHome, after: kirokuAfterHome, ratio: "16 / 10" },
+      { label: "Top shows", caption: "Top shows (before: an error after about 66 seconds)", before: kirokuBeforeTop, after: kirokuAfterTop, ratio: "16 / 10" },
+      { label: "Season", caption: "The season page (before: an error after about 66 seconds)", before: kirokuBeforeSeason, after: kirokuAfterSeason, ratio: "16 / 10" },
+      { label: "Search", caption: "Search results (before: an error after about 66 seconds)", before: kirokuBeforeSearch, after: kirokuAfterSearch, ratio: "16 / 10" },
+      { label: "Watch list", caption: "The watch list (before: every row \"Anime #<id>\" with no poster)", before: kirokuBeforeList, after: kirokuAfterList, ratio: "16 / 10" },
+      { label: "Show page", caption: "The same show page, Frieren (before: \"Anime not found.\" after about 66 seconds)", before: kirokuBeforeAnime, after: kirokuAfterAnime, ratio: "16 / 10" },
+      { label: "For you", caption: "For you (before: no cards after 20 minutes of 504s)", before: kirokuBeforeRecommendations, after: kirokuAfterRecommendations, ratio: "16 / 10" },
+      { label: "Stats", caption: "Stats (before: the empty state, shown to an account with 16 entries)", before: kirokuBeforeStats, after: kirokuAfterStats, ratio: "16 / 10" },
+      { label: "Collections", caption: "Collections (before: every collection labelled \"4 anime\"; after: 5, 4 and 5 shows)", before: kirokuBeforeCollections, after: kirokuAfterCollections, ratio: "16 / 10" },
+      { label: "Walkthrough", caption: "The walkthrough", before: kirokuBeforeVideo, after: kirokuVideo, video: true, ratio: "16 / 10" },
+      { label: "Card", caption: "The card thumbnail", before: kirokuBeforeCard, after: kirokuImg, ratio: "1280 / 721" },
+    ],
+    outcomes: [
+      {
+        from: "66,284–66,508 ms",
+        to: "363–757 ms",
+        detail: "Respond, the time from the start of page.goto() to DOMContentLoaded, for Top shows, Season, Search (q=fullmetal) and a show page (/anime/52991), three loads each. Before, each page then showed one line of error text; after, each showed its data.",
+        source: "Headless Chrome against the live site, signed in as the demo account, 15 Nov 2026: before from 10:43 to 10:56 UTC, after from 17:07 to 17:11 UTC once the rebuild was live. The after run opened a fresh tab for each load; the before run reused one tab.",
+      },
+      {
+        from: "16",
+        to: "0",
+        detail: "Browser requests to the show data API during one load of the 16-entry watch list. Before, one per entry to api.jikan.moe, and every row showed \"Anime #<id>\" with an \"N/A\" poster; after, none to api.jikan.moe or api.tenrai.org, and all 16 rows showed their real title and a poster. Show data is now fetched on the server, so the browser no longer calls the API itself.",
+        source: "Headless Chrome against the live site with the browser cache disabled, three loads each, 15 Nov 2026: before from 10:57 to 11:00 UTC, after from 17:11 UTC.",
+      },
+      {
+        from: "64,307 and 64,509 ms",
+        to: "1,462 and 1,416 ms",
+        detail: "Time from clicking \"Watch list\" in the header until the posters reached their final state. Before, the placeholders turned into \"N/A\"; after, the posters in view had loaded.",
+        source: "Headless Chrome against the live site, two runs each, 15 Nov 2026: before at about 11:02 and 11:07 UTC, after at 16:52:58 and 16:53:14 UTC.",
+      },
+      {
+        from: "65,973 and 65,905 ms",
+        to: "609 and 591 ms",
+        detail: "Time from typing \"frieren\" in the home page search box and pressing Enter until the page showed a result. Before, the error line; after, the 4 results.",
+        source: "Headless Chrome against the live site, two runs each, 15 Nov 2026: before at about 11:01 and 11:05 UTC, after at 16:52:28 and 16:52:43 UTC.",
+      },
+      {
+        from: "504 after 300,222–300,547 ms",
+        to: "200 in 561–2,329 ms",
+        detail: "GET /api/user/stats and GET /api/user/recommendations for the 16-entry demo account, fetched in parallel from the signed-in page, three rounds each. Before, Vercel's FUNCTION_INVOCATION_TIMEOUT page every time, and the stats page fell back to its empty state after 20.2 minutes; after, JSON every time, and both pages showed their data on every load.",
+        source: "15 Nov 2026: before from 10:42 to 10:53 UTC, after from 16:51 UTC.",
+      },
+      {
+        from: "405",
+        to: "200",
+        detail: "PATCH /api/user/password with the current password submitted as the new one. Before, an empty body, and the form still read \"Updating...\" 4 seconds later; after, \"Password updated.\" in 1,075 ms, shown in the form 1,064 ms after the click.",
+        source: "15 Nov 2026: before at 09:57:53 UTC, after at 16:52:17 UTC.",
+      },
+      {
+        from: "4, 4 and 4",
+        to: "5, 4 and 5",
+        detail: "Collection sizes on the collections overview, for collections whose real sizes from GET /api/user/lists/:id were 5, 4 and 5.",
+        source: "15 Nov 2026: before at 11:02:59 UTC, after at 16:52:13 UTC.",
+      },
+      {
+        from: "0",
+        to: "256",
+        detail: "Automated tests, in 20 files, covering the request policy, rate scheduler, cache wrapper, season loading, broadcast times, stored-show refreshing, stats, recommendations and input validation.",
+        source: "Counted at commit e3535a6 on 15 Nov 2026, and npm test (Vitest) on 16 Nov 2026.",
+      },
+      {
+        from: "1,604.5 KB",
+        to: "1,212.3 KB",
+        detail: "Client JavaScript in the production build, 24.4% smaller (503.2 KB to 390.1 KB gzipped, 22.5% smaller). 35 files before, 42 after; KB is 1,024 bytes.",
+        source: "Measured at commit e3535a6 on 15 Nov 2026 and at commit 4ee6ece on 16 Nov 2026.",
+      },
+      {
+        from: "83.4 KB",
+        to: "233.5 KB",
+        detail: "CSS in the production build (13.6 KB to 75.1 KB gzipped). This is a real cost of self-hosting a Japanese serif: about 189 KB of the raw CSS is one file of 245 @font-face rules, one per unicode-range slice of the fonts.",
+        source: "Measured at commit e3535a6 on 15 Nov 2026 and at commit 4ee6ece on 16 Nov 2026.",
+      },
+    ],
+    takeaways: [
+      "A retry policy needs a total time budget, not only a timeout per attempt. Four 15-second tries held a page for 66 seconds.",
+      "Store what you show. One API call per watch list entry made the list, stats and recommendations only as fast as the slowest upstream reply.",
+      "Check the values an API actually sends. The countdown compared \"friday\" with \"Fridays\", so it never appeared.",
+      "Read a data source's terms before its docs. AniList had the best API I tested, and its terms ruled it out.",
+    ],
+    notes: {
+      decisions: [
+        ["Tenrai as the data source", "It follows the Jikan v4 schema and MyAnimeList ids, so the stored ids, the URLs and the response mappers kept working. I tested the official MyAnimeList API after the rebuild: it covers the core show data but has no reviews, voice actors or batch lookup."],
+        ["One request policy for every upstream call", "Each attempt times out after 4 seconds and a request gets 10 seconds in total, with up to 3 attempts, exponential backoff with jitter, and Retry-After honoured. A hanging upstream now fails within 8.5 seconds instead of 66."],
+        ["Show details stored in Postgres", "The watch list, collections, stats and recommendations read an Anime table keyed by MyAnimeList id instead of calling the API once per entry. Missing or stale rows are refreshed in one batch request of up to 25."],
+        ["Stored rows win during an outage", "If a refresh fails, the stored rows are used as they are and refreshes pause for a minute, so an outage costs one slow request per server instance, not one per request."],
+      ],
+      hard: [
+        "Fitting a cold season load inside a 60-second function: every page has to be fetched in turn under the rate limit, so the load stops at 35 seconds and returns a partial calendar.",
+        "Turning a weekly Japan-time slot, including late-night slots written as 24:00 to 29:59, into the right instant and weekday in any time zone, without a date library.",
+        "Keeping stored shows fresh without a burst of requests: missing shows first, then the stalest, in one batch, matched by id because Tenrai returns the batch sorted by id, not in request order.",
+        "Moving a production database whose schema had drifted from its migrations without losing a row.",
+      ],
+      next: "Move core show data to the official MyAnimeList API, so losing Tenrai wouldn't take the core pages down.",
     },
     overview: [
-      "Kiroku is an anime tracker. You keep a watch list with status, episode progress and ratings, check a 7-day broadcast calendar, get recommendations from the genres you watch most, and see your stats on one page.",
-      "I built it because I was splitting tracking, schedules and recommendations across different sites. It runs on the Next.js App Router with Prisma and PostgreSQL, and the show data comes from the Jikan API.",
+      "Kiroku is an anime watch tracker. You can search shows and browse the top lists, follow the current season on a weekly calendar shown in your own time zone with a countdown to each next episode, keep a watch list with status, episode progress and a rating, group shows into collections, and see stats and recommendations based on what you've logged.",
+      "I built it to keep tracking, schedules and recommendations in one place. It's a Next.js App Router app with Prisma and PostgreSQL, NextAuth for Discord or password sign-in, and TanStack Query on the client. The show data is MyAnimeList data from Tenrai, which I moved to in November 2026 after the Jikan API the app was built on shut down. In the same rebuild I fixed what an audit of the old code turned up, stored show details in Postgres, added 256 tests and redesigned every page.",
     ],
     heroVideo: kirokuVideo,
     annotatedScreen: {
-      image: kirokuGalleryImages[3],
-      caption: "Kiroku · the watch list",
-      view: [232, 0, 724, 407.25],
+      image: kirokuGalleryImages[2],
+      caption: "Kiroku · the current season as a weekly calendar",
+      view: [0, 0, 1200, 750],
       baseWidth: 1200,
       notes: [
         {
-          title: "Server components fetch the data",
-          body: "Built on the Next.js App Router, so pages don't wait on client-side requests.",
+          title: "Times in your zone",
+          body: "Tenrai gives each show a weekly slot in Japan time; the browser converts it to the viewer's zone and says which zone it used.",
+          rect: [82, 146, 333, 27],
+          tag: "l",
         },
         {
-          title: "Retries for a strict rate limit",
-          body: "Show data comes from the Jikan API, which allows 3 requests a second. Bursts on data-heavy pages retry with exponential backoff.",
-          rect: [424, 107, 346, 72],
-          tag: "tl",
+          title: "A countdown per show",
+          body: "Each row counts down to the next episode from one shared clock that ticks on the minute, and it waits for the premiere date and stops after the last air date.",
+          rect: [498, 300, 72, 304],
+          tag: "tr",
         },
         {
-          title: "PostgreSQL, not SQLite",
-          body: "Status, progress and ratings are edited inline and saved through Prisma. Vercel's serverless functions have ephemeral filesystems, so SQLite writes would not persist.",
-          rect: [424, 184, 346, 104],
-          tag: "tl",
+          title: "Filters with no requests",
+          body: "The whole season is already loaded, so genre, title and watch list filters run in the browser.",
+          rect: [82, 201, 1005, 27],
+          tag: "l",
         },
         {
-          title: "Two ways to sign in",
-          body: "Discord OAuth or email and password, with bcrypt hashing and JWT sessions through NextAuth.",
-          rect: [903, 10, 45, 18],
+          title: "Today follows the viewer",
+          body: "The day marked \"today\" is worked out in the viewer's zone, not in Japan time.",
+          rect: [82, 258, 486, 37],
           tag: "l",
         },
       ],
@@ -437,10 +592,27 @@ export const projects = [
     gallery: kirokuGalleryImages.map((image, i) => ({
       image,
       caption: [
-        "Home Page",
-        "Stats Page",
-        "Anime Detail Page",
-        "Watch List Page",
+        "The home page: search and a link to the current season",
+        "Top shows, with tabs for popular, airing, upcoming and most favourited",
+        "The current season as a weekly calendar, in the viewer's time zone",
+        "A past season as a paged list",
+        "Search results",
+        "The watch list with progress and ratings",
+        "Editing status, episodes and rating in place",
+        "A show page, with the details as a ruled list",
+        "Adding a show to the watch list from its page",
+        "Characters and their voice actors",
+        "Community reviews, with spoilers hidden until asked for",
+        "For you: each recommendation says which show or genre it came from",
+        "Stats: one sentence of totals, then status, ratings, genres and episodes",
+        "Collections with their real sizes",
+        "One collection",
+        "The profile page: username, password, Discord and account deletion",
+        "Sign-in with Discord, or an email or username and password",
+        "The season calendar in the dark theme",
+        "The watch list in the dark theme",
+        "A show page in the dark theme",
+        "Stats in the dark theme",
       ][i],
     })),
   },

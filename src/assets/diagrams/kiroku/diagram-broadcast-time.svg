@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>How a Japanese broadcast slot becomes a countdown in the viewer's time zone</title>
+  <defs>
+    <marker id="bt-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="currentColor" stroke="none"/>
+    </marker>
+  </defs>
+
+  <g stroke-width="1.5">
+    <rect x="0" y="30" width="280" height="88" rx="4"/>
+    <path d="M280 74 H336" marker-end="url(#bt-arrow)"/>
+    <rect x="340" y="30" width="280" height="88" rx="4"/>
+    <path d="M620 74 H676" marker-end="url(#bt-arrow)"/>
+    <rect x="680" y="30" width="280" height="88" rx="4"/>
+
+    <path d="M820 118 V216" marker-end="url(#bt-arrow)"/>
+
+    <rect x="680" y="220" width="280" height="88" rx="4"/>
+    <path d="M680 264 H624" marker-end="url(#bt-arrow)"/>
+    <rect x="340" y="220" width="280" height="88" rx="4"/>
+  </g>
+
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="140" y="56" font-weight="600">broadcast from Tenrai</text>
+    <text x="140" y="78">day "Fridays", time "23:00",</text>
+    <text x="140" y="98">timezone "Asia/Tokyo"</text>
+
+    <text x="480" y="56" font-weight="600">getWeeklySlot</text>
+    <text x="480" y="78">"Fridays" to weekday 5;</text>
+    <text x="480" y="98">24:00 to 29:59 means the next day</text>
+
+    <text x="820" y="56" font-weight="600">nextOccurrence</text>
+    <text x="820" y="78">next Friday 23:00 in Tokyo</text>
+    <text x="820" y="98">= Fri 20 Nov 2026, 14:00 UTC</text>
+
+    <text x="820" y="246" font-weight="600">getLocalSchedule</text>
+    <text x="820" y="268">the browser's zone, Asia/Singapore:</text>
+    <text x="820" y="288">Friday column, 22:00</text>
+
+    <text x="480" y="246" font-weight="600">formatCountdown</text>
+    <text x="480" y="268">now Mon 16 Nov, 01:00 in Singapore</text>
+    <text x="480" y="288">shows "in 4d 21h"</text>
+  </g>
+
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.85">
+    <text x="480" y="142" text-anchor="middle">the old code compared "friday" with "Fridays",</text>
+    <text x="480" y="160" text-anchor="middle">so no countdown ever showed</text>
+
+    <text x="808" y="186" text-anchor="end">waits for the premiere date;</text>
+    <text x="808" y="204" text-anchor="end">none after the last air date</text>
+
+    <text x="820" y="332" text-anchor="middle">the old code read JST times</text>
+    <text x="820" y="350" text-anchor="middle">as the viewer's local time</text>
+
+    <text x="480" y="332" text-anchor="middle">one shared clock ticks on the minute</text>
+
+    <text x="0" y="246">The server renders a skeleton:</text>
+    <text x="0" y="264">only the browser knows the</text>
+    <text x="0" y="282">viewer's zone and clock, so the</text>
+    <text x="0" y="300">calendar fills in on the client.</text>
+  </g>
+</svg>
