@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 964 494" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>What a direct link to a talent page gets, before and after the fallback</title>
+  <defs>
+    <marker id="ta-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="currentColor" stroke="none"/>
+    </marker>
+  </defs>
+
+  <text x="0" y="20" fill="currentColor" stroke="none" font-weight="700" font-size="15">Before: no fallback</text>
+  <g stroke-width="1.5">
+    <rect x="0" y="36" width="210" height="72" rx="4"/>
+    <rect x="250" y="36" width="210" height="72" rx="4"/>
+    <rect x="500" y="36" width="210" height="72" rx="4"/>
+    <path d="M210 72 H246" marker-end="url(#ta-arrow)"/>
+    <path d="M460 72 H496" marker-end="url(#ta-arrow)"/>
+  </g>
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="105" y="66">GET</text>
+    <text x="105" y="88">/talents/UC1uv2…59hw</text>
+    <text x="355" y="66">No file at that path and</text>
+    <text x="355" y="88">no rewrite in vercel.json</text>
+    <text x="605" y="66">Vercel's own error page</text>
+    <text x="605" y="88" font-weight="700">status 404</text>
+  </g>
+  <text x="0" y="134" fill="currentColor" stroke="none" font-size="13" opacity="0.75">Checked with curl on 15 Nov 2026: / and /api/* answered 200; /talents, every talent page and /watch/… answered 404.</text>
+
+  <path d="M0 164 H958" stroke-width="1" stroke-dasharray="3 5" opacity="0.5"/>
+
+  <text x="0" y="200" fill="currentColor" stroke="none" font-weight="700" font-size="15">After: every path outside /api/ is rewritten to index.html</text>
+  <g stroke-width="1.5">
+    <rect x="0" y="216" width="210" height="72" rx="4"/>
+    <rect x="250" y="216" width="210" height="72" rx="4"/>
+    <rect x="500" y="216" width="210" height="72" rx="4"/>
+    <rect x="750" y="216" width="210" height="72" rx="4"/>
+    <path d="M210 252 H246" marker-end="url(#ta-arrow)"/>
+    <path d="M460 252 H496" marker-end="url(#ta-arrow)"/>
+    <path d="M710 252 H746" marker-end="url(#ta-arrow)"/>
+
+    <rect x="0" y="312" width="210" height="92" rx="4"/>
+    <rect x="250" y="312" width="210" height="92" rx="4"/>
+    <rect x="500" y="312" width="210" height="92" rx="4"/>
+    <rect x="750" y="312" width="210" height="92" rx="4"/>
+    <path d="M210 358 H246" marker-end="url(#ta-arrow)"/>
+    <path d="M460 358 H496" marker-end="url(#ta-arrow)"/>
+    <path d="M710 358 H746" marker-end="url(#ta-arrow)"/>
+  </g>
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="105" y="246">GET</text>
+    <text x="105" y="268">/talents/tokoyami-towa</text>
+    <text x="355" y="246">index.html</text>
+    <text x="355" y="268" font-weight="700">status 200</text>
+    <text x="605" y="246">The app loads the roster</text>
+    <text x="605" y="268">from /api/channels</text>
+    <text x="855" y="246">The slug matches:</text>
+    <text x="855" y="268">Tokoyami Towa's page</text>
+
+    <text x="105" y="342">GET</text>
+    <text x="105" y="364">/talents/UC1uv2…59hw</text>
+    <text x="105" y="386">?tab=music</text>
+    <text x="355" y="353">index.html</text>
+    <text x="355" y="375" font-weight="700">status 200</text>
+    <text x="605" y="353">No slug matches,</text>
+    <text x="605" y="375">but the channel ID does</text>
+    <text x="855" y="342">Redirect in place to</text>
+    <text x="855" y="364">/talents/tokoyami-towa</text>
+    <text x="855" y="386">?tab=music</text>
+  </g>
+
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.75">
+    <text x="0" y="438">Slugs come from the English name: accents removed, lowercased, everything else turned into hyphens.</text>
+    <text x="0" y="460">The redirect keeps the query string and hash, and replaces the old address in the history.</text>
+    <text x="0" y="482">The rewrite skips /api/, so the functions still answer. An unknown address now gets the app's own "Page not found".</text>
+  </g>
+</svg>

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 964 438" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>How one branch is worked out from two Holodex endpoints</title>
+  <defs>
+    <marker id="bd-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="currentColor" stroke="none"/>
+    </marker>
+  </defs>
+
+  <text x="0" y="18" fill="currentColor" stroke="none" font-weight="700" font-size="15">One talent (Raora Panthera) from both endpoints</text>
+
+  <g stroke-width="1.5">
+    <!-- sources -->
+    <rect x="0" y="36" width="230" height="64" rx="4"/>
+    <rect x="0" y="136" width="230" height="64" rx="4"/>
+    <rect x="0" y="282" width="230" height="84" rx="4"/>
+    <!-- steps -->
+    <rect x="290" y="136" width="260" height="64" rx="4"/>
+    <rect x="290" y="282" width="260" height="84" rx="4"/>
+    <!-- rule -->
+    <rect x="610" y="36" width="210" height="164" rx="4"/>
+    <!-- results -->
+    <rect x="870" y="98" width="90" height="40" rx="4"/>
+    <rect x="870" y="304" width="90" height="40" rx="4"/>
+
+    <path d="M230 68 H606" marker-end="url(#bd-arrow)"/>
+    <path d="M230 168 H286" marker-end="url(#bd-arrow)"/>
+    <path d="M550 168 H606" marker-end="url(#bd-arrow)"/>
+    <path d="M820 118 H866" marker-end="url(#bd-arrow)"/>
+    <path d="M230 324 H286" marker-end="url(#bd-arrow)"/>
+    <path d="M550 324 H866" marker-end="url(#bd-arrow)"/>
+
+    <path d="M0 246 H958" stroke-width="1" stroke-dasharray="3 5" opacity="0.5"/>
+  </g>
+
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="115" y="62" font-weight="700">/channels</text>
+    <text x="115" y="84">group: English -Justice-</text>
+
+    <text x="115" y="162" font-weight="700">/live</text>
+    <text x="115" y="184">suborg: jaEnglish -Justice-</text>
+
+    <text x="420" y="162">Drop the 2-character sort prefix</text>
+    <text x="420" y="184">→ English -Justice-</text>
+
+    <text x="715" y="64" font-weight="700">Branch from the group</text>
+    <text x="715" y="96">English… → EN</text>
+    <text x="715" y="118">Indonesia… → ID</text>
+    <text x="715" y="140">DEV_IS… → DEV_IS</text>
+    <text x="715" y="162">anything else → JP</text>
+
+    <text x="915" y="124" font-weight="700">EN</text>
+
+    <text x="115" y="308" font-weight="700">/live, an official channel</text>
+    <text x="115" y="330">suborg: 0gOfficial</text>
+    <text x="115" y="352">name: hololive FLOW GLOW</text>
+
+    <text x="420" y="308">The group only says Official,</text>
+    <text x="420" y="330">so read the channel name:</text>
+    <text x="420" y="352">"flow glow" → DEV_IS</text>
+
+    <text x="915" y="330" font-weight="700">DEV_IS</text>
+  </g>
+
+  <text x="0" y="272" fill="currentColor" stroke="none" font-weight="700" font-size="15">Official channels</text>
+
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.75">
+    <text x="0" y="400">Left out on the way: videos outside the Hololive org, HOLOSTARS groups, and non-talent groups such as Misc.</text>
+    <text x="0" y="422">Before: /live looked for "hololive-en" in the channel name. Names like "Raora Panthera Ch. hololive" don't have it, so EN counted as JP.</text>
+  </g>
+</svg>

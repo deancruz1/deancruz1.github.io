@@ -35,6 +35,29 @@ import skillforgeImg from "../assets/img/project-cards/skillforge.webp";
 import skillforgeVideo from "../assets/videos/skillforge.mp4";
 import oshiwatchImg from "../assets/img/project-cards/oshiwatch.webp";
 import oshiwatchVideo from "../assets/videos/oshiwatch.mp4";
+import oshiwatchLoopTheme from "../assets/videos/highlights/oshiwatch/loop-01-theme-toggle.mp4";
+import oshiwatchLoopFavourite from "../assets/videos/highlights/oshiwatch/loop-02-favourite.mp4";
+import oshiwatchLoopBranch from "../assets/videos/highlights/oshiwatch/loop-03-branch-filter.mp4";
+import oshiwatchLoopSearch from "../assets/videos/highlights/oshiwatch/loop-04-roster-search.mp4";
+import oshiwatchLoopTabs from "../assets/videos/highlights/oshiwatch/loop-05-talent-tabs.mp4";
+import oshiwatchMobileHome from "../assets/img/highlights/oshiwatch/mobile-01-home.webp";
+import oshiwatchBeforeHome from "../assets/img/before-after/oshiwatch/before-01-home.webp";
+import oshiwatchAfterHome from "../assets/img/project-gallery/oshiwatch/01-home.webp";
+import oshiwatchBeforeTalents from "../assets/img/before-after/oshiwatch/before-02-talents.webp";
+import oshiwatchAfterTalents from "../assets/img/project-gallery/oshiwatch/03-talents.webp";
+import oshiwatchBeforeTalent from "../assets/img/before-after/oshiwatch/before-03-talent.webp";
+import oshiwatchAfterTalent from "../assets/img/before-after/oshiwatch/after-03-talent.webp";
+import oshiwatchBeforeWatch from "../assets/img/before-after/oshiwatch/before-04-watch.webp";
+import oshiwatchAfterWatch from "../assets/img/before-after/oshiwatch/after-04-watch.webp";
+import oshiwatchBeforeWatchLive from "../assets/img/before-after/oshiwatch/before-05-watch-live.webp";
+import oshiwatchAfterWatchLive from "../assets/img/before-after/oshiwatch/after-05-watch-live.webp";
+import oshiwatchBeforeDeepLink from "../assets/img/before-after/oshiwatch/before-06-deep-link.webp";
+import oshiwatchAfterDeepLink from "../assets/img/before-after/oshiwatch/after-06-deep-link.webp";
+import oshiwatchBeforeCard from "../assets/img/before-after/oshiwatch/before-card.webp";
+import oshiwatchBeforeVideo from "../assets/videos/before-after/oshiwatch/before-walkthrough.mp4";
+import oshiwatchApiProxySvg from "../assets/diagrams/oshiwatch/diagram-api-proxy.svg?raw";
+import oshiwatchBranchDetectionSvg from "../assets/diagrams/oshiwatch/diagram-branch-detection.svg?raw";
+import oshiwatchTalentAddressSvg from "../assets/diagrams/oshiwatch/diagram-talent-address.svg?raw";
 
 const oshiwatchGallery = import.meta.glob(
   "../assets/img/project-gallery/oshiwatch/*.webp",
@@ -623,6 +646,98 @@ export const projects = [
     liveDemo: "https://oshiwatch.vercel.app",
     github: "https://github.com/deancruz1/Oshiwatch",
     slug: "oshiwatch",
+    facts: {
+      role: "Solo: design, frontend, API proxy, deployment",
+      timeline: "Built in June 2026 over four days; updated in November 2026",
+      status: "Live, updated in November 2026",
+    },
+    highlights: {
+      summary: "The home page reads like a TV listing: your favourite talents first, then who's on air, then what's coming up hour by hour in your own time.",
+      items: [
+        { video: oshiwatchLoopFavourite, caption: "Starring a talent pins them to Your oshi at the top of the roster, and unstarring takes them off again" },
+        { video: oshiwatchLoopBranch, caption: "The first click on a branch isolates it, more clicks add or remove branches, and On air and Coming up both follow the filter" },
+        { video: oshiwatchLoopTheme, caption: "The header button switches between dark and light; until you press it the site follows your system" },
+        { video: oshiwatchLoopSearch, caption: "The roster narrows as you type, keeping its generation groups and pinned favourites" },
+        { video: oshiwatchLoopTabs, caption: "A talent page's streams, shorts and music each load the first time their tab is opened" },
+        { image: oshiwatchMobileHome, portrait: true, caption: "On a phone, Your oshi becomes a two-column grid above On air, and long names wrap onto a second line" },
+      ],
+    },
+    constraints: [
+      ["Holodex is the only data source", "Its /channels and /live endpoints describe the same talent differently (a group on one, a suborg with a sort prefix on the other), and /live with org=Hololive also returned other agencies' streams when I checked, so I normalise and filter in the browser."],
+      ["The API key has to stay off the client", "Anything Vite builds into the bundle is public, so every call goes through a Vercel function that adds the key on the server."],
+      ["A static single-page app on Vercel", "There is one index.html, so every address outside /api/ has to be rewritten to it, or a direct link answers 404."],
+      ["Holodex identifies talents by YouTube channel ID", "So a readable address like /talents/tokoyami-towa is resolved against the full roster, which loads 50 channels at a time."],
+      ["YouTube's live chat only embeds when it's told the embedding hostname", "So the chat address carries the hostname the page is served from."],
+    ],
+    diagrams: {
+      decisions: [
+        { svg: oshiwatchApiProxySvg, caption: "The request path from the browser through the Vercel function (allowlist, key added on the server, cache header) to Holodex and back" },
+        { svg: oshiwatchTalentAddressSvg, caption: "What a direct link got before (Vercel's 404) against the fallback to index.html, the slug match and the redirect from an old ID link" },
+      ],
+      hard: [
+        { svg: oshiwatchBranchDetectionSvg, caption: "One talent as /channels and /live describe her, plus an official channel, each arriving at one branch" },
+      ],
+    },
+    callouts: {
+      decisions: "A fallback that returns a valid answer hides bugs. My branch rule fell through to JP, so EN streams didn't disappear with an error; they were filed under the wrong branch.",
+      hard: "Holodex's /live has no branch field I can match as it is. suborg carries a two-character sort prefix and official channels only say \"Official\", so one branch comes from three rules instead of one.",
+    },
+    beforeAfter: [
+      { label: "Home", caption: "The home page: card grids to a programme guide", before: oshiwatchBeforeHome, after: oshiwatchAfterHome, ratio: "16 / 10" },
+      { label: "Talents", caption: "The talents page: a card grid to a roster with favourites pinned, and Gen 0 now in debut order", before: oshiwatchBeforeTalents, after: oshiwatchAfterTalents, ratio: "16 / 10" },
+      { label: "Talent page", caption: "Hoshimachi Suisei's talent page", before: oshiwatchBeforeTalent, after: oshiwatchAfterTalent, ratio: "16 / 10" },
+      { label: "Watch", caption: "The watch page for Suisei's GUM&DROP video", before: oshiwatchBeforeWatch, after: oshiwatchAfterWatch, ratio: "16 / 10" },
+      { label: "Watch live", caption: "The watch page for a live stream, where the chat now follows the site's dark theme instead of showing white", before: oshiwatchBeforeWatchLive, after: oshiwatchAfterWatchLive, ratio: "16 / 10" },
+      { label: "Direct link", caption: "A direct link to /talents: Vercel's 404 page to the roster", before: oshiwatchBeforeDeepLink, after: oshiwatchAfterDeepLink, ratio: "16 / 10" },
+      { label: "Walkthrough", caption: "The walkthrough", before: oshiwatchBeforeVideo, after: oshiwatchVideo, video: true, ratio: "16 / 10" },
+      { label: "Card", caption: "The card thumbnail", before: oshiwatchBeforeCard, after: oshiwatchImg, ratio: "2315 / 1259" },
+    ],
+    outcomes: [
+      {
+        from: "4",
+        to: "1",
+        detail: "/api/videos requests when a talent page opens (Tokoyami Towa). Before, the page fetched streams, shorts, songs and covers at once; now only the open tab's list.",
+        source: "Chrome DevTools Protocol network log, 15 Nov 2026. Before: the old deployed site, opening / and then moving to the talent page inside the app, since a direct load answered 404 there. After: the local app, both a direct load and the same in-app route.",
+      },
+      {
+        from: "12.27 MB",
+        to: "0.55 MB",
+        detail: "Bytes transferred for the 80 YouTube-hosted talent photos on the talents page, after scrolling to the bottom (photos requested at 800px before, 96px after).",
+        source: "Chrome DevTools Protocol, cache disabled, sum of each photo request's transferred bytes (12,269,245 against 546,038), 15 Nov 2026. Before on the old deployed site, after on the local app. The two bundled fallback photos (about 49 KB) are the same in both and not counted.",
+      },
+      {
+        value: (
+          <>
+            EN 0 <span>to</span> 9, DEV_IS 4 <span>to</span> 5
+          </>
+        ),
+        detail: "Streams the home page shows with only that branch selected (JP alone went from 26 to 16; All shows 30 in both). The 10 streams that moved out of JP were EN streams and the official FLOW GLOW channel's live stream.",
+        source: "The old deployed site and the local app read the same live data from the deployed API, measured 7 seconds apart, twice, on 15 Nov 2026 with the same result. ID had no streams in that data, so it couldn't be compared.",
+      },
+      {
+        from: "356.0 kB",
+        to: "372.8 kB",
+        detail: "The JavaScript bundle grew by 16.8 kB (110.8 kB to 116.7 kB gzipped). The CSS went from 48.6 kB to 30.5 kB (8.7 kB to 6.9 kB gzipped).",
+        source: "The old deployed site's main script and stylesheet downloaded with curl, against the files from npm run build, both gzipped at level 9 with Node's zlib, 15 Nov 2026. The live site now serves the same build (index-DUyAG7qY.js and index-qY1WFPhC.css).",
+      },
+      {
+        from: "2 of 3",
+        to: "0",
+        detail: "Main addresses that answered 404 when loaded directly. Before: / returned 200, /talents and /talents/UC1uv2Oq6kNxgATlCiez59hw returned 404 (so did /talents/tokoyami-towa and /watch/dQw4w9WgXcQ). After: all five return 200, because vercel.json now rewrites every path outside /api/ to index.html, and an unknown address like /no-such-page gets the app's own not-found page instead of Vercel's 404.",
+        source: "curl against https://oshiwatch.vercel.app before and after the deploy, 15 Nov 2026",
+      },
+      {
+        value: "103",
+        detail: "Unit tests in 8 files, covering branch detection, slugs and photo sizes, formatting, dates and countdowns, the schedule grouping, the music merge and the favourites store. There were none before; all 8 test files are new in this update.",
+        source: "vitest, 15 Nov 2026",
+      },
+    ],
+    takeaways: [
+      "Test a filter one option at a time. With All selected the home page looked right, while EN showed nothing.",
+      "Don't rely on the format of a field you don't control. Holodex's channel names changed and the old match stopped working without any error.",
+      "Check what a direct link returns, not just what in-app navigation shows. The old version worked when I clicked through it, but every page except the home page answered 404 when opened from a link.",
+      "Size images for where they're shown. The roster was downloading 12 MB of 800px photos for 48px circles.",
+    ],
     notes: {
       decisions: [
         ["A Vercel function per endpoint with an allowlist", "Each one forwards only the parameters the app uses, caps limit at 50, adds the key and sets a cache header, so only the queries the app needs reach Holodex with my key."],

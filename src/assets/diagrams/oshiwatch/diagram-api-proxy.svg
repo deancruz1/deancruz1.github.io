@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 964 372" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>How a request reaches Holodex through the Vercel function</title>
+  <defs>
+    <marker id="ap-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="currentColor" stroke="none"/>
+    </marker>
+  </defs>
+
+  <g stroke-width="1.5">
+    <rect x="0" y="40" width="200" height="124" rx="4"/>
+    <rect x="290" y="16" width="380" height="262" rx="4"/>
+    <rect x="760" y="40" width="200" height="124" rx="4"/>
+    <!-- request -->
+    <path d="M200 84 H286" marker-end="url(#ap-arrow)"/>
+    <path d="M670 84 H756" marker-end="url(#ap-arrow)"/>
+    <!-- response -->
+    <path d="M760 132 H674" marker-end="url(#ap-arrow)"/>
+    <path d="M290 132 H204" marker-end="url(#ap-arrow)"/>
+    <path d="M306 214 H654" stroke-width="1" stroke-dasharray="3 5" opacity="0.5"/>
+  </g>
+
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="100" y="70" font-weight="700">Browser</text>
+    <text x="100" y="96">GET /api/videos</text>
+    <text x="100" y="118">?channel_id=UC…</text>
+    <text x="100" y="140">&amp;limit=50&amp;offset=0</text>
+
+    <text x="480" y="44" font-weight="700">Vercel function: api/videos.ts</text>
+
+    <text x="860" y="70" font-weight="700">Holodex</text>
+    <text x="860" y="96">holodex.net/api/v2</text>
+    <text x="860" y="118">/videos</text>
+  </g>
+
+  <g fill="currentColor" stroke="none">
+    <text x="310" y="78">1</text>
+    <text x="330" y="78">Keep only the allowed parameters:</text>
+    <text x="330" y="98" opacity="0.8">channel_id, type, status, topic,</text>
+    <text x="330" y="118" opacity="0.8">include, limit, offset, org</text>
+    <text x="310" y="146">2</text>
+    <text x="330" y="146">Cap limit at 50</text>
+    <text x="310" y="174">3</text>
+    <text x="330" y="174">Add the X-APIKEY header from</text>
+    <text x="330" y="194">HOLODEX_API_KEY on the server</text>
+    <text x="310" y="242">4</text>
+    <text x="330" y="242">On the way back, set Cache-Control:</text>
+    <text x="330" y="262" opacity="0.8">s-maxage=120, stale-while-revalidate=300</text>
+  </g>
+
+  <g fill="currentColor" stroke="none" font-size="12" opacity="0.8" text-anchor="middle">
+    <text x="245" y="76">request</text>
+    <text x="715" y="76">+ key</text>
+    <text x="715" y="152">JSON</text>
+    <text x="245" y="152">JSON</text>
+  </g>
+
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.75">
+    <text x="0" y="314">The browser only ever calls /api/*, so the key is never in the bundle. No key on the server: the function answers 500.</text>
+    <text x="0" y="336">/api/live and /api/channels work the same way, with their own parameter lists and cache times (60 s and 300 s).</text>
+    <text x="0" y="358">The cache header lets Vercel's CDN answer repeat requests without calling Holodex again.</text>
+  </g>
+</svg>
