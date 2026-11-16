@@ -82,7 +82,7 @@ function MedalScene() {
 
 const BUILDS = [
   { slug: "landing-page", title: "Shrine of Suisei", blurb: "HTML, CSS and JS fan shrine", image: shrineCard },
-  { slug: "fansite", title: "Handler One", blurb: "86 Eighty-Six fansite in React", image: handlerCard },
+  { slug: "fansite", title: "Handler One", blurb: "86 Eighty-Six fansite in React and three.js", image: handlerCard },
   { slug: "kiroku", title: "Kiroku", blurb: "Anime tracker in Next.js", image: kirokuCard },
   { slug: "urara", title: "Urara", blurb: "Umamusume guide in React", image: uraraCard },
   { slug: "oshiwatch", title: "Oshiwatch", blurb: "Hololive stream tracker in React", image: oshiwatchCard },

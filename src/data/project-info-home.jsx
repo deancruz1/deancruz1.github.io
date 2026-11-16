@@ -87,6 +87,29 @@ import oshiwatchBeforeVideo from "../assets/videos/before-after/oshiwatch/before
 import oshiwatchApiProxySvg from "../assets/diagrams/oshiwatch/diagram-api-proxy.svg?raw";
 import oshiwatchBranchDetectionSvg from "../assets/diagrams/oshiwatch/diagram-branch-detection.svg?raw";
 import oshiwatchTalentAddressSvg from "../assets/diagrams/oshiwatch/diagram-talent-address.svg?raw";
+import fansiteLoopSector from "../assets/videos/highlights/fansite/loop-01-sector-select.mp4";
+import fansiteLoopWalk from "../assets/videos/highlights/fansite/loop-02-arsenal-walk.mp4";
+import fansiteLoopLineup from "../assets/videos/highlights/fansite/loop-03-arsenal-lineup.mp4";
+import fansiteLoopGlobe from "../assets/videos/highlights/fansite/loop-04-factions-globe.mp4";
+import fansiteLoopOrbit from "../assets/videos/highlights/fansite/loop-05-arsenal-orbit.mp4";
+import fansiteMobileOverview from "../assets/img/highlights/fansite/mobile-01-overview.webp";
+import fansiteBeforeHome from "../assets/img/before-after/fansite/before-01-home.webp";
+import fansiteAfterHome from "../assets/img/project-gallery/fansite/01-overview.webp";
+import fansiteBeforeIntel from "../assets/img/before-after/fansite/before-02-intel.webp";
+import fansiteAfterIntel from "../assets/img/project-gallery/fansite/09-intel.webp";
+import fansiteBeforeCharacters from "../assets/img/before-after/fansite/before-03-characters.webp";
+import fansiteAfterSquadron from "../assets/img/project-gallery/fansite/03-squadron.webp";
+import fansiteBeforeArsenal from "../assets/img/before-after/fansite/before-04-arsenal.webp";
+import fansiteAfterArsenal from "../assets/img/project-gallery/fansite/04-arsenal.webp";
+import fansiteBeforeFactions from "../assets/img/before-after/fansite/before-05-factions.webp";
+import fansiteAfterFactions from "../assets/img/project-gallery/fansite/07-factions.webp";
+import fansiteBeforeMissions from "../assets/img/before-after/fansite/before-06-missions.webp";
+import fansiteAfterMissions from "../assets/img/project-gallery/fansite/10-mission-log.webp";
+import fansiteBeforeCard from "../assets/img/before-after/fansite/before-card.webp";
+import fansiteBeforeVideo from "../assets/videos/before-after/fansite/before-walkthrough.mp4";
+import fansiteModelKitSvg from "../assets/diagrams/fansite/diagram-model-kit.svg?raw";
+import fansiteLegRigSvg from "../assets/diagrams/fansite/diagram-leg-rig.svg?raw";
+import fansitePhoneLayoutSvg from "../assets/diagrams/fansite/diagram-phone-layout.svg?raw";
 
 const oshiwatchGallery = import.meta.glob(
   "../assets/img/project-gallery/oshiwatch/*.webp",
@@ -313,80 +336,170 @@ export const projects = [
     })),
   },
 {
-    title: "// HANDLER ONE",
-    description: "A fansite for 86 Eighty-Six, styled as a Handler's military terminal with dossiers, mech specs and a combat log.",
+    title: "Handler One",
+    description:
+      "An 86 Eighty-Six fansite built as a Handler's console, with the squadron on a 3D sector map, the machines modelled in code and the continent on a globe.",
     archiveMeta: {
-      desc: "86 Eighty-Six fansite with deep links that survive a refresh on GitHub Pages",
-      stack: "React · Tailwind",
+      desc: "86 Eighty-Six fansite with a 3D sector map and machines modelled in code",
+      stack: "React · three.js",
     },
     features: [
-      "Series archive",
-      "Terminal UI",
-      "Processor dossiers",
-      "Deep links on GitHub Pages",
-      "Responsive layouts",
-      "Data structure",
+      "Sector map",
+      "Squadron roster",
+      "Arsenal in 3D",
+      "Hologram and paint",
+      "Walk cycle",
+      "Side-on lineup",
+      "Factions globe",
+      "Mission log",
+      "Keyboard control",
+      "Deep links",
+      "Reduced motion",
     ],
-    tags: ["React", "Tailwind"],
+    tags: ["React", "three.js", "React Router", "Vite"],
     image: fansiteImg,
     liveDemo: "https://deancruz1.github.io/Handler-One/",
     github: "https://github.com/deancruz1/Handler-One",
     slug: "fansite",
-    notes: {
+    facts: {
+      role: "Solo: design, frontend, 3D models in code, deployment",
+      timeline: "First built in October 2023 in HTML and Bootstrap, rewritten in React in May 2026, rebuilt as a 3D console in November 2026",
+      status: "Live, rebuilt in November 2026",
+    },
+    highlights: {
+      summary: "Six pages share one console layout, and three of them are live three.js scenes built without a single model file.",
+      items: [
+        { video: fansiteLoopSector, caption: "Selecting a Processor moves the map to their Juggernaut and opens their file" },
+        { video: fansiteLoopWalk, caption: "The Juggernaut walking on its two-bone leg rig" },
+        { video: fansiteLoopLineup, caption: "Every machine side on, at one scale" },
+        { video: fansiteLoopGlobe, caption: "The known world, coloured by who holds the ground" },
+        { video: fansiteLoopOrbit, caption: "Orbiting the painted Reginleif" },
+        { image: fansiteMobileOverview, portrait: true, caption: "On a phone the picker sits right under the view it changes" },
+      ],
+    },
+    constraints: [
+      ["GitHub Pages serves static files only", "Deep links need a custom 404.html that redirects to the app, which reads the path back in main.jsx."],
+      ["No official map of the continent", "The globe is a schematic guess, and the README says so."],
+      ["Two of the four machines have no published size", "The Löwe and Ameise are scaled by estimate against the 5.4 m Juggernaut."],
+      ["Phones have far less GPU to spare", "Below 980px the pixel ratio is capped at 1.5 and the Legion swarm drops from 26 copies to 12."],
+    ],
+    diagrams: {
       decisions: [
-        ["404.html redirect", "Deep links survive a refresh on GitHub Pages."],
-        ["Tailwind v4 @theme", "All the terminal colours and fonts in one token block."],
-        ["CSS scanlines", "A repeating 2px gradient instead of an image overlay."],
-        ["sessionStorage flag", "The boot sequence plays once per visit, not on every return."],
+        { svg: fansiteModelKitSvg, caption: "How one set of cross-section numbers becomes a machine in three looks" },
+        { svg: fansiteLegRigSvg, caption: "How each leg reaches its foot target every frame" },
       ],
       hard: [
-        "Clearing every pending timeout if you leave halfway through the boot sequence.",
-        "A static-noise fallback for processors with no video.",
+        { svg: fansitePhoneLayoutSvg, caption: "The console on a desktop, on my first phone pass and on a phone now" },
       ],
-      next: "Drop the unused Swiper dependency.",
+    },
+    callouts: {
+      decisions: "A hologram is just faces filled with the background colour and lines drawn on top. The faces hide the lines behind them, so one mesh gives both looks.",
+      hard: "The 3D pages are heavier than the old site. The Overview loads about 267 kB of JavaScript gzipped, against 128 kB for the whole old bundle, because three.js is most of it.",
+    },
+    beforeAfter: [
+      { label: "Home", caption: "Home became the Overview sector map", before: fansiteBeforeHome, after: fansiteAfterHome, ratio: "16 / 10" },
+      { label: "Intel", caption: "The Intel page", before: fansiteBeforeIntel, after: fansiteAfterIntel, ratio: "16 / 10" },
+      { label: "Squadron", caption: "Characters became the Squadron", before: fansiteBeforeCharacters, after: fansiteAfterSquadron, ratio: "16 / 10" },
+      { label: "Arsenal", caption: "The Arsenal", before: fansiteBeforeArsenal, after: fansiteAfterArsenal, ratio: "16 / 10" },
+      { label: "Factions", caption: "The Factions page", before: fansiteBeforeFactions, after: fansiteAfterFactions, ratio: "16 / 10" },
+      { label: "Mission log", caption: "Missions became the Mission log", before: fansiteBeforeMissions, after: fansiteAfterMissions, ratio: "16 / 10" },
+      { label: "Walkthrough", caption: "The walkthrough", before: fansiteBeforeVideo, after: fansiteVideo, video: true, ratio: "16 / 10" },
+      { label: "Card", caption: "The card thumbnail on the Work page", before: fansiteBeforeCard, after: fansiteImg, ratio: "2135 / 1108" },
+    ],
+    outcomes: [
+      {
+        from: "429.4 kB",
+        to: "254.7 kB",
+        detail: "JavaScript on the text pages (Intel, Squadron, Mission log), or 128.2 kB to 81.9 kB gzipped. three.js now loads only on the 3D pages.",
+        source: "Production builds of the June 2026 and November 2026 versions, file sizes summed and gzip -9, 16 Nov 2026",
+      },
+      {
+        from: "62.1 kB",
+        to: "17.7 kB",
+        detail: "CSS, or 9.6 kB to 4.7 kB gzipped.",
+        source: "Same builds and method, 16 Nov 2026",
+      },
+      {
+        value: "0",
+        detail: "Model files downloaded on any page. The four machines ship as one 31.7 kB chunk of code.",
+        source: "Network log in headless Chrome against the local production build, 16 Nov 2026",
+      },
+      {
+        value: "46",
+        detail: "Draw calls a frame for the whole sector map: terrain, wall, 5 machines, 19 loss markers and 26 Legion copies.",
+        source: "WebGL draw calls counted in headless Chrome at 1440x900, local production build, 16 Nov 2026",
+      },
+    ],
+    takeaways: [
+      "Put the picker right next to what it changes, especially on a phone.",
+      "Parametric models made new machines and variants cheap, because each one is a list of numbers.",
+      "Load a heavy library only on the pages that use it.",
+    ],
+    notes: {
+      decisions: [
+        ["Machines built in code, not downloaded", "Lofting cross-sections with a small kit keeps all four machines in one 31.7 kB chunk, and a change of shape is a change of numbers."],
+        ["One set of parts in three looks", "The same meshes render as a hologram, as painted metal, or baked down to two draw calls a copy for the map and the lineup."],
+        ["Legs as two-bone chains", "A small IK solve per leg lets every machine hold a pose, idle or walk, and a fallen Juggernaut is the same rig in a fallen pose."],
+        ["three.js only where it draws", "The three 3D pages load on demand, so the text pages ship 254.7 kB of JavaScript instead of the old 429.4 kB bundle."],
+      ],
+      hard: [
+        "Getting the lineup to one scale when only the Juggernaut and Reginleif have official sizes.",
+        "Keeping the pinned labels on the map readable when the camera turns, by hiding any whose point is off the map and clamping the rest inside the edges.",
+        "Letting a phone scroll the page past a 3D view you can also drag.",
+        "My first phone pass put each picker below the details, so tapping a name changed something off screen.",
+      ],
+      next: "Bake the Overview's live inset too, since it takes 357 of the page's 403 draw calls a frame on desktop.",
     },
     overview: [
-      "Handler One is a fansite for 86 Eighty-Six, set up as the terminal a Handler would use. It covers the plot by act, the Spearhead Squadron dossiers, a mech database, faction profiles and a mission log.",
-      "It's a React app with six routes, styled with Tailwind and deployed as static files on GitHub Pages.",
+      "Handler One is a fansite for the anime and light novel series 86 Eighty-Six, laid out as the console a Handler would sit at. The Overview is a wireframe map of the sector with each Processor's Juggernaut, a marker where each lost signal went dark and the Legion to the east. The Arsenal shows the four machines in 3D, painted or as holograms, walking or standing, and side on at one scale. Factions puts the powers of the continent on a globe.",
+      "I first built it in 2023 as a static Bootstrap page, then rewrote it in React in 2026. It still read as a themed list of cards, so I rebuilt it around the 3D views. It's React 19 with React Router and Vite, and three.js for the scenes. The machines are modelled in code with a small kit I wrote, and all the content comes from plain data files in the repo.",
     ],
     heroVideo: fansiteVideo,
     annotatedScreen: {
-      image: fansiteGalleryImages[1],
-      caption: "Handler One · the processor roster",
-      view: [220, 0, 760, 427.5],
+      image: fansiteGalleryImages[0],
+      caption: "Handler One · the Overview",
+      view: [0, 0, 1200, 750],
       baseWidth: 1200,
       notes: [
         {
-          title: "Six routes, one terminal",
-          body: "A Vite and React 19 app with React Router 7. Each section of HQ is its own route, styled with Tailwind v4 design tokens.",
+          title: "Sector map",
+          body: "Every machine on the map is a baked copy of the same model the Arsenal shows, so the whole scene is 46 draw calls a frame.",
+          rect: [170, 178, 720, 447],
+          tag: "tl",
         },
         {
-          title: "Deep links on static hosting",
-          body: "GitHub Pages has no server routing, so a 404.html page sends unknown paths back to the app with the path in a `?p=` parameter. The app swaps it back into the URL before React Router renders.",
-          rect: [575, 6, 405, 20],
-          tag: "l",
-        },
-        {
-          title: "Live feed or dead signal",
-          body: "Each processor's portrait plays their clip. Anyone without one falls back to a static noise layer, like a lost feed.",
-          rect: [249, 72, 87, 118],
+          title: "Live inset",
+          body: "The selected Processor's Juggernaut, carrying their own loadout. Clicking it opens that machine in the Arsenal.",
+          rect: [625, 12, 253, 158],
           tag: "tl",
         },
         {
           title: "Roster from one data file",
-          body: "Every dossier comes from a single character data module that also imports their media. Processors marked KIA switch to red styling.",
-          rect: [570, 64, 382, 360],
-          tag: "tr",
+          body: "6 synced and 19 lost, each with a feed or a flat line. The arrow keys step through them.",
+          rect: [891, 211, 309, 539],
+          tag: "tl",
+        },
+        {
+          title: "Episode strip",
+          body: "The 23 episodes as ticks across both arcs, with the 6 on file highlighted. Picking one shows its entry.",
+          rect: [170, 626, 720, 124],
+          tag: "tl",
         },
       ],
     },
     gallery: fansiteGalleryImages.map((image, i) => ({
       image,
       caption: [
-        "Intel Page",
-        "Character Roster Page",
-        "Arsenal Page",
-        "Factions Page",
+        "The sector map, with Undertaker selected",
+        "A lost Processor's file, with the wreck where the signal was lost",
+        "Every Processor at full size, beside the sync roster",
+        "The Juggernaut as a hologram, with its file",
+        "The Reginleif painted, with the pilot shown",
+        "The Löwe, the Legion's tank type",
+        "The globe, coloured by who holds the ground",
+        "The Legion's territory and doctrine",
+        "The situation report and the two arcs",
+        "The episodes on file, grouped by arc",
       ][i],
     })),
   },

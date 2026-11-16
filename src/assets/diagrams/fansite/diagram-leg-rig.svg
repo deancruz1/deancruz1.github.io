@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 964 392" width="964" height="392" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>How a leg reaches its foot: a two-bone chain solved every frame</title>
+  <defs>
+    <marker id="lr-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="currentColor" stroke="none"/>
+    </marker>
+  </defs>
+
+  <!-- ground and the treadmill path of the foot -->
+  <g stroke-width="1">
+    <path d="M20 300 H480" opacity="0.5"/>
+    <path d="M330 300 H450" stroke-width="2.5"/>
+    <path d="M450 300 C430 262 350 262 330 300" stroke-dasharray="4 4" opacity="0.7" marker-end="url(#lr-arrow)"/>
+  </g>
+
+  <!-- body, coxa, femur, tibia, foot -->
+  <g stroke-width="2.5">
+    <rect x="60" y="102" width="110" height="48" rx="6" stroke-width="1.5"/>
+    <path d="M170 126 H206"/>
+    <path d="M206 126 L300 52"/>
+    <path d="M300 52 L404 296"/>
+    <path d="M392 300 H420"/>
+  </g>
+  <g fill="currentColor" stroke="none">
+    <circle cx="170" cy="126" r="5"/>
+    <circle cx="206" cy="126" r="5"/>
+    <circle cx="300" cy="52" r="5"/>
+    <circle cx="404" cy="298" r="5"/>
+  </g>
+  <!-- d, the hip to foot distance, and the two angles -->
+  <g stroke-width="1">
+    <path d="M206 126 L404 298" stroke-dasharray="3 5" opacity="0.7"/>
+    <path d="M232 104 A34 34 0 0 1 232 148" opacity="0.8"/>
+    <path d="M290 80 A30 30 0 0 0 318 82" opacity="0.8"/>
+  </g>
+
+  <g fill="currentColor" stroke="none">
+    <text x="115" y="131" text-anchor="middle">body</text>
+    <text x="188" y="148" font-size="12" text-anchor="middle" opacity="0.8">coxa</text>
+    <text x="242" y="78" font-size="12" opacity="0.8" text-anchor="end">L1 femur</text>
+    <text x="362" y="160" font-size="12" opacity="0.8">L2 tibia</text>
+    <text x="262" y="214" font-size="12" opacity="0.8">d</text>
+    <text x="244" y="122" font-size="12" opacity="0.8">a1</text>
+    <text x="294" y="100" font-size="12" opacity="0.8">a2</text>
+    <text x="390" y="328" font-size="12" opacity="0.8">foot target</text>
+    <text x="324" y="290" font-size="12" opacity="0.8" text-anchor="end">walk: lifted going forward</text>
+
+    <text x="540" y="40" font-weight="700">Every frame, for every leg</text>
+    <text x="540" y="76">1</text><text x="562" y="76">Turn the hip to face the foot target</text>
+    <text x="540" y="106">2</text><text x="562" y="106">Measure d from the end of the coxa to the</text>
+    <text x="562" y="126">foot, clamped so the leg can always reach</text>
+    <text x="540" y="156">3</text><text x="562" y="156">The law of cosines gives a1 at the hip</text>
+    <text x="562" y="176">and a2 at the knee</text>
+    <text x="540" y="206">4</text><text x="562" y="206">Turn the foot back so it sits level</text>
+
+    <text x="540" y="252" font-weight="700">Walking</text>
+    <text x="540" y="276">Each foot's target slides back along the</text>
+    <text x="540" y="296">ground and lifts on the way forward, one</text>
+    <text x="540" y="316">phase per leg. The body moves; the feet stay put.</text>
+  </g>
+
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.75">
+    <text x="0" y="362">Juggernaut: coxa 0.18 m, femur 1.0 m, tibia 1.72 m; stride 0.42 m and lift 0.36 m when walking.</text>
+    <text x="0" y="384">The same rig drives the Juggernaut, Reginleif, Löwe and Ameise, and a fallen Juggernaut on the map is the same rig in a fallen pose.</text>
+  </g>
+</svg>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 964 456" width="964" height="456" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>The console on a desktop, on a phone at first, and on a phone now</title>
+  <defs>
+    <marker id="pl-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="currentColor" stroke="none"/>
+    </marker>
+  </defs>
+
+  <!-- desktop: rail | stage over strip | side -->
+  <g stroke-width="1.5">
+    <rect x="0" y="40" width="400" height="250" rx="4"/>
+    <path d="M64 40 V290"/>
+    <path d="M296 40 V290"/>
+    <path d="M64 232 H296"/>
+    <path d="M296 124 H400"/>
+  </g>
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="200" y="26" font-weight="700">Desktop</text>
+    <text x="32" y="70" font-size="12">Rail</text>
+    <text x="32" y="88" font-size="12" opacity="0.8">6 pages</text>
+    <text x="180" y="140">Stage (3D view)</text>
+    <text x="180" y="266">Strip</text>
+    <text x="348" y="86" font-size="13">File</text>
+    <text x="348" y="200" font-size="13">Picker</text>
+    <text x="348" y="218" font-size="12" opacity="0.8">roster, powers</text>
+  </g>
+
+  <!-- phone, first pass: picker under the file -->
+  <g stroke-width="1.5">
+    <rect x="470" y="40" width="180" height="400" rx="10"/>
+    <path d="M470 80 H650"/>
+    <path d="M470 200 H650"/>
+    <path d="M470 290 H650"/>
+    <path d="M470 400 H650"/>
+  </g>
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="560" y="26" font-weight="700">Phone, first pass</text>
+    <text x="560" y="65" font-size="12">Rail: 2 of 6 pages in view</text>
+    <text x="560" y="145">Stage</text>
+    <text x="560" y="250">File</text>
+    <text x="560" y="336">Picker</text>
+    <text x="560" y="356" font-size="12" opacity="0.8">a box that scrolls</text>
+    <text x="560" y="372" font-size="12" opacity="0.8">inside the page</text>
+    <text x="560" y="425">Strip</text>
+  </g>
+  <g stroke-width="1" stroke-dasharray="4 4" opacity="0.8">
+    <path d="M640 330 C700 316 700 164 654 146" marker-end="url(#pl-arrow)"/>
+  </g>
+  <g fill="currentColor" stroke="none" font-size="12" opacity="0.8">
+    <text x="702" y="222">tap here,</text>
+    <text x="702" y="238">the change</text>
+    <text x="702" y="254">shows up</text>
+    <text x="702" y="270">there</text>
+  </g>
+
+  <!-- phone now: header with a 3 by 2 page grid, stage, picker, file, strip -->
+  <g stroke-width="1.5">
+    <rect x="780" y="40" width="180" height="400" rx="10"/>
+    <path d="M780 70 H960"/>
+    <path d="M840 70 V130 M900 70 V130 M780 100 H960"/>
+    <path d="M780 130 H960"/>
+    <path d="M780 230 H960"/>
+    <path d="M780 270 H960"/>
+    <path d="M780 400 H960"/>
+  </g>
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="870" y="26" font-weight="700">Phone now</text>
+    <text x="870" y="60" font-size="12">Name, GitHub</text>
+    <g font-size="9" opacity="0.85">
+      <text x="810" y="89">Overview</text><text x="870" y="89">Intel</text><text x="930" y="89">Squadron</text>
+      <text x="810" y="119">Arsenal</text><text x="870" y="119">Factions</text><text x="930" y="119">Mission log</text>
+    </g>
+    <text x="870" y="184">Stage</text>
+    <text x="870" y="255" font-size="13">Picker</text>
+    <text x="870" y="340">File</text>
+    <text x="870" y="425">Strip</text>
+  </g>
+
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.75">
+    <text x="0" y="330">Below 980px the console becomes one column.</text>
+    <text x="0" y="352">The picker moves above the file, so the view, the</text>
+    <text x="0" y="374">picker and the start of the file share the screen.</text>
+    <text x="0" y="404">The roster becomes one sideways row that keeps the</text>
+    <text x="0" y="426">selected name centred. The Arsenal gets a 2 by 2</text>
+    <text x="0" y="448">machine grid, because its lineup is 640px wide.</text>
+  </g>
+</svg>

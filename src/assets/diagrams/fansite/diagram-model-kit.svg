@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 964 452" width="964" height="452" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>How one set of numbers becomes a machine in three looks</title>
+  <defs>
+    <marker id="mk-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="currentColor" stroke="none"/>
+    </marker>
+  </defs>
+
+  <g stroke-width="1.5">
+    <rect x="0" y="40" width="260" height="196" rx="4"/>
+    <rect x="340" y="40" width="260" height="196" rx="4"/>
+    <rect x="680" y="0" width="280" height="88" rx="4"/>
+    <rect x="680" y="100" width="280" height="88" rx="4"/>
+    <rect x="680" y="200" width="280" height="88" rx="4"/>
+    <path d="M260 138 H336" marker-end="url(#mk-arrow)"/>
+    <path d="M600 110 C640 110 640 44 676 44" marker-end="url(#mk-arrow)"/>
+    <path d="M600 138 H676" marker-end="url(#mk-arrow)"/>
+    <path d="M600 166 C640 166 640 244 676 244" marker-end="url(#mk-arrow)"/>
+  </g>
+
+  <!-- a lofted hull: ribs across, stringers along -->
+  <g stroke-width="1" opacity="0.8">
+    <ellipse cx="400" cy="190" rx="10" ry="16"/>
+    <ellipse cx="440" cy="190" rx="18" ry="26"/>
+    <ellipse cx="484" cy="190" rx="22" ry="32"/>
+    <ellipse cx="528" cy="190" rx="17" ry="25"/>
+    <ellipse cx="560" cy="190" rx="9" ry="13"/>
+    <path d="M400 174 C430 164 470 157 484 158 C510 159 540 166 560 177"/>
+    <path d="M400 206 C430 216 470 223 484 222 C510 221 540 214 560 203"/>
+    <path d="M388 190 H572" stroke-dasharray="2 4"/>
+  </g>
+
+  <g fill="currentColor" stroke="none">
+    <text x="130" y="68" font-weight="700" text-anchor="middle">Cross-sections</text>
+    <text x="20" y="96" opacity="0.8">[z, half-width, up, down,</text>
+    <text x="20" y="116" opacity="0.8">  centre, roundness]</text>
+    <text x="20" y="148" font-family="ui-monospace, Menlo, monospace" font-size="12">[-0.6, 0.50, 0.40, 0.05]</text>
+    <text x="20" y="168" font-family="ui-monospace, Menlo, monospace" font-size="12">[-0.2, 0.58, 0.47, 0.05]</text>
+    <text x="20" y="188" font-family="ui-monospace, Menlo, monospace" font-size="12">[ 0.2, 0.57, 0.44, 0.05]</text>
+    <text x="20" y="216" opacity="0.8">The Juggernaut's dome, in metres</text>
+
+    <text x="470" y="68" font-weight="700" text-anchor="middle">Skin them along z</text>
+    <text x="360" y="94">Superellipse rings joined</text>
+    <text x="360" y="114">into one mesh, plus a line</text>
+    <text x="360" y="134">set of ribs and stringers</text>
+
+    <text x="696" y="26" font-weight="700">Hologram</text>
+    <text x="696" y="48" opacity="0.8">Faces in the background colour</text>
+    <text x="696" y="68" opacity="0.8">hide the lines behind them</text>
+
+    <text x="696" y="126" font-weight="700">Paint</text>
+    <text x="696" y="148" opacity="0.8">Lit materials and a weathering</text>
+    <text x="696" y="168" opacity="0.8">texture drawn on a canvas</text>
+
+    <text x="696" y="226" font-weight="700">Baked</text>
+    <text x="696" y="248" opacity="0.8">The posed machine flattened to one</text>
+    <text x="696" y="268" opacity="0.8">face set and one line set: 2 draws</text>
+  </g>
+
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.75">
+    <text x="0" y="334">The Arsenal switches between Hologram and Paint on the same meshes. The Overview map and the Arsenal lineup use Baked copies.</text>
+    <text x="0" y="356">The legs are two-bone rigs from the same kit, so every machine can hold, idle or walk.</text>
+    <text x="0" y="378">Four machines, five files: kit.js 149 lines, juggernaut.js 88, reginleif.js 119, lowe.js 84, ameise.js 84.</text>
+    <text x="0" y="400">They ship as one 31.7 kB chunk (11.4 kB gzipped). No model files are downloaded.</text>
+    <text x="0" y="422">The whole sector map, with 5 machines, 26 Legion copies, 19 markers, the terrain and the wall, is 46 draw calls a frame.</text>
+  </g>
+</svg>
