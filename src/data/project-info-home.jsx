@@ -394,7 +394,7 @@ export const projects = [
     },
     callouts: {
       decisions: "A hologram is just faces filled with the background colour and lines drawn on top. The faces hide the lines behind them, so one mesh gives both looks.",
-      hard: "The 3D pages are heavier than the old site. The Overview loads about 267 kB of JavaScript gzipped, against 128 kB for the whole old bundle, because three.js is most of it.",
+      hard: "The 3D pages are heavier than the old site. The Overview loads about 271 kB of JavaScript gzipped, against 128 kB for the whole old bundle, because three.js is most of it.",
     },
     beforeAfter: [
       { label: "Home", caption: "Home became the Overview sector map", before: fansiteBeforeHome, after: fansiteAfterHome, ratio: "16 / 10" },
@@ -409,15 +409,15 @@ export const projects = [
     outcomes: [
       {
         from: "429.4 kB",
-        to: "254.7 kB",
-        detail: "JavaScript on the text pages (Intel, Squadron, Mission log), or 128.2 kB to 81.9 kB gzipped. three.js now loads only on the 3D pages.",
-        source: "Production builds of the June 2026 and November 2026 versions, file sizes summed and gzip -9, 16 Nov 2026",
+        to: "267.1 kB",
+        detail: "JavaScript on the text pages (Intel, Squadron, Mission log), or 128.2 kB to 85.6 kB gzipped. three.js now loads only on the 3D pages.",
+        source: "Production builds of the June 2026 and November 2026 versions, file sizes summed and gzip -9, 17 Nov 2026",
       },
       {
         from: "62.1 kB",
-        to: "17.7 kB",
-        detail: "CSS, or 9.6 kB to 4.7 kB gzipped.",
-        source: "Same builds and method, 16 Nov 2026",
+        to: "25.8 kB",
+        detail: "CSS on the text pages, or 9.6 kB to 6.4 kB gzipped.",
+        source: "Same builds and method, 17 Nov 2026",
       },
       {
         value: "0",
@@ -440,7 +440,7 @@ export const projects = [
         ["Machines built in code, not downloaded", "Lofting cross-sections with a small kit keeps all four machines in one 31.7 kB chunk, and a change of shape is a change of numbers."],
         ["One set of parts in three looks", "The same meshes render as a hologram, as painted metal, or baked down to two draw calls a copy for the map and the lineup."],
         ["Legs as two-bone chains", "A small IK solve per leg lets every machine hold a pose, idle or walk, and a fallen Juggernaut is the same rig in a fallen pose."],
-        ["three.js only where it draws", "The three 3D pages load on demand, so the text pages ship 254.7 kB of JavaScript instead of the old 429.4 kB bundle."],
+        ["three.js only where it draws", "The three 3D pages load on demand, so the text pages ship 267.1 kB of JavaScript instead of the old 429.4 kB bundle."],
       ],
       hard: [
         "Getting the lineup to one scale when only the Juggernaut and Reginleif have official sizes.",
@@ -481,7 +481,7 @@ export const projects = [
         },
         {
           title: "Episode strip",
-          body: "The 23 episodes as ticks across both arcs, with the 6 on file highlighted. Picking one shows its entry.",
+          body: "All 23 episodes as ticks across both arcs. Picking one shows when it aired and what happens.",
           rect: [170, 626, 720, 124],
           tag: "tl",
         },
@@ -498,8 +498,8 @@ export const projects = [
         "The Löwe, the Legion's tank type",
         "The globe, coloured by who holds the ground",
         "The Legion's territory and doctrine",
-        "The situation report and the two arcs",
-        "The episodes on file, grouped by arc",
+        "The situation report beside a schematic of the Republic",
+        "One episode with the Processors it names, beside the episodes of its arc",
       ][i],
     })),
   },
