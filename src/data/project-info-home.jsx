@@ -453,7 +453,7 @@ export const projects = [
       ],
     },
     callouts: {
-      decisions: "Tenrai is unofficial, anonymous and labelled beta, the same kind of dependency as the API that shut down. The cache, the stored shows and the outage pause soften a failure, but they don't remove it.",
+      decisions: "Tenrai is unofficial, anonymous and labelled beta, the same kind of dependency as the API that shut down. If it fails, the site switches to the official MyAnimeList API and keeps its core pages, without reviews and voice actors.",
       hard: "The API Kiroku was built on shut down on 1 October 2026. When I started the rebuild, every server-rendered page that needed show data waited about 66 seconds and then showed one line of error text.",
     },
     beforeAfter: [
@@ -539,7 +539,7 @@ export const projects = [
     ],
     notes: {
       decisions: [
-        ["Tenrai as the data source", "It follows the Jikan v4 schema and MyAnimeList ids, so the stored ids, the URLs and the response mappers kept working. I tested the official MyAnimeList API after the rebuild: it covers the core show data but has no reviews, voice actors or batch lookup."],
+        ["Tenrai as the data source", "It follows the Jikan v4 schema and MyAnimeList ids, so the stored ids, the URLs and the response mappers kept working. The official MyAnimeList API is wired in as an automatic fallback: it covers the core show data but has no reviews, voice actors or batch lookup."],
         ["One request policy for every upstream call", "Each attempt times out after 4 seconds and a request gets 10 seconds in total, with up to 3 attempts, exponential backoff with jitter, and Retry-After honoured. A hanging upstream now fails within 8.5 seconds instead of 66."],
         ["Show details stored in Postgres", "The watch list, collections, stats and recommendations read an Anime table keyed by MyAnimeList id instead of calling the API once per entry. Missing or stale rows are refreshed in one batch request of up to 25."],
         ["Stored rows win during an outage", "If a refresh fails, the stored rows are used as they are and refreshes pause for a minute, so an outage costs one slow request per server instance, not one per request."],
@@ -550,7 +550,7 @@ export const projects = [
         "Keeping stored shows fresh without a burst of requests: missing shows first, then the stalest, in one batch, matched by id because Tenrai returns the batch sorted by id, not in request order.",
         "Moving a production database whose schema had drifted from its migrations without losing a row.",
       ],
-      next: "Move core show data to the official MyAnimeList API, so losing Tenrai wouldn't take the core pages down.",
+      next: "Share the rate limiter and the source switch across server instances. Today each instance keeps its own, so several busy instances could still go over an API's limits.",
     },
     overview: [
       "Kiroku is an anime watch tracker. You can search shows and browse the top lists, follow the current season on a weekly calendar shown in your own time zone with a countdown to each next episode, keep a watch list with status, episode progress and a rating, group shows into collections, and see stats and recommendations based on what you've logged.",
