@@ -1498,7 +1498,7 @@ export const projects = [
 ];
 
 export const FEATURED_SLUGS = ["kiroku", "cubehand", "urara", "oshiwatch"];
-export const ARCHIVE_SLUGS = ["skillforge", "fansite", "portfolio-website", "movietopia"];
+export const ARCHIVE_SLUGS = ["fansite", "skillforge", "portfolio-website", "movietopia"];
 
 export function getFeaturedProjects() {
   return FEATURED_SLUGS.map((slug) => projects.find((p) => p.slug === slug)).filter(Boolean);
