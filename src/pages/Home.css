@@ -172,6 +172,12 @@ html[data-theme="dean-light"] .stage-card:hover .stage-wash {
     radial-gradient(circle at 50% 0, rgba(52, 211, 153, 0.24), transparent);
 }
 
+.glow-cubehand {
+  background:
+    radial-gradient(circle at 50% 0, rgba(45, 212, 191, 0.38), transparent 75%),
+    radial-gradient(circle at 50% 0, rgba(132, 204, 22, 0.24), transparent);
+}
+
 .glow-urara {
   background:
     radial-gradient(circle at 50% 0, rgba(56, 189, 248, 0.38), transparent 75%),

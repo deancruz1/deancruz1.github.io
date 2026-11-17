@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 375" width="960" height="375" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>How a build works, from the design guide to the checked result</title>
+  <defs>
+    <marker id="cubehand-arrow-build" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L8 4 L0 8 z" fill="currentColor" stroke="none"/>
+    </marker>
+  </defs>
+
+  <g stroke-width="1.5" fill="currentColor" fill-opacity="0.12">
+    <rect x="0" y="60" width="150" height="56" rx="6"/>
+    <rect x="190" y="60" width="150" height="56" rx="6"/>
+    <rect x="380" y="60" width="170" height="56" rx="6"/>
+    <rect x="590" y="60" width="150" height="56" rx="6"/>
+    <rect x="780" y="60" width="180" height="56" rx="6"/>
+  </g>
+
+  <g stroke-width="1.5" marker-end="url(#cubehand-arrow-build)">
+    <path d="M150 88 H188"/>
+    <path d="M340 88 H378"/>
+    <path d="M550 88 H588"/>
+    <path d="M740 88 H778"/>
+    <path d="M265 60 V26 H665 V58"/>
+    <path d="M465 116 V184"/>
+    <path d="M131 265 H80 V150 H265 V118"/>
+  </g>
+
+  <!-- the three pictures sit beside this file; the projects data swaps in their built addresses -->
+  <image href="render-cottage-south-east.webp" x="131" y="190" width="179.5" height="150"/>
+  <image href="render-cottage-north-west.webp" x="324.5" y="190" width="219.9" height="150"/>
+  <image href="render-cottage-cut.webp" x="558.4" y="190" width="271.1" height="150"/>
+
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="75" y="84" font-weight="600">design_guide</text>
+    <text x="75" y="103" font-size="13" opacity="0.85">structure and style</text>
+    <text x="265" y="84" font-weight="600">Plan</text>
+    <text x="265" y="103" font-size="13" opacity="0.85">palette, shapes, kits</text>
+    <text x="465" y="84" font-weight="600">preview_structure</text>
+    <text x="465" y="103" font-size="13" opacity="0.85">renders, places nothing</text>
+    <text x="665" y="84" font-weight="600">build_structure</text>
+    <text x="665" y="103" font-size="13" opacity="0.85">places the blocks</text>
+    <text x="870" y="84" font-weight="600">Check and fix</text>
+    <text x="870" y="103" font-size="13" opacity="0.85">missing or turned wrong</text>
+  </g>
+
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.85">
+    <text x="465" y="16" text-anchor="middle">under 8 parts and no part over 150 blocks: no preview needed</text>
+    <text x="88" y="170">change the plan after seeing the pictures</text>
+    <text x="870" y="142" text-anchor="middle">then two rendered views of</text>
+    <text x="870" y="160" text-anchor="middle">the result go back to Claude</text>
+    <text x="480" y="366" text-anchor="middle">what she gets back: the plan from two opposite corners, and a slice to see inside</text>
+  </g>
+</svg>

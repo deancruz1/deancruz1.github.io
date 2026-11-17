@@ -6,6 +6,7 @@ import handlerCard from "../assets/img/project-cards/fansite.webp";
 import kirokuCard from "../assets/img/project-cards/kiroku.webp";
 import uraraCard from "../assets/img/project-cards/urara.webp";
 import oshiwatchCard from "../assets/img/project-cards/oshiwatch.webp";
+import cubehandCard from "../assets/img/project-cards/cubehand.webp";
 import xdPhone from "../assets/img/project-gallery/wireframe/01.webp";
 import skillforgeShot from "../assets/img/project-gallery/skillforge/02.webp";
 import rpLogo from "../assets/img/rp.webp";
@@ -86,6 +87,7 @@ const BUILDS = [
   { slug: "kiroku", title: "Kiroku", blurb: "Anime tracker in Next.js", image: kirokuCard },
   { slug: "urara", title: "Urara", blurb: "Umamusume guide in React", image: uraraCard },
   { slug: "oshiwatch", title: "Oshiwatch", blurb: "Hololive stream tracker in React", image: oshiwatchCard },
+  { slug: "cubehand", title: "Cubehand", blurb: "Minecraft bot in Node.js", image: cubehandCard },
 ];
 
 // How far a card has to be dragged before it counts as a swipe

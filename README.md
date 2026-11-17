@@ -6,7 +6,7 @@ I'm a full-stack engineer, strongest on the frontend. The site shows my side pro
 
 ## Pages
 
-- **Work** (`/`): the hero, three featured projects as cards, and an archive of smaller projects.
+- **Work** (`/`): the hero, four featured projects as cards, and an archive of smaller projects.
 - **Info** (`/info`): a short intro, an interactive story of how I got here, a work and study explorer, and the tools I use.
 - **Project pages** (`/projects/:slug`): one per project, with an overview, an annotated screenshot that explains the engineering behind the interface, the decisions I made, what was hard, and the screens.
 

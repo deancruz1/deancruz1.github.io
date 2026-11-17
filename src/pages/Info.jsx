@@ -22,7 +22,7 @@ const STORY_ITEMS = [
   {
     scene: "builds",
     title: "100-hour JRPGs & anime side builds",
-    body: "My first sites were fan projects. Kiroku, Urara and Oshiwatch came from the same habit.",
+    body: "My first sites were fan projects. Kiroku, Urara, Oshiwatch and Cubehand came from the same habit.",
   },
   {
     scene: "flows",

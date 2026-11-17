@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 250" width="960" height="250" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>What happens when a tool stalls, and when a tool is slow but still working</title>
+  <!-- scale: x = 170 + seconds * 10 -->
+
+  <g fill="currentColor" stroke="none">
+    <text x="0" y="62" font-weight="600">A stalled tool</text>
+    <text x="0" y="82" font-size="13" opacity="0.85">nothing changes</text>
+    <text x="0" y="152" font-weight="600">A slow tool</text>
+    <text x="0" y="172" font-size="13" opacity="0.85">still working</text>
+  </g>
+
+  <g stroke-width="1.5" fill="currentColor" fill-opacity="0.12">
+    <rect x="170" y="56" width="100" height="28"/>
+    <rect x="170" y="146" width="750" height="28"/>
+  </g>
+  <rect x="270" y="56" width="450" height="28" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <path d="M720 44 V96" stroke-width="1.5"/>
+  <path d="M770 134 V186" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <g fill="currentColor" stroke="none" font-size="13">
+    <text x="220" y="75" text-anchor="middle">progress</text>
+    <text x="495" y="75" text-anchor="middle">45 s with no movement, digging, item change or progress</text>
+    <text x="180" y="165">progress reported, nothing said in chat</text>
+  </g>
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.85">
+    <text x="730" y="62">the watchdog stops it and</text>
+    <text x="730" y="80">hands Claude a report</text>
+    <text x="770" y="126" text-anchor="middle">a status line goes to chat</text>
+  </g>
+
+  <!-- axis -->
+  <g stroke-width="1">
+    <path d="M170 210 H920"/>
+    <path d="M170 210 V216 M320 210 V216 M470 210 V216 M620 210 V216 M770 210 V216 M920 210 V216"/>
+  </g>
+  <g fill="currentColor" stroke="none" text-anchor="middle" font-size="13" opacity="0.85">
+    <text x="170" y="234">0 s</text>
+    <text x="320" y="234">15 s</text>
+    <text x="470" y="234">30 s</text>
+    <text x="620" y="234">45 s</text>
+    <text x="770" y="234">60 s</text>
+    <text x="920" y="234">75 s</text>
+  </g>
+</svg>

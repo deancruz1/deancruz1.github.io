@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" width="960" height="300" fill="none" stroke="currentColor" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14">
+  <title>Where a chat request goes, from the message to the reply</title>
+  <defs>
+    <marker id="cubehand-arrow-request" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L8 4 L0 8 z" fill="currentColor" stroke="none"/>
+    </marker>
+  </defs>
+
+  <g stroke-width="1.5" fill="currentColor" fill-opacity="0.12">
+    <rect x="0" y="86" width="120" height="56" rx="6"/>
+    <rect x="152" y="86" width="170" height="56" rx="6"/>
+    <rect x="354" y="86" width="150" height="56" rx="6"/>
+    <rect x="548" y="44" width="160" height="56" rx="6"/>
+    <rect x="548" y="128" width="160" height="56" rx="6"/>
+    <rect x="760" y="86" width="120" height="56" rx="6"/>
+    <rect x="800" y="236" width="140" height="56" rx="6"/>
+    <rect x="152" y="236" width="170" height="56" rx="6"/>
+    <rect x="0" y="236" width="120" height="56" rx="6"/>
+  </g>
+
+  <g stroke-width="1.5" marker-end="url(#cubehand-arrow-request)">
+    <path d="M120 114 H150"/>
+    <path d="M322 114 H352"/>
+    <path d="M504 114 H526 V72 H546"/>
+    <path d="M504 114 H526 V156 H546"/>
+    <path d="M708 72 H734 V114 H758"/>
+    <path d="M708 156 H734 V114 H758"/>
+    <path d="M429 86 V26 H820 V84"/>
+    <path d="M840 142 V234"/>
+    <path d="M880 236 V144"/>
+    <path d="M775 142 V264 H324"/>
+    <path d="M152 264 H122"/>
+  </g>
+
+  <g fill="currentColor" stroke="none" text-anchor="middle">
+    <text x="60" y="119" font-weight="600">Chat message</text>
+    <text x="237" y="110" font-weight="600">Checks in code</text>
+    <text x="237" y="129" font-size="13" opacity="0.85">allowlist, stop, come here</text>
+    <text x="429" y="110" font-weight="600">Quick model</text>
+    <text x="429" y="129" font-size="13" opacity="0.85">sorts the request</text>
+    <text x="628" y="68" font-weight="600">Mid-size model</text>
+    <text x="628" y="87" font-size="13" opacity="0.85">chores, mining, storage</text>
+    <text x="628" y="152" font-weight="600">Main model</text>
+    <text x="628" y="171" font-size="13" opacity="0.85">building, planning</text>
+    <text x="820" y="110" font-weight="600">Tool loop</text>
+    <text x="820" y="129" font-size="13" opacity="0.85">step by step</text>
+    <text x="870" y="260" font-weight="600">Actions</text>
+    <text x="870" y="279" font-size="13" opacity="0.85">walk, dig, place, craft</text>
+    <text x="237" y="260" font-weight="600">Chat guard</text>
+    <text x="237" y="279" font-size="13" opacity="0.85">no commands, no slurs</text>
+    <text x="60" y="269" font-weight="600">Reply in chat</text>
+  </g>
+
+  <g fill="currentColor" stroke="none" font-size="13" opacity="0.85">
+    <text x="624" y="18" text-anchor="middle">simple jobs stay on the quick model</text>
+    <text x="526" y="206" text-anchor="middle">hands up</text>
+    <text x="830" y="194" text-anchor="end">calls</text>
+    <text x="890" y="194">results</text>
+    <text x="548" y="256" text-anchor="middle">every line she says</text>
+  </g>
+  <path d="M526 192 V160" stroke-width="1" stroke-dasharray="3 3"/>
+</svg>

@@ -39,6 +39,20 @@ import kirokuRequestFlowSvg from "../assets/diagrams/kiroku/diagram-request-flow
 import kirokuRetryTimelineSvg from "../assets/diagrams/kiroku/diagram-retry-timeline.svg?raw";
 import kirokuStoredShowsSvg from "../assets/diagrams/kiroku/diagram-stored-shows.svg?raw";
 import kirokuBroadcastTimeSvg from "../assets/diagrams/kiroku/diagram-broadcast-time.svg?raw";
+import cubehandImg from "../assets/img/project-cards/cubehand.webp";
+import cubehandVideo from "../assets/videos/cubehand.mp4";
+import cubehandLoopObtain from "../assets/videos/highlights/cubehand/loop-01-obtain.mp4";
+import cubehandLoopStructure from "../assets/videos/highlights/cubehand/loop-02-structure.mp4";
+import cubehandLoopScaffold from "../assets/videos/highlights/cubehand/loop-03-scaffold.mp4";
+import cubehandStorageRoom from "../assets/img/highlights/cubehand/storage-room.webp";
+import cubehandReplanting from "../assets/img/highlights/cubehand/replanting.webp";
+import cubehandGroupShot from "../assets/img/highlights/cubehand/group-shot.webp";
+import cubehandRequestFlowSvg from "../assets/diagrams/cubehand/diagram-request-flow.svg?raw";
+import cubehandBuildFlowRaw from "../assets/diagrams/cubehand/diagram-build-flow.svg?raw";
+import cubehandQuietToolSvg from "../assets/diagrams/cubehand/diagram-quiet-tool.svg?raw";
+import cubehandRenderSouthEast from "../assets/diagrams/cubehand/render-cottage-south-east.webp";
+import cubehandRenderNorthWest from "../assets/diagrams/cubehand/render-cottage-north-west.webp";
+import cubehandRenderCut from "../assets/diagrams/cubehand/render-cottage-cut.webp";
 import uraraImg from "../assets/img/project-cards/urara.webp";
 import uraraVideo from "../assets/videos/urara.mp4";
 import uraraLoopTheme from "../assets/videos/highlights/urara/loop-01-theme-toggle.mp4";
@@ -138,6 +152,18 @@ const kirokuGallery = import.meta.glob(
   { eager: true },
 );
 const kirokuGalleryImages = Object.values(kirokuGallery).map((m) => m.default);
+
+const cubehandGallery = import.meta.glob(
+  "../assets/img/project-gallery/cubehand/*.webp",
+  { eager: true },
+);
+const cubehandGalleryImages = Object.values(cubehandGallery).map((m) => m.default);
+
+// The build diagram shows three pictures, which an inlined SVG can't load by file name
+const cubehandBuildFlowSvg = cubehandBuildFlowRaw
+  .replace("render-cottage-south-east.webp", cubehandRenderSouthEast)
+  .replace("render-cottage-north-west.webp", cubehandRenderNorthWest)
+  .replace("render-cottage-cut.webp", cubehandRenderCut);
 
 const landingPageGallery = import.meta.glob(
   "../assets/img/project-gallery/landing-page/*.webp",
@@ -728,6 +754,175 @@ export const projects = [
       ][i],
     })),
   },
+  {
+    title: "Cubehand",
+    description:
+      "A survival Minecraft player run by Claude, which builds detailed houses from chat requests.",
+    stageMeta: {
+      summary: "A survival Minecraft player you talk to in chat, where Claude picks the next action and the bot's own code does the walking, digging and placing.",
+      glow: "glow-cubehand",
+      alt: "Cubehand Minecraft bot",
+    },
+    features: [
+      "Chat requests",
+      "House and structure building",
+      "Build previews",
+      "Mining and digging",
+      "Crafting and smelting",
+      "Chest storage",
+      "Farming and animals",
+      "Fighting",
+      "Standing jobs",
+      "Memory across restarts",
+      "Lessons and skills",
+    ],
+    tags: ["JavaScript", "Node 20", "Mineflayer", "mineflayer-pathfinder", "Anthropic SDK", "node:test"],
+    image: cubehandImg,
+    github: "https://github.com/deancruz1/cubehand",
+    slug: "cubehand",
+    results: [
+      { from: "3", to: "1", label: "Model calls to answer \"come here\"" },
+      { from: "29", to: "6", label: "Walks to place a 40-block test ring" },
+      { value: "977", label: "Automated tests" },
+    ],
+    highlights: {
+      summary: "Players ask in chat, Claude picks the next action, and the bot's own code does the walking, digging and placing under survival rules.",
+      items: [
+        { video: cubehandLoopObtain, caption: "Getting spruce logs with one obtain call: the chain is planned in code, and her status line names the step she's on" },
+        { video: cubehandLoopStructure, caption: "A build_structure plan going up by the water, 219 of 544 blocks in" },
+        { video: cubehandLoopScaffold, caption: "Scaffolding she cleans up: a cobblestone pillar goes up beside a tree and comes down again" },
+        { image: cubehandGalleryImages[5], caption: "Strip mining with dig_area, 33 of about 60 blocks into a tunnel" },
+        { image: cubehandStorageRoom, caption: "Checking the labelled chests for dirt; she remembers what each one held the last time she opened it" },
+        { image: cubehandReplanting, caption: "Replanting a sapling where a tree she chopped stood" },
+      ],
+    },
+    constraints: [
+      ["Survival rules", "She only builds with blocks she carries, gets hungry, can die and only sees the chunks around her, so every plan has to start from her inventory."],
+      ["The server runs Minecraft 26.3 and Mineflayer only speaks 26.1", "She connects as 26.1 through ViaProxy, and has to send the tick_end packet real clients send, or the server kicks her a second after spawning."],
+      ["Every model call costs money and a round trip", "Each call rereads the whole conversation, so the work is shaped to need as few calls as possible."],
+      ["The server is in offline mode", "A name proves nothing, so an optional whispered passphrase decides who she takes orders from."],
+      ["Anyone can write text she reads", "Chat, signs and name tags from players off the allowlist reach the model as information, never as instructions."],
+    ],
+    diagrams: {
+      decisions: [
+        { svg: cubehandRequestFlowSvg, caption: "Where a request goes: stops and a plain come, follow or stay are handled in code, builds and obvious work orders skip the quick model, and every line she says goes through the chat guard" },
+        { svg: cubehandBuildFlowSvg, caption: "How a build works. The pictures are the bot's own renderer drawing its cottage design, and a larger build is turned back until it has been previewed this way" },
+      ],
+      hard: [
+        { svg: cubehandQuietToolSvg, caption: "Two kinds of quiet: a tool where nothing changes for 45 seconds is stopped and the model is told where it got stuck, and a tool that is still working gets a status line in chat after a minute" },
+      ],
+    },
+    callouts: {
+      decisions: "\"Come here\" went from three model calls to one. The sorting became the quick model's own first step, and the last action and the reply now come in one response.",
+      hard: "Logs from one evening showed the model thinking for about 14 minutes, and 12 silent gaps of over a minute, 37 minutes in total, mostly inside long tools.",
+    },
+    outcomes: [
+      {
+        from: "3",
+        to: "1",
+        detail: "Model calls for \"come here\". The sorting is the quick model's own first step, and the last action and the reply come in one response.",
+        source: "From the changelog entry for 15 Nov 2026.",
+      },
+      {
+        from: "35",
+        to: "78 of 136",
+        detail: "Hand-ups that skip the quick model, after build fixes, tunnel work and obvious work orders started on a bigger model.",
+        source: "Counted over the logged jobs in jobs.jsonl, 17 Nov 2026.",
+      },
+      {
+        from: "29",
+        to: "6",
+        detail: "Walks needed to place a test ring of 40 wall blocks, once build_structure started placing the block closest to where she stands.",
+        source: "Test ring, 15 Nov 2026.",
+      },
+      {
+        from: "6.75 s",
+        to: "0.85 s",
+        detail: "Breaking deepslate diamond ore with a diamond pickaxe. The 26.1 data gave ores a tool-tier tag as their material, so they broke at bare-hand speed.",
+        source: "Measured on the server, 15 Nov 2026.",
+      },
+      {
+        value: "977",
+        detail: "Automated tests on Node's own test runner: about 20,200 lines of tests against 26,700 lines of source.",
+        source: "Counted for the project notes, November 2026.",
+      },
+    ],
+    takeaways: [
+      "Put rules in code, not only in the prompt. Stop words, protected blocks and the chat guard work without a model call.",
+      "Fewer, bigger tools. Every call is a round trip that rereads the conversation, so one obtain call beat a chain of chop, craft and mine.",
+      "A model can't check what it can't see. Rendering the plan first caught floating roofs and backwards stairs before a block was placed.",
+      "Log first, then fix. The silent gaps, the refusals and the lost corrections all showed up in the job log.",
+    ],
+    notes: {
+      decisions: [
+        ["Claude decides what, code decides how", "The model never works out block-by-block geometry. build_house and the shapes do that, so builds are exact and cheap."],
+        ["A manual tool loop, not the SDK's tool runner", "I need control between steps for step limits, time limits, stop and mid-job changes."],
+        ["The right model for each job", "A quick model takes simple jobs and hands the rest up: chores to a mid-size model, building and planning to the main one."],
+        ["A fresh conversation per job, with memory in files", "Cost per job stays bounded, and the tools and system prompt sit in a one-hour cache so a job doesn't pay to cache them again."],
+        ["One call for a whole job", "obtain plans and runs the chain to get an item, and dig_area takes a whole box, where each used to be a model round trip per step."],
+        ["Look before building", "A build of 8 or more parts is turned back until its plan has been rendered, so she sees the picture before placing a block."],
+        ["Hold a job, don't restart it", "Low health or a dropped connection stops only the running tool, so the model keeps what it has done and hears what happened."],
+        ["Safety in code, not only in the prompt", "Protected blocks, the allowlist, the chat guard and the stop command all work without a model call."],
+      ],
+      hard: [
+        "Connecting at all: the server kicked the bot a second after spawning until it sent the tick_end packet that real clients send every tick.",
+        "The pathfinder's blind spots: it treats doors as walls, walks across the tops of ladder shafts and sees powder snow as air, and each one needed its own fix in the movement layer.",
+        "Standing frozen: tools now report progress, a watchdog stops one that has stalled, and a status line goes to chat after a minute of quiet.",
+        "Building blind: planning 3D coordinates in text gave flat boxes, floating roofs and backwards stairs, until she could render a plan to a picture first.",
+        "Instructions arriving in pieces: players change a build mid-job, so changes are delivered between steps and tools about to act on the old plan are skipped.",
+        "Enchanted tools: every dig threw before it started because the library expected enchantments as a list, so the bot now works out dig time itself.",
+      ],
+      next: "Boat travel. On this protocol version the client has to move the boat itself, so it needs a supervised live test before any code.",
+    },
+    overview: [
+      "Cubehand is a Node.js bot that joins a private Minecraft Java server as its own survival player. Players talk to it in chat, and it builds houses, mines, crafts, farms, stores things and fights, all under survival rules: it only builds with blocks it carries, gets hungry, can die and only sees the chunks around it.",
+      "I designed and built it, and tested it with friends on our server. Claude, through the Anthropic API, decides what to do, and the bot's code decides how: walking, digging, placing blocks in order, crafting. It's plain JavaScript on Mineflayer with a manual tool loop, 53 tools and 977 tests, and no build step.",
+    ],
+    heroVideo: cubehandVideo,
+    annotatedScreen: {
+      image: cubehandGroupShot,
+      caption: "Cubehand · Clodine with two players in front of the house she built",
+      view: [0, 0, 1920, 1080],
+      baseWidth: 1920,
+      notes: [
+        {
+          title: "Called by name",
+          body: "A player typed her name in chat and she answered. An allowlist decides who she listens to, and chat from anyone else reaches the model as information, never instructions.",
+          rect: [4, 942, 472, 22],
+          tag: "tr",
+        },
+        {
+          title: "A guard on every reply",
+          body: "Everything she says goes through a chat guard first: no leading slash, which would run as a server command under her name, no hateful words, and long replies cut short.",
+          rect: [4, 964, 676, 40],
+          tag: "tr",
+        },
+        {
+          title: "The status snapshot",
+          body: "The model works from a compact text snapshot of her position, health and inventory, down to the uses left on her armour. That is what lets her report on it.",
+          rect: [1083, 462, 172, 395],
+          tag: "tr",
+        },
+        {
+          title: "The house behind her",
+          body: "She built it with `build_house`. Claude picks the house and its options and the code works out every block, so the model never plans geometry block by block.",
+          rect: [660, 30, 735, 330],
+          tag: "tl",
+        },
+      ],
+    },
+    gallery: cubehandGalleryImages.map((image, i) => ({
+      image,
+      caption: [
+        "Saying what she is doing next while filling dips beside a house",
+        "The final reply: what she took, where from and what she filled",
+        "A house part-way up: foundation, walls, shutters and porch posts",
+        "The roof going on, with a dirt pillar she climbs and takes down afterwards",
+        "The finished house",
+        "Strip mining, with her progress line in chat",
+      ][i],
+    })),
+  },
     {
     title: "Urara",
     description:
@@ -1302,7 +1497,7 @@ export const projects = [
   },
 ];
 
-export const FEATURED_SLUGS = ["kiroku", "urara", "oshiwatch"];
+export const FEATURED_SLUGS = ["kiroku", "cubehand", "urara", "oshiwatch"];
 export const ARCHIVE_SLUGS = ["skillforge", "fansite", "portfolio-website", "movietopia"];
 
 export function getFeaturedProjects() {
