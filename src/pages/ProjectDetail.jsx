@@ -426,11 +426,11 @@ function ProjectDetailBody({ project }) {
               <div className="pd-chapter-head">
                 <h2 id="pd-hard-heading">Challenges</h2>
               </div>
-              <ol className="pd-rows numbered">
+              <ul className="pd-rows">
                 {project.notes.hard.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
-              </ol>
+              </ul>
             </section>
 
             {project.diagrams?.hard?.map((d) => (
@@ -482,11 +482,11 @@ function ProjectDetailBody({ project }) {
               <h2 id="pd-takeaways-heading">Takeaways</h2>
             </div>
             <div>
-              <ol className="pd-rows numbered">
+              <ul className="pd-rows">
                 {project.takeaways.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
-              </ol>
+              </ul>
               {project.notes?.next && (
                 <p className="pd-next-line">
                   <b>If I picked it back up.</b> {project.notes.next}

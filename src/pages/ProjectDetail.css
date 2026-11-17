@@ -707,7 +707,6 @@ html[data-theme="foundations"] .pd-link-primary {
   margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: row;
 }
 
 .pd-rows li {
@@ -730,20 +729,6 @@ html[data-theme="foundations"] .pd-link-primary {
 .pd-rows b {
   font-weight: 600;
   color: var(--text-bright);
-}
-
-.pd-rows.numbered li {
-  counter-increment: row;
-  display: grid;
-  grid-template-columns: 34px minmax(0, 1fr);
-}
-
-.pd-rows.numbered li::before {
-  content: counter(row, decimal-leading-zero);
-  padding-top: 2px;
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--accent-text);
 }
 
 /* One sentence on its own, like the reference's challenge panel */
