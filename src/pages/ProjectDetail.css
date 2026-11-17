@@ -312,6 +312,76 @@ html[data-theme="foundations"] .pd-link-primary {
   gap: 20px;
 }
 
+/* The screens past the first few: the row grows from 0 to its full height */
+.pd-screens-rest {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+    opacity 0.3s ease,
+    visibility 0s 0.6s;
+}
+
+.pd-screens-rest.open {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  opacity: 1;
+  transition:
+    grid-template-rows 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+    opacity 0.4s ease 0.1s,
+    visibility 0s;
+}
+
+.pd-screens-rest > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.pd-screens-rest .pd-figures {
+  padding-top: 40px;
+}
+
+.pd-screens-rest img {
+  aspect-ratio: auto var(--shot-ratio);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pd-screens-rest,
+  .pd-screens-rest.open {
+    transition: none;
+  }
+}
+
+.pd-screens-more {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: 40px;
+  margin: 28px auto 0;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-bright);
+  border: 1px solid var(--border-outer);
+  background: color-mix(in srgb, var(--text-bright) 4%, transparent);
+  cursor: pointer;
+  transition: border-color 0.18s ease;
+}
+
+.pd-screens-more:hover {
+  border-color: var(--text-dim);
+}
+
+.pd-screens-more:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .pd-figure {
   margin: 0;
 }
@@ -939,6 +1009,7 @@ html[data-theme="dean-light"] .pd-next-card:hover .bezel-inner {
   }
 
   .pd-meta > div {
+    flex: none;
     max-width: none;
     padding: 14px 0 0;
     border-left: 0;
@@ -994,13 +1065,16 @@ html[data-theme="dean-light"] .pd-next-card:hover .bezel-inner {
   }
 
   .pd-panel {
-    flex: none;
     padding: 28px 14px 18px;
     border-radius: 18px;
   }
 
   .pd-figures {
     gap: 24px;
+  }
+
+  .pd-screens-rest .pd-figures {
+    padding-top: 24px;
   }
 
   .pd-screens {

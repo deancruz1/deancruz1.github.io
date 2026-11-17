@@ -231,9 +231,22 @@ function ContentsNav({ sections }) {
   );
 }
 
+const SCREENS_SHOWN_FIRST = 4;
+const SCREENS_COLLAPSE_OVER = 6;
+// Matches the .pd-screens-rest transition in ProjectDetail.css
+const SCREENS_ANIMATION_MS = 600;
+
 function ProjectDetailBody({ project }) {
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [showAllScreens, setShowAllScreens] = useState(false);
+  // The hidden screens stay out of the page until first opened, so they don't download early
+  const [restScreensMounted, setRestScreensMounted] = useState(false);
+  const moreScreensRef = useRef(null);
   const gallery = project.gallery || [];
+  // Long galleries start with a few screens so the next project isn't buried
+  const firstScreens =
+    gallery.length > SCREENS_COLLAPSE_OVER ? gallery.slice(0, SCREENS_SHOWN_FIRST) : gallery;
+  const restScreens = gallery.slice(firstScreens.length);
   const hasTakeaways = project.takeaways?.length > 0;
   const [sections] = useState(() =>
     [
@@ -254,6 +267,50 @@ function ProjectDetailBody({ project }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [project.slug]);
+
+  // The hidden screens haven't loaded yet, so they borrow the first one's
+  // shape to open at the right height
+  const shareShotRatio = (img) => {
+    if (!img?.naturalWidth) return;
+    img
+      .closest(".pd-screens")
+      ?.style.setProperty("--shot-ratio", `${img.naturalWidth} / ${img.naturalHeight}`);
+  };
+
+  const toggleScreens = () => {
+    const button = moreScreensRef.current;
+    if (showAllScreens && button) {
+      // Closing removes a lot of page above the button, so hold it where it is on screen
+      const top = button.getBoundingClientRect().top;
+      const until = performance.now() + SCREENS_ANIMATION_MS + 100;
+      const hold = () => {
+        window.scrollBy({ top: button.getBoundingClientRect().top - top, behavior: "instant" });
+        if (performance.now() < until) window.requestAnimationFrame(hold);
+      };
+      window.requestAnimationFrame(hold);
+    }
+    setRestScreensMounted(true);
+    setShowAllScreens((open) => !open);
+  };
+
+  const renderShot = (shot, idx) => (
+    <figure key={shot.caption || idx} className="pd-figure">
+      <button
+        type="button"
+        className="pd-shot-btn"
+        aria-label={`Open screenshot ${idx + 1}`}
+        onClick={() => setLightboxIndex(idx)}
+      >
+        <img
+          ref={idx === 0 ? shareShotRatio : undefined}
+          onLoad={idx === 0 ? (e) => shareShotRatio(e.currentTarget) : undefined}
+          src={shot.image}
+          alt={shot.caption || `${project.title} screen ${idx + 1}`}
+          loading="lazy"
+        />
+      </button>
+    </figure>
+  );
 
   useEffect(() => {
     if (lightboxIndex === null || gallery.length === 0) return undefined;
@@ -499,23 +556,30 @@ function ProjectDetailBody({ project }) {
         {gallery.length > 0 && (
           <section className="pd-panel pd-screens" id="screens" aria-label="Screenshots">
             <div className={`pd-figures${project.galleryPortrait ? " portrait" : ""}`}>
-              {gallery.map((shot, idx) => (
-                <figure key={shot.caption || idx} className="pd-figure">
-                  <button
-                    type="button"
-                    className="pd-shot-btn"
-                    aria-label={`Open screenshot ${idx + 1}`}
-                    onClick={() => setLightboxIndex(idx)}
-                  >
-                    <img
-                      src={shot.image}
-                      alt={shot.caption || `${project.title} screen ${idx + 1}`}
-                      loading="lazy"
-                    />
-                  </button>
-                </figure>
-              ))}
+              {firstScreens.map(renderShot)}
             </div>
+            {restScreens.length > 0 && (
+              <>
+                <div className={`pd-screens-rest${showAllScreens ? " open" : ""}`} id="pd-screens-rest">
+                  <div>
+                    <div className={`pd-figures${project.galleryPortrait ? " portrait" : ""}`}>
+                      {restScreensMounted &&
+                        restScreens.map((shot, i) => renderShot(shot, firstScreens.length + i))}
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="pd-screens-more"
+                  ref={moreScreensRef}
+                  aria-expanded={showAllScreens}
+                  aria-controls="pd-screens-rest"
+                  onClick={toggleScreens}
+                >
+                  {showAllScreens ? "Show fewer screens" : `Show all ${gallery.length} screens`}
+                </button>
+              </>
+            )}
           </section>
         )}
 
