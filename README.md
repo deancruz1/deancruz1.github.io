@@ -2,13 +2,13 @@
 
 My personal site: [deancruz1.github.io](https://deancruz1.github.io/)
 
-I'm a full-stack engineer, strongest on the frontend. The site shows my side projects (React, TypeScript, Next.js) and a breakdown of how each one is built, alongside my work and study history.
+I'm a full-stack engineer, strongest on the frontend. The site shows my side projects (React, TypeScript, Next.js, Node.js) and a breakdown of how each one is built, alongside my work and study history.
 
 ## Pages
 
 - **Work** (`/`): the hero, four featured projects as cards, and an archive of smaller projects.
 - **Info** (`/info`): a short intro, an interactive story of how I got here, a work and study explorer, and the tools I use.
-- **Project pages** (`/projects/:slug`): one per project, with an overview, an annotated screenshot that explains the engineering behind the interface, the decisions I made, what was hard, and the screens.
+- **Project pages** (`/projects/:slug`): one per project, with three results under the links, a demo video, highlights, an overview, the constraints, an annotated screenshot that explains the engineering behind the interface, the decisions I made, the challenges, before and after comparisons, measured outcomes, takeaways and the screens. Smaller projects only have some of these sections.
 
 ## Features
 
@@ -16,6 +16,7 @@ I'm a full-stack engineer, strongest on the frontend. The site shows my side pro
 - **Per-page code:** each page's JavaScript is its own file, so visitors only download the page they open. A spinner or skeleton shows while a page loads.
 - **Three themes:** Midnight Slate, Foundations Sage and Daylight, picked from the footer and remembered between visits.
 - **Annotated screens:** hover or tap a note to highlight the part of the screenshot it explains.
+- **Collapsed galleries:** a project with more than six screens shows the first four, with a button to open and close the rest.
 - **Responsive:** laid out separately for phones, tablets and wide screens, scaling up to 2560px.
 - **Accessible:** skip-to-content link, visible focus rings, keyboard support for every interactive part, text contrast that meets WCAG AA, and reduced-motion support.
 - **Light on data:** project videos only download once they're on screen.
@@ -54,13 +55,24 @@ Projects live in `src/data/project-info-home.jsx`. Each one has:
 - `overview`: two short paragraphs for the project page
 - `features`: a list of feature names
 - `liveDemo` and `github` links, both optional
+- `results`: up to three figures shown under the links, each a `value` or a `from` and `to`, with a `label`
 - `heroVideo`: the demo video at the top of the project page
-- `gallery`: the screenshots, picked up from `src/assets/img/project-gallery/<folder>/`
-- `annotatedScreen`: the screenshot with numbered notes
+- `highlights`: a one-line `summary` and short looping videos or images with captions
+- `constraints`: what the project had to work within, as a title and one line each
+- `annotatedScreen`: the screenshot with notes, each pointing at one part of it
 - `notes`: `decisions` (choice and reason), `hard` (one line each) and an optional `next`
-- `stageMeta` for featured projects (card summary and hover colour), or `archiveMeta` for archive rows
+- `diagrams` and `callouts`: SVG diagrams and one pulled-out line for the decisions and challenges sections
+- `beforeAfter`: pairs of old and new screenshots, for rebuilt projects
+- `outcomes`: measured results, each with a `detail` and a `source`
+- `takeaways`: one line each
+- `gallery`: the screenshots, picked up from `src/assets/img/project-gallery/<folder>/`, with `galleryPortrait` for phone-shaped ones
+- `stageMeta` for featured projects (card summary and the `glow-<name>` hover colour class in `src/pages/Home.css`), or `archiveMeta` for archive rows
+
+Most sections are optional: the page leaves one out when its field is missing.
 
 Add the slug to `FEATURED_SLUGS` or `ARCHIVE_SLUGS` at the bottom of the file to show it on the Work page. The build adds its page and sitemap entry automatically.
+
+Two places on the Info page name projects by hand and need updating too: the builds deck in `src/components/StoryScenes.jsx` and the side-builds chapter in `src/pages/Info.jsx`. The resume in `public/` lists projects as well.
 
 ## Scripts
 
