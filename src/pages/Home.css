@@ -118,11 +118,6 @@ html[data-theme="dean-light"] .stage-card:hover .bezel-inner {
   color: var(--text-dim);
 }
 
-.stage-subline b {
-  color: var(--text-bright);
-  font-weight: 500;
-}
-
 .stage-arrow {
   color: var(--text-dim);
   font-size: clamp(28px, calc(28px + (100vw - 1440px) * 0.025), 40px);

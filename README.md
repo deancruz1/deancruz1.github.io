@@ -58,7 +58,7 @@ Projects live in `src/data/project-info-home.jsx`. Each one has:
 - `gallery`: the screenshots, picked up from `src/assets/img/project-gallery/<folder>/`
 - `annotatedScreen`: the screenshot with numbered notes
 - `notes`: `decisions` (choice and reason), `hard` (one line each) and an optional `next`
-- `stageMeta` for featured projects (card stack label, summary and hover colour), or `archiveMeta` for archive rows
+- `stageMeta` for featured projects (card summary and hover colour), or `archiveMeta` for archive rows
 
 Add the slug to `FEATURED_SLUGS` or `ARCHIVE_SLUGS` at the bottom of the file to show it on the Work page. The build adds its page and sitemap entry automatically.
 

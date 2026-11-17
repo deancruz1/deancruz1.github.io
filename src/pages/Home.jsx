@@ -64,9 +64,7 @@ export default function Home() {
                 <div className="stage-card-head">
                   <div>
                     <h2 className="stage-title">{project.title}</h2>
-                    <p className="stage-subline">
-                      <b>{project.stageMeta.stack}</b> — {project.stageMeta.summary}
-                    </p>
+                    <p className="stage-subline">{project.stageMeta.summary}</p>
                   </div>
                   <span className="stage-arrow" aria-hidden="true">
                     →

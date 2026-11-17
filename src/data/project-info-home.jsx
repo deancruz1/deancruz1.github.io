@@ -508,7 +508,6 @@ export const projects = [
     description:
       "An anime watch tracker with a watch list, a weekly season calendar in your own time zone, collections, recommendations and viewing stats.",
     stageMeta: {
-      stack: "Next.js, '26",
       summary: "An anime tracker I rebuilt after its data API shut down, so a failing upstream costs a page seconds instead of a minute, and the watch list no longer calls the API once per show.",
       glow: "glow-kiroku",
       alt: "Kiroku anime tracker",
@@ -734,7 +733,6 @@ export const projects = [
     description:
       "A fan guide to Umamusume Pretty Derby with character profiles, song previews, official news and birthdays.",
     stageMeta: {
-      stack: "React, '26",
       summary: "An Umamusume guide where every character and song page is pre-rendered, so search engines get real pages from a static host.",
       glow: "glow-urara",
       alt: "Urara character guide",
@@ -910,7 +908,6 @@ export const projects = [
     description:
       "A Hololive stream tracker laid out like a TV guide: who's on air, what's coming up in your own time zone, and your favourite talents first.",
     stageMeta: {
-      stack: "React, '26",
       summary: "A Hololive programme guide that shows who's on air and what's next in your own time zone, with your favourite talents pinned to the top.",
       glow: "glow-oshiwatch",
       alt: "Oshiwatch stream tracker",

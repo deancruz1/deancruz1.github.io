@@ -528,7 +528,11 @@ function ProjectDetailBody({ project }) {
                   <div>
                     <h3>{nextProject.title}</h3>
                     <p>
-                      <b>{nextProject.stageMeta?.stack || nextProject.archiveMeta?.stack}</b> —{" "}
+                      {nextProject.archiveMeta?.stack && (
+                        <>
+                          <b>{nextProject.archiveMeta.stack}</b> —{" "}
+                        </>
+                      )}
                       {nextProject.stageMeta?.summary || nextProject.description}
                     </p>
                   </div>
