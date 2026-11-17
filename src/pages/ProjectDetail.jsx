@@ -312,20 +312,20 @@ function ProjectDetailBody({ project }) {
             )}
           </div>
 
-          {project.facts && (
+          {project.results?.length > 0 && (
             <dl className="pd-meta">
-              {[
-                ["Role", project.facts.role],
-                ["Timeline", project.facts.timeline],
-                ["Status", project.facts.status],
-              ]
-                .filter(([, value]) => value)
-                .map(([term, value]) => (
-                  <div key={term}>
-                    <dt>{term}</dt>
-                    <dd>{value}</dd>
-                  </div>
-                ))}
+              {project.results.map((r) => (
+                <div key={r.label}>
+                  <dt>
+                    {r.value ?? (
+                      <>
+                        {r.from} <span>to</span> {r.to}
+                      </>
+                    )}
+                  </dt>
+                  <dd>{r.label}</dd>
+                </div>
+              ))}
             </dl>
           )}
         </header>

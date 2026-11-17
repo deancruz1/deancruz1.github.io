@@ -361,11 +361,11 @@ export const projects = [
     liveDemo: "https://deancruz1.github.io/Handler-One/",
     github: "https://github.com/deancruz1/Handler-One",
     slug: "fansite",
-    facts: {
-      role: "Solo: design, frontend, 3D models in code, deployment",
-      timeline: "First built in October 2023 in HTML and Bootstrap, rewritten in React in May 2026, rebuilt as a 3D console in November 2026",
-      status: "Live, rebuilt in November 2026",
-    },
+    results: [
+      { from: "429.4 kB", to: "267.1 kB", label: "JavaScript on the text pages" },
+      { value: "0", label: "Model files downloaded on any page" },
+      { value: "46", label: "Draw calls a frame for the sector map" },
+    ],
     highlights: {
       summary: "Six pages share one console layout, and three of them are live three.js scenes built without a single model file.",
       items: [
@@ -529,11 +529,11 @@ export const projects = [
     liveDemo: "https://kiroku-nyaa.vercel.app",
     github: "https://github.com/deancruz1/Kiroku",
     slug: "kiroku",
-    facts: {
-      role: "Solo: design, frontend, backend, deployment",
-      timeline: "First built in May 2026, rebuilt on 15 and 16 November 2026",
-      status: "Live, rebuilt in November 2026",
-    },
+    results: [
+      { from: "66 s", to: "under 1 s", label: "Time for pages with show data to respond" },
+      { from: "16", to: "0", label: "Browser requests to the data API per watch list load" },
+      { from: "0", to: "256", label: "Automated tests" },
+    ],
     highlights: {
       summary: "Kiroku is set like a ruled notebook, and every request for show data goes through one rate-limited client on the server.",
       items: [
@@ -751,11 +751,11 @@ export const projects = [
     liveDemo: "https://deancruz1.github.io/Urara/",
     github: "https://github.com/deancruz1/Urara",
     slug: "urara",
-    facts: {
-      role: "Solo: design, frontend, build tooling, deployment",
-      timeline: "2 weeks, May to June 2026; rebuilt in November 2026",
-      status: "Live, rebuilt in November 2026",
-    },
+    results: [
+      { from: "3 of 4", to: "0", label: "Main pages that answered 404" },
+      { from: "4", to: "354", label: "URLs in the sitemap" },
+      { from: "448.9 kB", to: "370.2 kB", label: "JavaScript bundle" },
+    ],
     highlights: {
       summary: "Each character and singer has its own page that arrives as finished HTML, and the site is laid out like a Japanese race card.",
       items: [
@@ -928,11 +928,11 @@ export const projects = [
     liveDemo: "https://oshiwatch.vercel.app",
     github: "https://github.com/deancruz1/Oshiwatch",
     slug: "oshiwatch",
-    facts: {
-      role: "Solo: design, frontend, API proxy, deployment",
-      timeline: "Built in June 2026 over four days; updated in November 2026",
-      status: "Live, updated in November 2026",
-    },
+    results: [
+      { from: "12.27 MB", to: "0.55 MB", label: "Talent photos downloaded on the talents page" },
+      { from: "4", to: "1", label: "Requests when a talent page opens" },
+      { from: "2 of 3", to: "0", label: "Main addresses that answered 404" },
+    ],
     highlights: {
       summary: "The home page reads like a TV listing: your favourite talents first, then who's on air, then what's coming up hour by hour in your own time.",
       items: [

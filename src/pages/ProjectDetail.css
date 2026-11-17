@@ -162,7 +162,7 @@ html[data-theme="foundations"] .pd-link-primary {
   transform: translateY(-1px);
 }
 
-/* Role, timeline and status under the links */
+/* Three results under the links */
 .pd-meta {
   display: flex;
   justify-content: center;
@@ -170,7 +170,8 @@ html[data-theme="foundations"] .pd-link-primary {
 }
 
 .pd-meta > div {
-  max-width: 250px;
+  flex: 1 1 0;
+  max-width: 300px;
   padding: 0 28px;
   text-align: left;
   border-left: 1px solid var(--border-hairline);
@@ -182,9 +183,19 @@ html[data-theme="foundations"] .pd-link-primary {
 
 .pd-meta dt {
   margin: 0 0 4px;
-  font-size: 13px;
+  font-size: 21px;
   font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
   color: var(--text-bright);
+}
+
+.pd-meta dt span {
+  margin: 0 0.15em;
+  font-size: 0.7em;
+  font-weight: 400;
+  color: var(--text-muted);
 }
 
 .pd-meta dd {
@@ -998,6 +1009,7 @@ html[data-theme="dean-light"] .pd-next-card:hover .bezel-inner {
   }
 
   .pd-panel {
+    flex: none;
     padding: 28px 14px 18px;
     border-radius: 18px;
   }
