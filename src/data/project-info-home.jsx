@@ -42,9 +42,9 @@ import kirokuBroadcastTimeSvg from "../assets/diagrams/kiroku/diagram-broadcast-
 import cubehandImg from "../assets/img/project-cards/cubehand.webp";
 import cubehandVideo from "../assets/videos/cubehand.mp4";
 import cubehandLoopObtain from "../assets/videos/highlights/cubehand/loop-01-obtain.mp4";
-import cubehandLoopStructure from "../assets/videos/highlights/cubehand/loop-02-structure.mp4";
+import cubehandLoopArboretum from "../assets/videos/highlights/cubehand/loop-02-arboretum.mp4";
 import cubehandLoopScaffold from "../assets/videos/highlights/cubehand/loop-03-scaffold.mp4";
-import cubehandStorageRoom from "../assets/img/highlights/cubehand/storage-room.webp";
+import cubehandLoopStorage from "../assets/videos/highlights/cubehand/loop-04-storage.mp4";
 import cubehandReplanting from "../assets/img/highlights/cubehand/replanting.webp";
 import cubehandGroupShot from "../assets/img/highlights/cubehand/group-shot.webp";
 import cubehandRequestFlowSvg from "../assets/diagrams/cubehand/diagram-request-flow.svg?raw";
@@ -789,10 +789,10 @@ export const projects = [
       summary: "Players ask in chat, Claude picks the next action, and the bot's own code does the walking, digging and placing under survival rules.",
       items: [
         { video: cubehandLoopObtain, caption: "Getting spruce logs with one obtain call: the chain is planned in code, and her status line names the step she's on" },
-        { video: cubehandLoopStructure, caption: "A build_structure plan going up by the water, 219 of 544 blocks in" },
+        { video: cubehandLoopArboretum, caption: "An arboretum going up from one plan: the wall and lantern posts at 62 of 450 blocks, then the pavilion roof at 336" },
         { video: cubehandLoopScaffold, caption: "Scaffolding she cleans up: a cobblestone pillar goes up beside a tree and comes down again" },
-        { image: cubehandGalleryImages[5], caption: "Strip mining with dig_area, 33 of about 60 blocks into a tunnel" },
-        { image: cubehandStorageRoom, caption: "Checking the labelled chests for dirt; she remembers what each one held the last time she opened it" },
+        { video: cubehandLoopStorage, caption: "Checking the storage room before a build; she remembers what each chest held the last time she opened it" },
+        { image: cubehandGalleryImages[12], caption: "Strip mining with dig_area, 33 of about 60 blocks into a tunnel" },
         { image: cubehandReplanting, caption: "Replanting a sapling where a tree she chopped stood" },
       ],
     },
@@ -914,11 +914,18 @@ export const projects = [
     gallery: cubehandGalleryImages.map((image, i) => ({
       image,
       caption: [
-        "Saying what she is doing next while filling dips beside a house",
-        "The final reply: what she took, where from and what she filled",
+        "The bot's log beside the game while she previews a plan, with nothing placed yet",
+        "From request to plan in the log: the players' chat, her reply, the brief she saves with the remember tool, then her first preview call",
+        "One obtain call in the log: a craft comes up 6 short, so the call takes more cobblestone, crafts the rest and reports what changed in her inventory",
+        "The arboretum she built: a walled spruce grove with lantern posts and a roofed storage pavilion",
+        "The preview's reply in the log: the plan's size, the blocks still missing, the rendered views and a checklist to mark the design against",
+        "Clearing the site before a build, with her progress line in chat",
+        "The finished house",
         "A house part-way up: foundation, walls, shutters and porch posts",
         "The roof going on, with a dirt pillar she climbs and takes down afterwards",
-        "The finished house",
+        "The arboretum at night in the snow",
+        "Saying what she is doing next while filling dips beside a house",
+        "The final reply: what she took, where from and what she filled",
         "Strip mining, with her progress line in chat",
       ][i],
     })),
