@@ -12,11 +12,14 @@
   position: relative;
   padding: clamp(96px, calc(96px + (100vw - 1440px) * 0.05), 120px) clamp(72px, calc(72px + (100vw - 1440px) * 0.03333), 88px) clamp(200px, calc(200px + (100vw - 1440px) * 0.16667), 280px);
   background: radial-gradient(ellipse 65% 55% at 50% 0%, var(--accent-soft), transparent 72%);
+  container-type: inline-size;
 }
 
 .hero-headline {
   margin: 0;
-  font-size: clamp(40px, max(5.8vw, calc(84px + (100vw - 1440px) * 0.075)), 120px);
+  font-size: clamp(36px, 4.2vw, 80px);
+  /* Sized off the window's width so the first line always fits */
+  font-size: min(6.7cqw, 88px);
   line-height: 0.98;
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -118,6 +121,11 @@ html[data-theme="dean-light"] .stage-card:hover .bezel-inner {
   color: var(--text-dim);
 }
 
+.stage-subline b {
+  font-weight: 600;
+  color: var(--text-bright);
+}
+
 .stage-arrow {
   color: var(--text-dim);
   font-size: clamp(28px, calc(28px + (100vw - 1440px) * 0.025), 40px);
@@ -168,7 +176,7 @@ html[data-theme="dean-light"] .stage-card:hover .stage-wash {
 
 .glow-kiroku {
   background:
-    radial-gradient(circle at 50% 0, rgba(109, 93, 252, 0.4), transparent 75%),
+    radial-gradient(circle at 50% 0, rgba(196, 232, 107, 0.3), transparent 75%),
     radial-gradient(circle at 50% 0, rgba(52, 211, 153, 0.24), transparent);
 }
 
@@ -196,7 +204,7 @@ html[data-theme="dean-light"] .stage-card:hover .stage-wash {
   border-radius: 12px 12px 0 0;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-bottom: none;
-  background: #0c0e14;
+  background: #0b100d;
   box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.65);
   overflow: hidden;
   transform: translateY(24px);
@@ -209,7 +217,7 @@ html[data-theme="dean-light"] .stage-card:hover .stage-wash {
 
 .stage-browser .window-bar {
   padding: 11px 16px;
-  background: linear-gradient(90deg, rgba(16, 18, 25, 0.94), rgba(24, 27, 36, 0.96), rgba(16, 18, 25, 0.94));
+  background: linear-gradient(90deg, rgba(14, 20, 17, 0.94), rgba(22, 30, 25, 0.96), rgba(14, 20, 17, 0.94));
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -356,7 +364,7 @@ html[data-theme="dean-light"] .stage-card:hover .stage-wash {
   }
 
   .hero-headline {
-    font-size: 12vw;
+    font-size: 11.8cqw;
     line-height: 0.98;
   }
 

@@ -23,10 +23,10 @@ export default function Home() {
               <div className="hero-stage">
                 <p className="hero-overline">Dean Cruz — Software Engineer</p>
                 <h1 className="hero-headline">
-                  Frontend by <span className="hi-accent">choice</span>,
+                  I build web apps that look good,
                   <br />
-                  backend by <span className="whitespace-nowrap">
-                    <span className="hi-accent">trade</span>
+                  down to the <span className="whitespace-nowrap">
+                    <span className="hi-accent">code</span>
                     <span className="accent-dot">.</span>
                   </span>
                 </h1>
@@ -64,7 +64,9 @@ export default function Home() {
                 <div className="stage-card-head">
                   <div>
                     <h2 className="stage-title">{project.title}</h2>
-                    <p className="stage-subline">{project.stageMeta.summary}</p>
+                    <p className="stage-subline">
+                      <b>{project.stageMeta.stack}</b> — {project.stageMeta.summary}
+                    </p>
                   </div>
                   <span className="stage-arrow" aria-hidden="true">
                     →

@@ -8,13 +8,13 @@ I'm a full-stack engineer, strongest on the frontend. The site shows my side pro
 
 - **Work** (`/`): the hero, four featured projects as cards, and an archive of smaller projects.
 - **Info** (`/info`): a short intro, an interactive story of how I got here, a work and study explorer, and the tools I use.
-- **Project pages** (`/projects/:slug`): one per project, with three results under the links, a demo video, highlights, an overview, the constraints, an annotated screenshot that explains the engineering behind the interface, the decisions I made, the challenges, before and after comparisons, measured outcomes, takeaways and the screens. Smaller projects only have some of these sections.
+- **Project pages** (`/projects/:slug`): one per project, with three results under the links, a demo video, highlights, an overview, an annotated screenshot that explains the engineering behind the interface, the problems and how I fixed them, before and after comparisons, measured outcomes, takeaways and the screens. Smaller projects only have some of these sections.
 
 ## Features
 
 - **Pre-rendered pages:** every page ships its full content in the HTML, so search engines and link previews see the real page before any JavaScript runs.
 - **Per-page code:** each page's JavaScript is its own file, so visitors only download the page they open. A spinner or skeleton shows while a page loads.
-- **Three themes:** Midnight Slate, Foundations Sage and Daylight, picked from the footer and remembered between visits.
+- **Two themes:** Moss and Daylight, picked from the footer and remembered between visits.
 - **Annotated screens:** hover or tap a note to highlight the part of the screenshot it explains.
 - **Collapsed galleries:** a project with more than six screens shows the first four, with a button to open and close the rest.
 - **Responsive:** laid out separately for phones, tablets and wide screens, scaling up to 2560px.
@@ -58,10 +58,9 @@ Projects live in `src/data/project-info-home.jsx`. Each one has:
 - `results`: up to three figures shown under the links, each a `value` or a `from` and `to`, with a `label`
 - `heroVideo`: the demo video at the top of the project page
 - `highlights`: a one-line `summary` and short looping videos or images with captions
-- `constraints`: what the project had to work within, as a title and one line each
 - `annotatedScreen`: the screenshot with notes, each pointing at one part of it
-- `notes`: `decisions` (choice and reason), `hard` (one line each) and an optional `next`
-- `diagrams` and `callouts`: SVG diagrams and one pulled-out line for the decisions and challenges sections
+- `fixes`: the problems and fixes rows, each a `problem` and a `fix`, with an optional SVG `diagram` and its `diagramLabel` for screen readers
+- `notes`: an optional `next`, what I'd do if I picked the project back up
 - `beforeAfter`: pairs of old and new screenshots, for rebuilt projects
 - `outcomes`: measured results, each with a `detail` and a `source`
 - `takeaways`: one line each

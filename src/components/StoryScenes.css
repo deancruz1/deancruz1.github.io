@@ -54,6 +54,7 @@
 }
 
 .scene-chip:hover {
+  color: var(--on-accent);
   background: var(--accent);
   border-color: var(--accent);
 }
@@ -203,7 +204,7 @@
   border-radius: inherit;
   border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
-  background: #0c0e14;
+  background: #0b100d;
 }
 
 /* A small wiggle when the deck first shows, to hint that it moves */
@@ -301,6 +302,7 @@
 }
 
 .deck-controls button:hover {
+  color: var(--on-accent);
   background: var(--accent);
   border-color: var(--accent);
 }
@@ -357,7 +359,7 @@
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  background: #0c0e14;
+  background: #0b100d;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
   animation: flowFromRight 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both;
 }

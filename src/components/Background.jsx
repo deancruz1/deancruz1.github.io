@@ -8,7 +8,6 @@ export default function Background() {
         <div className="orb orb-2" />
         <div className="orb orb-3" />
       </div>
-      <div className="dean-grid-static" />
     </div>
   );
 }

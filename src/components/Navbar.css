@@ -66,7 +66,7 @@
   height: 48px;
   padding: 0 6px;
   border-radius: 999px;
-  background: rgba(18, 20, 26, 0.78);
+  background: rgba(22, 30, 25, 0.78);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-outer);
@@ -74,7 +74,7 @@
 }
 
 html[data-theme="dean-light"] .nav-pill {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(251, 252, 246, 0.85);
   box-shadow: 0 10px 26px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
@@ -167,7 +167,7 @@ html[data-theme="dean-light"] .nav-action-links a:hover {
   border-radius: 50%;
   cursor: pointer;
   color: var(--text-bright);
-  background: rgba(18, 20, 26, 0.78);
+  background: rgba(22, 30, 25, 0.78);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-outer);
@@ -183,7 +183,7 @@ html[data-theme="dean-light"] .nav-action-links a:hover {
   min-width: 168px;
   padding: 6px;
   border-radius: 16px;
-  background: rgba(18, 20, 26, 0.92);
+  background: rgba(22, 30, 25, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-outer);
@@ -193,7 +193,7 @@ html[data-theme="dean-light"] .nav-action-links a:hover {
 
 html[data-theme="dean-light"] .nav-menu-btn,
 html[data-theme="dean-light"] .nav-menu-popup {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(251, 252, 246, 0.9);
   box-shadow: 0 10px 26px rgba(17, 24, 39, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 

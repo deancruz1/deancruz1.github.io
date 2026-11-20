@@ -1,7 +1,6 @@
 export const THEMES = [
-  { id: "dean-dark", label: "Midnight Slate", swatch: "#6d5dfc" },
-  { id: "foundations", label: "Foundations Sage", swatch: "#68b096" },
-  { id: "dean-light", label: "Daylight", swatch: "#eff1f5" },
+  { id: "dean-dark", label: "Moss", swatch: "#c4e86b" },
+  { id: "dean-light", label: "Daylight", swatch: "#eef0e6" },
 ];
 
 const VALID_THEMES = new Set(THEMES.map((t) => t.id));

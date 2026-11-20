@@ -58,16 +58,6 @@ function Callout({ lead, text }) {
   );
 }
 
-function DiagramFigure({ svg, caption }) {
-  return (
-    <figure className="pd-figure pd-diagram-figure">
-      {/* Inlined so the drawing picks up the theme's text colour */}
-      <div className="pd-diagram" dangerouslySetInnerHTML={{ __html: svg }} />
-      <FigureCaption text={caption} />
-    </figure>
-  );
-}
-
 function Highlights({ highlights }) {
   const stripRef = useRef(null);
   const [index, setIndex] = useState(0);
@@ -233,6 +223,9 @@ function ContentsNav({ sections }) {
 
 const SCREENS_SHOWN_FIRST = 4;
 const SCREENS_COLLAPSE_OVER = 6;
+const OUTCOMES_COLLAPSE_OVER = 4;
+const OUTCOMES_SHOWN_FIRST = 3;
+
 // Matches the .pd-screens-rest transition in ProjectDetail.css
 const SCREENS_ANIMATION_MS = 600;
 
@@ -248,14 +241,18 @@ function ProjectDetailBody({ project }) {
     gallery.length > SCREENS_COLLAPSE_OVER ? gallery.slice(0, SCREENS_SHOWN_FIRST) : gallery;
   const restScreens = gallery.slice(firstScreens.length);
   const hasTakeaways = project.takeaways?.length > 0;
+  const [showAllOutcomes, setShowAllOutcomes] = useState(false);
+  const moreOutcomesRef = useRef(null);
+  const outcomes = project.outcomes || [];
+  const firstOutcomes =
+    outcomes.length > OUTCOMES_COLLAPSE_OVER ? outcomes.slice(0, OUTCOMES_SHOWN_FIRST) : outcomes;
+  const restOutcomes = outcomes.slice(firstOutcomes.length);
   const [sections] = useState(() =>
     [
       project.highlights && { id: "highlights", label: "Highlights" },
       { id: "overview", label: "Overview" },
-      project.constraints?.length > 0 && { id: "constraints", label: "Constraints" },
       project.annotatedScreen && { id: "under-the-interface", label: "Under the interface" },
-      project.notes && { id: "decisions", label: "Decisions" },
-      project.notes && { id: "what-was-hard", label: "Challenges" },
+      project.fixes?.length > 0 && { id: "problems-and-fixes", label: "Problems and fixes" },
       project.beforeAfter?.length > 0 && { id: "before-and-after", label: "Before and after" },
       project.outcomes?.length > 0 && { id: "outcomes", label: "Outcomes" },
       hasTakeaways && { id: "takeaways", label: "Takeaways" },
@@ -277,21 +274,43 @@ function ProjectDetailBody({ project }) {
       ?.style.setProperty("--shot-ratio", `${img.naturalWidth} / ${img.naturalHeight}`);
   };
 
+  // Closing removes a lot of page above the button, so hold it where it is on screen
+  const holdInPlace = (button) => {
+    const top = button.getBoundingClientRect().top;
+    const until = performance.now() + SCREENS_ANIMATION_MS + 100;
+    const hold = () => {
+      window.scrollBy({ top: button.getBoundingClientRect().top - top, behavior: "instant" });
+      if (performance.now() < until) window.requestAnimationFrame(hold);
+    };
+    window.requestAnimationFrame(hold);
+  };
+
   const toggleScreens = () => {
     const button = moreScreensRef.current;
-    if (showAllScreens && button) {
-      // Closing removes a lot of page above the button, so hold it where it is on screen
-      const top = button.getBoundingClientRect().top;
-      const until = performance.now() + SCREENS_ANIMATION_MS + 100;
-      const hold = () => {
-        window.scrollBy({ top: button.getBoundingClientRect().top - top, behavior: "instant" });
-        if (performance.now() < until) window.requestAnimationFrame(hold);
-      };
-      window.requestAnimationFrame(hold);
-    }
+    if (showAllScreens && button) holdInPlace(button);
     setRestScreensMounted(true);
     setShowAllScreens((open) => !open);
   };
+
+  const toggleOutcomes = () => {
+    const button = moreOutcomesRef.current;
+    if (showAllOutcomes && button) holdInPlace(button);
+    setShowAllOutcomes((open) => !open);
+  };
+
+  const renderOutcome = (o) => (
+    <li key={o.detail}>
+      <p className="v">
+        {o.value ?? (
+          <>
+            {o.from} <span>to</span> {o.to}
+          </>
+        )}
+      </p>
+      <p className="d">{o.detail}</p>
+      <p className="s">{o.source}</p>
+    </li>
+  );
 
   const renderShot = (shot, idx) => (
     <figure key={shot.caption || idx} className="pd-figure">
@@ -434,76 +453,35 @@ function ProjectDetailBody({ project }) {
           </div>
         </section>
 
-        {project.constraints?.length > 0 && (
-          <section className="pd-chapter" id="constraints" aria-labelledby="pd-constraints-heading">
-            <div className="pd-chapter-head">
-              <h2 id="pd-constraints-heading">Constraints</h2>
-            </div>
-            <ul className="pd-rows">
-              {project.constraints.map(([limit, detail]) => (
-                <li key={limit}>
-                  <b>{limit}.</b> {detail}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
         {project.annotatedScreen && (
           <section className="pd-panel" id="under-the-interface">
             <AnnotatedScreenInspector key={project.slug} project={project} />
           </section>
         )}
 
-        {project.notes && (
-          <>
-            <section className="pd-chapter" id="decisions" aria-labelledby="pd-decisions-heading">
-              <div className="pd-chapter-head">
-                <h2 id="pd-decisions-heading">Decisions</h2>
+        {project.fixes?.length > 0 && (
+          <section className="pd-fixes" id="problems-and-fixes" aria-labelledby="pd-fixes-heading">
+            <h2 id="pd-fixes-heading">Problems and fixes</h2>
+            {project.fixes.map((item) => (
+              <div className="pd-fix" key={item.problem}>
+                <p className="pd-fix-problem">{item.problem}</p>
+                <p className="pd-fix-answer">{item.fix}</p>
+                {item.diagram && (
+                  <div
+                    className="pd-diagram"
+                    role="img"
+                    aria-label={item.diagramLabel}
+                    dangerouslySetInnerHTML={{ __html: item.diagram }}
+                  />
+                )}
               </div>
-              <ul className="pd-rows">
-                {project.notes.decisions.map(([choice, why]) => (
-                  <li key={choice}>
-                    <b>{choice}.</b> {why}
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            {project.diagrams?.decisions?.map((d) => (
-              <DiagramFigure
-                key={d.caption}
-                svg={d.svg}
-                caption={d.caption}
-              />
             ))}
-            {project.callouts?.decisions && <Callout text={project.callouts.decisions} />}
+          </section>
+        )}
 
-            <section className="pd-chapter" id="what-was-hard" aria-labelledby="pd-hard-heading">
-              <div className="pd-chapter-head">
-                <h2 id="pd-hard-heading">Challenges</h2>
-              </div>
-              <ul className="pd-rows">
-                {project.notes.hard.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </section>
-
-            {project.diagrams?.hard?.map((d) => (
-              <DiagramFigure
-                key={d.caption}
-                svg={d.svg}
-                caption={d.caption}
-              />
-            ))}
-            {project.callouts?.hard && <Callout text={project.callouts.hard} />}
-
-            {/* With takeaways, this line closes that section instead */}
-            {project.notes.next && !hasTakeaways && (
-              <Callout lead="If I picked it back up." text={project.notes.next} />
-            )}
-          </>
+        {/* With takeaways, this line closes that section instead */}
+        {project.notes?.next && !hasTakeaways && (
+          <Callout lead="If I picked it back up." text={project.notes.next} />
         )}
 
         {project.beforeAfter?.length > 0 && (
@@ -515,21 +493,28 @@ function ProjectDetailBody({ project }) {
             <div className="pd-chapter-head">
               <h2 id="pd-outcomes-heading">Outcomes</h2>
             </div>
-            <ul className="pd-outcomes">
-              {project.outcomes.map((o) => (
-                <li key={o.detail}>
-                  <p className="v">
-                    {o.value ?? (
-                      <>
-                        {o.from} <span>to</span> {o.to}
-                      </>
-                    )}
-                  </p>
-                  <p className="d">{o.detail}</p>
-                  <p className="s">{o.source}</p>
-                </li>
-              ))}
-            </ul>
+            <div>
+              <ul className="pd-outcomes">{firstOutcomes.map(renderOutcome)}</ul>
+              {restOutcomes.length > 0 && (
+                <>
+                  <div className={`pd-outcomes-rest${showAllOutcomes ? " open" : ""}`} id="pd-outcomes-rest">
+                    <div>
+                      <ul className="pd-outcomes">{restOutcomes.map(renderOutcome)}</ul>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    className="pd-screens-more"
+                    ref={moreOutcomesRef}
+                    aria-expanded={showAllOutcomes}
+                    aria-controls="pd-outcomes-rest"
+                    onClick={toggleOutcomes}
+                  >
+                    {showAllOutcomes ? "Show fewer outcomes" : `Show all ${outcomes.length} outcomes`}
+                  </button>
+                </>
+              )}
+            </div>
           </section>
         )}
 
@@ -592,9 +577,9 @@ function ProjectDetailBody({ project }) {
                   <div>
                     <h3>{nextProject.title}</h3>
                     <p>
-                      {nextProject.archiveMeta?.stack && (
+                      {(nextProject.stageMeta?.stack || nextProject.archiveMeta?.stack) && (
                         <>
-                          <b>{nextProject.archiveMeta.stack}</b> —{" "}
+                          <b>{nextProject.stageMeta?.stack || nextProject.archiveMeta.stack}</b> —{" "}
                         </>
                       )}
                       {nextProject.stageMeta?.summary || nextProject.description}

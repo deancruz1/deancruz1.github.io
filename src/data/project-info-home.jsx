@@ -228,18 +228,25 @@ export const projects = [
     image: skillforgeImg,
     github: "https://github.com/deancruz1/SkillForge",
     slug: "skillforge",
+    fixes: [
+      {
+        problem: "Junction tables needed composite keys.",
+        fix: "I mapped them with @EmbeddedId and @MapsId.",
+      },
+      {
+        problem: "Supabase's connection pooler rejected prepared statements.",
+        fix: "Setting prepareThreshold=0 fixed it.",
+      },
+      {
+        problem: "Spring Boot had to run on Render.",
+        fix: "I wrote a multi-stage Docker build for it.",
+      },
+      {
+        problem: "Every request has to prove who sent it.",
+        fix: "A Spring Security filter checks a JWT each time, so sessions stay stateless.",
+      },
+    ],
     notes: {
-      decisions: [
-        ["Spring Boot and Hibernate", "The standard enterprise Java stack, with most SQL handled by Hibernate."],
-        ["PostgreSQL on Supabase", "Managed Postgres used purely as a database, with the schema written by hand."],
-        ["Angular", "Routing, HTTP and forms built in, like the codebases I work in."],
-        ["JWT auth", "Stateless sessions checked by a Spring Security filter on every request."],
-      ],
-      hard: [
-        "Composite keys on junction tables with @EmbeddedId and @MapsId.",
-        "Supabase's connection pooler rejecting prepared statements until prepareThreshold=0.",
-        "A multi-stage Docker build to run Spring Boot on Render.",
-      ],
       next: "Enforce one quiz attempt on the server, and keep answers out of students' API responses.",
     },
     overview: [
@@ -305,15 +312,21 @@ export const projects = [
     liveDemo: "https://deancruz1.github.io/Foundations/",
     github: "https://github.com/deancruz1/Foundations",
     slug: "portfolio-website",
+    fixes: [
+      {
+        problem: "I needed a working responsive base to learn structure from.",
+        fix: "I built on the Start Bootstrap Grayscale theme and extended it into my own pages.",
+      },
+      {
+        problem: "A mouse trail has nothing to follow on a touch screen.",
+        fix: "The circles ease towards the cursor each frame, and switch off on touch screens.",
+      },
+      {
+        problem: "Cards had to stay clickable inside a track you can drag.",
+        fix: "The hard part of the drag-to-scroll track. It uses the Web Animations API with a parallax shift per image, on wide screens only.",
+      },
+    ],
     notes: {
-      decisions: [
-        ["Bootstrap Grayscale theme", "A working responsive base to learn structure from."],
-        ["Mouse trail", "Circles ease towards the cursor each frame, and switch off on touch screens."],
-        ["Drag-to-scroll track", "Web Animations API with a parallax shift per image, on wide screens only."],
-      ],
-      hard: [
-        "Keeping the cards clickable inside a track you can drag.",
-      ],
       next: "Load one version of Bootstrap instead of two.",
     },
     overview: [
@@ -403,25 +416,6 @@ export const projects = [
         { image: fansiteMobileOverview, portrait: true, caption: "On a phone the picker sits right under the view it changes" },
       ],
     },
-    constraints: [
-      ["GitHub Pages serves static files only", "Deep links need a custom 404.html that redirects to the app, which reads the path back in main.jsx."],
-      ["No official map of the continent", "The globe is a schematic guess, and the README says so."],
-      ["Two of the four machines have no published size", "The Löwe and Ameise are scaled by estimate against the 5.4 m Juggernaut."],
-      ["Phones have far less GPU to spare", "Below 980px the pixel ratio is capped at 1.5 and the Legion swarm drops from 26 copies to 12."],
-    ],
-    diagrams: {
-      decisions: [
-        { svg: fansiteModelKitSvg, caption: "How one set of cross-section numbers becomes a machine in three looks" },
-        { svg: fansiteLegRigSvg, caption: "How each leg reaches its foot target every frame" },
-      ],
-      hard: [
-        { svg: fansitePhoneLayoutSvg, caption: "The console on a desktop, on my first phone pass and on a phone now" },
-      ],
-    },
-    callouts: {
-      decisions: "A hologram is just faces filled with the background colour and lines drawn on top. The faces hide the lines behind them, so one mesh gives both looks.",
-      hard: "The 3D pages are heavier than the old site. The Overview loads about 271 kB of JavaScript gzipped, against 128 kB for the whole old bundle, because three.js is most of it.",
-    },
     beforeAfter: [
       { label: "Home", caption: "Home became the Overview sector map", before: fansiteBeforeHome, after: fansiteAfterHome, ratio: "16 / 10" },
       { label: "Intel", caption: "The Intel page", before: fansiteBeforeIntel, after: fansiteAfterIntel, ratio: "16 / 10" },
@@ -461,19 +455,39 @@ export const projects = [
       "Parametric models made new machines and variants cheap, because each one is a list of numbers.",
       "Load a heavy library only on the pages that use it.",
     ],
+    fixes: [
+      {
+        problem: "Four machines needed 3D models.",
+        fix: "I build them in code from cross-sections, so all four fit in one 31.7 kB chunk and a change of shape is a change of numbers.",
+        diagram: fansiteModelKitSvg,
+        diagramLabel: "How one set of cross-section numbers becomes a machine in three looks",
+      },
+      {
+        problem: "Every machine has to hold a pose, idle, walk or lie fallen.",
+        fix: "Each leg is a two-bone chain with a small IK solve, so a fallen Juggernaut is the same rig in a fallen pose.",
+        diagram: fansiteLegRigSvg,
+        diagramLabel: "How each leg reaches its foot target every frame",
+      },
+      {
+        problem: "My first phone layout put each picker below the details, so tapping a name changed something off screen.",
+        fix: "Each picker now sits right next to what it changes.",
+        diagram: fansitePhoneLayoutSvg,
+        diagramLabel: "The console on a desktop, on my first phone pass and on a phone now",
+      },
+      {
+        problem: "three.js made the 3D pages heavier than the whole old site.",
+        fix: "The three 3D pages load on demand, so the text pages ship 267.1 kB of JavaScript instead of the old 429.4 kB bundle.",
+      },
+      {
+        problem: "Phones have far less GPU to spare.",
+        fix: "Below 980px the pixel ratio is capped at 1.5 and the Legion swarm drops from 26 copies to 12.",
+      },
+      {
+        problem: "Only two of the four machines have an official size.",
+        fix: "The Löwe and Ameise are scaled by estimate against the 5.4 m Juggernaut.",
+      },
+    ],
     notes: {
-      decisions: [
-        ["Machines built in code, not downloaded", "Lofting cross-sections with a small kit keeps all four machines in one 31.7 kB chunk, and a change of shape is a change of numbers."],
-        ["One set of parts in three looks", "The same meshes render as a hologram, as painted metal, or baked down to two draw calls a copy for the map and the lineup."],
-        ["Legs as two-bone chains", "A small IK solve per leg lets every machine hold a pose, idle or walk, and a fallen Juggernaut is the same rig in a fallen pose."],
-        ["three.js only where it draws", "The three 3D pages load on demand, so the text pages ship 267.1 kB of JavaScript instead of the old 429.4 kB bundle."],
-      ],
-      hard: [
-        "Getting the lineup to one scale when only the Juggernaut and Reginleif have official sizes.",
-        "Keeping the pinned labels on the map readable when the camera turns, by hiding any whose point is off the map and clamping the rest inside the edges.",
-        "Letting a phone scroll the page past a 3D view you can also drag.",
-        "My first phone pass put each picker below the details, so tapping a name changed something off screen.",
-      ],
       next: "Bake the Overview's live inset too, since it takes 357 of the page's 403 draw calls a frame on desktop.",
     },
     overview: [
@@ -534,6 +548,7 @@ export const projects = [
     description:
       "An anime watch tracker with a watch list, a weekly season calendar in your own time zone, collections, recommendations and viewing stats.",
     stageMeta: {
+      stack: "Next.js, PostgreSQL",
       summary: "An anime tracker I rebuilt after its data API shut down, so a failing upstream costs a page seconds instead of a minute, and the watch list no longer calls the API once per show.",
       glow: "glow-kiroku",
       alt: "Kiroku anime tracker",
@@ -571,29 +586,40 @@ export const projects = [
         { image: kirokuAfterStats, caption: "Stats drawn with plain CSS: status split, ratings and genres" },
       ],
     },
-    constraints: [
-      ["The old API was gone", "Jikan shut down on 1 October 2026, so when I started on 15 November the server-rendered pages that needed show data waited about 66 seconds and then showed an error, and the watch list showed ids instead of titles. The fix had to come before the redesign."],
-      ["Stored ids are MyAnimeList ids", "Every watch list entry, collection and /anime/<id> URL uses them, so a new data source had to use the same ids or every row would need migrating."],
-      ["Tenrai allows 4 requests a second and 120 a minute per IP, and sends no rate-limit headers", "The app has to pace itself, so I keep it at 3 per 1.1 seconds and 100 a minute."],
-      ["A 60-second cap on the season route", "I capped it at 60 seconds so it fits the free hosting tier whether or not Fluid compute is on, and that limits how long a cold season load can run."],
-      ["Free hosting tier, image quota", "Next's image optimiser would use up the free quota, so posters load unoptimised straight from MyAnimeList's CDN."],
-      ["Serverless instances don't share memory", "The rate scheduler, the in-flight request sharing and the outage pause are per instance, so several busy instances behind one IP could still go over Tenrai's limit."],
-      ["AniList's terms forbid tracker apps", "Its API was the strongest I tested, but the terms ban use in \"anime and manga list or tracker services\", so I couldn't use it."],
+    fixes: [
+      {
+        problem: "The API I built on shut down.",
+        fix: "I moved to Tenrai, which uses the same MyAnimeList ids, so stored data and URLs kept working. The official MyAnimeList API is the automatic fallback.",
+        diagram: kirokuRequestFlowSvg,
+        diagramLabel: "Where a page's show data comes from: the server cache, the rate scheduler, one timed attempt and the retry loop to Tenrai, and the stored shows in Postgres",
+      },
+      {
+        problem: "A dead API held every page for 66 seconds.",
+        fix: "One request policy for every call: 4 seconds per attempt and 10 in total. A hanging API now fails within 8.5 seconds.",
+        diagram: kirokuRetryTimelineSvg,
+        diagramLabel: "How long a page waits when the API never answers: four 15-second attempts and 66 seconds before, two 4-second attempts inside a 10-second budget after",
+      },
+      {
+        problem: "The watch list called the API once per show.",
+        fix: "Show details are stored in Postgres and refreshed in one batch of up to 25. During an outage the stored rows are used as they are.",
+        diagram: kirokuStoredShowsSvg,
+        diagramLabel: "How ensureShows decides which stored shows to refresh, and what happens when the batch request fails",
+      },
+      {
+        problem: "Air times come as a weekly slot in Japan time.",
+        fix: "The browser converts each slot to the viewer's time zone and weekday, without a date library.",
+        diagram: kirokuBroadcastTimeSvg,
+        diagramLabel: "How a Friday 23:00 Japan-time slot becomes a Friday 22:00 row and a countdown for a viewer in Singapore",
+      },
+      {
+        problem: "Tenrai sends no rate-limit headers.",
+        fix: "The app paces itself at 3 requests per 1.1 seconds and 100 a minute.",
+      },
+      {
+        problem: "A server function can run for 60 seconds.",
+        fix: "A cold season load stops at 35 seconds and returns a partial calendar.",
+      },
     ],
-    diagrams: {
-      decisions: [
-        { svg: kirokuRequestFlowSvg, caption: "Where a page's show data comes from: the server cache, the rate scheduler, one timed attempt and the retry loop to Tenrai, and the stored shows in Postgres" },
-        { svg: kirokuRetryTimelineSvg, caption: "How long a page waits when the API never answers: four 15-second attempts and 66 seconds before, two 4-second attempts inside a 10-second budget after" },
-        { svg: kirokuStoredShowsSvg, caption: "How ensureShows decides which stored shows to refresh, and what happens when the batch request fails" },
-      ],
-      hard: [
-        { svg: kirokuBroadcastTimeSvg, caption: "How a Friday 23:00 Japan-time slot becomes a Friday 22:00 row and a countdown for a viewer in Singapore" },
-      ],
-    },
-    callouts: {
-      decisions: "Tenrai is unofficial, anonymous and labelled beta, the same kind of dependency as the API that shut down. If it fails, the site switches to the official MyAnimeList API and keeps its core pages, without reviews and voice actors.",
-      hard: "The API Kiroku was built on shut down on 1 October 2026. When I started the rebuild, every server-rendered page that needed show data waited about 66 seconds and then showed one line of error text.",
-    },
     beforeAfter: [
       { label: "Home", caption: "The home page", before: kirokuBeforeHome, after: kirokuAfterHome, ratio: "16 / 10" },
       { label: "Top shows", caption: "Top shows (before: the old design with its data restored; the live page on 15 November 2026 showed an error after about 66 seconds)", before: kirokuBeforeTop, after: kirokuAfterTop, ratio: "16 / 10" },
@@ -676,18 +702,6 @@ export const projects = [
       "Read a data source's terms before its docs. AniList had the best API I tested, and its terms ruled it out.",
     ],
     notes: {
-      decisions: [
-        ["Tenrai as the data source", "It follows the Jikan v4 schema and MyAnimeList ids, so the stored ids, the URLs and the response mappers kept working. The official MyAnimeList API is wired in as an automatic fallback: it covers the core show data but has no reviews, voice actors or batch lookup."],
-        ["One request policy for every upstream call", "Each attempt times out after 4 seconds and a request gets 10 seconds in total, with up to 3 attempts, exponential backoff with jitter, and Retry-After honoured. A hanging upstream now fails within 8.5 seconds instead of 66."],
-        ["Show details stored in Postgres", "The watch list, collections, stats and recommendations read an Anime table keyed by MyAnimeList id instead of calling the API once per entry. Missing or stale rows are refreshed in one batch request of up to 25."],
-        ["Stored rows win during an outage", "If a refresh fails, the stored rows are used as they are and refreshes pause for a minute, so an outage costs one slow request per server instance, not one per request."],
-      ],
-      hard: [
-        "Fitting a cold season load inside a 60-second function: every page has to be fetched in turn under the rate limit, so the load stops at 35 seconds and returns a partial calendar.",
-        "Turning a weekly Japan-time slot, including late-night slots written as 24:00 to 29:59, into the right instant and weekday in any time zone, without a date library.",
-        "Keeping stored shows fresh without a burst of requests: missing shows first, then the stalest, in one batch, matched by id because Tenrai returns the batch sorted by id, not in request order.",
-        "Moving a production database whose schema had drifted from its migrations without losing a row.",
-      ],
       next: "Share the rate limiter and the source switch across server instances. Today each instance keeps its own, so several busy instances could still go over an API's limits.",
     },
     overview: [
@@ -759,6 +773,7 @@ export const projects = [
     description:
       "A survival Minecraft player run by Claude, which builds detailed houses from chat requests.",
     stageMeta: {
+      stack: "Node.js, Anthropic SDK",
       summary: "A survival Minecraft player you talk to in chat, where Claude picks the next action and the bot's own code does the walking, digging and placing.",
       glow: "glow-cubehand",
       alt: "Cubehand Minecraft bot",
@@ -795,26 +810,6 @@ export const projects = [
         { image: cubehandGalleryImages[12], caption: "Strip mining with dig_area, 33 of about 60 blocks into a tunnel" },
         { image: cubehandReplanting, caption: "Replanting a sapling where a tree she chopped stood" },
       ],
-    },
-    constraints: [
-      ["Survival rules", "She only builds with blocks she carries, gets hungry, can die and only sees the chunks around her, so every plan has to start from her inventory."],
-      ["The server runs Minecraft 26.3 and Mineflayer only speaks 26.1", "She connects as 26.1 through ViaProxy, and has to send the tick_end packet real clients send, or the server kicks her a second after spawning."],
-      ["Every model call costs money and a round trip", "Each call rereads the whole conversation, so the work is shaped to need as few calls as possible."],
-      ["The server is in offline mode", "A name proves nothing, so an optional whispered passphrase decides who she takes orders from."],
-      ["Anyone can write text she reads", "Chat, signs and name tags from players off the allowlist reach the model as information, never as instructions."],
-    ],
-    diagrams: {
-      decisions: [
-        { svg: cubehandRequestFlowSvg, caption: "Where a request goes: stops and a plain come, follow or stay are handled in code, builds and obvious work orders skip the quick model, and every line she says goes through the chat guard" },
-        { svg: cubehandBuildFlowSvg, caption: "How a build works. The pictures are the bot's own renderer drawing its cottage design, and a larger build is turned back until it has been previewed this way" },
-      ],
-      hard: [
-        { svg: cubehandQuietToolSvg, caption: "Two kinds of quiet: a tool where nothing changes for 45 seconds is stopped and the model is told where it got stuck, and a tool that is still working gets a status line in chat after a minute" },
-      ],
-    },
-    callouts: {
-      decisions: "\"Come here\" went from three model calls to one. The sorting became the quick model's own first step, and the last action and the reply now come in one response.",
-      hard: "Logs from one evening showed the model thinking for about 14 minutes, and 12 silent gaps of over a minute, 37 minutes in total, mostly inside long tools.",
     },
     outcomes: [
       {
@@ -853,25 +848,39 @@ export const projects = [
       "A model can't check what it can't see. Rendering the plan first caught floating roofs and backwards stairs before a block was placed.",
       "Log first, then fix. The silent gaps, the refusals and the lost corrections all showed up in the job log.",
     ],
+    fixes: [
+      {
+        problem: "Every model call costs money and a round trip.",
+        fix: "Stops and a plain come, follow or stay are handled in code, and a quick model takes the simple jobs. \"Come here\" went from three model calls to one.",
+        diagram: cubehandRequestFlowSvg,
+        diagramLabel: "Where a request goes: stops and a plain come, follow or stay are handled in code, builds and obvious work orders skip the quick model, and every line she says goes through the chat guard",
+      },
+      {
+        problem: "Planning 3D coordinates in text gave flat boxes, floating roofs and backwards stairs.",
+        fix: "She renders a plan to a picture first, and a build of 8 or more parts is turned back until it has been previewed.",
+        diagram: cubehandBuildFlowSvg,
+        diagramLabel: "How a build works. The pictures are the bot's own renderer drawing its cottage design, and a larger build is turned back until it has been previewed this way",
+      },
+      {
+        problem: "Logs from one evening showed 12 silent gaps of over a minute.",
+        fix: "Tools now report progress, a watchdog stops one where nothing changes for 45 seconds, and a status line goes to chat after a minute of quiet.",
+        diagram: cubehandQuietToolSvg,
+        diagramLabel: "Two kinds of quiet: a tool where nothing changes for 45 seconds is stopped and the model is told where it got stuck, and a tool that is still working gets a status line in chat after a minute",
+      },
+      {
+        problem: "The server runs Minecraft 26.3 and Mineflayer only speaks 26.1.",
+        fix: "She connects as 26.1 through ViaProxy and sends the tick_end packet real clients send, or the server kicks her a second after spawning.",
+      },
+      {
+        problem: "Anyone can write text she reads.",
+        fix: "Chat, signs and name tags from players off the allowlist reach the model as information, never as instructions.",
+      },
+      {
+        problem: "Players change a build mid-job.",
+        fix: "Changes are delivered between steps, and tools about to act on the old plan are skipped.",
+      },
+    ],
     notes: {
-      decisions: [
-        ["Claude decides what, code decides how", "The model never works out block-by-block geometry. build_house and the shapes do that, so builds are exact and cheap."],
-        ["A manual tool loop, not the SDK's tool runner", "I need control between steps for step limits, time limits, stop and mid-job changes."],
-        ["The right model for each job", "A quick model takes simple jobs and hands the rest up: chores to a mid-size model, building and planning to the main one."],
-        ["A fresh conversation per job, with memory in files", "Cost per job stays bounded, and the tools and system prompt sit in a one-hour cache so a job doesn't pay to cache them again."],
-        ["One call for a whole job", "obtain plans and runs the chain to get an item, and dig_area takes a whole box, where each used to be a model round trip per step."],
-        ["Look before building", "A build of 8 or more parts is turned back until its plan has been rendered, so she sees the picture before placing a block."],
-        ["Hold a job, don't restart it", "Low health or a dropped connection stops only the running tool, so the model keeps what it has done and hears what happened."],
-        ["Safety in code, not only in the prompt", "Protected blocks, the allowlist, the chat guard and the stop command all work without a model call."],
-      ],
-      hard: [
-        "Connecting at all: the server kicked the bot a second after spawning until it sent the tick_end packet that real clients send every tick.",
-        "The pathfinder's blind spots: it treats doors as walls, walks across the tops of ladder shafts and sees powder snow as air, and each one needed its own fix in the movement layer.",
-        "Standing frozen: tools now report progress, a watchdog stops one that has stalled, and a status line goes to chat after a minute of quiet.",
-        "Building blind: planning 3D coordinates in text gave flat boxes, floating roofs and backwards stairs, until she could render a plan to a picture first.",
-        "Instructions arriving in pieces: players change a build mid-job, so changes are delivered between steps and tools about to act on the old plan are skipped.",
-        "Enchanted tools: every dig threw before it started because the library expected enchantments as a list, so the bot now works out dig time itself.",
-      ],
       next: "Boat travel. On this protocol version the client has to move the boat itself, so it needs a supervised live test before any code.",
     },
     overview: [
@@ -935,6 +944,7 @@ export const projects = [
     description:
       "A fan guide to Umamusume Pretty Derby with character profiles, song previews, official news and birthdays.",
     stageMeta: {
+      stack: "React, TanStack Query",
       summary: "An Umamusume guide where every character and song page is pre-rendered, so search engines get real pages from a static host.",
       glow: "glow-urara",
       alt: "Urara character guide",
@@ -968,25 +978,6 @@ export const projects = [
         { video: uraraLoopNews, caption: "News posts open in a dialog and have their own link" },
         { image: uraraMobileMusic, portrait: true, caption: "On phones the singer filter becomes a scroll row" },
       ],
-    },
-    constraints: [
-      ["GitHub Pages serves static files only", "There is no server to render a page when it's requested, so anything a crawler sees has to exist as a file at build time."],
-      ["Umapyoi is the only data source", "It has no auth and no write access, and some profiles have no English translation yet, so those pages say so instead of showing blanks."],
-      ["No new dependencies for pre-rendering", "I wanted to keep the plain Vite app, so the build uses React DOM's own server renderer and a Node script."],
-      ["The site lives under /Urara/", "Every route, link and canonical URL has to carry that base path."],
-    ],
-    diagrams: {
-      decisions: [
-        { svg: uraraDeepLinksSvg, caption: "What a crawler gets when it opens a character page: a pre-rendered file that answers 200" },
-        { svg: uraraPrerenderSvg, caption: "How the build renders a page, fetches what it asked for and renders again" },
-      ],
-      hard: [
-        { svg: uraraThemeToggleSvg, caption: "The theme toggle I wanted (staircase edge) and the one that ships (straight edge)" },
-      ],
-    },
-    callouts: {
-      decisions: "GitHub Pages already serves /a/b from a/b.html. Once I knew that, pre-rendering on a static host was just writing the right files.",
-      hard: "The theme toggle was meant to have a staircase edge. Animating it with clip-path fell behind on a 4K screen, so the shipped version has a straight edge, and the problem is written up for later.",
     },
     beforeAfter: [
       { label: "Home", caption: "The home page", before: uraraBeforeHome, after: uraraAfterHome, ratio: "16 / 9" },
@@ -1037,19 +1028,39 @@ export const projects = [
       "Measure the output, not just the code. The pre-render worked first time and was still 13 times too big.",
       "When an animation stutters, find out which part of it is expensive before adding tricks.",
     ],
+    fixes: [
+      {
+        problem: "Three of the four main pages answered 404 to a crawler.",
+        fix: "A Node script renders every route with React DOM's own server renderer and writes one HTML file each, which GitHub Pages serves with a 200.",
+        diagram: uraraDeepLinksSvg,
+        diagramLabel: "What a crawler gets when it opens a character page: a pre-rendered file that answers 200",
+      },
+      {
+        problem: "A profile page doesn't know which profile to ask for until the character list has loaded.",
+        fix: "The script renders, fetches whatever the page asked for, and renders again until nothing new is needed.",
+        diagram: uraraPrerenderSvg,
+        diagramLabel: "How the build renders a page, fetches what it asked for and renders again",
+      },
+      {
+        problem: "The staircase edge I wanted on the theme toggle stuttered on a 4K screen.",
+        fix: "I shipped a straight edge and wrote up the problem for later.",
+        diagram: uraraThemeToggleSvg,
+        diagramLabel: "The theme toggle I wanted (staircase edge) and the one that ships (straight edge)",
+      },
+      {
+        problem: "My first pre-render shipped every page's data inside every page, and the build came to 1,349 MB.",
+        fix: "Each page now carries only the data it used.",
+      },
+      {
+        problem: "Character pages lived at ?id= addresses.",
+        fix: "Each one now has a slug like /characters/king-halo, and old ?id= links redirect to it.",
+      },
+      {
+        problem: "Some profiles have no English translation yet.",
+        fix: "Those pages say so instead of showing blanks.",
+      },
+    ],
     notes: {
-      decisions: [
-        ["Pre-render with React DOM's server renderer in a build script", "GitHub Pages serves /characters/king-halo from characters/king-halo.html, so writing one file per route gives every page a 200 and real content without a server or a framework."],
-        ["Render each page more than once", "A profile page doesn't know which profile to ask for until the character list has loaded, so the script renders, fetches whatever the page asked for, and renders again until nothing new is needed."],
-        ["Ship only the data each page used", "The browser picks up from the build's data with no loading flash, and each page carries only its own queries, not the whole site's."],
-        ["Slugs instead of ?id=", "/characters/king-halo reads better and can be pre-rendered; old ?id= links still redirect to the new address."],
-      ],
-      hard: [
-        "My first pre-render shipped every page's data inside every page, and the build came to 1,349 MB.",
-        "Working out which queries a page really used, not just which ones were already in the cache.",
-        "The staircase edge I wanted on the theme toggle stuttered on a 4K screen, so I shipped a straight edge and wrote up the problem.",
-        "Keeping the scroll position when you pick a character, now that each one is a new address.",
-      ],
       next: "Rebuild the theme toggle's staircase edge from transforms only, one lane at a time, instead of one full-screen clip-path.",
     },
     overview: [
@@ -1110,6 +1121,7 @@ export const projects = [
     description:
       "A Hololive stream tracker laid out like a TV guide: who's on air, what's coming up in your own time zone, and your favourite talents first.",
     stageMeta: {
+      stack: "React, TypeScript",
       summary: "A Hololive programme guide that shows who's on air and what's next in your own time zone, with your favourite talents pinned to the top.",
       glow: "glow-oshiwatch",
       alt: "Oshiwatch stream tracker",
@@ -1145,26 +1157,6 @@ export const projects = [
         { video: oshiwatchLoopTabs, caption: "A talent page's streams, shorts and music each load the first time their tab is opened" },
         { image: oshiwatchMobileHome, portrait: true, caption: "On a phone, Your oshi becomes a two-column grid above On air, and long names wrap onto a second line" },
       ],
-    },
-    constraints: [
-      ["Holodex is the only data source", "Its /channels and /live endpoints describe the same talent differently (a group on one, a suborg with a sort prefix on the other), and /live with org=Hololive also returned other agencies' streams when I checked, so I normalise and filter in the browser."],
-      ["The API key has to stay off the client", "Anything Vite builds into the bundle is public, so every call goes through a Vercel function that adds the key on the server."],
-      ["A static single-page app on Vercel", "There is one index.html, so every address outside /api/ has to be rewritten to it, or a direct link answers 404."],
-      ["Holodex identifies talents by YouTube channel ID", "So a readable address like /talents/tokoyami-towa is resolved against the full roster, which loads 50 channels at a time."],
-      ["YouTube's live chat only embeds when it's told the embedding hostname", "So the chat address carries the hostname the page is served from."],
-    ],
-    diagrams: {
-      decisions: [
-        { svg: oshiwatchApiProxySvg, caption: "The request path from the browser through the Vercel function (allowlist, key added on the server, cache header) to Holodex and back" },
-        { svg: oshiwatchTalentAddressSvg, caption: "What a direct link got before (Vercel's 404) against the fallback to index.html, the slug match and the redirect from an old ID link" },
-      ],
-      hard: [
-        { svg: oshiwatchBranchDetectionSvg, caption: "One talent as /channels and /live describe her, plus an official channel, each arriving at one branch" },
-      ],
-    },
-    callouts: {
-      decisions: "A fallback that returns a valid answer hides bugs. My branch rule fell through to JP, so EN streams didn't disappear with an error; they were filed under the wrong branch.",
-      hard: "Holodex's /live has no branch field I can match as it is. suborg carries a two-character sort prefix and official channels only say \"Official\", so one branch comes from three rules instead of one.",
     },
     beforeAfter: [
       { label: "Home", caption: "The home page: card grids to a programme guide", before: oshiwatchBeforeHome, after: oshiwatchAfterHome, ratio: "16 / 10" },
@@ -1222,19 +1214,39 @@ export const projects = [
       "Check what a direct link returns, not just what in-app navigation shows. The old version worked when I clicked through it, but every page except the home page answered 404 when opened from a link.",
       "Size images for where they're shown. The roster was downloading 12 MB of 800px photos for 48px circles.",
     ],
+    fixes: [
+      {
+        problem: "The API key has to stay off the client.",
+        fix: "Every call goes through a Vercel function that forwards only the parameters the app uses, caps limit at 50 and adds the key on the server.",
+        diagram: oshiwatchApiProxySvg,
+        diagramLabel: "The request path from the browser through the Vercel function (allowlist, key added on the server, cache header) to Holodex and back",
+      },
+      {
+        problem: "Every page except the home page answered 404 when opened from a link.",
+        fix: "Every address outside /api/ is rewritten to index.html, and readable addresses like /talents/tokoyami-towa are matched against the roster.",
+        diagram: oshiwatchTalentAddressSvg,
+        diagramLabel: "What a direct link got before (Vercel's 404) against the fallback to index.html, the slug match and the redirect from an old ID link",
+      },
+      {
+        problem: "The branch filter counted every EN stream as JP.",
+        fix: "The branch now comes from Holodex's suborg with its two-character sort prefix removed, and official channels are placed by name.",
+        diagram: oshiwatchBranchDetectionSvg,
+        diagramLabel: "One talent as /channels and /live describe her, plus an official channel, each arriving at one branch",
+      },
+      {
+        problem: "Holodex's live list for Hololive also carried other agencies' streams.",
+        fix: "Each video has to belong to the Hololive org before it's shown.",
+      },
+      {
+        problem: "The talent page requested four video lists on load.",
+        fix: "Each tab is fetched the first time it's opened, so it now requests one.",
+      },
+      {
+        problem: "YouTube's live chat only embeds when it's told the embedding hostname.",
+        fix: "The chat address carries the hostname the page is served from.",
+      },
+    ],
     notes: {
-      decisions: [
-        ["A Vercel function per endpoint with an allowlist", "Each one forwards only the parameters the app uses, caps limit at 50, adds the key and sets a cache header, so only the queries the app needs reach Holodex with my key."],
-        ["Read the branch from suborg, minus its sort prefix", "Holodex's channel names no longer contain \"hololive-EN\", so the old name match counted every EN stream as JP."],
-        ["Slugs from the English name", "/talents/tokoyami-towa reads better than a YouTube channel ID, and old ID links still resolve and redirect with their query string and hash."],
-        ["Fetch a tab the first time it's opened", "The talent page used to request four video lists on load; now it requests one."],
-      ],
-      hard: [
-        "Holodex's /live puts a two-character sort prefix in front of suborg (\"jaEnglish -Justice-\", \"h English -Myth-\"), so the value never matches the group name as it is.",
-        "The branch filter looked fine with All selected and only broke when one branch was picked, because the channel names it relied on had changed.",
-        "Merging two paginated lists newest first without \"Load more\" slipping older items in above ones already on screen.",
-        "Resolving a readable address when Holodex only knows channel IDs, so the talent page has to load the roster before it knows who it is.",
-      ],
       next: "Give each talent page its own title, description and canonical link in the HTML. Today every address serves the same index.html, whose canonical link points at the home page, and the tab title only changes once the script runs.",
     },
     overview: [
@@ -1308,16 +1320,21 @@ export const projects = [
     image: movietopiaImg,
     github: "https://github.com/deancruz1/Movietopia",
     slug: "movietopia",
+    fixes: [
+      {
+        problem: "A deleted user's reviews had to go too.",
+        fix: "Reviews reference users and movies through foreign keys with ON DELETE CASCADE.",
+      },
+      {
+        problem: "Guests and members see different pages.",
+        fix: "Every template checks the session, and one flag switches between the two views.",
+      },
+      {
+        problem: "Edit and Delete should only work on your own reviews.",
+        fix: "They only appear on rows where the review's user ID matches the one in your session.",
+      },
+    ],
     notes: {
-      decisions: [
-        ["Foreign keys with cascades", "Deleting a user removes their reviews too."],
-        ["Session checks per template", "One flag switches between the guest and member views."],
-        ["Remember-me cookie", "Fills in your username on the login form."],
-      ],
-      hard: [
-        "Working out which row's Edit or Delete button was clicked.",
-        "An Add Review form that works with or without a movie already chosen.",
-      ],
       next: "Prepared statements and hashed passwords.",
     },
     overview: [
@@ -1380,15 +1397,21 @@ export const projects = [
     liveDemo: "https://deancruz1.github.io/Shrine_of_Suisei/",
     github: "https://github.com/deancruz1/Shrine_of_Suisei",
     slug: "landing-page",
+    fixes: [
+      {
+        problem: "I wanted a disclaimer pop-up without JavaScript.",
+        fix: "It opens with the :target pseudo-class.",
+      },
+      {
+        problem: "The pop-up had to fade in and out, and display can't animate.",
+        fix: "It uses visibility and opacity instead.",
+      },
+      {
+        problem: "Font sizes had to scale with the screen.",
+        fix: "clamp() does it without extra media queries.",
+      },
+    ],
     notes: {
-      decisions: [
-        ["CSS before JavaScript", "The pop-up, the glow and the parallax are all CSS."],
-        ["clamp() for type", "Font sizes scale with the screen without extra media queries."],
-        [":target pop-up", "A disclaimer modal with no JavaScript."],
-      ],
-      hard: [
-        "Fading the pop-up in and out, which display can't animate, so it uses visibility and opacity.",
-      ],
       next: "Put the disclaimer text back in the pop-up.",
     },
     overview: [
@@ -1450,16 +1473,20 @@ export const projects = [
     liveDemo:
       "https://xd.adobe.com/view/ff47b771-facc-42d4-9af3-0043a8316f16-aa14/",
     slug: "mobile-wireframe",
-    notes: {
-      decisions: [
-        ["Three-colour scheme", "Peach is kept for the things you can tap."],
-        ["Bottom tab bar", "The main sections stay within thumb reach."],
-        ["Handoff specs", "Grid alignments and component boundaries marked for developers."],
-      ],
-      hard: [
-        "Making tappable elements stand out without cluttering the screen.",
-      ],
-    },
+    fixes: [
+      {
+        problem: "Tappable elements had to stand out without cluttering the screen.",
+        fix: "A three-colour scheme, with peach kept for the things you can tap.",
+      },
+      {
+        problem: "The main sections had to stay within thumb reach.",
+        fix: "They live in a bottom tab bar with large touch targets.",
+      },
+      {
+        problem: "The designs had to be handed to developers.",
+        fix: "The specs mark grid alignments and component boundaries.",
+      },
+    ],
     overview: [
       "Mobile XD is my portfolio redesigned as a mobile app: a 154-screen prototype covering the home, about, portfolio and contact sections.",
       "I made it in Adobe XD, with assets from Illustrator and Photoshop, and linked the screens together so the prototype can be clicked through like a real app.",
